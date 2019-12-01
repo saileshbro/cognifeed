@@ -38,7 +38,7 @@ exports.signup = async (req, res, next) => {
     ]);
 
     if (users.length !== 0) {
-      throw new ErrorHandler(200, 'Email already registered');
+      throw new ErrorHandler(409, 'Email already registered');
     }
     password = await bcrypt.hash(
       password,
@@ -78,11 +78,11 @@ exports.login = async (req, res, next) => {
     );
 
     if (result.length === 0) {
-      throw new ErrorHandler(404, 'Invalid email or password');
+      throw new ErrorHandler(401, 'Invalid email or password');
     }
     const isMatch = await bcrypt.compare(password, result[0].password);
     if (!isMatch) {
-      throw new ErrorHandler(404, 'Invalid email or password.');
+      throw new ErrorHandler(401, 'Invalid email or password.');
     }
     const token = jwt.sign(
       { user_id: result[0].user_id },
