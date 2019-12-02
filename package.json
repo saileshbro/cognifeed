@@ -1,0 +1,22 @@
+{
+  "name": "cognifeed",
+  "version": "0.1.0",
+  "description": "A web scraper",
+  "main": "main.js",
+  "scripts": {
+    "test-link": "mocha test/test-link.js -r chai/register-expect",
+    "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect"
+  },
+  "repository": "git@gitlab.com:saileshbro/cognifeed.git",
+  "author": "2goodAP, saileshbro, ssigdel, bishant, sarayu",
+  "license": "GPL-3.0",
+  "private": true,
+  "dependencies": {
+    "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.7.2",
+    "mocha": "^6.2.2"
+  }
+}
