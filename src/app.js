@@ -1,4 +1,5 @@
 require("dotenv").config()
+const Link = require("./link")
 const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
@@ -21,3 +22,8 @@ app.listen(port, console.log(`Server running on port ${port}`))
 app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
+const Spider = require("./Spider")
+const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
+;(async function name() {
+  await spider.resolveUrl()
+})()
