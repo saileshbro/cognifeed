@@ -49,13 +49,13 @@ module.exports = class Spider {
     //  returns this.spider ko linksCollection
   }
   async persistHtml() {
-    const id = await pool.query("SELECT id FROM links WHERE url=?", [this.link])
+    const id = await pool.query("SELECT id FROM links WHERE url=?", [this.link.resolve()])
     if (id != 0) {
       throw new ErrorHandler(409, "This Url has aready been spawned.")
     } else {
       try {
         await pool.query("INSERT INTO links SET url=?,baseUrl=?,html=?", [
-          this.link,
+          this.link.resolve(),
           this.link.baseURL,
           this.html
         ])
@@ -66,3 +66,12 @@ module.exports = class Spider {
     //   saves or returns html from this.link
   }
 }
+
+//Spider Instantiation.
+// const Spider = require("./Spider")
+// const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
+//   ; (async function name() {
+//     await spider.resolveUrl()
+//     spider.getNewLinks()
+//     spider.persistHtml()
+//   })()

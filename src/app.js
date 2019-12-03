@@ -22,10 +22,3 @@ app.listen(port, console.log(`Server running on port ${port}`))
 app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
-const Spider = require("./Spider")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-;(async function name() {
-  await spider.resolveUrl()
-  spider.getNewLinks()
-  spider.persistHtml()
-})()
