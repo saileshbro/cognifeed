@@ -4,22 +4,33 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['airbnb-base'],
+  extends: ["eslint:recommended", "prettier"],
   globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly"
   },
   parserOptions: {
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
+    ecmaFeatures: {
+      impliedStrict: true
+    }
   },
+  plugins: ["prettier"],
+
   rules: {
-    'no-unused-vars': [
+    "prettier/prettier": "error",
+    "no-unused-vars": [
       1,
       {
         ignoreSiblings: true,
-        argsIgnorePattern: 'req|res|next|^err'
+        argsIgnorePattern: "req|res|next|^err"
       }
     ],
-    'no-console': 'off'
+    "no-console": "off",
+    "prettier/prettier": "error",
+    indent: ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    quotes: ["error", "double"],
+    semi: ["error", "never"]
   }
-};
+}

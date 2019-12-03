@@ -1,5 +1,5 @@
-const {expect} = require("chai")
-const {LinksCollection} = require("../src/links-collection")
+const { expect } = require("chai")
+const { LinksCollection } = require("../src/links-collection")
 
 describe("LinksCollection", () => {
   describe("#create()", () => {

@@ -1,6 +1,6 @@
 "use strict"
 
-const {URL} = require("url")
+const { URL } = require("url")
 
 module.exports = class Link {
   resolve() {
