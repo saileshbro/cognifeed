@@ -1,5 +1,7 @@
 const Link = require("./link")
 const request = require("request-promise")
+const pool = require("./database/database")
+const { ErrorHandler } = require("./helpers/error_handler")
 const cheerio = require("cheerio")
 const LinksCollection = require("./links-collection")
 module.exports = class Spider {
@@ -30,22 +32,37 @@ module.exports = class Spider {
     const $ = cheerio.load(response)
     const horizonArray = []
     $("a").each((i, e) => {
+      //   console.log($(e).attr("href"))
       if (
+        $(e).attr("href") != undefined &&
         $(e)
           .attr("href")
           .match("/wiki/")
       ) {
-        horizonArray.push(Link(this.link, $(e).attr("href")))
+        horizonArray.push(new Link(this.link.baseURL, $(e).attr("href")))
       }
     })
-    this.horizon = LinksCollection(horizonArray)
+    this.horizon = new LinksCollection(horizonArray)
   }
   getNewLinks() {
     return this.horizon
     //  returns this.spider ko linksCollection
   }
-  prsistHtml() {
-    return this.html
+  async persistHtml() {
+    const id = await pool.query("SELECT id FROM links WHERE url=?", [this.link])
+    if (id != 0) {
+      throw new ErrorHandler(409, "This Url has aready been spawned.")
+    } else {
+      try {
+        await pool.query("INSERT INTO links SET url=?,baseUrl=?,html=?", [
+          this.link,
+          this.link.baseURL,
+          this.html
+        ])
+      } catch (error) {
+        return error
+      }
+    }
     //   saves or returns html from this.link
   }
 }

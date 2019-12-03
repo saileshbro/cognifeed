@@ -26,4 +26,6 @@ const Spider = require("./Spider")
 const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
 ;(async function name() {
   await spider.resolveUrl()
+  spider.getNewLinks()
+  spider.persistHtml()
 })()
