@@ -32,46 +32,29 @@ module.exports = class Spider {
     const $ = cheerio.load(response)
     const horizonArray = []
     $("a").each((i, e) => {
-      //   console.log($(e).attr("href"))
-      if (
-        $(e).attr("href") != undefined &&
-        $(e)
-          .attr("href")
-          .match("/wiki/")
-      ) {
+      if ($(e).attr("href") != undefined) {
         horizonArray.push(new Link(this.link.baseURL, $(e).attr("href")))
       }
     })
     this.horizon = new LinksCollection(horizonArray)
+    return this.horizon
   }
   getNewLinks() {
     return this.horizon
     //  returns this.spider ko linksCollection
   }
   async persistHtml() {
-    const id = await pool.query("SELECT id FROM links WHERE url=?", [this.link.resolve()])
-    if (id != 0) {
-      throw new ErrorHandler(409, "This Url has aready been spawned.")
-    } else {
-      try {
-        await pool.query("INSERT INTO links SET url=?,baseUrl=?,html=?", [
-          this.link.resolve(),
-          this.link.baseURL,
-          this.html
-        ])
-      } catch (error) {
-        return error
+    try {
+      const result = await pool.query("SELECT id FROM links WHERE url=?", [this.link.resolve()])
+      if (result.length > 0) {
+        throw new ErrorHandler(409, "This Url has aready been spawned.")
+      } else {
+        console.log(this.link.resolve(), this.link.baseURL, this.html.length)
+        // send post request to persist html
       }
+    } catch (error) {
+      return error
     }
     //   saves or returns html from this.link
   }
 }
-
-//Spider Instantiation.
-// const Spider = require("./Spider")
-// const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-//   ; (async function name() {
-//     await spider.resolveUrl()
-//     spider.getNewLinks()
-//     spider.persistHtml()
-//   })()
