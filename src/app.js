@@ -22,11 +22,11 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 //Spider Instantiation.
-const Spider = require("./Spider")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.links.length)
-  spider.getNewLinks()
-  await spider.persistHtml()
-})()
+// const Spider = require("./Spider")
+// const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
+// ;(async function name() {
+//   const horizion = await spider.resolveUrl()
+//   console.log(horizion.links.length)
+//   spider.getNewLinks()
+//   await spider.persistHtml()
+// })()
