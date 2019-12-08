@@ -36,11 +36,10 @@ exports.signup = async (req, res, next) => {
       throw new ErrorHandler(409, "Email already registered")
     }
     password = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS, 10))
-    const result = await pool.query("INSERT INTO users SET name=?,email=?,password=?", [
-      name,
-      email,
-      password
-    ])
+    const result = await pool.query("INSERT INTO users SET email=?,password=?", [email, password])
+    if (result.affectedRows) {
+      await pool.query("INSERT INTO profile SET user_id=?,name=?", [result.insertId, name])
+    }
     const token = jwt.sign({ user_id: result.insertId }, process.env.JWT_SECRET)
 
     return res.json({

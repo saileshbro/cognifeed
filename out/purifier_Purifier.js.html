@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: purifier/Purifier.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,59 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: purifier/Purifier.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require('axios')
+const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+/**
+ * Abstract Class Purifier
+ */
+class Purifier {
+  /**
+   *
+   * @param {String} html
+   * @param {Stringn} url
+   */
+  constructor(html, url) {
+    ;(this.html = html), (this.url = url)
+  }
+  /**
+   * Implementation required
+   */
+  purify() {
+    throw new Error("You have to implement the method purify()!")
+  }
+  /**
+   * Implementation required
+   */
+   async persistPurified() {
+      try {
+        const payload = {
+          title: this.title,
+          description:this.description,
+          image_url:this.image_url.replace('//',''),
+          link_url:this.url
+        }
+        const response = await axios.post(`${baseUrl}/api/purifier/persist`, payload)
+        console.log(response)
+      } catch (error) {
+        console.error(error)
+      }
     
-
-
-
-
-
+  }
+}
+module.exports = Purifier
+</code></pre>
+        </article>
+    </section>
 
 
 

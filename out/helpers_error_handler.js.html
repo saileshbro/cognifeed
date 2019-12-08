@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: helpers/error_handler.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: helpers/error_handler.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class ErrorHandler extends Error {
+  /**
+   *
+   * @param {number} statusCode
+   * @param {String} error
+   */
+  constructor(statusCode, error) {
+    super()
+    this.statusCode = statusCode
+    this.error = error
+  }
+}
+/**
+ *
+ * @param {ErrorHandler} err
+ * @param {*} res
+ */
+const errorHandler = (err, res) => {
+  const { statusCode, error } = err
+  res.status(statusCode || 500).json({ error: error || "Error Connecting to Database." })
+}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = { ErrorHandler, errorHandler }
+</code></pre>
+        </article>
+    </section>
 
 
 
