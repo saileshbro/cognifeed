@@ -1,7 +1,7 @@
 const Link = require("./link")
 const request = require("request-promise")
 const pool = require("./database/database")
-const { ErrorHandler } = require("./helpers/error_handler")
+const { ErrorHandler } = require("../helpers/error_handler")
 const cheerio = require("cheerio")
 const LinksCollection = require("./links-collection")
 module.exports = class Spider {
