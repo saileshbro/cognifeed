@@ -1,9 +1,9 @@
-const Link = require("./link")
+const Link = require("../link")
 const request = require("request-promise")
-const pool = require("./database/database")
+const pool = require("../database/database")
 const cheerio = require("cheerio")
 const axios = require("axios").default
-const LinksCollection = require("./links-collection")
+const LinksCollection = require("../links-collection")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
 module.exports = class Spider {
