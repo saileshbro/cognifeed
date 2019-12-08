@@ -1,9 +1,11 @@
 const Link = require("./link")
 const request = require("request-promise")
 const pool = require("./database/database")
-const { ErrorHandler } = require("./helpers/error_handler")
 const cheerio = require("cheerio")
+const axios = require("axios").default
 const LinksCollection = require("./links-collection")
+const baseUrl = "http://127.0.0.1:" + process.env.PORT
+
 module.exports = class Spider {
   /**
    *
@@ -44,16 +46,16 @@ module.exports = class Spider {
     //  returns this.spider ko linksCollection
   }
   async persistHtml() {
+    console.log(this.html.length)
     try {
-      const result = await pool.query("SELECT id FROM links WHERE url=?", [this.link.resolve()])
-      if (result.length > 0) {
-        throw new ErrorHandler(409, "This Url has aready been spawned.")
-      } else {
-        console.log(this.link.resolve(), this.link.baseURL, this.html.length)
-        // send post request to persist html
+      const payload = {
+        url: this.link.resolve(),
+        html: this.html
       }
+      const response = await axios.post(`${baseUrl}/api/spider/persist`, payload)
+      console.log(response)
     } catch (error) {
-      return error
+      console.error(error)
     }
     //   saves or returns html from this.link
   }
