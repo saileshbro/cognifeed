@@ -2,21 +2,19 @@
 
 const {URL} = require("url")
 
-/**
- * Link module
- * @module utils/Link
+/** 
+ * Thie link module
+ * @module src/scraper/link
  */
+
 /**
  * An abstraction of a link
  * @class
- * @param {string} baseURL - The base URL of the link
- * @param {string} path - The path of the link
- * @returns {Link} - A new Link object
  */
-module.exports = class Link {
+class Link {
   /**
    * Resolve the current link object into a link URL string
-   * @returns {string} - A link href string 
+   * @return {string} - A link href string 
    */
   resolve() {
     return new URL(this._path, this._baseURL).href
@@ -24,7 +22,7 @@ module.exports = class Link {
 
   /**
    * Getter to get the value of this._baseURL
-   * @returns {string}
+   * @return {string}
    */
   get baseURL() {
     return this._baseURL
@@ -32,7 +30,7 @@ module.exports = class Link {
 
   /**
    * Getter to get the value of this._path
-   * @returns {string}
+   * @return {string}
    */
   get path() {
     return this._path
@@ -56,3 +54,5 @@ module.exports = class Link {
     this._path = path
   }
 }
+
+module.exports = Link

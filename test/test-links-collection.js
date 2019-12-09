@@ -61,4 +61,17 @@ describe("LinksCollection", () => {
       expect(links.hasLink(link)).to.be.false
     })
   })
+
+  context("#iterator interface", () => {
+    let links = LinksCollection.create()
+    it("should return an iterator", () => {
+      links = links.addLink(new Link("https://wiki.org", "/nodejs"))
+      links = links.addLink(new Link("https://wiki.org", "/php"))
+      links = links.addLink(new Link("https://wiki.org", "/perl"))
+      for (let link of links) {
+        expect(link).to.be.an("object")
+        expect(link.baseURL).to.be.a("string")
+      }
+    })
+  })
 })

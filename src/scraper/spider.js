@@ -4,10 +4,10 @@ const pool = require("./database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
 const cheerio = require("cheerio")
 const axios = require("axios").default
-const LinksCollection = require("../links-collection")
+const LinksCollection = require("./links-collection")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
-module.exports = class Spider {
+class Spider {
   /**
    *
    * @param {Link} link
@@ -18,7 +18,6 @@ module.exports = class Spider {
     return new Spider(link)
   }
   /**
-   *
    * @param {Link} link
    * @param {LinksCollection} horizon
    */
@@ -61,3 +60,5 @@ module.exports = class Spider {
     //   saves or returns html from this.link
   }
 }
+
+module.exports = Spider
