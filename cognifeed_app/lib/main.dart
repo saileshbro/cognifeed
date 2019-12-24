@@ -6,9 +6,11 @@ import 'package:cognifeed_app/login/login_page.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
+import 'package:cognifeed_app/signup/signup_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -53,6 +55,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: CognifeedTheme.getTheme(),
+      debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUninitialized) {
@@ -62,7 +66,8 @@ class App extends StatelessWidget {
             return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
+            // return Signup(userRepository: userRepository);
+            return SignupPage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();

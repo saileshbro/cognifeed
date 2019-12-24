@@ -19,9 +19,9 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Color(0xffe9fdfc),
       body: Stack(
         children: <Widget>[
-          SvgPicture.asset(
-            height: 128.0,
-          ),
+          // SvgPicture.asset(
+          //   height: 128.0,
+          // ),
         ],
       ),
     );
