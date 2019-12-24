@@ -54,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset(
-                  "assets/images/loginSvg.png",
+                  "assets/images/signup.png",
 
                   // scale: 1.8,
                   fit: BoxFit.fill,

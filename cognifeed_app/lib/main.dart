@@ -67,7 +67,9 @@ class App extends StatelessWidget {
           }
           if (state is AuthenticationUnauthenticated) {
             // return Signup(userRepository: userRepository);
-            return SignupPage();
+            return LoginPage(
+              userRepository: UserRepository(),
+            );
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
