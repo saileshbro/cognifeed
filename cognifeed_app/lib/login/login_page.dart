@@ -4,6 +4,7 @@ import 'package:cognifeed_app/login/login_form.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
@@ -15,17 +16,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: BlocProvider<LoginBloc>(
-        create: (context) {
-          return LoginBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-            userRepository: userRepository,
-          );
-        },
-        child: LoginForm(),
+      backgroundColor: Color(0xffe9fdfc),
+      body: Stack(
+        children: <Widget>[
+          SvgPicture.asset(
+            height: 128.0,
+          ),
+        ],
       ),
     );
   }
