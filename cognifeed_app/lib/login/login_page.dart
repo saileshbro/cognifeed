@@ -19,9 +19,38 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Color(0xffe9fdfc),
       body: Stack(
         children: <Widget>[
-          // SvgPicture.asset(
-          //   height: 128.0,
-          // ),
+          Positioned(
+            left: -1,
+            child: Image.asset(
+              'assets/images/login.png',
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(top: 203),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      'Cognifeed',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 30,
+                        height: 1.33,
+                        color: Color(0xff00c9c3),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
