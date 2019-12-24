@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="393" height="831.588" viewBox="0 0 393 831.588">
+    <defs>
+        <style>
+            .cls-1{fill:url(#linear-gradient)}.cls-2{filter:url(#Path_1)}
+        </style>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#445ba0"/>
+            <stop offset=".552" stop-color="#0095ce"/>
+            <stop offset="1" stop-color="#00c9c3"/>
+        </linearGradient>
+        <filter id="Path_1" width="393" height="831.588" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dx="8"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g class="cls-2">
+        <path id="Path_1-2" d="M254 23s11.942 36.3-15 60c-30.119 35.6-69.279 32.241-90 75-19.557 68.007 14.008 54.58 0 120s-46.95 56.294-53.835 101.908c1.077 12.942 1.667 27.272 15.376 59.581 8.2 46.6-29.59 79.823 17.938 85.848s58.515 15.065 47.408 67.909c-4.446 23.41 2.785 35.09 33.113 59.754 28.97 38.446 12.188 77.605 45 90 35.437 20.052 54.458-11.276 90 15 33.3 26.276 45 78.061 45 78.061l-375 .527V23z" class="cls-1" data-name="Path 1" transform="translate(-13 -14)"/>
+    </g>
+</svg>
