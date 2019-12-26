@@ -1,9 +1,7 @@
 require("dotenv").config()
-const Link = require("./link")
 const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
-
 const { errorHandler, ErrorHandler } = require("./helpers/error_handler")
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())
@@ -23,14 +21,15 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 //Spider Instantiation.
-const Spider = require("./spider/Spider")
-const WikiPurifier = require("./purifier/WikiPurifier")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.links.length)
-  spider.getNewLinks()
-  const purifier = new WikiPurifier(spider.html, spider.link.resolve())
-  purifier.purify()
-  purifier.persistPurified()
-})()
+// const Link = require("./scraper/link")
+// const Spider = require("./scraper/spider")
+// const WikiPurifier = require("./purifier/WikiPurifier")
+// const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
+// ;(async function name() {
+//   const horizion = await spider.resolveUrl()
+//   console.log(horizion.links().length)
+//   spider.getNewLinks()
+//   const purifier = new WikiPurifier(spider.html, spider.link.resolve())
+//   purifier.purify()
+//   purifier.persistPurified()
+// })()

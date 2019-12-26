@@ -9,7 +9,7 @@
  * @typedef {Object} Link - The link class
  */
 
-/** 
+/**
  * A collection of links
  * @class
  */
@@ -46,9 +46,7 @@ module.exports = class LinksCollection {
    * @returns {LinksCollection} - A new LinkCollcetion
    */
   removeLink(link) {
-    return new LinksCollection(this._links
-      .filter(ln => ln.resolve() !== link.resolve())
-    )
+    return new LinksCollection(this._links.filter(ln => ln.resolve() !== link.resolve()))
   }
 
   /**
@@ -63,17 +61,23 @@ module.exports = class LinksCollection {
     return false
   }
 
-  /** 
+  /**
    * The constructor
    * @param {Link[]} links
    * @private
    */
   constructor(links = []) {
-    /** 
+    /**
      * The data structure used to store links
      * @type {Link[]}
      * @private
      */
     this._links = [...links]
+  }
+  /**
+   * @returns {Link[]} links
+   */
+  get links() {
+    return this._links
   }
 }
