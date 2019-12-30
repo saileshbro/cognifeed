@@ -30,6 +30,20 @@ class CognifeedTheme {
             color: CognifeedColors.aquaMarine,
           ),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28.0),
+          borderSide: BorderSide(
+            width: 1.2,
+            color: CognifeedColors.aquaMarine,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: BorderSide(
+            width: 2,
+            color: CognifeedColors.aquaMarine,
+          ),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide(
@@ -56,3 +70,5 @@ class CognifeedTypography {
     color: Colors.white,
   );
 }
+
+final String baseUrl = "http://192.168.0.98:3100/api";

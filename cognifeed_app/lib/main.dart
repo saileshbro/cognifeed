@@ -10,8 +10,9 @@ import 'package:cognifeed_app/signup/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'login/login_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -36,15 +37,28 @@ class SimpleBlocDelegate extends BlocDelegate {
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
-  runApp(
-    BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        return AuthenticationBloc(userRepository: userRepository)
-          ..add(AppStarted());
-      },
-      child: App(userRepository: userRepository),
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<AuthenticationBloc>(
+        create: (BuildContext context) {
+          return AuthenticationBloc(userRepository: userRepository)
+            ..add(AppStarted());
+        },
+      ),
+      BlocProvider<LoginBloc>(
+        create: (BuildContext context) {
+          return LoginBloc(
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+              userRepository: userRepository);
+        },
+      ),
+    ],
+    child: App(
+      userRepository: userRepository,
     ),
-  );
+  ));
 }
 
 class App extends StatelessWidget {
@@ -76,6 +90,11 @@ class App extends StatelessWidget {
           }
         },
       ),
+      routes: {
+        "/signup": (context) => SignupPage(
+              userRepository: userRepository,
+            ),
+      },
     );
   }
 }
