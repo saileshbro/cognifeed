@@ -1,8 +1,8 @@
 "use strict"
 
-const {URL} = require("url")
+const { URL } = require("url")
 
-/** 
+/**
  * Thie link module
  * @module src/scraper/link
  */
@@ -14,7 +14,7 @@ const {URL} = require("url")
 class Link {
   /**
    * Resolve the current link object into a link URL string
-   * @return {string} - A link href string 
+   * @return {string} - A link href string
    */
   resolve() {
     return new URL(this._path, this._baseURL).href
@@ -41,12 +41,12 @@ class Link {
    */
   constructor(baseURL, path = "/") {
     /**
-     * The base URL of the link 
+     * The base URL of the link
      * @type {string}
      * @private
      */
     this._baseURL = baseURL
-    /** 
+    /**
      * The path of the link
      * @type {string}
      * @private

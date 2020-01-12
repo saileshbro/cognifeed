@@ -1,5 +1,5 @@
 require("dotenv").config()
-const Link = require("./link")
+const Link = require("./scraper/link")
 const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
@@ -23,14 +23,8 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 //Spider Instantiation.
-const Spider = require("./spider/Spider")
+const Server = require("./scraper/server")
 const WikiPurifier = require("./purifier/WikiPurifier")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
 ;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.links.length)
-  spider.getNewLinks()
-  const purifier = new WikiPurifier(spider.html, spider.link.resolve())
-  purifier.purify()
-  purifier.persistPurified()
+  new Server().start()
 })()
