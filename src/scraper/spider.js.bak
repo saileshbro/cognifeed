@@ -41,22 +41,15 @@ class Spider {
       throw new Error(err.message)
     }
 
+    let horizon = this._horizon
     const $ = cheerio.load(this._html)
     $("a").each((i, e) => {
       if ($(e).attr("href") !== undefined) {
-        this._horizon = this._horizon
-          .addLinks(new Link(this._link.baseURL, $(e).attr("href")))
+        horizon = this._horizon
+          .addLink(new Link(this._link.baseURL, $(e).attr("href")))
       }
     })
-    return this._horizon
-  }
-
-  /**
-   * Getter for the link property
-   * @returns {Link} - The link the spider is currently visiting
-   */
-  get link() {
-    return this._link
+    return horizon
   }
 
   /**

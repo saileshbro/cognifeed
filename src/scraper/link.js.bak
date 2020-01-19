@@ -21,15 +21,6 @@ class Link {
   }
 
   /**
-   * Checks if the current link is the same as the other link
-   * @param {Link} link - The other link to test against this link
-   * @returns {boolean}
-   */
-  matches(link) {
-    if (this._baseURL === link.baseURL && this._path === link.path) return true
-    return false
-  }
-  /**
    * Getter to get the value of this._baseURL
    * @return {string}
    */

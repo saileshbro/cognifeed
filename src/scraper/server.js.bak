@@ -27,41 +27,32 @@ class Server {
    * @param {Link[]} seeds - The seed links to start the server with
    */
   start(seeds) {
-    // Add initial seed links to the state
-    this._links = this._links.addLinks(seeds)
-
     /**
      * The timeout object returned by setInterval, used to clear the interval
      * @type {object}
      * @private
      */
     this._timeout = setInterval(async () => {
-      let spider, newLinks
-      let link = this._links.getLink(0)
-
-      // If there is no active link,
-      // don't run the rest of the code
-      if (!link) return
-
-      this._links = this._links.removeLink(link)
+      let spider
+      let links = this._links
+      let link = links.getLink(0)
 
       try {
         spider = await this._spawnSpider(link)
       } catch (err) {
-        console.log(err.message)
+        throw new Error(err.message)
       }
 
       this._spiders = this._spiders.concat(spider)
 
       try {
-        newLinks = await spider.getNewLinks()
+        links = await spider.getNewLinks()
       } catch (err) {
-        this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
-        return console.log(err.message)
+        console.log(err.message)
+        clearInterval(this._timeout)
       }
 
-      this._links = this._filter.getOriginalLinks(newLinks)
-      this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
+      this._links = this._filter.getOriginalLinks(links).removeLink(link)
       console.log(this._links)
     }, 2000)
   }

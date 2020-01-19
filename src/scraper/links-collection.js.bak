@@ -42,7 +42,7 @@ class LinksCollection {
 
   /**
    * Add a new link
-   * @param {Link|Link[]} links - A Link object or an array of Link objects
+   * @param {Link} link - A link object
    * @returns {LinksCollection} - A new LinkCollcetion
    */
   addLinks(...links) {
@@ -55,8 +55,6 @@ class LinksCollection {
    * @returns {LinksCollection} - A new LinkCollcetion
    */
   removeLink(link) {
-    if (this.size === 0) return this
-
     if (typeof link === "number") {
       return new LinksCollection(this._links
         .filter((ln, i) => i !== link))
@@ -71,8 +69,6 @@ class LinksCollection {
    * @returns {boolean} - A new LinkCollcetion
    */
   hasLink(link) {
-    if (this.size === 0) return false
-
     for (let ln of this._links) {
       if (link.resolve() === ln.resolve()) return true
     }

@@ -19,7 +19,7 @@ class Filter {
   getOriginalLinks(links) {
     for (let link of links) {
       if (!this._links.hasLink(link)) {
-        this._links = this._links.addLinks(link)
+        this._links = this._links.addLink(link)
       }
     }
     return this._links

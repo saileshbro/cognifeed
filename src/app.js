@@ -4,6 +4,12 @@ const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
 
+// Modules required for scraper
+const { fork } = require("child_process")
+const path = require("path")
+// CONSTANTS for scraper
+const SCRAPER_DIRECTORY = "scraper"
+
 const { errorHandler, ErrorHandler } = require("./helpers/error_handler")
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())
@@ -23,8 +29,22 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 //Spider Instantiation.
-const Server = require("./scraper/server")
-const WikiPurifier = require("./purifier/WikiPurifier")
-;(async function name() {
-  new Server().start()
+;(function startServer(seeds) {
+  let scraperChild
+
+  try {
+    scraperChild = fork("start-server.js", {
+      cwd: path.join(__dirname, SCRAPER_DIRECTORY)
+    })
+  } catch (err) {
+    return console.log(err)
+  }
+
+  process.on("SIGINT", () => {
+    scraperChild.kill()
+  })
+
+  process.on("SIGTERM", () => {
+    scraperChild.kill()
+  })
 })()
