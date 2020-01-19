@@ -31,7 +31,8 @@ class Server {
     this._links = this._links.addLinks(seeds)
 
     /**
-     * The timeout object returned by setInterval, used to clear the interval
+     * The timeout object returned by setInterval, used to clear the interval.
+     * There is only one timeout object per interval set
      * @type {object}
      * @private
      */
@@ -48,7 +49,7 @@ class Server {
       try {
         spider = await this._spawnSpider(link)
       } catch (err) {
-        console.log(err.message)
+        return console.log(err.message)
       }
 
       this._spiders = this._spiders.concat(spider)
