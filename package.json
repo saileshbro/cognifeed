@@ -15,7 +15,7 @@
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.5",
+    "request-promise-native": "^1.0.8",
     "robots-parser": "^2.1.1",
     "util": "^0.12.1",
     "validator": "^12.1.0"
@@ -40,7 +40,8 @@
     "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect",
     "test-filter": "mocha test/test-filter.js -r chai/register-expect",
     "test-spider": "mocha test/test-spider.js -r chai/register-expect",
-    "test-server": "mocha test/test-server.js -r chai/register-expect"
+    "test-server": "mocha test/test-server.js -r chai/register-expect",
+    "test-robots": "mocha test/test-robots.js -r chai/register-expect"
   },
   "repository": {
     "type": "git",

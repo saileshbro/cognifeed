@@ -16,6 +16,7 @@
 const LinksCollection = require("./links-collection")
 const Filter = require("./filter")
 const Spider = require("./spider")
+const RobotsParser = require("./robots")
 
 /**
  * @class
@@ -83,11 +84,14 @@ class Server {
   _spawnSpider(url) {
     return new Promise((resolve, reject) => {
       let spider
+      let robotsParser = new RobotsParser(url.baseURL)
 
-      try {
-        spider = Spider.spawn(url)
-      } catch (err) {
-        reject(err)
+      if (robotsParser.isAllowed()) {
+        try {
+          spider = Spider.spawn(url)
+        } catch (err) {
+          reject(err)
+        }
       }
 
       resolve(spider)
@@ -116,6 +120,12 @@ class Server {
      * @type {Spider[]}
      */
     this._spiders = []
+    /**
+     * The collection robots.txt parsers
+     * @private
+     * @type {RobotsParser[]}
+     */
+    this._robotsParsers = []
   }
 }
 

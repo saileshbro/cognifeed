@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require("axios")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
 /**
@@ -7,11 +7,12 @@ const baseUrl = "http://127.0.0.1:" + process.env.PORT
 class Purifier {
   /**
    *
-   * @param {String} html
-   * @param {Stringn} url
+   * @param {string} html
+   * @param {string} url
    */
   constructor(html, url) {
-    ;(this.html = html), (this.url = url)
+    this.html = html
+    this.url = url
   }
   /**
    * Implementation required
@@ -22,20 +23,20 @@ class Purifier {
   /**
    * Implementation required
    */
-   async persistPurified() {
-      try {
-        const payload = {
-          title: this.title,
-          description:this.description,
-          image_url:this.image_url.replace('//',''),
-          link_url:this.url
-        }
-        const response = await axios.post(`${baseUrl}/api/purifier/persist`, payload)
-        console.log(response)
-      } catch (error) {
-        console.error(error)
+  async persistPurified() {
+    try {
+      const payload = {
+        title: this.title,
+        description: this.description,
+        image_url: this.image_url.replace("//", ""),
+        link_url: this.url
       }
-    
+      const response = await axios.post(`${baseUrl}/api/purifier/persist`, payload)
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
+
 module.exports = Purifier

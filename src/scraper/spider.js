@@ -7,7 +7,7 @@
  */
 
 const Link = require("./link")
-const request = require("request-promise")
+const requestPromise = require("request-promise-native")
 const pool = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
 const cheerio = require("cheerio")
@@ -35,7 +35,7 @@ class Spider {
    */
   async getNewLinks() {
     try {
-      this._html = await request.get(this._link.resolve())
+      this._html = await requestPromise.get(this._link.resolve())
     } catch (err) {
       console.log(this._link)
       throw new Error(err.message)
