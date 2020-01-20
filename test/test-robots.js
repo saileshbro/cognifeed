@@ -6,7 +6,7 @@ const RobotsParser = require("../src/scraper/robots")
 const Link = require("../src/scraper/link")
 
 describe("RobotsParser", function() {
-  context("#isAllowed", function() {
+  context("#isDisallowed", function() {
     const wikiDisallowedLinks = [
       new Link("https://en.wikipedia.org", "/wiki/Special:"),
       new Link("https://en.wikipedia.org", "/wiki/Special%3A"),
@@ -31,7 +31,7 @@ describe("RobotsParser", function() {
             body
           )
           wikiAllowedLinks.forEach(link => {
-            expect(robotsParser.isAllowed(link)).to.be.true
+            expect(robotsParser.isDisallowed(link)).to.be.false
           })
         })
         .catch(err => console.log(err.message))
@@ -45,7 +45,7 @@ describe("RobotsParser", function() {
             body
           )
           wikiDisallowedLinks.forEach(link => {
-            expect(robotsParser.isAllowed(link)).to.be.false
+            expect(robotsParser.isDisallowed(link)).to.be.true
           })
         })
         .catch(err => {

@@ -17,8 +17,8 @@ class RobotsParser {
    * @param {string} [userAgent = *] - The user-agent to test for scrapability
    * @returns {boolean}
    */
-  isAllowed(link, userAgent = "*") {
-    return this._parser.isAllowed(link.resolve(), userAgent)
+  isDisallowed(link, userAgent = "*") {
+    return this._parser.isDisallowed(link.resolve(), userAgent)
   }
 
   /**
