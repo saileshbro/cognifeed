@@ -61,7 +61,7 @@ exports.login = async (req, res, next) => {
     if (!password) {
       throw new ErrorHandler(406, "Empty password provided")
     }
-    const result = await pool.query("SELECT user_id,email,name,password FROM users WHERE email=?", [
+    const result = await pool.query("SELECT user_id,email,password FROM users WHERE email=?", [
       email
     ])
 
