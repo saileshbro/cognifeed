@@ -70,6 +70,12 @@ class CognifeedTypography {
     fontWeight: FontWeight.normal,
     color: Colors.white,
   );
+  static TextStyle textStyleOnboardHeading = TextStyle(
+    fontSize: 22,
+    fontFamily: "PoorRichard",
+    fontWeight: FontWeight.normal,
+    color: Color(0xff0095ce),
+  );
 }
 
 final String baseUrl = "http://192.168.0.98:3100/api";

@@ -2,16 +2,17 @@ import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
-import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'home/onboarding_page.dart';
 import 'login/login_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -38,6 +39,7 @@ Future<void> main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   Cognifeed.pref = await SharedPreferences.getInstance();
   runApp(MultiBlocProvider(
     providers: [
@@ -80,9 +82,10 @@ class App extends StatelessWidget {
             return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
-            return AuthenticationPage(
-              userRepository: UserRepository(),
-            );
+            // return AuthenticationPage(
+            //   userRepository: UserRepository(),
+            // );
+            return HomePage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();

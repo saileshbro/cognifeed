@@ -28,6 +28,10 @@ flutter:
   assets:
     - assets/images/
   fonts:
+    - family: PoorRichard
+      fonts:
+        - asset: fonts/PoorRichard.TTF
+
     - family: SegoeUI
       fonts:
         - asset: fonts/Segoe-UI.ttf
