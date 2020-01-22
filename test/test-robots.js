@@ -2,7 +2,7 @@
 
 const { expect } = require("chai")
 const reqProm = require("request-promise-native")
-const RobotsParser = require("../src/scraper/robots")
+const { RobotsParser } = require("../src/scraper/robots")
 const Link = require("../src/scraper/link")
 
 describe("RobotsParser", function() {

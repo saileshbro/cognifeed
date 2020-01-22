@@ -29,6 +29,17 @@ class Link {
     if (this._baseURL === link.baseURL && this._path === link.path) return true
     return false
   }
+
+  /**
+   * Checks if the current link has the same base url as given link
+   * @param {Link} link - The other link to test against this link
+   * @returns {boolean}
+   */
+  hasSameBaseURLAs(link) {
+    if (this._baseURL === link.baseURL) return true
+    return false
+  }
+
   /**
    * Getter to get the value of this._baseURL
    * @return {string}

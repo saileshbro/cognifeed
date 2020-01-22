@@ -1,6 +1,9 @@
 node_modules
 out
+.vscode
+.env
 package-lock.json
 yarn.lock
-.env
+npm-debug.log
+yarn-error.log
 to-do-list.md

@@ -13,10 +13,12 @@
  * @property {string} _path = The path slug
  */
 
+const reqProm = require("request-promise-native")
+const Link = require("./link")
 const LinksCollection = require("./links-collection")
 const Filter = require("./filter")
 const Spider = require("./spider")
-const RobotsParser = require("./robots")
+const { RobotsParser, RobotsCache } = require("./robots")
 
 /**
  * @class
@@ -38,34 +40,57 @@ class Server {
      * @private
      */
     this._timeout = setInterval(async () => {
-      let spider, newLinks
+      let spider, newLinks, robotsTXT
+      // Get the current link to spawn a spider for
       let link = this._links.getLink(0)
 
       // If there is no active link,
       // don't run the rest of the code
       if (!link) return
 
+      // Remove the current link from the list
       this._links = this._links.removeLink(link)
 
+      // Get the robots.txt for the given link, if
+      // it is not already in the cache
+      if ((robotsTXT = this._robotsCache.findRobotFor(link)) === undefined) {
+        try {
+          robotsTXT = await this._getRobotsTXT(link)
+        } catch (err) {
+          return console.error(err.message)
+        }
+
+        // Update cache with new robots.txt
+        this._robotsCache.update(link, robotsTXT)
+      }
+
+      // Spawn a new spider by respecting the
+      // robots.txt file of the website
       try {
-        spider = await this._spawnSpider(link)
+        spider = await this._spawnSpider(link, robotsTXT)
       } catch (err) {
-        return console.log(err.message)
+        return console.error(err.message)
       }
 
       this._spiders = this._spiders.concat(spider)
 
+      // Get new links from the spider
       try {
         newLinks = await spider.getNewLinks()
       } catch (err) {
+        // If spider fails, remove it from the array of active spiders
         this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
-        return console.log(err.message)
+        return console.error(err.message)
       }
 
+      // Run the new links through the filter
+      // to check for duplicates
       this._links = this._filter.getOriginalLinks(newLinks)
+      // The spider has done its job now,
+      // so remove it from the list of active spiders
       this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
       console.log(this._links)
-    }, 2000)
+    }, 1000)
   }
 
   /**
@@ -77,24 +102,58 @@ class Server {
 
   /**
    * This method spawns a new spider to visit given link
-   * @param {Link} url - The seed link to visit
+   * @param {Link} url - The seed link to get robots.txt for
+   * @returns {Promise<string>} - Promise object represents the robots string
+   * @private
+   */
+  async _getRobotsTXT(url) {
+    let robotsTXT
+
+    try {
+      robotsTXT = await reqProm(new Link(url.baseURL, "robots.txt").resolve())
+    } catch (_) {
+      throw new Error("Couldn't fetch robots.txt file")
+    }
+
+    return robotsTXT
+  }
+
+  /**
+   * This method spawns a new spider to visit given link
+   * @param {Link} link - The seed link to visit
+   * @param {string} robotsTXT - The robots.txt file to check before spawning
    * @returns {Promise<Spider>} - Promise object represents a spider
    * @private
    */
-  _spawnSpider(url) {
+  _spawnSpider(link, robotsTXT) {
     return new Promise((resolve, reject) => {
-      let spider
-      let robotsParser = new RobotsParser(url.baseURL)
+      let spider, crawlDelay
+      let robotsParser = new RobotsParser(link, robotsTXT)
 
-      if (robotsParser.isAllowed()) {
-        try {
-          spider = Spider.spawn(url)
-        } catch (err) {
-          reject(err)
-        }
+      if (robotsParser.isDisallowed(link))
+        return reject(new Error("robots.txt disallows traversing this url"))
+
+      if ((crawlDelay = robotsParser.getCrawlDelay()) !== undefined) {
+        setTimeout(() => {
+          try {
+            spider = Spider.spawn(link)
+          } catch (err) {
+            reject(err)
+          }
+
+          resolve(spider)
+        }, crawlDelay)
+      } else {
+        setTimeout(() => {
+          try {
+            spider = Spider.spawn(link)
+          } catch (err) {
+            reject(err)
+          }
+
+          resolve(spider)
+        }, 1000)
       }
-
-      resolve(spider)
     })
   }
 
@@ -123,9 +182,9 @@ class Server {
     /**
      * The collection robots.txt parsers
      * @private
-     * @type {RobotsParser[]}
+     * @type {RobotsCache[]}
      */
-    this._robotsParsers = []
+    this._robotsCache = new RobotsCache()
   }
 }
 
