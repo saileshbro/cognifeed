@@ -14,8 +14,10 @@ import 'login_states.dart';
 
 class LoginPage extends StatefulWidget {
   final UserRepository userRepository;
+  final VoidCallback onChangedScreen;
 
-  LoginPage({Key key, @required this.userRepository})
+  LoginPage(
+      {Key key, @required this.userRepository, @required this.onChangedScreen})
       : assert(userRepository != null),
         super(key: key);
 
@@ -25,6 +27,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool obscurePassword = true;
+  bool autoValidateEmail = false;
+  bool autoValidatePassword = false;
   FocusNode emailFocusNode;
   FocusNode passwordFocusNode;
   TextEditingController _emailController;
@@ -130,18 +134,26 @@ class _LoginPageState extends State<LoginPage> {
                                   Container(
                                     height: 55,
                                     child: TextFormField(
-                                      autovalidate: true,
+                                      autovalidate: autoValidateEmail,
                                       validator: (value) {
                                         if (!validator.isEmail(value)) {
                                           return "Invalid Email";
                                         }
                                         return null;
                                       },
+                                      onTap: () {
+                                        setState(() {
+                                          autoValidateEmail = true;
+                                        });
+                                      },
                                       focusNode: emailFocusNode,
                                       controller: _emailController,
                                       onEditingComplete: () {
                                         FocusScope.of(context)
                                             .requestFocus(passwordFocusNode);
+                                        setState(() {
+                                          autoValidatePassword = true;
+                                        });
                                       },
                                       style: TextStyle(
                                           color: CognifeedColors.teal),
@@ -158,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                                     height: 55,
                                     child: Center(
                                       child: TextFormField(
-                                        autovalidate: true,
+                                        autovalidate: autoValidatePassword,
                                         validator: (val) =>
                                             validatePassword(val),
                                         obscureText: obscurePassword,
@@ -166,6 +178,13 @@ class _LoginPageState extends State<LoginPage> {
                                         onEditingComplete: () {
                                           FocusScope.of(context)
                                               .requestFocus(FocusNode());
+                                          autoValidateEmail = true;
+                                          setState(() {});
+                                        },
+                                        onTap: () {
+                                          setState(() {
+                                            autoValidatePassword = true;
+                                          });
                                         },
                                         focusNode: passwordFocusNode,
                                         style: TextStyle(
@@ -243,9 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Text("Sign Up",
                                       style: CognifeedTypography.textStyle4),
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed("/signup");
-                                  },
+                                  onPressed: widget.onChangedScreen,
                                   color: CognifeedColors.duskyBlue,
                                 ),
                               ),

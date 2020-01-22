@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/cognifeed_constants.dart';
 
@@ -49,20 +48,17 @@ class UserRepository {
     }
   }
 
-  Future<void> deleteToken() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.remove('token');
+  void deleteToken() {
+    Cognifeed.pref.remove('token');
     return;
   }
 
-  Future<void> persistToken(String token) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('token', token);
+  void persistToken(String token) {
+    Cognifeed.pref.setString('token', token);
     return;
   }
 
-  Future<bool> hasToken() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.containsKey('token');
+  bool hasToken() {
+    return Cognifeed.pref.containsKey('token');
   }
 }

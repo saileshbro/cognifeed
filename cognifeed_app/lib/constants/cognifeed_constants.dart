@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CognifeedColors {
   static Color dockEggBlue = Color(0xffe9fdfc);
@@ -72,3 +73,7 @@ class CognifeedTypography {
 }
 
 final String baseUrl = "http://192.168.0.98:3100/api";
+
+class Cognifeed {
+  static SharedPreferences pref;
+}

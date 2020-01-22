@@ -15,8 +15,11 @@ import '../repository/user_repository.dart';
 
 class SignupPage extends StatefulWidget {
   final UserRepository userRepository;
+  final Function onChangedScreen;
 
-  const SignupPage({Key key, @required this.userRepository}) : super(key: key);
+  const SignupPage(
+      {Key key, @required this.userRepository, @required this.onChangedScreen})
+      : super(key: key);
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -24,6 +27,9 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
+  bool autoValidateEmail = false;
+  bool autoValidatePassword = false;
+  bool autovalidateConfirmPassword = false;
   FocusNode usernameFocusNode;
   FocusNode passwordFocusNode;
   FocusNode confirmPasswordFocusNode;
@@ -143,7 +149,12 @@ class _SignupPageState extends State<SignupPage> {
                                     Container(
                                       height: 55,
                                       child: TextFormField(
-                                        autovalidate: true,
+                                        autovalidate: autoValidateEmail,
+                                        onTap: () {
+                                          setState(() {
+                                            autoValidateEmail = true;
+                                          });
+                                        },
                                         validator: (value) {
                                           if (!validator.isEmail(value)) {
                                             return "Invalid Email";
@@ -155,6 +166,8 @@ class _SignupPageState extends State<SignupPage> {
                                         onEditingComplete: () {
                                           FocusScope.of(context)
                                               .requestFocus(passwordFocusNode);
+                                          autoValidatePassword = true;
+                                          setState(() {});
                                         },
                                         style: TextStyle(
                                             color: CognifeedColors.teal),
@@ -169,7 +182,12 @@ class _SignupPageState extends State<SignupPage> {
                                     Container(
                                       height: 55,
                                       child: TextFormField(
-                                        autovalidate: true,
+                                        autovalidate: autoValidatePassword,
+                                        onTap: () {
+                                          setState(() {
+                                            autoValidatePassword = true;
+                                          });
+                                        },
                                         validator: (val) =>
                                             validatePassword(val),
                                         controller: _passwordController,
@@ -177,6 +195,9 @@ class _SignupPageState extends State<SignupPage> {
                                         onEditingComplete: () {
                                           FocusScope.of(context).requestFocus(
                                               confirmPasswordFocusNode);
+                                          setState(() {
+                                            autovalidateConfirmPassword = true;
+                                          });
                                         },
                                         focusNode: passwordFocusNode,
                                         style: TextStyle(
@@ -206,7 +227,13 @@ class _SignupPageState extends State<SignupPage> {
                                     Container(
                                       height: 55,
                                       child: TextFormField(
-                                        autovalidate: true,
+                                        autovalidate:
+                                            autovalidateConfirmPassword,
+                                        onTap: () {
+                                          setState(() {
+                                            autovalidateConfirmPassword = true;
+                                          });
+                                        },
                                         validator: (val) {
                                           if (val != _passwordController.text) {
                                             return "Confirm password doesn't match.";
@@ -218,6 +245,9 @@ class _SignupPageState extends State<SignupPage> {
                                         onEditingComplete: () {
                                           FocusScope.of(context)
                                               .requestFocus(FocusNode());
+                                          setState(() {
+                                            autoValidateEmail = true;
+                                          });
                                         },
                                         focusNode: confirmPasswordFocusNode,
                                         style: TextStyle(
@@ -292,12 +322,7 @@ class _SignupPageState extends State<SignupPage> {
                                             BorderRadius.circular(15)),
                                     child: Text("Log In",
                                         style: CognifeedTypography.textStyle4),
-                                    onPressed: () {
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              Navigator.defaultRouteName));
-                                    },
+                                    onPressed: widget.onChangedScreen,
                                     color: CognifeedColors.duskyBlue,
                                   ),
                                 ),

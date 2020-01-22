@@ -1,16 +1,16 @@
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
+import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
 import 'package:cognifeed_app/home/home_page.dart';
-import 'package:cognifeed_app/login/login_page.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
-import 'package:cognifeed_app/signup/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login/login_bloc.dart';
 
@@ -34,11 +34,11 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
-void main() {
+Future<void> main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
-
+  Cognifeed.pref = await SharedPreferences.getInstance();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<AuthenticationBloc>(
@@ -80,8 +80,7 @@ class App extends StatelessWidget {
             return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
-            // return Signup(userRepository: userRepository);
-            return LoginPage(
+            return AuthenticationPage(
               userRepository: UserRepository(),
             );
           }
@@ -90,11 +89,6 @@ class App extends StatelessWidget {
           }
         },
       ),
-      routes: {
-        "/signup": (context) => SignupPage(
-              userRepository: userRepository,
-            ),
-      },
     );
   }
 }
