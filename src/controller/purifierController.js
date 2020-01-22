@@ -8,10 +8,13 @@ module.exports.persistPurifier = async (req, res, next) => {
     if (result.length > 0) {
       throw new ErrorHandler(401, "This url has already been purified")
     } else {
-      const resolve = await pool.query("INSERT INTO article SET title=?,description=?,image_url=?,link_url=?", [title, description,image_url,link_url])
+      const resolve = await pool.query(
+        "INSERT INTO article SET title=?,description=?,image_url=?,link_url=?",
+        [title, description, image_url, link_url]
+      )
       return res.json({
         id: resolve.insertId,
-        title:title
+        title: title
       })
     }
   } catch (error) {

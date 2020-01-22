@@ -1,6 +1,6 @@
 "use strict"
 
-const {URL} = require("url")
+const { URL } = require("url")
 
 /**
  * Link module
@@ -16,7 +16,7 @@ const {URL} = require("url")
 module.exports = class Link {
   /**
    * Resolve the current link object into a link URL string
-   * @returns {string} - A link href string 
+   * @returns {string} - A link href string
    */
   resolve() {
     return new URL(this._path, this._baseURL).href
@@ -43,12 +43,12 @@ module.exports = class Link {
    */
   constructor(baseURL, path = "/") {
     /**
-     * The base URL of the link 
+     * The base URL of the link
      * @type {string}
      * @private
      */
     this._baseURL = baseURL
-    /** 
+    /**
      * The path of the link
      * @type {string}
      * @private
