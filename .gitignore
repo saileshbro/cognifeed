@@ -3,3 +3,4 @@ out
 package-lock.json
 yarn.lock
 .env
+cognifeed_app/pubspec.lock
