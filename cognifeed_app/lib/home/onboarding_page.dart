@@ -1,10 +1,6 @@
-import 'package:cognifeed_app/auth/authentication_bloc.dart';
-import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatelessWidget {
