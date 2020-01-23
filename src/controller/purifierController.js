@@ -14,7 +14,10 @@ module.exports.persistPurifier = async (req, res, next) => {
       )
       return res.json({
         id: resolve.insertId,
-        title: title
+        title,
+        description,
+        image_url,
+        link_url
       })
     }
   } catch (error) {
