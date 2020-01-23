@@ -22,15 +22,15 @@ app.listen(port, console.log(`Server running on port ${port}`))
 app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
-//Spider Instantiation.
+// Spider Instantiation.
 // const Spider = require("./scraper/spider")
-// const WikiPurifier = require("./purifier/WikiPurifier")
-// const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-// ;(async function name() {
-//   const horizion = await spider.resolveUrl()
-//   console.log(horizion.readLinks().length)
-//   spider.getNewLinks()
-//   const purifier = new WikiPurifier(spider.html, spider.link.resolve())
-//   purifier.purify()
-//   purifier.persistPurified()
-// })()
+// const YahooSportsPurifier = require("./purifier/sports/YahooSportsPurifier")
+// const spider = Spider.spawn(new Link("https://sports.yahoo.com", "/nfl-notebook-giants-qb-manning-034408005.html"))
+//   ; (async function name() {
+//     const horizion = await spider.resolveUrl()
+//     console.log(horizion.readLinks().length)
+//     spider.getNewLinks()
+//     const purifier = new YahooSportsPurifier(spider.html, spider.link.resolve())
+//     purifier.purify()
+//     purifier.persistPurified()
+//   })()

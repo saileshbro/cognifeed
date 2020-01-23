@@ -11,7 +11,7 @@ class Purifier {
    * @param {Stringn} url
    */
   constructor(html, url) {
-    ;(this.html = html), (this.url = url)
+    ; (this.html = html), (this.url = url)
   }
   /**
    * Implementation required
@@ -31,7 +31,7 @@ class Purifier {
         link_url: this.url
       }
       const response = await axios.post(`${baseUrl}/api/purifier/persist`, payload)
-      console.log(response)
+      console.log(response.data)
     } catch (error) {
       console.error(error)
     }
