@@ -5,10 +5,16 @@ const baseUrl = "http://127.0.0.1:" + process.env.PORT
  * Abstract Class Purifier
  */
 class Purifier {
+
+  /**
+   * @field title
+   * @field imageUrl
+   * @field description
+   */
   /**
    *
    * @param {String} html
-   * @param {Stringn} url
+   * @param {string} url
    */
   constructor(html, url) {
     ; (this.html = html), (this.url = url)

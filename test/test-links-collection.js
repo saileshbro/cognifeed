@@ -1,7 +1,6 @@
-const {expect} = require("chai")
+const { expect } = require("chai")
 const Link = require("../src/scraper/link")
 const LinksCollection = require("../src/scraper/links-collection")
-
 
 describe("LinksCollection", () => {
   context("#create()", () => {
@@ -26,14 +25,13 @@ describe("LinksCollection", () => {
 
       // Test body
       expect(links.readLinks()).to.be.an("array")
-      expect(links.readLinks())
-        .to.deep.equals([
-          "https://vim.org/about", 
-          "https://nodejs.org/download"
-        ])
+      expect(links.readLinks()).to.deep.equals([
+        "https://vim.org/about",
+        "https://nodejs.org/download"
+      ])
     })
   })
-  
+
   context("#addLink", () => {
     let links = LinksCollection.create()
     it("should add a new link object to linksCollection", () => {
