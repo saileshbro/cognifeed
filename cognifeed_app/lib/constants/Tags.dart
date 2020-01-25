@@ -1,0 +1,16 @@
+var tags = [
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+  'Sports',
+  'Science',
+];

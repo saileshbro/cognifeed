@@ -71,10 +71,22 @@ class CognifeedTypography {
     color: Colors.white,
   );
   static TextStyle textStyleOnboardHeading = TextStyle(
-    fontSize: 22,
+    fontSize: 24,
     fontFamily: "PoorRichard",
     fontWeight: FontWeight.normal,
-    color: Color(0xff0095ce),
+    color: Color(0xff192965),
+  );
+  static TextStyle searchBox = TextStyle(
+    fontSize: 24,
+    fontFamily: "CaroniR",
+    fontWeight: FontWeight.normal,
+    color: Color(0xff192965),
+  );
+  static TextStyle tags = TextStyle(
+    fontSize: 15,
+    fontFamily: "Jet",
+    fontWeight: FontWeight.normal,
+    color: Color(0xff192965),
   );
 }
 

@@ -37,7 +37,6 @@ class AuthenticationBloc
     if (event is LoggedOut) {
       yield AuthenticationLoading();
 
-      
       await Future.delayed(Duration(milliseconds: 1000));
       userRepository.deleteToken();
       yield AuthenticationUnauthenticated();
