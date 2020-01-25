@@ -7,12 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cognifeed_app/constants/Tags.dart';
 
-class HomePage extends StatefulWidget {
+class OnboardingPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _OnboardingPageState createState() => _OnboardingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,23 +140,24 @@ class MakeChoices extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
-            margin: EdgeInsets.only(top: 22),
-            height: 53,
-            width: MediaQuery.of(context).size.width - 20,
-            decoration: BoxDecoration(
-              color: Color(0xffe9fdfc).withOpacity(0.5),
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 6,
-                    offset: Offset(8, 10),
-                    color: Colors.black.withOpacity(0.16)),
-              ],
-            ),
-            padding: EdgeInsets.fromLTRB(103, 15, 96, 13),
-            child: Text(
-              'Make your choices!',
-              style: CognifeedTypography.textStyleOnboardHeading,
-            ))
+          margin: EdgeInsets.only(top: 22),
+          height: 53,
+          width: MediaQuery.of(context).size.width - 20,
+          decoration: BoxDecoration(
+            color: Color(0xffe9fdfc).withOpacity(0.5),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 6,
+                  offset: Offset(8, 10),
+                  color: Colors.black.withOpacity(0.16)),
+            ],
+          ),
+          padding: EdgeInsets.fromLTRB(103, 15, 96, 13),
+          child: Text(
+            'Make your choices!',
+            style: CognifeedTypography.textStyleOnboardHeading,
+          ),
+        ),
       ],
     );
   }
