@@ -32,6 +32,14 @@ flutter:
       fonts:
         - asset: fonts/PoorRichard.TTF
 
+    - family: CaroniR
+      fonts:
+        - asset: fonts/Caroni-Regular.OTF
+
+    - family: Jet
+      fonts:
+        - asset: fonts/JetBrains.ttf
+
     - family: SegoeUI
       fonts:
         - asset: fonts/Segoe-UI.ttf
