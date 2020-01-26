@@ -40,6 +40,10 @@ flutter:
       fonts:
         - asset: fonts/JetBrains.ttf
 
+    - family: Kicker
+      fonts:
+        - asset: fonts/Kicker-Regular.ttf
+
     - family: SegoeUI
       fonts:
         - asset: fonts/Segoe-UI.ttf
