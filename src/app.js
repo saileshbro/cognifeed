@@ -24,19 +24,16 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const EspnPurifier = require("./purifier/sports/EspnPurifier")
+const HackerNoonPurifier = require("./purifier/programming/HackerNoonPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://www.espn.in",
-    "tennis/story/_/id/28559287/brazilian-joao-souza-banned-life-match-fixing"
-  )
+  new Link("https://hackernoon.com", "how-i-organized-my-nodejs-rest-api-aq573376")
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new EspnPurifier(spider.html, spider.link.resolve())
+  const purifier = new HackerNoonPurifier(spider.html, spider.link.resolve())
   purifier.purify()
   console.log(purifier.toString())
-  await purifier.persistPurified()
+  // await purifier.persistPurified()
 })()
