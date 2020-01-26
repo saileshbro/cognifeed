@@ -24,13 +24,19 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const WikiPurifier = require("./purifier/WikiPurifier")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
+const EspnPurifier = require("./purifier/sports/EspnPurifier")
+const spider = Spider.spawn(
+  new Link(
+    "https://www.espn.in",
+    "tennis/story/_/id/28559287/brazilian-joao-souza-banned-life-match-fixing"
+  )
+)
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new WikiPurifier(spider.html, spider.link.resolve())
+  const purifier = new EspnPurifier(spider.html, spider.link.resolve())
   purifier.purify()
-  purifier.persistPurified()
+  console.log(purifier.toString())
+  await purifier.persistPurified()
 })()

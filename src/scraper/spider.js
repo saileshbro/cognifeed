@@ -35,7 +35,7 @@ module.exports = class Spider {
     const $ = cheerio.load(response)
     const horizonArray = []
     $("a").each((i, e) => {
-      if ($(e).attr("href") != undefined) {
+      if ($(e).attr("href") !== undefined) {
         horizonArray.push(new Link(this.link.baseURL, $(e).attr("href")))
       }
     })
