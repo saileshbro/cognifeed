@@ -92,7 +92,8 @@ class CognifeedTypography {
     fontSize: 17,
     fontFamily: "Kicker",
     letterSpacing: 1,
-    height: 1.25,
+    wordSpacing: 1.3,
+    height: 1.4,
     fontWeight: FontWeight.w600,
     color: Color(0xff192965),
   );
