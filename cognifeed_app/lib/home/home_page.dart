@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cognifeed_app/Models/articlemodel.dart';
 import 'package:cognifeed_app/constants/Navigation.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
       appBar:
           PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
@@ -29,8 +31,10 @@ class _HomePageState extends State<HomePage> {
         items: allNavigations.map((Navigation navigation) {
           return BottomNavigationBarItem(
               icon: Icon(
-            navigation.icon,
-          ));
+                navigation.icon,
+                color: Colors.black,
+              ),
+              title: Text(''));
         }).toList(),
       ),
       body: AnnotatedRegion(
@@ -67,36 +71,38 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Hello(),
                 Container(
-                  padding:
-                      EdgeInsets.only(left: 20, top: 20, bottom: 20, right: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: 550,
-                        width: 3,
-                        color: Colors.black,
-                      ),
-                      ArticleBox(),
-                    ],
+                  margin: EdgeInsets.only(top: 20),
+                  height: 600,
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      // return Text('hi');
+                      return ArticleBox(
+                        title: articles[index].title,
+                        imageUrl: articles[index].imageUrl,
+                        category: articles[index].category,
+                        description: articles[index].description,
+                      );
+                    },
+                    itemCount: articles.length,
                   ),
-                ),
+                )
               ],
             ),
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                color: Color(0xff004844),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 0,
+            // child: Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 60,
+            //   color: Color(0xff004844),
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            //   ),
+            // ),
+            // ),
           ],
         ),
       ),
@@ -119,7 +125,7 @@ class Hello extends StatelessWidget {
             height: 60,
             width: MediaQuery.of(context).size.width - 10,
             decoration: BoxDecoration(
-              color: Color(0xffe9fdfc).withOpacity(0.66),
+              color: Color(0xffe9fdfc).withOpacity(0.7),
               boxShadow: [
                 BoxShadow(
                     blurRadius: 6,
@@ -151,7 +157,10 @@ class Hello extends StatelessWidget {
                 Text(
                   'Here are articles for you!',
                   style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-                      color: Color(0xff01796f), fontWeight: FontWeight.w600),
+                      color: Color(0xff01796f),
+                      fontWeight: FontWeight.w600,
+                      wordSpacing: 1.5,
+                      letterSpacing: 1),
                 ),
               ],
             ))
@@ -191,7 +200,16 @@ class HelloText extends StatelessWidget {
 }
 
 class ArticleBox extends StatefulWidget {
+  final String title;
+  final String description;
+  final String imageUrl;
+  final String category;
+
   const ArticleBox({
+    @required this.category,
+    @required this.description,
+    @required this.imageUrl,
+    @required this.title,
     Key key,
   }) : super(key: key);
 
@@ -203,115 +221,118 @@ class _ArticleBoxState extends State<ArticleBox> {
   IconMaker selectedIconMaker = IconMaker.add;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 0, left: 0, right: 0),
-      padding: EdgeInsets.all(8),
-      height: 342,
-      width: 369,
-      decoration: BoxDecoration(
-        color: Color(0xffe9fdfc).withOpacity(0.3),
-        border: Border(
-          bottom: BorderSide(color: Color(0xff192965), width: 3),
-          right: BorderSide(color: Color(0xff192965), width: 8),
-          top: BorderSide(color: Color(0xff192965), width: 3),
-        ),
-      ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  "assets/images/rose.png",
-                  fit: BoxFit.cover,
-                  width: 369,
-                ),
-                Container(
-                  width: 369,
-                  decoration: BoxDecoration(
-                    color: Color(0xff01796f).withOpacity(0.2),
-                    border: Border.all(
-                        color: Color(0xff192965).withOpacity(0.4), width: 2),
-                  ),
-                ),
-                Positioned(
-                  child: RichText(
-                    text: TextSpan(
-                        text: '#',
-                        style: CognifeedTypography.textStyleOnboardHeading
-                            .copyWith(
-                          color: Color(0xffe9fdfc),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 35,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: ' Adventure',
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(bottom: 20),
+          padding: EdgeInsets.all(8),
+          height: widget.title.length <= 35
+              ? 447
+              : widget.title.length <= 70 ? 467 : 487,
+          width: 369,
+          decoration: BoxDecoration(
+            color: Color(0xffe9fdfc).withOpacity(0.3),
+            border: Border(
+              bottom: BorderSide(color: Color(0xff192965), width: 3),
+              right: BorderSide(color: Color(0xff192965), width: 8),
+              top: BorderSide(color: Color(0xff192965), width: 3),
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Stack(
+                  children: <Widget>[
+                    Image.network(
+                      widget.imageUrl,
+                      // "assets/images/rose.png",
+                      fit: BoxFit.cover,
+                      height: 250,
+                      width: 369,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 40,
+                      color: Color(0xff004844),
+                    ),
+                    Positioned(
+                      left: 5,
+                      child: RichText(
+                        text: TextSpan(
+                            text: '#  ',
                             style: CognifeedTypography.textStyleOnboardHeading
                                 .copyWith(
-                              fontSize: 25,
                               color: Color(0xffe9fdfc),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30,
                             ),
-                          )
-                        ]),
-                  ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: widget.category,
+                                // text: ' Adventure',
+                                style: CognifeedTypography
+                                    .textStyleOnboardHeading
+                                    .copyWith(
+                                  fontSize: 25,
+                                  color: Color(0xffe9fdfc),
+                                ),
+                              )
+                            ]),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIconMaker == IconMaker.add
+                                ? selectedIconMaker = IconMaker.remove
+                                : selectedIconMaker = IconMaker.add;
+                          });
+                        },
+                        child: selectedIconMaker == IconMaker.add
+                            ? AddIcon()
+                            : RemoveIcon(),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIconMaker == IconMaker.add
-                            ? selectedIconMaker = IconMaker.remove
-                            : selectedIconMaker = IconMaker.add;
-                      });
-                    },
-                    child: selectedIconMaker == IconMaker.add
-                        ? AddIcon()
-                        : RemoveIcon(),
-                  ),
-                ),
-                Positioned(
-                  top: 125,
-                  right: 0,
-                  child: Container(
-                    height: 75,
-                    width: 320,
+              ),
+              Column(
+                children: <Widget>[
+                  Container(
+                    height: widget.title.length <= 35
+                        ? 35
+                        : widget.title.length <= 70 ? 60 : 85,
+                    width: 360,
                     decoration: BoxDecoration(
-                        color: Color(0xffe9fdfc).withOpacity(0.6),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 6,
-                              offset: Offset(8, 10),
-                              color: Colors.black.withOpacity(0.16)),
-                        ],
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        )),
+                      color: Color(0xffe9fdfc),
+                    ),
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     child: Text(
-                      'Make your choices!hahahahahahahahahahahahahahahahahahahahahahahaha',
+                      widget.title,
                       style: CognifeedTypography.title,
                       maxLines: 3,
                     ),
                   ),
-                ),
-              ],
-            ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    height: 130,
+                    child: Text(
+                      widget.description,
+                      maxLines: 4,
+                      style: CognifeedTypography.searchBox
+                          .copyWith(color: Colors.black),
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            height: 90,
-            child: Text(
-              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Ipsum has been the industry ',
-              style:
-                  CognifeedTypography.searchBox.copyWith(color: Colors.black),
-            ),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -326,7 +347,7 @@ class AddIcon extends StatelessWidget {
     return Icon(
       Icons.bookmark,
       size: 40,
-      color: Color(0xffDB197D),
+      color: Color(0xff5E080A),
     );
   }
 }
