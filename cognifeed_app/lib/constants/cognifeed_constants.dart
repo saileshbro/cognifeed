@@ -88,6 +88,14 @@ class CognifeedTypography {
     fontWeight: FontWeight.normal,
     color: Color(0xff192965),
   );
+  static TextStyle title = TextStyle(
+    fontSize: 17,
+    fontFamily: "Kicker",
+    letterSpacing: 1,
+    height: 1.25,
+    fontWeight: FontWeight.w600,
+    color: Color(0xff192965),
+  );
 }
 
 final String baseUrl = "http://192.168.0.98:3100/api";
