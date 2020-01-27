@@ -15,8 +15,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final navbar = MediaQuery.of(context).size.width - 135;
-    ColorMaker selectedColorMaker = ColorMaker.people;
+    final navbar = MediaQuery.of(context).size.width - 140;
+    ColorMaker selectedColorMaker = ColorMaker.setting;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     height: 45,
                     width: MediaQuery.of(context).size.width,
-                    color: Color(0xffe9fdfc).withOpacity(0.7),
+                    color: Color(0xff004844).withOpacity(0.7),
                   ),
                 ),
                 Positioned(
@@ -108,10 +108,13 @@ class _HomePageState extends State<HomePage> {
                           width: 0.25 * navbar,
                           height: 55,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              topLeft: Radius.circular(20),
-                            ),
+                            borderRadius:
+                                selectedColorMaker == ColorMaker.setting
+                                    ? BorderRadius.all(Radius.circular(20))
+                                    : BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        topLeft: Radius.circular(20),
+                                      ),
                             color: selectedColorMaker == ColorMaker.home
                                 ? Color(0xff00c9c3)
                                 : Color(0xff004844),
@@ -136,10 +139,15 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             borderRadius: selectedColorMaker == ColorMaker.home
                                 ? BorderRadius.only(
-                                    bottomLeft: Radius.circular(21),
-                                    topLeft: Radius.circular(21),
+                                    bottomLeft: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
                                   )
-                                : BorderRadius.zero,
+                                : selectedColorMaker == ColorMaker.bookmark
+                                    ? BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      )
+                                    : BorderRadius.zero,
                             color: selectedColorMaker == ColorMaker.setting
                                 ? Color(0xff00c9c3)
                                 : Color(0xff004844),
@@ -201,11 +209,8 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             borderRadius:
                                 selectedColorMaker == ColorMaker.bookmark
-                                    ? BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        bottomRight: Radius.circular(20),
+                                    ? BorderRadius.all(
+                                        Radius.circular(20),
                                       )
                                     : BorderRadius.only(
                                         topRight: Radius.circular(20),
