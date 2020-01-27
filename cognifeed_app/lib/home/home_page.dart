@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:cognifeed_app/Models/articlemodel.dart';
-import 'package:cognifeed_app/constants/Navigation.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,29 +12,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    final navbar = MediaQuery.of(context).size.width - 135;
+    ColorMaker selectedColorMaker = ColorMaker.people;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: allNavigations.map((Navigation navigation) {
-          return BottomNavigationBarItem(
-              icon: Icon(
-                navigation.icon,
-                color: Colors.black,
-              ),
-              title: Text(''));
-        }).toList(),
-      ),
       body: AnnotatedRegion(
         value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -70,39 +54,190 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
+            Stack(
               children: <Widget>[
-                Hello(),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  height: 600,
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      // return Text('hi');
-                      return ArticleBox(
-                        title: articles[index].title,
-                        imageUrl: articles[index].imageUrl,
-                        category: articles[index].category,
-                        description: articles[index].description,
-                      );
-                    },
-                    itemCount: articles.length,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Hello(),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      height: 585,
+                      child: ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          return ArticleBox(
+                            title: articles[index].title,
+                            imageUrl: articles[index].imageUrl,
+                            category: articles[index].category,
+                            description: articles[index].description,
+                          );
+                        },
+                        itemCount: articles.length,
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    height: 45,
+                    width: MediaQuery.of(context).size.width,
+                    color: Color(0xffe9fdfc).withOpacity(0.7),
+                  ),
+                ),
+                Positioned(
+                  bottom: 15,
+                  left: 70,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff00c9c3),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Color(0xff00c9c3),
+                        width: 4,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 3,
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 0.25 * navbar,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                            ),
+                            color: selectedColorMaker == ColorMaker.home
+                                ? Color(0xff00c9c3)
+                                : Color(0xff004844),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedColorMaker = ColorMaker.home;
+                              });
+                            },
+                            child: Icon(
+                              Icons.home,
+                              size: 30,
+                              color: selectedColorMaker == ColorMaker.home
+                                  ? Color(0xff192965)
+                                  : Color(0xff00c9c3),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: selectedColorMaker == ColorMaker.home
+                                ? BorderRadius.only(
+                                    bottomLeft: Radius.circular(21),
+                                    topLeft: Radius.circular(21),
+                                  )
+                                : BorderRadius.zero,
+                            color: selectedColorMaker == ColorMaker.setting
+                                ? Color(0xff00c9c3)
+                                : Color(0xff004844),
+                          ),
+                          width: 0.25 * navbar,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedColorMaker = ColorMaker.setting;
+                              });
+                            },
+                            child: Icon(
+                              Icons.menu,
+                              size: 30,
+                              color: selectedColorMaker == ColorMaker.setting
+                                  ? Color(0xff192965)
+                                  : Color(0xff00c9c3),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 0.25 * navbar,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                selectedColorMaker == ColorMaker.setting
+                                    ? BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        topLeft: Radius.circular(20),
+                                      )
+                                    : selectedColorMaker == ColorMaker.people
+                                        ? BorderRadius.only(
+                                            bottomRight: Radius.circular(20),
+                                            topRight: Radius.circular(20),
+                                          )
+                                        : BorderRadius.zero,
+                            color: selectedColorMaker == ColorMaker.bookmark
+                                ? Color(0xff00c9c3)
+                                : Color(0xff004844),
+                          ),
+                          height: 55,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedColorMaker = ColorMaker.bookmark;
+                              });
+                            },
+                            child: Icon(
+                              Icons.bookmark,
+                              size: 30,
+                              color: selectedColorMaker == ColorMaker.bookmark
+                                  ? Color(0xff192965)
+                                  : Color(0xff00c9c3),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 55,
+                          width: 0.25 * navbar,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                selectedColorMaker == ColorMaker.bookmark
+                                    ? BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      )
+                                    : BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                      ),
+                            color: selectedColorMaker == ColorMaker.people
+                                ? Color(0xff00c9c3)
+                                : Color(0xff004844),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedColorMaker = ColorMaker.people;
+                              });
+                            },
+                            child: Icon(
+                              Icons.person,
+                              size: 30,
+                              color: selectedColorMaker == ColorMaker.people
+                                  ? Color(0xff192965)
+                                  : Color(0xff00c9c3),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    height: 60,
+                    width: navbar + 8,
                   ),
                 )
               ],
             ),
-            // Positioned(
-            //   bottom: 0,
-            // child: Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: 60,
-            //   color: Color(0xff004844),
-            //   child: BackdropFilter(
-            //     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            //   ),
-            // ),
-            // ),
           ],
         ),
       ),
@@ -219,6 +354,7 @@ class ArticleBox extends StatefulWidget {
 
 class _ArticleBoxState extends State<ArticleBox> {
   IconMaker selectedIconMaker = IconMaker.add;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -368,3 +504,4 @@ class RemoveIcon extends StatelessWidget {
 }
 
 enum IconMaker { add, remove }
+enum ColorMaker { home, setting, bookmark, people }
