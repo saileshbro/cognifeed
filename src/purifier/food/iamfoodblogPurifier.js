@@ -13,8 +13,11 @@ class iamfoodblogPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $(".feed-link a > h4").text();
-    //this.description =
+    this.title = " "
+    $(".field-link a > h4").each((index, element)=>{
+      this.title = $(element).text()
+    })
+    
     this.image_url = $(".feed-link a.tall-thumbnail").attr("style");
   }
 
