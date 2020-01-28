@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 

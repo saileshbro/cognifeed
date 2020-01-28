@@ -25,20 +25,21 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const MissTouristPurifier = require("./purifier/Travel&Tourism/MissTouristPurifier")
+const TreeHuggerPurifier = require("./purifier/Environment/TreeHuggerPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://misstourist.com",
-    "new-disneyland-paris-offer-enjoy-a-free-dining-experience-in-spring-summer-2020/"
-  )
+  new Link("https://www.treehugger.com", "gadgets/how-get-without-home-printer-or-scanner.html")
 )
 ;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.readLinks().length)
-  spider.getNewLinks()
-  const purifier = new MissTouristPurifier(spider.html, spider.link)
-  purifier.purify()
-  console.log(purifier.html)
-  console.log(purifier.toString())
-  // await purifier.persistPurified()
+  try {
+    const horizion = await spider.resolveUrl()
+    console.log(horizion.readLinks().length)
+    spider.getNewLinks()
+    const purifier = new TreeHuggerPurifier(spider.html, spider.link)
+    purifier.purify()
+    // console.log(purifier.html)
+    console.log(purifier.toString())
+    // await purifier.persistPurified()
+  } catch (error) {
+    console.log("ERROR SENDINg REQUEST")
+  }
 })()
