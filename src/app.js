@@ -29,7 +29,7 @@ const MindBodyPurifier = require("./purifier/healthAndBeauty/MindBodyGreenPurifi
 const spider = Spider.spawn(
   new Link(
     "https://www.mindbodygreen.com/",
-    "articles/dr-perlmutter-wants-you-to-eat-more-of-this-in-2020"
+    "articles/best-natural-eczema-products-according-to-dermatologists"
   )
 )
 ;(async function name() {
