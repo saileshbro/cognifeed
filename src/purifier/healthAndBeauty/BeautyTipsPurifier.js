@@ -24,7 +24,7 @@ class BeautyTipsPurifier extends Purifier {
       .substr(0, 500)
       .replace("\n", "")
       .replace("\t", "")
-      .replace("    ", "")
+      .replace("     ", "")
       .replace(". \n", "")
       .replace("   \t", "")
   }

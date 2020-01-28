@@ -26,7 +26,7 @@ app.use((err, req, res, next) => {
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
 const BeautyTipsPurifier = require("./purifier/healthAndBeauty/BeautyTipsPurifier")
-const spider = Spider.spawn(new Link("https://www.beautytipsonline.com", "articles/photogenic.htm"))
+const spider = Spider.spawn(new Link("https://www.beautytipsonline.com", "beauty_myths.htm"))
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
