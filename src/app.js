@@ -25,20 +25,17 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const MissTouristPurifier = require("./purifier/Travel&Tourism/MissTouristPurifier")
+const CodeWallPurifier = require("./purifier/programming/CodeWallPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://misstourist.com",
-    "new-disneyland-paris-offer-enjoy-a-free-dining-experience-in-spring-summer-2020/"
-  )
+  new Link("https://www.codewall.co.uk", "add-jquery-ajax-loading-spinners-to-your-website")
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new MissTouristPurifier(spider.html, spider.link)
+  const purifier = new CodeWallPurifier(spider.html, spider.link)
   purifier.purify()
-  console.log(purifier.html)
+  // console.log(purifier.html)
   console.log(purifier.toString())
   // await purifier.persistPurified()
 })()

@@ -16,7 +16,7 @@ class HackerNoonPurifier extends Purifier {
       .trim()
     this.description = ""
     $(".story-container .content .paragraph").each((i, e) => {
-      if (i != 0 && i < 5) {
+      if (i !== 0 && i < 5) {
         this.description += $(e).text()
       }
     })
@@ -24,7 +24,7 @@ class HackerNoonPurifier extends Purifier {
     if (
       $(".story .content")
         .find("img")
-        .attr("src") != undefined
+        .attr("src") !== undefined
     )
       this.image_url = $(".story .content")
         .find("img")
