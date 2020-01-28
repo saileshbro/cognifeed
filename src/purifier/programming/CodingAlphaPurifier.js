@@ -22,7 +22,8 @@ class CodingAlphaPurifier extends Purifier {
       }
     })
     this.description = this.description.substr(0, 500)
-    if ($("img[class*='wp-image']").attr("src") !== undefined) this.image_url = $("img[class*='wp-image']").attr("src")
+    if ($("img[class*='wp-image']").attr("src") !== undefined)
+      this.image_url = $("img[class*='wp-image']").attr("src")
   }
 }
 module.exports = CodingAlphaPurifier

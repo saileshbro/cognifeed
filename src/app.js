@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 require("dotenv").config()
 const Link = require("./scraper/link")
 const app = require("express")()
@@ -25,15 +24,18 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const CodeWallPurifier = require("./purifier/programming/CodeWallPurifier")
+const HuffPostPurifier = require("./purifier/Environment/HuffPostPurifier")
 const spider = Spider.spawn(
-  new Link("https://www.codewall.co.uk", "add-jquery-ajax-loading-spinners-to-your-website")
+  new Link(
+    "https://www.huffpost.com",
+    "entry/ari-melber-ken-starr-disaster_n_5e2fa138c5b68f86c8cd0a8b"
+  )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new CodeWallPurifier(spider.html, spider.link)
+  const purifier = new HuffPostPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())
