@@ -13,7 +13,7 @@ class TravelTourismNowPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $("div.post-title-container h3.entry_title")
+    this.title = $(".post-content container .post-title-container h3.entry_title")
       .text()
       .trim()
     this.image_url = $("div[id*='post-body'] div.seperator>a>img").attr("src")
