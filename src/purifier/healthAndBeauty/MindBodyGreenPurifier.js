@@ -13,11 +13,11 @@ class MindBodyPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $(".news-article header>h1")
+    this.title = $("div.article-header div.article-headline>h1.article-headline__text")
       .text()
       .trim()
-    this.image_url = $("section.content-wrapper div.box>img").attr("src")
-    this.description = $("div#article-body p")
+    this.image_url = $("div.article-image__inner>figure>picture img").attr("data-src")
+    this.description = $("div.article-text div.article-text__inner>p")
       .text()
       .substr(0, 500)
   }
