@@ -25,11 +25,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const BloodMilkPurifier = require("./purifier/Women/Blood&MilkPurifier")
+const TravelTourismNowPurifier = require("./purifier/Travel&Tourism/Travel&TourismNowPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://www.bloodandmilk.com",
-    "everything-you-need-to-know-about-getting-pregnant-after-a-c-section"
+    "https://travelandtourismnow.blogspot.com/",
+    "2018/11/OpenYouthWallClimbingBattle2018.html"
   )
 )
 ;(async function name() {
@@ -37,7 +37,7 @@ const spider = Spider.spawn(
     const horizion = await spider.resolveUrl()
     console.log(horizion.readLinks().length)
     spider.getNewLinks()
-    const purifier = new BloodMilkPurifier(spider.html, spider.link)
+    const purifier = new TravelTourismNowPurifier(spider.html, spider.link)
     purifier.purify()
     // console.log(purifier.html)
     console.log(purifier.toString())
