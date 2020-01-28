@@ -24,18 +24,18 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const HuffPostPurifier = require("./purifier/Environment/HuffPostPurifier")
+const iamfoodblocPurifier = require("./purifier/food/iamfoodblogPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://www.huffpost.com",
-    "entry/ari-melber-ken-starr-disaster_n_5e2fa138c5b68f86c8cd0a8b"
+    "https://iamafoodblog.com",
+    "sweet-and-spicy-gochujang-honey-roast-chicken-and-potatoes/"
   )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new HuffPostPurifier(spider.html, spider.link)
+  const purifier = new iamfoodblocPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())

@@ -1,5 +1,5 @@
 const Purifier = require("../Purifier")
-const { cheerio } = require("cheerio")
+const cheerio = require("cheerio")
 class iamfoodblogPurifier extends Purifier {
   // static baseUrl = "https://iamafoodblog.com/";
 
@@ -14,11 +14,12 @@ class iamfoodblogPurifier extends Purifier {
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".post-title").text()
-    $(".field-link a > h4").each((index, element) => {
-      this.title = $(element).text()
+    this.description = ""
+    $(".post-container p").each((index, element) => {
+      this.description += $(element).text()
     })
-
-    this.image_url = $(".feed-link a.tall-thumbnail").attr("style")
+    this.description = this.description.substr(0, 500)
+    this.image_url = $("#main-image.article-image>img.wp-post-image").attr("src")
   }
 }
 module.exports = iamfoodblogPurifier
