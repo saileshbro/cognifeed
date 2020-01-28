@@ -25,16 +25,19 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const TreeHuggerPurifier = require("./purifier/Environment/TreeHuggerPurifier")
+const BloodMilkPurifier = require("./purifier/Women/Blood&MilkPurifier")
 const spider = Spider.spawn(
-  new Link("https://www.treehugger.com", "gadgets/how-get-without-home-printer-or-scanner.html")
+  new Link(
+    "https://www.bloodandmilk.com",
+    "everything-you-need-to-know-about-getting-pregnant-after-a-c-section"
+  )
 )
 ;(async function name() {
   try {
     const horizion = await spider.resolveUrl()
     console.log(horizion.readLinks().length)
     spider.getNewLinks()
-    const purifier = new TreeHuggerPurifier(spider.html, spider.link)
+    const purifier = new BloodMilkPurifier(spider.html, spider.link)
     purifier.purify()
     // console.log(purifier.html)
     console.log(purifier.toString())
