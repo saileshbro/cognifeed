@@ -25,24 +25,17 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const TravelTourismNowPurifier = require("./purifier/Travel&Tourism/Travel&TourismNowPurifier")
+const CodeWallPurifier = require("./purifier/programming/CodeWallPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://travelandtourismnow.blogspot.com/",
-    "2018/11/OpenYouthWallClimbingBattle2018.html"
-  )
+  new Link("https://www.codewall.co.uk", "add-jquery-ajax-loading-spinners-to-your-website")
 )
 ;(async function name() {
-  try {
-    const horizion = await spider.resolveUrl()
-    console.log(horizion.readLinks().length)
-    spider.getNewLinks()
-    const purifier = new TravelTourismNowPurifier(spider.html, spider.link)
-    purifier.purify()
-    // console.log(purifier.html)
-    console.log(purifier.toString())
-    // await purifier.persistPurified()
-  } catch (error) {
-    console.log("ERROR SENDINg REQUEST")
-  }
+  const horizion = await spider.resolveUrl()
+  console.log(horizion.readLinks().length)
+  spider.getNewLinks()
+  const purifier = new CodeWallPurifier(spider.html, spider.link)
+  purifier.purify()
+  // console.log(purifier.html)
+  console.log(purifier.toString())
+  // await purifier.persistPurified()
 })()
