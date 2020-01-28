@@ -17,7 +17,7 @@ class ScienceDailyPurifier extends Purifier {
     this.description = $("dd#abstract")
       .text()
       .substr(0, 500)
-    this.image_url = this.url + $("div#story_photo .photo-image img").attr("src")
+    this.image_url = this.url.baseURL + $("div#story_photo .photo-image img").attr("src")
   }
 }
 module.exports = ScienceDailyPurifier

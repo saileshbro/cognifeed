@@ -25,19 +25,20 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const ScienceDailyPurifier = require("./purifier/science/ScienceDailyPurifier")
+const MissTouristPurifier = require("./purifier/Travel&Tourism/MissTouristPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://www.sciencedaily.com/",
-    "https://www.sciencedaily.com/releases/2020/01/200115140512.htm"
+    "https://misstourist.com",
+    "new-disneyland-paris-offer-enjoy-a-free-dining-experience-in-spring-summer-2020/"
   )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new ScienceDailyPurifier(spider.html, spider.link.resolve())
+  const purifier = new MissTouristPurifier(spider.html, spider.link)
   purifier.purify()
+  console.log(purifier.html)
   console.log(purifier.toString())
   // await purifier.persistPurified()
 })()

@@ -1,6 +1,7 @@
+/* eslint-disable linebreak-style */
 const axios = require("axios")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
-
+const Link = require("../scraper/link")
 /**
  * Abstract Class Purifier
  */
@@ -15,7 +16,7 @@ class Purifier {
   /**
    *
    * @param {String} html
-   * @param {string} url
+   * @param {Link} url
    */
   constructor(html, url) {
     ;(this.html = html), (this.url = url)
@@ -53,7 +54,7 @@ class Purifier {
       title: this.title,
       image_url: this.image_url,
       description: this.description,
-      link_url: this.link_url
+      link_url: this.link_url.resolve()
     }
   }
 }
