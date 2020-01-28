@@ -25,15 +25,18 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const CodeWallPurifier = require("./purifier/programming/CodeWallPurifier")
+const LibhubPurifier = require("./purifier/Books&Culture/LithubPurifier")
 const spider = Spider.spawn(
-  new Link("https://www.codewall.co.uk", "add-jquery-ajax-loading-spinners-to-your-website")
+  new Link(
+    "https://lithub.com",
+    "christopher-brown-on-serving-on-the-inspiration-behind-rule-of-capture"
+  )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new CodeWallPurifier(spider.html, spider.link)
+  const purifier = new LibhubPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())
