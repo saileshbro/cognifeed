@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 
@@ -12,7 +13,7 @@ class ScienceDailyPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $("h1#heading.heading").text()
+    this.title = $("h1#headline.headline").text()
     this.description = $("dd#abstract")
       .text()
       .substr(0, 500)

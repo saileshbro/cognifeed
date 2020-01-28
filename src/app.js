@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 require("dotenv").config()
 const Link = require("./scraper/link")
 const app = require("express")()
@@ -24,15 +25,18 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const HackerNoonPurifier = require("./purifier/programming/HackerNoonPurifier")
+const ScienceDailyPurifier = require("./purifier/science/ScienceDailyPurifier")
 const spider = Spider.spawn(
-  new Link("https://hackernoon.com", "how-i-organized-my-nodejs-rest-api-aq573376")
+  new Link(
+    "https://www.sciencedaily.com/",
+    "https://www.sciencedaily.com/releases/2020/01/200115140512.htm"
+  )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new HackerNoonPurifier(spider.html, spider.link.resolve())
+  const purifier = new ScienceDailyPurifier(spider.html, spider.link.resolve())
   purifier.purify()
   console.log(purifier.toString())
   // await purifier.persistPurified()
