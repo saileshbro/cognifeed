@@ -25,18 +25,13 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const MindBodyPurifier = require("./purifier/healthAndBeauty/MindBodyGreenPurifier")
-const spider = Spider.spawn(
-  new Link(
-    "https://www.mindbodygreen.com/",
-    "articles/best-natural-eczema-products-according-to-dermatologists"
-  )
-)
+const BeautyTipsPurifier = require("./purifier/healthAndBeauty/BeautyTipsPurifier")
+const spider = Spider.spawn(new Link("https://www.beautytipsonline.com", "articles/photogenic.htm"))
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new MindBodyPurifier(spider.html, spider.link)
+  const purifier = new BeautyTipsPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())
