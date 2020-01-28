@@ -25,18 +25,18 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const LibhubPurifier = require("./purifier/Books&Culture/LithubPurifier")
+const MindBodyPurifier = require("./purifier/healthAndBeauty/MindBodyGreenPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://lithub.com",
-    "christopher-brown-on-serving-on-the-inspiration-behind-rule-of-capture"
+    "https://www.mindbodygreen.com/",
+    "articles/dr-perlmutter-wants-you-to-eat-more-of-this-in-2020"
   )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new LibhubPurifier(spider.html, spider.link)
+  const purifier = new MindBodyPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())
