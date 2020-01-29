@@ -1,3 +1,4 @@
+import 'package:cognifeed_app/application_wrapper.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
@@ -85,7 +86,7 @@ class App extends StatelessWidget {
             // return AuthenticationPage(
             //   userRepository: UserRepository(),
             // );
-            return HomePage();
+            return ApplicationWrapper();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();

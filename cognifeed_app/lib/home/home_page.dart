@@ -11,12 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    final navbar = MediaQuery.of(context).size.width - 140;
-    ColorMaker selectedColorMaker = ColorMaker.setting;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
@@ -36,211 +32,43 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  "assets/images/home.png",
-                  fit: BoxFit.fill,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      "assets/images/home.png",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                  child: Container(
+                    color: Colors.grey.withOpacity(0.2),
                   ),
                 ),
               ),
             ),
-            Stack(
+            Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Hello(),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      height: 585,
-                      child: ListView.builder(
-                        itemBuilder: (BuildContext context, int index) {
-                          return ArticleBox(
-                            title: articles[index].title,
-                            imageUrl: articles[index].imageUrl,
-                            category: articles[index].category,
-                            description: articles[index].description,
-                          );
-                        },
-                        itemCount: articles.length,
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: 0,
+                Hello(),
+                Expanded(
                   child: Container(
-                    height: 45,
-                    width: MediaQuery.of(context).size.width,
-                    color: Color(0xff004844).withOpacity(0.7),
+                    margin: EdgeInsets.only(top: 20),
+                    child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return ArticleBox(
+                          title: articles[index].title,
+                          imageUrl: articles[index].imageUrl,
+                          category: articles[index].category,
+                          description: articles[index].description,
+                          isFavourite: articles[index].isFavourite,
+                        );
+                      },
+                      itemCount: articles.length,
+                    ),
                   ),
                 ),
-                Positioned(
-                  bottom: 15,
-                  left: 70,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xff00c9c3),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Color(0xff00c9c3),
-                        width: 4,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 3,
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: 0.25 * navbar,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                selectedColorMaker == ColorMaker.setting
-                                    ? BorderRadius.all(Radius.circular(20))
-                                    : BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        topLeft: Radius.circular(20),
-                                      ),
-                            color: selectedColorMaker == ColorMaker.home
-                                ? Color(0xff00c9c3)
-                                : Color(0xff004844),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedColorMaker = ColorMaker.home;
-                              });
-                            },
-                            child: Icon(
-                              Icons.home,
-                              size: 30,
-                              color: selectedColorMaker == ColorMaker.home
-                                  ? Color(0xff192965)
-                                  : Color(0xff00c9c3),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: selectedColorMaker == ColorMaker.home
-                                ? BorderRadius.only(
-                                    bottomLeft: Radius.circular(20),
-                                    topLeft: Radius.circular(20),
-                                  )
-                                : selectedColorMaker == ColorMaker.bookmark
-                                    ? BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        bottomRight: Radius.circular(20),
-                                      )
-                                    : BorderRadius.zero,
-                            color: selectedColorMaker == ColorMaker.setting
-                                ? Color(0xff00c9c3)
-                                : Color(0xff004844),
-                          ),
-                          width: 0.25 * navbar,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedColorMaker = ColorMaker.setting;
-                              });
-                            },
-                            child: Icon(
-                              Icons.menu,
-                              size: 30,
-                              color: selectedColorMaker == ColorMaker.setting
-                                  ? Color(0xff192965)
-                                  : Color(0xff00c9c3),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 0.25 * navbar,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                selectedColorMaker == ColorMaker.setting
-                                    ? BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        topLeft: Radius.circular(20),
-                                      )
-                                    : selectedColorMaker == ColorMaker.people
-                                        ? BorderRadius.only(
-                                            bottomRight: Radius.circular(20),
-                                            topRight: Radius.circular(20),
-                                          )
-                                        : BorderRadius.zero,
-                            color: selectedColorMaker == ColorMaker.bookmark
-                                ? Color(0xff00c9c3)
-                                : Color(0xff004844),
-                          ),
-                          height: 55,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedColorMaker = ColorMaker.bookmark;
-                              });
-                            },
-                            child: Icon(
-                              Icons.bookmark,
-                              size: 30,
-                              color: selectedColorMaker == ColorMaker.bookmark
-                                  ? Color(0xff192965)
-                                  : Color(0xff00c9c3),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 55,
-                          width: 0.25 * navbar,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                selectedColorMaker == ColorMaker.bookmark
-                                    ? BorderRadius.all(
-                                        Radius.circular(20),
-                                      )
-                                    : BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        bottomRight: Radius.circular(20),
-                                      ),
-                            color: selectedColorMaker == ColorMaker.people
-                                ? Color(0xff00c9c3)
-                                : Color(0xff004844),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedColorMaker = ColorMaker.people;
-                              });
-                            },
-                            child: Icon(
-                              Icons.person,
-                              size: 30,
-                              color: selectedColorMaker == ColorMaker.people
-                                  ? Color(0xff192965)
-                                  : Color(0xff00c9c3),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    height: 60,
-                    width: navbar + 8,
-                  ),
-                )
               ],
             ),
           ],
@@ -324,7 +152,7 @@ class HelloText extends StatelessWidget {
             style: CognifeedTypography.textStyleOnboardHeading.copyWith(
               color: Color(0xff01796f),
               fontWeight: FontWeight.w600,
-              fontSize: 18,
+              fontSize: 23,
             ),
             children: <TextSpan>[
               TextSpan(
@@ -344,12 +172,14 @@ class ArticleBox extends StatefulWidget {
   final String description;
   final String imageUrl;
   final String category;
+  bool isFavourite;
 
-  const ArticleBox({
+  ArticleBox({
     @required this.category,
     @required this.description,
     @required this.imageUrl,
     @required this.title,
+    @required this.isFavourite,
     Key key,
   }) : super(key: key);
 
@@ -358,8 +188,6 @@ class ArticleBox extends StatefulWidget {
 }
 
 class _ArticleBoxState extends State<ArticleBox> {
-  IconMaker selectedIconMaker = IconMaker.add;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -399,27 +227,14 @@ class _ArticleBoxState extends State<ArticleBox> {
                     ),
                     Positioned(
                       left: 5,
-                      child: RichText(
-                        text: TextSpan(
-                            text: '#  ',
-                            style: CognifeedTypography.textStyleOnboardHeading
-                                .copyWith(
-                              color: Color(0xffe9fdfc),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 30,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: widget.category,
-                                // text: ' Adventure',
-                                style: CognifeedTypography
-                                    .textStyleOnboardHeading
-                                    .copyWith(
-                                  fontSize: 25,
-                                  color: Color(0xffe9fdfc),
-                                ),
-                              )
-                            ]),
+                      top: 2,
+                      child: Text(
+                        widget.category,
+                        style: CognifeedTypography.textStyle2.copyWith(
+                          fontSize: 22,
+                          color: Color(0xffe9fdfc),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -428,14 +243,16 @@ class _ArticleBoxState extends State<ArticleBox> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedIconMaker == IconMaker.add
-                                ? selectedIconMaker = IconMaker.remove
-                                : selectedIconMaker = IconMaker.add;
+                            widget.isFavourite = !widget.isFavourite;
                           });
                         },
-                        child: selectedIconMaker == IconMaker.add
-                            ? AddIcon()
-                            : RemoveIcon(),
+                        child: Icon(
+                          Icons.bookmark,
+                          size: 40,
+                          color: widget.isFavourite
+                              ? Color(0xff00c9c3)
+                              : Color(0xffe9fdfc),
+                        ),
                       ),
                     ),
                   ],
@@ -477,36 +294,3 @@ class _ArticleBoxState extends State<ArticleBox> {
     );
   }
 }
-
-class AddIcon extends StatelessWidget {
-  const AddIcon({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.bookmark,
-      size: 40,
-      color: Color(0xff5E080A),
-    );
-  }
-}
-
-class RemoveIcon extends StatelessWidget {
-  const RemoveIcon({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.bookmark,
-      size: 40,
-      color: Color(0xffe9fdfc),
-    );
-  }
-}
-
-enum IconMaker { add, remove }
-enum ColorMaker { home, setting, bookmark, people }

@@ -4,6 +4,7 @@ class Article {
   String description;
   String imageUrl;
   String category;
+  bool isFavourite;
 
   Article({
     this.articleId,
@@ -11,6 +12,7 @@ class Article {
     this.imageUrl,
     this.description,
     this.category,
+    this.isFavourite = false,
   });
 }
 
