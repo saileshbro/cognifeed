@@ -158,7 +158,7 @@ class HelloText extends StatelessWidget {
               TextSpan(
                 text: ' Sarayu',
                 style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
               )
             ]),
@@ -231,14 +231,14 @@ class _ArticleBoxState extends State<ArticleBox> {
                       child: Text(
                         widget.category,
                         style: CognifeedTypography.textStyle2.copyWith(
-                          fontSize: 22,
+                          fontSize: 24,
                           color: Color(0xffe9fdfc),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 0,
+                      top: 3,
                       right: 0,
                       child: GestureDetector(
                         onTap: () {
@@ -248,7 +248,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                         },
                         child: Icon(
                           Icons.bookmark,
-                          size: 40,
+                          size: 35,
                           color: widget.isFavourite
                               ? Color(0xff00c9c3)
                               : Color(0xffe9fdfc),

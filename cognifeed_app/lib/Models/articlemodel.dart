@@ -20,7 +20,7 @@ List<Article> articles = <Article>[
   Article(
       articleId: 1,
       title: "Getting to the Bottom of Navigation in Flutter",
-      category: "FLutter",
+      category: "Flutter",
       description:
           "Bottom navigation in mobile apps is popular because our phones keep getting bigger but our thumbs do not. The Material Design specification describes a bottom navigation bar as a row of three to five buttons at the",
       imageUrl:

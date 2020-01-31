@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CognifeedColors {
@@ -11,6 +12,7 @@ class CognifeedColors {
 class CognifeedTheme {
   static ThemeData getTheme() {
     return ThemeData(
+      textTheme: GoogleFonts.crimsonTextTextTheme(),
       inputDecorationTheme: InputDecorationTheme(
         helperStyle: TextStyle(color: Colors.teal),
         contentPadding: EdgeInsets.only(left: 25, top: 0, bottom: 0, right: 0),
@@ -60,40 +62,32 @@ class CognifeedTheme {
 class CognifeedTypography {
   static TextStyle textStyle2 = TextStyle(
     fontSize: 17,
-    fontFamily: "SegoeUI",
     fontWeight: FontWeight.bold,
     color: CognifeedColors.aquaMarine,
   );
   static TextStyle textStyle4 = TextStyle(
     fontSize: 14,
-    fontFamily: "SegoeUI",
     fontWeight: FontWeight.normal,
     color: Colors.white,
   );
   static TextStyle textStyleOnboardHeading = TextStyle(
     fontSize: 24,
-    fontFamily: "PoorRichard",
     fontWeight: FontWeight.normal,
-    color: Color(0xff192965),
   );
   static TextStyle searchBox = TextStyle(
-    fontSize: 24,
-    fontFamily: "CaroniR",
-    fontWeight: FontWeight.normal,
-    color: Color(0xff192965),
+    fontSize: 20,
+    fontWeight: FontWeight.w300,
   );
   static TextStyle tags = TextStyle(
     fontSize: 15,
-    fontFamily: "Jet",
     fontWeight: FontWeight.normal,
     color: Color(0xff192965),
   );
   static TextStyle title = TextStyle(
-    fontSize: 17,
-    fontFamily: "Kicker",
+    fontSize: 21,
     letterSpacing: 1,
-    wordSpacing: 1.3,
-    height: 1.4,
+    wordSpacing: 1,
+    height: 1.2,
     fontWeight: FontWeight.w600,
     color: Color(0xff192965),
   );
