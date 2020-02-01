@@ -12,6 +12,7 @@ app.use("/api", require("./routes/user"))
 app.use("/api", require("./routes/spider"))
 app.use("/api", require("./routes/purifier"))
 app.use("/api", require("./routes/articles"))
+app.use("/api", require("./routes/tags"))
 
 // 404 page not found
 app.all("*", (req, res) => {
