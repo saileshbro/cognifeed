@@ -11,6 +11,8 @@ app.use(morgan("tiny"))
 app.use("/api", require("./routes/user"))
 app.use("/api", require("./routes/spider"))
 app.use("/api", require("./routes/purifier"))
+app.use("/api", require("./routes/articles"))
+
 // 404 page not found
 app.all("*", (req, res) => {
   throw new ErrorHandler(404, "Page not found!")
