@@ -72,16 +72,15 @@ class CognifeedTypography {
   );
   static TextStyle textStyleOnboardHeading = TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w600,
   );
   static TextStyle searchBox = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w300,
   );
   static TextStyle tags = TextStyle(
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: FontWeight.normal,
-    color: Color(0xff192965),
   );
   static TextStyle title = TextStyle(
     fontSize: 20,

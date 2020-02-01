@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home/home_page.dart';
+import 'home/onboarding_page.dart';
 
 import 'login/login_bloc.dart';
 
@@ -80,13 +80,13 @@ class App extends StatelessWidget {
             return SplashPage();
           }
           if (state is AuthenticationAuthenticated) {
-            return HomePage();
+            return OnboardingPage();
           }
           if (state is AuthenticationUnauthenticated) {
             // return AuthenticationPage(
             //   userRepository: UserRepository(),
             // );
-            return ApplicationWrapper();
+            return OnboardingPage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();

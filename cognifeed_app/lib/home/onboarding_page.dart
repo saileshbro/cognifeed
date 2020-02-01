@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cognifeed_app/application_wrapper.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -46,7 +47,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(21, 18, 10, 0),
                   width: 372,
-                  height: 660,
+                  height: 667,
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                     child: Container(
@@ -65,8 +66,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     Tags(),
                     Container(
                       margin: EdgeInsets.only(
-                        top: 10,
-                        bottom: 10,
+                        top: 20,
+                        bottom: 15,
                       ),
                       height: 2,
                       width: 370,
@@ -74,9 +75,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                     ShowMore(),
                     Container(
-                      margin: EdgeInsets.fromLTRB(14, 18, 10, 0),
+                      margin: EdgeInsets.fromLTRB(14, 20, 10, 0),
                       width: 372,
-                      height: 74.5,
+                      height: 62.5,
                       color: Colors.white.withOpacity(0.35),
                       child: Stack(
                         children: <Widget>[
@@ -109,7 +110,7 @@ class CognifeedOnboard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 26),
+          margin: EdgeInsets.only(top: 20),
           height: 64,
           width: MediaQuery.of(context).size.width - 29,
           decoration: BoxDecoration(
@@ -152,10 +153,12 @@ class MakeChoices extends StatelessWidget {
                   color: Colors.black.withOpacity(0.16)),
             ],
           ),
-          padding: EdgeInsets.fromLTRB(103, 15, 96, 13),
+          padding: EdgeInsets.fromLTRB(103, 10, 96, 13),
           child: Text(
             'Make your choices!',
-            style: CognifeedTypography.textStyleOnboardHeading,
+            style: CognifeedTypography.textStyleOnboardHeading.copyWith(
+              color: Color(0xff192965),
+            ),
           ),
         ),
       ],
@@ -176,7 +179,7 @@ class SearchBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 22, left: 22, right: 20),
+              margin: EdgeInsets.only(top: 18, left: 22, right: 20),
               height: 83,
               width: 369,
               decoration: BoxDecoration(
@@ -225,9 +228,12 @@ class SearchInput extends StatelessWidget {
             ),
             child: TextField(
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Search for tags...',
-                  hintStyle: CognifeedTypography.tags),
+                border: InputBorder.none,
+                hintText: 'Search for tags...',
+                hintStyle: CognifeedTypography.tags.copyWith(
+                  color: Color(0xff192965),
+                ),
+              ),
             ),
           ),
           Container(
@@ -249,7 +255,7 @@ class Tags extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 22, left: 35, right: 35),
+      margin: EdgeInsets.only(top: 26, left: 35, right: 35),
       height: 315,
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
@@ -276,9 +282,8 @@ class ShowMore extends StatelessWidget {
           padding: const EdgeInsets.only(left: 55),
           child: Text(
             'Show more',
-            style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-              color: Color(0xff00c9c3),
-            ),
+            style: CognifeedTypography.textStyleOnboardHeading
+                .copyWith(color: Color(0xff00c9c3), fontSize: 20),
           ),
         ),
         SizedBox(
@@ -304,17 +309,24 @@ class SaveButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 25, left: 50),
-          padding: EdgeInsets.symmetric(horizontal: 35, vertical: 4),
-          child: Text(
-            'Save',
-            style: CognifeedTypography.tags
-                .copyWith(fontSize: 17, color: Color(0xffe9fdfc)),
-          ),
-          decoration: BoxDecoration(
-            color: Color(0xff192965).withOpacity(0.85),
-            borderRadius: BorderRadius.circular(15),
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => ApplicationWrapper()));
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 16, left: 45),
+            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 4),
+            child: Text(
+              'Save',
+              style:
+                  CognifeedTypography.tags.copyWith(color: Color(0xffe9fdfc)),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xff192965).withOpacity(0.85),
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
         ),
       ],
@@ -358,8 +370,14 @@ class _TagWidgetState extends State<TagWidget> {
           Text(
             widget.tag,
             style: selectedIconMaker == IconMaker.add
-                ? CognifeedTypography.tags
-                : CognifeedTypography.tags.copyWith(color: Color(0xffe9fdfc)),
+                ? CognifeedTypography.tags.copyWith(
+                    color: Color(0xff192965),
+                    fontWeight: FontWeight.w600,
+                  )
+                : CognifeedTypography.tags.copyWith(
+                    color: Color(0xffe9fdfc),
+                    fontSize: 20,
+                  ),
             textAlign: TextAlign.center,
           ),
           GestureDetector(

@@ -14,16 +14,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double sliderValue = 0.0;
 
-   ScrollController _listViewController;
-   @override
+  ScrollController _listViewController;
+  @override
   void initState() {
-    _listViewController = ScrollController()..addListener((){
-      setState(() {
-        sliderValue=_listViewController.offset/_listViewController.position.maxScrollExtent;
+    _listViewController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          sliderValue = _listViewController.offset /
+              _listViewController.position.maxScrollExtent;
+        });
       });
-    });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,11 +95,10 @@ class _HomePageState extends State<HomePage> {
               child: RotatedBox(
                 quarterTurns: 1,
                 child: SliderTheme(
-                  data:SliderThemeData(
-                    activeTrackColor:  Color(0xff192965),
-                    inactiveTrackColor:  Color(0xff192965),
-                    thumbShape: CustomThumbShape()
-                  ),
+                  data: SliderThemeData(
+                      activeTrackColor: Color(0xff192965),
+                      inactiveTrackColor: Color(0xff192965),
+                      thumbShape: CustomThumbShape()),
                   child: Slider(
                     max: 1,
                     min: 0,
@@ -104,10 +106,10 @@ class _HomePageState extends State<HomePage> {
                     onChanged: (i) {
                       setState(() {
                         sliderValue = i;
-  _listViewController.jumpTo(_listViewController.position.maxScrollExtent*i);
+                        _listViewController.jumpTo(
+                            _listViewController.position.maxScrollExtent * i);
                       });
                     },
-
                   ),
                 ),
               ),
@@ -352,6 +354,7 @@ class _ArticleBoxState extends State<ArticleBox> {
     );
   }
 }
+
 class CustomThumbShape extends SliderComponentShape {
   final double thumbRadius;
 
@@ -366,17 +369,17 @@ class CustomThumbShape extends SliderComponentShape {
 
   @override
   void paint(
-      PaintingContext context,
-      Offset center, {
-        Animation<double> activationAnimation,
-        Animation<double> enableAnimation,
-        bool isDiscrete,
-        TextPainter labelPainter,
-        RenderBox parentBox,
-        SliderThemeData sliderTheme,
-        TextDirection textDirection,
-        double value,
-      }) {
+    PaintingContext context,
+    Offset center, {
+    Animation<double> activationAnimation,
+    Animation<double> enableAnimation,
+    bool isDiscrete,
+    TextPainter labelPainter,
+    RenderBox parentBox,
+    SliderThemeData sliderTheme,
+    TextDirection textDirection,
+    double value,
+  }) {
     final Canvas canvas = context.canvas;
 
     final rect = Rect.fromCircle(center: center, radius: thumbRadius);
@@ -384,8 +387,9 @@ class CustomThumbShape extends SliderComponentShape {
     final fillPaint = Paint()
       ..color = sliderTheme.activeTrackColor
       ..style = PaintingStyle.fill
-      ..strokeCap=StrokeCap.round
-      ..strokeWidth=8.0;
-  canvas.drawLine(Offset(rect.left, rect.bottom-6), Offset(rect.left+30, rect.bottom-6), fillPaint);
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 8.0;
+    canvas.drawLine(Offset(rect.left, rect.bottom - 6),
+        Offset(rect.left + 30, rect.bottom - 6), fillPaint);
   }
 }
