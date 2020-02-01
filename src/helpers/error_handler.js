@@ -17,6 +17,9 @@ class ErrorHandler extends Error {
  */
 const errorHandler = (err, res) => {
   const { statusCode, error } = err
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    console.error("Bad JSON")
+  }
   res.status(statusCode || 500).json({ error: error || "Error Connecting to Database." })
 }
 

@@ -8,6 +8,7 @@ const { nameValidator, passwordValidator } = require("../helpers/customValidator
 exports.signup = async (req, res, next) => {
   const { email, name } = req.body
   let { password } = req.body
+  console.log("hit")
   try {
     if (!name) {
       throw new ErrorHandler(406, "Empty name provided")
@@ -36,7 +37,11 @@ exports.signup = async (req, res, next) => {
       throw new ErrorHandler(409, "Email already registered")
     }
     password = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS, 10))
-    const result = await pool.query("INSERT INTO users SET email=?,password=?", [email, password])
+    const result = await pool.query("INSERT INTO users SET email=?,password=?", [
+      email,
+      password,
+      name
+    ])
     if (result.affectedRows) {
       await pool.query("INSERT INTO profile SET user_id=?,name=?", [result.insertId, name])
     }
@@ -61,9 +66,10 @@ exports.login = async (req, res, next) => {
     if (!password) {
       throw new ErrorHandler(406, "Empty password provided")
     }
-    const result = await pool.query("SELECT user_id,email,password FROM users WHERE email=?", [
-      email
-    ])
+    const result = await pool.query(
+      "SELECT user_id,email,password,name FROM users JOIN profile USING(user_id) WHERE email=? LIMIT 1",
+      [email]
+    )
 
     if (result.length === 0) {
       throw new ErrorHandler(401, "Invalid email or password")
