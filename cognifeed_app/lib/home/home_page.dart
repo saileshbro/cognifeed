@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 Hello(),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 20, bottom: 60),
                     child: ListView.builder(
                       itemBuilder: (BuildContext context, int index) {
                         return ArticleBox(
@@ -120,15 +120,15 @@ class Hello extends StatelessWidget {
                 ),
                 HelloText(),
                 SizedBox(
-                  width: 10,
+                  width: 25,
                 ),
                 Text(
                   'Here are articles for you!',
                   style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-                      color: Color(0xff01796f),
-                      fontWeight: FontWeight.w600,
-                      wordSpacing: 1.5,
-                      letterSpacing: 1),
+                    color: Color(0xff01796f),
+                    fontWeight: FontWeight.w600,
+                    wordSpacing: 1.5,
+                  ),
                 ),
               ],
             ))
@@ -152,13 +152,14 @@ class HelloText extends StatelessWidget {
             style: CognifeedTypography.textStyleOnboardHeading.copyWith(
               color: Color(0xff01796f),
               fontWeight: FontWeight.w600,
-              fontSize: 23,
+              fontSize: 24,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: ' Sarayu',
                 style: CognifeedTypography.textStyleOnboardHeading.copyWith(
                   fontSize: 20,
+                  color: Color(0xff192965),
                 ),
               )
             ]),
@@ -194,36 +195,51 @@ class _ArticleBoxState extends State<ArticleBox> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: EdgeInsets.only(bottom: 20, right: 5),
           padding: EdgeInsets.all(8),
           height: widget.title.length <= 35
-              ? 447
-              : widget.title.length <= 70 ? 467 : 487,
+              ? 437
+              : widget.title.length <= 70 ? 462 : 487,
           width: 369,
           decoration: BoxDecoration(
-            color: Color(0xffe9fdfc).withOpacity(0.3),
-            border: Border(
-              bottom: BorderSide(color: Color(0xff192965), width: 3),
-              right: BorderSide(color: Color(0xff192965), width: 8),
-              top: BorderSide(color: Color(0xff192965), width: 3),
-            ),
-          ),
+              color: Color(0xffe9fdfc).withOpacity(0.3),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+              border: Border.all(
+                width: 3,
+                color: Color(0xff192965),
+              )),
           child: Column(
             children: <Widget>[
               Container(
                 child: Stack(
                   children: <Widget>[
-                    Image.network(
-                      widget.imageUrl,
-                      // "assets/images/rose.png",
-                      fit: BoxFit.cover,
+                    Container(
                       height: 250,
                       width: 369,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                        ),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            widget.imageUrl,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xff004844),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
                       height: 40,
-                      color: Color(0xff004844),
                     ),
                     Positioned(
                       left: 5,
@@ -239,7 +255,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                     ),
                     Positioned(
                       top: 3,
-                      right: 0,
+                      right: 5,
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -263,7 +279,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                   Container(
                     height: widget.title.length <= 35
                         ? 35
-                        : widget.title.length <= 70 ? 60 : 85,
+                        : widget.title.length <= 60 ? 60 : 85,
                     width: 360,
                     decoration: BoxDecoration(
                       color: Color(0xffe9fdfc),
@@ -280,6 +296,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                     height: 130,
                     child: Text(
                       widget.description,
+                      textAlign: TextAlign.justify,
                       maxLines: 4,
                       style: CognifeedTypography.searchBox
                           .copyWith(color: Colors.black),

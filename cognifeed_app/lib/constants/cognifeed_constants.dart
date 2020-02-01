@@ -84,9 +84,8 @@ class CognifeedTypography {
     color: Color(0xff192965),
   );
   static TextStyle title = TextStyle(
-    fontSize: 21,
+    fontSize: 20,
     letterSpacing: 1,
-    wordSpacing: 1,
     height: 1.2,
     fontWeight: FontWeight.w600,
     color: Color(0xff192965),
