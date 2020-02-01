@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:cognifeed_app/Models/articlemodel.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
@@ -11,6 +12,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double sliderValue = 0.0;
+
+   ScrollController _listViewController;
+   @override
+  void initState() {
+    _listViewController = ScrollController()..addListener((){
+      setState(() {
+        sliderValue=_listViewController.offset/_listViewController.position.maxScrollExtent;
+      });
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.only(top: 20, bottom: 60),
                     child: ListView.builder(
+                      controller: _listViewController,
                       itemBuilder: (BuildContext context, int index) {
                         return ArticleBox(
                           title: articles[index].title,
@@ -71,6 +85,33 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            Positioned(
+              top: 65,
+              bottom: 55,
+              left: -5,
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: SliderTheme(
+                  data:SliderThemeData(
+                    activeTrackColor:  Color(0xff192965),
+                    inactiveTrackColor:  Color(0xff192965),
+                    thumbShape: CustomThumbShape()
+                  ),
+                  child: Slider(
+                    max: 1,
+                    min: 0,
+                    value: sliderValue,
+                    onChanged: (i) {
+                      setState(() {
+                        sliderValue = i;
+  _listViewController.jumpTo(_listViewController.position.maxScrollExtent*i);
+                      });
+                    },
+
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -309,5 +350,42 @@ class _ArticleBoxState extends State<ArticleBox> {
         ),
       ],
     );
+  }
+}
+class CustomThumbShape extends SliderComponentShape {
+  final double thumbRadius;
+
+  const CustomThumbShape({
+    this.thumbRadius = 6.0,
+  });
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
+    return Size.fromRadius(thumbRadius);
+  }
+
+  @override
+  void paint(
+      PaintingContext context,
+      Offset center, {
+        Animation<double> activationAnimation,
+        Animation<double> enableAnimation,
+        bool isDiscrete,
+        TextPainter labelPainter,
+        RenderBox parentBox,
+        SliderThemeData sliderTheme,
+        TextDirection textDirection,
+        double value,
+      }) {
+    final Canvas canvas = context.canvas;
+
+    final rect = Rect.fromCircle(center: center, radius: thumbRadius);
+
+    final fillPaint = Paint()
+      ..color = sliderTheme.activeTrackColor
+      ..style = PaintingStyle.fill
+      ..strokeCap=StrokeCap.round
+      ..strokeWidth=8.0;
+  canvas.drawLine(Offset(rect.left, rect.bottom-6), Offset(rect.left+30, rect.bottom-6), fillPaint);
   }
 }
