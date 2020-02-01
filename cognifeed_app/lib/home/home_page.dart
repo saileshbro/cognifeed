@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/Models/articlemodel.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
@@ -262,14 +263,12 @@ class _ArticleBoxState extends State<ArticleBox> {
                     Container(
                       height: 250,
                       width: 369,
-                      decoration: BoxDecoration(
+                      child: ClipRRect(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                         ),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            widget.imageUrl,
-                          ),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.imageUrl,
                           fit: BoxFit.cover,
                         ),
                       ),
