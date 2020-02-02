@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffE9FDFC).withOpacity(0.5),
       resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
