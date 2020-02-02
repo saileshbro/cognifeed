@@ -50,7 +50,8 @@ const tags = [
   "Finance",
   "Marketing",
   "Television Series",
-  "Literature"
+  "Literature",
+  "Journalism"
 ]
 tags.forEach(tag => {
   try {

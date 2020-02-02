@@ -21,6 +21,7 @@ app.all("*", (req, res) => {
 app.listen(port, console.log(`Server running on port ${port}`))
 // Error handler
 app.use((err, req, res, next) => {
+  console.log(err)
   errorHandler(err, res)
 })
 //Spider Instantiation.
