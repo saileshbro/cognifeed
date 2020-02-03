@@ -1,7 +1,5 @@
 const Link = require("./link")
 const request = require("request-promise")
-const pool = require("../database/database")
-const { ErrorHandler } = require("../helpers/error_handler")
 const cheerio = require("cheerio")
 const axios = require("axios").default
 const LinksCollection = require("./links-collection")
@@ -47,14 +45,12 @@ module.exports = class Spider {
     //  returns this.spider ko linksCollection
   }
   async persistHtml() {
-    console.log(this.html.length)
     try {
       const payload = {
         url: this.link.resolve(),
         html: this.html
       }
-      const response = await axios.post(`${baseUrl}/api/spider/persist`, payload)
-      console.log(response)
+      await axios.post(`${baseUrl}/api/spider/persist`, payload)
     } catch (error) {
       console.error(error)
     }

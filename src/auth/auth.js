@@ -1,6 +1,6 @@
 /* eslint-disable require-atomic-updates */
 const jwt = require("jsonwebtoken")
-const pool = require("../database/database")
+const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
 module.exports = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     }
     const token = req.header("Authorization").replace("Bearer ", "")
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    let user = await pool.query("SELECT * FROM users WHERE user_id=?", [decoded.user_id])
+    let user = await pool.query(`SELECT * FROM ${tables.user} WHERE user_id=?`, [decoded.user_id])
     if (user.length == 0) {
       throw new ErrorHandler(401, "Please authenticate.")
     }

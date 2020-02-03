@@ -21,7 +21,6 @@ app.all("*", (req, res) => {
 app.listen(port, console.log(`Server running on port ${port}`))
 // Error handler
 app.use((err, req, res, next) => {
-  console.log(err)
   errorHandler(err, res)
 })
 //Spider Instantiation.
@@ -31,7 +30,6 @@ app.use((err, req, res, next) => {
 // const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
 // ;(async function name() {
 //   const horizion = await spider.resolveUrl()
-//   console.log(horizion.links().length)
 //   spider.getNewLinks()
 //   const purifier = new WikiPurifier(spider.html, spider.link.resolve())
 //   purifier.purify()
