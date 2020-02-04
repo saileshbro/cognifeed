@@ -19,7 +19,7 @@ class _ApplicationWrapperState extends State<ApplicationWrapper> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width,
-            color: Color(0xff004844),
+            color: Color(0xff97F7C3),
           ),
           CustomBottomNavBar(
             selectedColorMaker: selectedColorMarker,

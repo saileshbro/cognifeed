@@ -31,93 +31,95 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffE9FDFC).withOpacity(0.5),
-      resizeToAvoidBottomInset: false,
-      appBar:
-          PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
-      body: AnnotatedRegion(
-        value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Positioned(
-              right: -5,
-              top: -10,
-              bottom: -10,
-              left: -20,
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/images/home.png",
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffE9FDFC).withOpacity(0.5),
+        resizeToAvoidBottomInset: false,
+        appBar:
+            PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
+        body: AnnotatedRegion(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Positioned(
+                right: -5,
+                top: -10,
+                bottom: -10,
+                left: -20,
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/images/home.png",
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
                   ),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                  child: Container(
-                    color: Colors.grey.withOpacity(0.2),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                    child: Container(
+                      color: Colors.white.withOpacity(0.3),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Hello(),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 15, bottom: 60),
-                    child: ListView.builder(
-                      controller: _listViewController,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ArticleBox(
-                          title: articles[index].title,
-                          imageUrl: articles[index].imageUrl,
-                          category: articles[index].category,
-                          description: articles[index].description,
-                          isFavourite: articles[index].isFavourite,
-                        );
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Hello(),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15, bottom: 60),
+                      child: ListView.builder(
+                        controller: _listViewController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ArticleBox(
+                            title: articles[index].title,
+                            imageUrl: articles[index].imageUrl,
+                            category: articles[index].category,
+                            description: articles[index].description,
+                            isFavourite: articles[index].isFavourite,
+                          );
+                        },
+                        itemCount: articles.length,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 80,
+                bottom: 55,
+                left: -5,
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: SliderTheme(
+                    data: SliderThemeData(
+                        activeTrackColor: Color(0xff192965),
+                        inactiveTrackColor: Color(0xff192965),
+                        thumbShape: CustomThumbShape()),
+                    child: Slider(
+                      max: 1,
+                      min: 0,
+                      value: sliderValue,
+                      onChanged: (i) {
+                        setState(() {
+                          sliderValue = i;
+                          _listViewController.jumpTo(
+                              _listViewController.position.maxScrollExtent * i);
+                        });
                       },
-                      itemCount: articles.length,
                     ),
                   ),
                 ),
-              ],
-            ),
-            Positioned(
-              top: 80,
-              bottom: 55,
-              left: -5,
-              child: RotatedBox(
-                quarterTurns: 1,
-                child: SliderTheme(
-                  data: SliderThemeData(
-                      activeTrackColor: Color(0xff192965),
-                      inactiveTrackColor: Color(0xff192965),
-                      thumbShape: CustomThumbShape()),
-                  child: Slider(
-                    max: 1,
-                    min: 0,
-                    value: sliderValue,
-                    onChanged: (i) {
-                      setState(() {
-                        sliderValue = i;
-                        _listViewController.jumpTo(
-                            _listViewController.position.maxScrollExtent * i);
-                      });
-                    },
-                  ),
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -221,17 +223,20 @@ class ArticleBox extends StatefulWidget {
 }
 
 class _ArticleBoxState extends State<ArticleBox> {
+  double animatedHeight = 0;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        Container(
+        AnimatedContainer(
           margin: EdgeInsets.only(bottom: 20, right: 5),
           padding: EdgeInsets.all(8),
           height: widget.title.length <= 35
-              ? 522
-              : widget.title.length <= 70 ? 542 : 572,
+              ? 340 + animatedHeight
+              : widget.title.length <= 70
+                  ? 360 + animatedHeight
+                  : 390 + animatedHeight,
           width: 369,
           decoration: BoxDecoration(
               color: Color(0xffe9fdfc).withOpacity(0.3),
@@ -264,7 +269,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Color(0xff004844),
+                        color: Color(0xffe9fdfc),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                         ),
@@ -278,8 +283,8 @@ class _ArticleBoxState extends State<ArticleBox> {
                         widget.category,
                         style: CognifeedTypography.textStyle2.copyWith(
                           fontSize: 24,
-                          color: Color(0xffe9fdfc),
-                          fontWeight: FontWeight.w500,
+                          color: Color(0xff192965),
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -292,13 +297,17 @@ class _ArticleBoxState extends State<ArticleBox> {
                             widget.isFavourite = !widget.isFavourite;
                           });
                         },
-                        child: Icon(
-                          Icons.bookmark,
-                          size: 35,
-                          color: widget.isFavourite
-                              ? Color(0xff00c9c3)
-                              : Color(0xffe9fdfc),
-                        ),
+                        child: widget.isFavourite
+                            ? Icon(
+                                Icons.bookmark,
+                                size: 35,
+                                color: Color(0xff192965),
+                              )
+                            : Icon(
+                                Icons.bookmark_border,
+                                size: 35,
+                                color: Color(0xff192965),
+                              ),
                       ),
                     ),
                   ],
@@ -312,7 +321,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                         : widget.title.length <= 60 ? 88 : 118,
                     width: 360,
                     decoration: BoxDecoration(
-                      color: Color(0xffe9fdfc),
+                      color: Color(0xff97F7C3).withOpacity(0.4),
                     ),
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     child: Column(
@@ -323,46 +332,83 @@ class _ArticleBoxState extends State<ArticleBox> {
                           maxLines: 3,
                         ),
                         SizedBox(height: 10),
-                        Image.asset(
-                          "assets/images/down.png",
-                          height: 20,
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              animatedHeight == 0
+                                  ? animatedHeight = 209
+                                  : animatedHeight = 0;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            child: animatedHeight == 0
+                                ? Image.asset(
+                                    "assets/images/down.png",
+                                    height: 20,
+                                    color: Colors.black,
+                                  )
+                                : Image.asset(
+                                    "assets/images/up.png",
+                                    height: 20,
+                                    color: Colors.black.withOpacity(0.7),
+                                  ),
+                            duration: Duration(microseconds: 200),
+                            curve: Curves.easeOutCirc,
+                          ),
                         )
                       ],
                     ),
                   ),
-                  Container(
+                  AnimatedContainer(
                     padding: EdgeInsets.all(8),
-                    height: 182,
-                    child: RichText(
-                      strutStyle: StrutStyle(
-                          fontFamily: GoogleFonts.crimsonText().fontFamily),
-                      maxLines: 6,
-                      textAlign: TextAlign.justify,
-                      text: TextSpan(
-                        style: CognifeedTypography.searchBox.copyWith(
-                          color: Colors.black,
+                    height: animatedHeight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          widget.description,
+                          textAlign: TextAlign.justify,
+                          maxLines: 6,
+                          style: CognifeedTypography.searchBox
+                              .copyWith(color: Colors.black),
                         ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: widget.description,
-                          ),
-                          TextSpan(
-                            text: "Read Full Article",
-                          ),
-                        ],
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Read Full Article Here",
+                              style: CognifeedTypography.textStyle2.copyWith(
+                                color: Color(0xff192965),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                top: 4,
+                              ),
+                              child: Image.asset(
+                                "assets/images/right.png",
+                                height: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    // child: Text(
-                    //   widget.description,
-                    //   textAlign: TextAlign.justify,
-                    //   maxLines: 6,
-                    //   style: CognifeedTypography.searchBox
-                    //       .copyWith(color: Colors.black),
-                    // ),
+                    curve: Curves.bounceOut,
+                    duration: Duration(
+                      milliseconds: 200,
+                    ),
                   ),
                 ],
               )
             ],
+          ),
+          curve: Curves.bounceOut,
+          duration: Duration(
+            milliseconds: 200,
           ),
         ),
       ],

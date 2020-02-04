@@ -253,11 +253,11 @@ class ShowMore extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 55),
+            padding: const EdgeInsets.only(left: 40),
             child: Text(
               'Show more',
               style: CognifeedTypography.textStyleOnboardHeading
-                  .copyWith(color: Color(0xff00c9c3), fontSize: 20),
+                  .copyWith(color: Color(0xffe9fdfc), fontSize: 20),
             ),
           ),
           SizedBox(
@@ -266,7 +266,7 @@ class ShowMore extends StatelessWidget {
           Image.asset(
             "assets/images/next.png",
             height: 25,
-            color: Color(0xff00c9c3),
+            color: Color(0xffe9fdfc),
           )
         ],
       ),
@@ -291,7 +291,7 @@ class SaveButton extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => ApplicationWrapper()));
           },
           child: Container(
-            margin: EdgeInsets.only(top: 16, left: 45),
+            margin: EdgeInsets.only(top: 16, left: 15),
             padding: EdgeInsets.symmetric(horizontal: 35, vertical: 4),
             child: Text(
               'Save',
