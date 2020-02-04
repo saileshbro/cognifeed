@@ -12,6 +12,7 @@ class CognifeedColors {
 class CognifeedTheme {
   static ThemeData getTheme() {
     return ThemeData(
+      fontFamily: GoogleFonts.crimsonText().fontFamily,
       textTheme: GoogleFonts.crimsonTextTextTheme(),
       inputDecorationTheme: InputDecorationTheme(
         helperStyle: TextStyle(color: Colors.teal),

@@ -6,6 +6,7 @@ import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 Hello(),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 60),
+                    margin: EdgeInsets.only(top: 15, bottom: 60),
                     child: ListView.builder(
                       controller: _listViewController,
                       itemBuilder: (BuildContext context, int index) {
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Positioned(
-              top: 65,
+              top: 80,
               bottom: 55,
               left: -5,
               child: RotatedBox(
@@ -135,20 +136,8 @@ class Hello extends StatelessWidget {
       children: <Widget>[
         Container(
             margin: EdgeInsets.only(top: 10),
-            height: 60,
+            height: 70,
             width: MediaQuery.of(context).size.width - 10,
-            decoration: BoxDecoration(
-              color: Color(0xffe9fdfc).withOpacity(0.7),
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 6,
-                    offset: Offset(8, 10),
-                    color: Colors.black.withOpacity(0.16)),
-              ],
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(25),
-                  topRight: Radius.circular(25)),
-            ),
             padding: EdgeInsets.only(left: 20),
             child: Row(
               children: <Widget>[
@@ -160,9 +149,6 @@ class Hello extends StatelessWidget {
                     color: Color(0xff192965),
                   ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
                 HelloText(),
                 SizedBox(
                   width: 25,
@@ -170,7 +156,7 @@ class Hello extends StatelessWidget {
                 Text(
                   'Here are articles for you!',
                   style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-                    color: Color(0xff01796f),
+                    color: Color(0xff192965),
                     fontWeight: FontWeight.w600,
                     wordSpacing: 1.5,
                   ),
@@ -191,23 +177,24 @@ class HelloText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 80,
-      child: RichText(
-        text: TextSpan(
-            text: 'Hello',
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Hello',
             style: CognifeedTypography.textStyleOnboardHeading.copyWith(
               color: Color(0xff01796f),
               fontWeight: FontWeight.w600,
-              fontSize: 24,
+              fontSize: 26,
             ),
-            children: <TextSpan>[
-              TextSpan(
-                text: ' Sarayu',
-                style: CognifeedTypography.textStyleOnboardHeading.copyWith(
-                  fontSize: 20,
-                  color: Color(0xff192965),
-                ),
-              )
-            ]),
+          ),
+          Text(
+            ' Sarayu',
+            style: CognifeedTypography.textStyleOnboardHeading.copyWith(
+              fontSize: 22,
+              color: Color(0xff192965),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -243,8 +230,8 @@ class _ArticleBoxState extends State<ArticleBox> {
           margin: EdgeInsets.only(bottom: 20, right: 5),
           padding: EdgeInsets.all(8),
           height: widget.title.length <= 35
-              ? 437
-              : widget.title.length <= 70 ? 462 : 487,
+              ? 522
+              : widget.title.length <= 70 ? 542 : 572,
           width: 369,
           decoration: BoxDecoration(
               color: Color(0xffe9fdfc).withOpacity(0.3),
@@ -321,29 +308,57 @@ class _ArticleBoxState extends State<ArticleBox> {
                 children: <Widget>[
                   Container(
                     height: widget.title.length <= 35
-                        ? 35
-                        : widget.title.length <= 60 ? 60 : 85,
+                        ? 68
+                        : widget.title.length <= 60 ? 88 : 118,
                     width: 360,
                     decoration: BoxDecoration(
                       color: Color(0xffe9fdfc),
                     ),
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Text(
-                      widget.title,
-                      style: CognifeedTypography.title,
-                      maxLines: 3,
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          widget.title,
+                          style: CognifeedTypography.title,
+                          maxLines: 3,
+                        ),
+                        SizedBox(height: 10),
+                        Image.asset(
+                          "assets/images/down.png",
+                          height: 20,
+                        )
+                      ],
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
-                    height: 130,
-                    child: Text(
-                      widget.description,
+                    height: 182,
+                    child: RichText(
+                      strutStyle: StrutStyle(
+                          fontFamily: GoogleFonts.crimsonText().fontFamily),
+                      maxLines: 6,
                       textAlign: TextAlign.justify,
-                      maxLines: 4,
-                      style: CognifeedTypography.searchBox
-                          .copyWith(color: Colors.black),
+                      text: TextSpan(
+                        style: CognifeedTypography.searchBox.copyWith(
+                          color: Colors.black,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: widget.description,
+                          ),
+                          TextSpan(
+                            text: "Read Full Article",
+                          ),
+                        ],
+                      ),
                     ),
+                    // child: Text(
+                    //   widget.description,
+                    //   textAlign: TextAlign.justify,
+                    //   maxLines: 6,
+                    //   style: CognifeedTypography.searchBox
+                    //       .copyWith(color: Colors.black),
+                    // ),
                   ),
                 ],
               )
@@ -389,7 +404,7 @@ class CustomThumbShape extends SliderComponentShape {
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 8.0;
-    canvas.drawLine(Offset(rect.left, rect.bottom - 6),
-        Offset(rect.left + 30, rect.bottom - 6), fillPaint);
+    canvas.drawLine(Offset(rect.left - 7, rect.bottom - 6),
+        Offset(rect.left + 18, rect.bottom - 6), fillPaint);
   }
 }

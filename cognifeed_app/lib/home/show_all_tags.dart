@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cognifeed_app/application_wrapper.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/widgets/TagWidget.dart';
@@ -44,7 +43,7 @@ class _ShowAllTagsState extends State<ShowAllTags> {
             Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(21, 10, 10, 0),
+                  margin: EdgeInsets.fromLTRB(21, 60, 10, 0),
                   width: 372,
                   height: 800,
                   child: BackdropFilter(
@@ -61,7 +60,7 @@ class _ShowAllTagsState extends State<ShowAllTags> {
                   children: <Widget>[
                     MakeChoices(),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Tags(),
                     SizedBox(
@@ -93,22 +92,9 @@ class MakeChoices extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           height: 53,
           width: MediaQuery.of(context).size.width - 30,
-          decoration: BoxDecoration(
-            color: Color(0xffe9fdfc).withOpacity(0.5),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25),
-              bottomLeft: Radius.circular(25),
-            ),
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: 6,
-                  offset: Offset(8, 10),
-                  color: Colors.black.withOpacity(0.16)),
-            ],
-          ),
           padding: EdgeInsets.fromLTRB(80, 10, 80, 13),
           child: Text(
             'Make your choices!',

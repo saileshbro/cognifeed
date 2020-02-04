@@ -46,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(21, 18, 10, 0),
+                  margin: EdgeInsets.fromLTRB(21, 60, 10, 0),
                   width: 372,
                   height: 667,
                   child: BackdropFilter(
@@ -64,10 +64,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     CognifeedOnboard(),
                     MakeChoices(),
                     SearchBox(),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Tags(),
                     Container(
                       margin: EdgeInsets.only(
-                        top: 20,
+                        top: 15,
                         bottom: 15,
                       ),
                       height: 2,
@@ -108,24 +111,16 @@ class CognifeedOnboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 20),
-          height: 64,
-          width: MediaQuery.of(context).size.width - 29,
-          decoration: BoxDecoration(
-            color: Color(0xff192965).withOpacity(0.66),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(19), topLeft: Radius.circular(19)),
-          ),
-          padding: EdgeInsets.fromLTRB(100, 8, 98, 7),
-          child: SvgPicture.asset(
-            "assets/images/logo.svg",
-            width: 148,
-            height: 49,
-          ),
-        )
+        SizedBox(
+          width: 20,
+        ),
+        SvgPicture.asset(
+          "assets/images/logo.svg",
+          width: 148,
+          height: 49,
+        ),
       ],
     );
   }
@@ -142,19 +137,10 @@ class MakeChoices extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 22),
-          height: 53,
+          margin: EdgeInsets.only(top: 20, bottom: 15),
+          height: 30,
           width: MediaQuery.of(context).size.width - 20,
-          decoration: BoxDecoration(
-            color: Color(0xffe9fdfc).withOpacity(0.5),
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: 6,
-                  offset: Offset(8, 10),
-                  color: Colors.black.withOpacity(0.16)),
-            ],
-          ),
-          padding: EdgeInsets.fromLTRB(103, 10, 96, 13),
+          padding: EdgeInsets.fromLTRB(110, 0, 96, 0),
           child: Text(
             'Make your choices!',
             style: CognifeedTypography.textStyleOnboardHeading.copyWith(
@@ -180,7 +166,7 @@ class SearchBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 18, left: 22, right: 20),
+              margin: EdgeInsets.only(left: 22, right: 20),
               height: 83,
               width: 369,
               decoration: BoxDecoration(
@@ -210,7 +196,7 @@ class SearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 44),
+      margin: EdgeInsets.only(top: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
