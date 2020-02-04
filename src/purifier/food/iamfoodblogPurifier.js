@@ -1,12 +1,14 @@
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
+const Link = require("../../scraper/link")
+
 class iamfoodblogPurifier extends Purifier {
   // static baseUrl = "https://iamafoodblog.com/";
 
   /**
    *
    * @param{String} html
-   * @param{string} url
+   * @param{Link} url
    */
   constructor(html, url) {
     super(html, url)

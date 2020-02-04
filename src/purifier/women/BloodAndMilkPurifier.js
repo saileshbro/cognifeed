@@ -1,11 +1,12 @@
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
+const Link = require("../../scraper/link")
 
-class BloodMilkPurifier extends Purifier {
+class BloodAndMilkPurifier extends Purifier {
   /**
    *
    * @param {String} html
-   * @param {String} url
+   * @param {Link} url
    */
   constructor(html, url) {
     super(html, url)
@@ -21,4 +22,4 @@ class BloodMilkPurifier extends Purifier {
       .substr(0, 500)
   }
 }
-module.exports = BloodMilkPurifier
+module.exports = BloodAndMilkPurifier
