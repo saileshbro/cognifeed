@@ -2,7 +2,7 @@ const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
 
-class iamfoodblogPurifier extends Purifier {
+class IAmFoodBlogPurifier extends Purifier {
   // static baseUrl = "https://iamafoodblog.com/";
 
   /**
@@ -24,4 +24,4 @@ class iamfoodblogPurifier extends Purifier {
     this.image_url = $("#main-image.article-image>img.wp-post-image").attr("src")
   }
 }
-module.exports = iamfoodblogPurifier
+module.exports = IAmFoodBlogPurifier

@@ -55,7 +55,7 @@ class Purifier {
       title: this.title,
       image_url: this.image_url,
       description: this.description,
-      link_url: this.link_url.resolve()
+      link_url: this.link_url
     }
   }
 }
