@@ -16,7 +16,7 @@
 const reqProm = require("request-promise-native")
 const Link = require("./link")
 const LinksCollection = require("./links-collection")
-const Filter = require("./filter")
+const getOriginalLinks = require("./filter")
 const Spider = require("./spider")
 const { RobotsParser, RobotsCache } = require("./robots")
 
@@ -85,12 +85,13 @@ class Server {
 
       // Run the new links through the filter
       // to check for duplicates
-      this._links = this._filter.getOriginalLinks(newLinks)
+      this._links = getOriginalLinks(this._links, newLinks)
+
       // The spider has done its job now,
       // so remove it from the list of active spiders
       this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
       console.log(this._links)
-    }, 1000)
+    }, 0)
   }
 
   /**
@@ -131,29 +132,25 @@ class Server {
       let robotsParser = new RobotsParser(link, robotsTXT)
 
       if (robotsParser.isDisallowed(link))
-        return reject(new Error("robots.txt disallows traversing this url"))
+        return reject(
+          new Error(`robots.txt disallows traversing url ${link.resolve()}`)
+        )
 
-      if ((crawlDelay = robotsParser.getCrawlDelay()) !== undefined) {
-        setTimeout(() => {
-          try {
-            spider = Spider.spawn(link)
-          } catch (err) {
-            reject(err)
-          }
-
-          resolve(spider)
-        }, crawlDelay)
-      } else {
-        setTimeout(() => {
-          try {
-            spider = Spider.spawn(link)
-          } catch (err) {
-            reject(err)
-          }
-
-          resolve(spider)
-        }, 1000)
+      try {
+        crawlDelay = Number(robotsParser.getCrawlDelay()) * 1000 || 1000
+      } catch (_) {
+        return reject(new Error("Crawl delay in robots.txt file not a number"))
       }
+
+      setTimeout(() => {
+        try {
+          spider = Spider.spawn(link)
+        } catch (err) {
+          reject(err)
+        }
+
+        resolve(spider)
+      }, crawlDelay)
     })
   }
 
@@ -167,12 +164,7 @@ class Server {
      * @type {LinksCollection}
      */
     this._links = LinksCollection.create()
-    /**
-     * The filter object filters out all visited and duplicate links
-     * @private
-     * @type {Filter}
-     */
-    this._filter = new Filter()
+
     /**
      * The collection of all spiders currently visiting a page
      * @private

@@ -5,36 +5,18 @@
  * @module src/scraper/filter
  */
 
-const LinksCollection = require("./links-collection")
-
 /**
- * @class
+ * Filters out duplicate items from a collection
+ * @param {LinksCollection} oldCol - The old collection to be updated
+ * @param {LinksCollection} newCol - The new collection to be checked for dups
+ * @returns {LinksCollection}
  */
-class Filter {
-  /**
-   * Get a collection of non-duplicate links from an array of links
-   * @param {LinksCollection} links - A links collection
-   * @returns {LinksCollection} - A LinkCollection object
-   */
-  getOriginalLinks(links) {
-    for (let link of links) {
-      if (!this._links.hasLink(link)) {
-        this._links = this._links.addLinks(link)
-      }
+module.exports = function(oldCol, newCol) {
+  let collection = oldCol
+  for (let item of newCol) {
+    if (!collection.hasLink(item)) {
+      collection = collection.addLinks(item)
     }
-    return this._links
   }
-
-  /**
-   * Create a new Filter object
-   */
-  constructor() {
-    /**
-     * @type {LinksCollection}
-     * @private
-     */
-    this._links = LinksCollection.create()
-  }
+  return collection
 }
-
-module.exports = Filter

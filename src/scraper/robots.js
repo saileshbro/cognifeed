@@ -91,7 +91,7 @@ class RobotsCache {
   /**
    * Check whether the robots.txt for giben link already exists
    * @param {Link} link - The link object for the required url
-   * @returns {LinkRobotBundle|undefined}
+   * @returns {string|undefined}
    */
   findRobotFor(link) {
     for (let elem of this._cache) {
@@ -100,6 +100,11 @@ class RobotsCache {
     return undefined
   }
 
+  /**
+   * The constructor for creating the cache object
+   * It takes no arguments as the robots.txt object is
+   * pushed to the cache later using the "update" method.
+   */
   constructor() {
     /**
      * This property holds the bundle of link and robots.txt for the given link
