@@ -67,7 +67,6 @@ module.exports = class Spider {
     //  returns this.spider ko linksCollection
   }
   async persistHtml() {
-    console.log(this.html.length)
     try {
       const payload = {
         url: this.link.resolve(),

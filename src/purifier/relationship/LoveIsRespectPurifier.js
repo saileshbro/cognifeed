@@ -12,7 +12,6 @@ class LoveIsRespectPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    console.log(this.html)
     this.title = $(".title-bar .entry-title")
       .text()
       .trim()

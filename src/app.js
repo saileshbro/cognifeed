@@ -24,17 +24,19 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const LoveIsRespectPurifier = require("./purifier/relationship/LoveIsRespectPurifier")
+const Purifier = require("./purifier/writing/HelpWritersBecomeAuthorPurifier")
 const spider = Spider.spawn(
-  new Link("https://www.loveisrespect.org", "content/the-what-why-and-how-of-tdvam/")
+  new Link(
+    "https://www.helpingwritersbecomeauthors.com",
+    "unboxing-review-writers-medic-bag-from-galen-leather-co/"
+  )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new LoveIsRespectPurifier(spider.html, spider.link)
+  const purifier = new Purifier(spider.html, spider.link)
   purifier.purify()
-  // console.log(purifier.html)
   console.log(purifier.toString())
   // await purifier.persistPurified()
 })()

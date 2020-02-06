@@ -12,7 +12,6 @@ class CodeWallPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    console.log(this.html)
     this.title = $("article[class*='post']>.entry-header>.entry-title")
       .text()
       .trim()
