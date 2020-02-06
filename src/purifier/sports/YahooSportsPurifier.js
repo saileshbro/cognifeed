@@ -1,11 +1,13 @@
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
+const Link = require("../../scraper/link")
+
 class YahooSportsPurifier extends Purifier {
   // static baseUrl = "https://sports.yahoo.com/"
   /**
    *
    * @param {String} html
-   * @param {String} url
+   * @param {Link} url
    */
   constructor(html, url) {
     super(html, url)

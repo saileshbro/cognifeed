@@ -1,12 +1,14 @@
 const Purifier = require("../Purifier")
 const { cheerio } = require("cheerio")
-class pinchofyumPurifier extends Purifier {
+const Link = require("../../scraper/link")
+
+class PinchOfYumPurifier extends Purifier {
   // static baseUrl = "https://pinchofyum.com/";
 
   /**
    *
    * @param{String} html
-   * @param{string} url
+   * @param{Link} url
    */
   constructor(html, url) {
     super(html, url)
@@ -28,4 +30,4 @@ class pinchofyumPurifier extends Purifier {
     })
   }
 }
-module.exports = pinchofyumPurifier
+module.exports = PinchOfYumPurifier

@@ -24,18 +24,15 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const iamfoodblocPurifier = require("./purifier/food/iamfoodblogPurifier")
+const LoveIsRespectPurifier = require("./purifier/relationship/LoveIsRespectPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://iamafoodblog.com",
-    "sweet-and-spicy-gochujang-honey-roast-chicken-and-potatoes/"
-  )
+  new Link("https://www.loveisrespect.org", "content/the-what-why-and-how-of-tdvam/")
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
   console.log(horizion.readLinks().length)
   spider.getNewLinks()
-  const purifier = new iamfoodblocPurifier(spider.html, spider.link)
+  const purifier = new LoveIsRespectPurifier(spider.html, spider.link)
   purifier.purify()
   // console.log(purifier.html)
   console.log(purifier.toString())

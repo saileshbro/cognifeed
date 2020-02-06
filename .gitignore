@@ -3,3 +3,5 @@ out
 package-lock.json
 yarn.lock
 .env
+.idea
+cognifeed_app/

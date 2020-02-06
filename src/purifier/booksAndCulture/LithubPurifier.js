@@ -1,12 +1,11 @@
-/* eslint-disable linebreak-style */
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
-
+const Link = require("../../scraper/link")
 class LithubPurifier extends Purifier {
   /**
    *
    * @param {String} html
-   * @param {String} url
+   * @param {Link} url
    */
   constructor(html, url) {
     super(html, url)

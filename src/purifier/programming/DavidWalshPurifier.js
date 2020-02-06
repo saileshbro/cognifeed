@@ -1,10 +1,12 @@
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
+const Link = require("../../scraper/link")
+
 class DavidWalshPurifier extends Purifier {
   /**
    *
    * @param {String} html
-   * @param {String} url
+   * @param {Link} url
    */
   constructor(html, url) {
     super(html, url)

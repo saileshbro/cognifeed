@@ -19,8 +19,10 @@ class Purifier {
    */
   constructor(html, url) {
     ;(this.html = html), (this.url = url)
-    this.link_url = this.url
+    this.link_url = this.url.resolve()
     this.image_url = "defaultimage.png"
+    this.title = ""
+    this.description = ""
   }
   /**
    * Implementation required
@@ -53,7 +55,7 @@ class Purifier {
       title: this.title,
       image_url: this.image_url,
       description: this.description,
-      link_url: this.link_url.resolve()
+      link_url: this.link_url
     }
   }
 }

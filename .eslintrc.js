@@ -18,12 +18,12 @@ module.exports = {
   plugins: ["prettier"],
 
   rules: {
-    "prettier/prettier": "error",
     "no-unused-vars": [
       1,
       {
         ignoreSiblings: true,
-        argsIgnorePattern: "req|res|next|^err"
+        argsIgnorePattern: "req|res|next|Link|^err",
+        varsIgnorePattern: "Link"
       }
     ],
     "no-console": "off",

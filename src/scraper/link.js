@@ -1,5 +1,3 @@
-"use strict"
-
 const { URL } = require("url")
 
 /**
@@ -13,7 +11,7 @@ const { URL } = require("url")
  * @param {string} path - The path of the link
  * @returns {Link} - A new Link object
  */
-module.exports = class Link {
+class Link {
   /**
    * Resolve the current link object into a link URL string
    * @returns {string} - A link href string
@@ -56,3 +54,4 @@ module.exports = class Link {
     this._path = path
   }
 }
+module.exports = Link
