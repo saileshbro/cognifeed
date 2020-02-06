@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 require("dotenv").config()
 const Link = require("./scraper/link")
 const app = require("express")()
@@ -24,11 +25,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/science/HowStuffWorksPurifier")
+const Purifier = require("./purifier/music/PitchForkPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://recipes.howstuffworks.com",
-    "historical-figures/spartacus.htm"
+    "https://pitchfork.com",
+    "levels/babyface-ray-is-the-voice-of-detroit"
   )
 )
 ;(async function name() {
