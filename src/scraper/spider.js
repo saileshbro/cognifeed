@@ -38,18 +38,18 @@ class Spider {
     try {
       this._html = await requestPromise.get(this._link.resolve())
     } catch (err) {
-      console.log(this._link)
       throw new Error(err.message)
     }
 
     const $ = cheerio.load(this._html)
     $("a").each((i, e) => {
       if ($(e).attr("href") !== undefined) {
-        this._horizon = this._horizon.addLinks(
+        this._horizon.addLinks([
           new Link(this._link.baseURL, $(e).attr("href"))
-        )
+        ])
       }
     })
+    // eslint-disable-next-line no-undef
     return this._horizon
   }
 
