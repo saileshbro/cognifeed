@@ -35,7 +35,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app",
     "test-link": "mocha test/test-link.js -r chai/register-expect",
-    "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect"
+    "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect",
+    "test-decompress": "mocha test/test-decompress.js -r chai/register-expect"
   },
   "repository": {
     "type": "git",

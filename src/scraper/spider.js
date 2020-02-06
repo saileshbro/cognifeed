@@ -72,10 +72,13 @@ module.exports = class Spider {
         url: this.link.resolve(),
         html: this.html
       }
-      const response = await axios.post(`${baseUrl}/api/spider/persist`, payload)
+      const response = await axios.post(
+        `${baseUrl}/api/spider/persist`,
+        payload
+      )
       console.log(response)
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
     //   saves or returns html from this.link
   }
