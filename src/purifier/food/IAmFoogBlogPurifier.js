@@ -21,7 +21,9 @@ class IAmFoodBlogPurifier extends Purifier {
       this.description += $(element).text()
     })
     this.description = this.description.substr(0, 500)
-    this.image_url = $("#main-image.article-image>img.wp-post-image").attr("src")
+    this.image_url = $("#main-image.article-image>img.wp-post-image").attr(
+      "src"
+    )
   }
 }
 module.exports = IAmFoodBlogPurifier

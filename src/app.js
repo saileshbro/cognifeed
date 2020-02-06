@@ -24,11 +24,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/writing/HelpWritersBecomeAuthorPurifier")
+const Purifier = require("./purifier/science/HowStuffWorksPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://www.helpingwritersbecomeauthors.com",
-    "unboxing-review-writers-medic-bag-from-galen-leather-co/"
+    "https://recipes.howstuffworks.com",
+    "historical-figures/spartacus.htm"
   )
 )
 ;(async function name() {

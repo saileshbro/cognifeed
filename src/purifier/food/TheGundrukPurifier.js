@@ -2,8 +2,8 @@ const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
 
-class PinchOfYumPurifier extends Purifier {
-  // static baseUrl = "https://pinchofyum.com/";
+class TheGundrukPurifier extends Purifier {
+  // static baseUrl = "https://TheGundruk.com/";
 
   /**
    *
@@ -18,12 +18,12 @@ class PinchOfYumPurifier extends Purifier {
     this.title = $(".entry-title")
       .text()
       .trim()
-    this.image_url = $("img[class*='wp-image']").attr("src")
     this.description = $(".entry-content p")
-      .slice(1, 4)
       .text()
       .trim()
       .substr(0, 500)
+
+    this.image_url = $(".wp-post-image").attr("src")
   }
 }
-module.exports = PinchOfYumPurifier
+module.exports = TheGundrukPurifier

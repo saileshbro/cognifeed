@@ -40,7 +40,10 @@ class Purifier {
         description: this.description,
         image_url: this.image_url
       }
-      const response = await axios.post(`${baseUrl}/api/purifier/persist`, payload)
+      const response = await axios.post(
+        `${baseUrl}/api/purifier/persist`,
+        payload
+      )
       console.log(response.data)
     } catch (error) {
       console.error(error.response.data)

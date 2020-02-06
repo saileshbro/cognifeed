@@ -2,7 +2,7 @@ const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
 
-class MissTouristPurifier extends Purifier {
+class LiveSciencePurifier extends Purifier {
   /**
    *
    * @param {String} html
@@ -13,13 +13,16 @@ class MissTouristPurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $(".entry-title").text()
-    this.description = $("div.wpb_wrapper")
-      .find("p")
-      .eq(2)
+    this.title = $(".container .row h1")
+      .text()
+      .trim()
+    this.image_url = cheerio
+      .load($(".media-hero-wrap>figure>noscript").text())("img")
+      .attr("src")
+    this.description = $("article p")
+      .slice(2, 4)
       .text()
       .substr(0, 500)
-    this.image_url = this.url.baseURL + $("img[class*='wp-image']").attr("src")
   }
 }
-module.exports = MissTouristPurifier
+module.exports = LiveSciencePurifier
