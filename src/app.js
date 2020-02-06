@@ -25,12 +25,9 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/finance/PennyHorderPurifier")
+const Purifier = require("./purifier/interestingFacts/FactSitePurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://www.thepennyhoarder.com/",
-    "save-money/if-your-rent-is-more-than-1200-month-make-these-7moves-ps"
-  )
+  new Link("https://www.thefactsite.com", "shower-with-a-friend-day")
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
