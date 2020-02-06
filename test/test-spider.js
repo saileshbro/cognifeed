@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-undef */
 const { expect } = require("chai")
 const Spider = require("../src/scraper/spider")
 const Link = require("../src/scraper/link")

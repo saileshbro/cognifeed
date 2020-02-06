@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 "use strict"
 
 /**
@@ -44,8 +45,9 @@ class Spider {
     const $ = cheerio.load(this._html)
     $("a").each((i, e) => {
       if ($(e).attr("href") !== undefined) {
-        this._horizon = this._horizon
-          .addLinks(new Link(this._link.baseURL, $(e).attr("href")))
+        this._horizon = this._horizon.addLinks(
+          new Link(this._link.baseURL, $(e).attr("href"))
+        )
       }
     })
     return this._horizon
@@ -71,7 +73,10 @@ class Spider {
         url: this._link.resolve(),
         html: this._html
       }
-      const response = await axios.post(`${baseUrl}/api/spider/persist`, payload)
+      const response = await axios.post(
+        `${baseUrl}/api/spider/persist`,
+        payload
+      )
       console.log(response)
     } catch (error) {
       console.error(error)
