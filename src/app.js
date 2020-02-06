@@ -25,11 +25,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/music/PitchForkPurifier")
+const Purifier = require("./purifier/finance/PennyHorderPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://pitchfork.com",
-    "levels/babyface-ray-is-the-voice-of-detroit"
+    "https://www.thepennyhoarder.com/",
+    "save-money/if-your-rent-is-more-than-1200-month-make-these-7moves-ps"
   )
 )
 ;(async function name() {
