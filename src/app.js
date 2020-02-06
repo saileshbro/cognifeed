@@ -24,11 +24,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/science/HowStuffWorksPurifier")
+const Purifier = require("./purifier/fitnessAndNutrition/EatRightPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://recipes.howstuffworks.com",
-    "historical-figures/spartacus.htm"
+    "https://www.eatright.org",
+    "food/nutrition/healthy-eating/what-is-a-whole-grain"
   )
 )
 ;(async function name() {
