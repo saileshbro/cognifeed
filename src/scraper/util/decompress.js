@@ -1,5 +1,10 @@
 "use strict"
 
+/**
+ * Helper module to act as a swiss army knife of decompression
+ * @module src/scraper/util/decompress
+ */
+
 const { unzip, brotliDecompress } = require("zlib")
 
 /**
