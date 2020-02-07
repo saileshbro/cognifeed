@@ -16,15 +16,13 @@ class LoveIsRespectPurifier extends Purifier {
       .text()
       .trim()
     $(".entry-content p strong").remove()
-    this.description = ""
-    $(".entry-content p").each((i, e) => {
-      if (i < 5) {
-        this.description += $(e)
-          .text()
-          .trim()
-      }
-    })
-    this.description = this.description.substr(0, 500)
+
+    this.description = $("div.entry-content p")
+      .slice(1, 5)
+      .text()
+      .split("\n")
+      .join("")
+      .substr(0, 500)
     if ($(".post-image-container img").attr("src") !== undefined)
       this.image_url = $(".post-image-container img").attr("src")
   }

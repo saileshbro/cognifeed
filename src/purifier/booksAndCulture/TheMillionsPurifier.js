@@ -1,7 +1,7 @@
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
-class HelpWritersBecomePurifier extends Purifier {
+class TheMillionsPurifier extends Purifier {
   /**
    *
    * @param {String} html
@@ -12,15 +12,17 @@ class HelpWritersBecomePurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $(".entry-title")
+    this.title = $("h1.entry-title")
       .text()
       .trim()
-    $(".entry-content p noscript").remove()
-    this.description = $(".entry-content p")
+    this.image_url = $("meta[property='og:image']")
+      .eq(0)
+      .attr("content")
+
+    this.description = $(".the-content p")
+      .slice(1, 3)
       .text()
       .substr(0, 500)
-
-    this.image_url = $("img.post-image").attr("src")
   }
 }
-module.exports = HelpWritersBecomePurifier
+module.exports = TheMillionsPurifier
