@@ -27,7 +27,10 @@ app.use((err, req, res, next) => {
 const Spider = require("./scraper/spider")
 const Purifier = require("./purifier/interestingFacts/FactSitePurifier")
 const spider = Spider.spawn(
-  new Link("https://www.thefactsite.com", "shower-with-a-friend-day")
+  new Link(
+    "https://www.thefactsite.com",
+    "burgular-uses-victims-computer-to-check"
+  )
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()

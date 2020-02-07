@@ -14,13 +14,13 @@ class FactSidePurifier extends Purifier {
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $("div.single-post-title>h1")
+    this.title = $("header.entry-header>h1.card")
       .text()
       .trim()
-    const img = $("div.single-post-image>div>img").attr("data-srcset")
-    this.image_url = img.substr(0, img.indexOf(" "))
 
-    this.description = $("div.single-post-content-inner>p>span")
+    this.image_url = $("article>div.post-thumbnail>img").attr("data-lazy-src")
+
+    this.description = $("div.entry-content.card>p")
       .text()
       .substr(0, 500)
   }
