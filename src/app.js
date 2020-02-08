@@ -25,11 +25,11 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/parenthood/BounceBackParentingPurifier")
+const Purifier = require("./purifier/baby/HealthyChildrenPurifier")
 const spider = Spider.spawn(
   new Link(
-    "https://bouncebackparenting.com",
-    "getting-to-know-your-kids-family-conversation-starters"
+    "https://www.healthychildren.org",
+    "English/ages-stages/baby/diapers-clothing/Pages/Diaper-Rash.aspx"
   )
 )
 ;(async function name() {
