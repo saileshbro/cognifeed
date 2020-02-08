@@ -25,12 +25,9 @@ app.use((err, req, res, next) => {
 })
 // Spider Instantiation.
 const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/baby/HealthyChildrenPurifier")
+const Purifier = require("./purifier/anime/CBRPurifier")
 const spider = Spider.spawn(
-  new Link(
-    "https://www.healthychildren.org",
-    "English/ages-stages/baby/diapers-clothing/Pages/Diaper-Rash.aspx"
-  )
+  new Link("https://www.cbr.com", "batman-gotham-city-sirens-reunion")
 )
 ;(async function name() {
   const horizion = await spider.resolveUrl()
