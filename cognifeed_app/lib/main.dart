@@ -18,6 +18,8 @@ import 'home/onboarding_page.dart';
 
 import 'home/onboarding_page.dart';
 import 'login/login_bloc.dart';
+import 'profile/edit_profile.dart';
+import 'profile/profile_page.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -89,7 +91,7 @@ class App extends StatelessWidget {
             // return AuthenticationPage(
             //   userRepository: UserRepository(),
             // );
-            return HomePage();
+            return EditProfile();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
