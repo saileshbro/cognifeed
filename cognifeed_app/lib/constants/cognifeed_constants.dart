@@ -14,6 +14,17 @@ class CognifeedTheme {
     return ThemeData(
       fontFamily: GoogleFonts.crimsonText().fontFamily,
       textTheme: GoogleFonts.crimsonTextTextTheme(),
+      appBarTheme: AppBarTheme(
+        color: Colors.white,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      iconTheme: IconThemeData(
+        size: 18,
+        color: Colors.black,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         helperStyle: TextStyle(color: Colors.teal),
         contentPadding: EdgeInsets.only(left: 25, top: 0, bottom: 0, right: 0),
@@ -64,12 +75,12 @@ class CognifeedTypography {
   static TextStyle textStyle2 = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.bold,
-    color: CognifeedColors.aquaMarine,
+    // color: CognifeedColors.aquaMarine,
   );
   static TextStyle textStyle4 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: Colors.white,
+    // color: Colors.white,
   );
   static TextStyle textStyleOnboardHeading = TextStyle(
     fontSize: 24,
@@ -89,6 +100,19 @@ class CognifeedTypography {
     height: 1.2,
     fontWeight: FontWeight.w600,
     color: Color(0xff192965),
+  );
+
+  static TextStyle textStyle1 = TextStyle(
+    fontSize: 28,
+    color: Colors.black,
+  );
+  static TextStyle articleTitle = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle articleDescription = TextStyle(
+    fontSize: 14,
+    color: Colors.black87,
   );
 }
 

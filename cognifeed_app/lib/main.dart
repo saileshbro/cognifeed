@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'home/home_page.dart';
 import 'home/onboarding_page.dart';
 
 import 'login/login_bloc.dart';
@@ -40,7 +41,7 @@ Future<void> main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   Cognifeed.pref = await SharedPreferences.getInstance();
   runApp(MultiBlocProvider(
     providers: [
@@ -86,7 +87,7 @@ class App extends StatelessWidget {
             // return AuthenticationPage(
             //   userRepository: UserRepository(),
             // );
-            return OnboardingPage();
+            return HomePage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
