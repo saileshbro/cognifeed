@@ -5,6 +5,12 @@ const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
 
+// Modules required for scraper
+const { fork } = require("child_process")
+const path = require("path")
+// CONSTANTS for scraper
+const SCRAPER_DIRECTORY = "scraper"
+
 const { errorHandler, ErrorHandler } = require("./helpers/error_handler")
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())
@@ -23,21 +29,23 @@ app.listen(port, console.log(`Server running on port ${port}`))
 app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
-// Spider Instantiation.
-const Spider = require("./scraper/spider")
-const Purifier = require("./purifier/baby/HealthyChildrenPurifier")
-const spider = Spider.spawn(
-  new Link(
-    "https://www.healthychildren.org",
-    "English/ages-stages/baby/diapers-clothing/Pages/Diaper-Rash.aspx"
-  )
-)
-;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.readLinks().length)
-  spider.getNewLinks()
-  const purifier = new Purifier(spider.html, spider.link)
-  purifier.purify()
-  console.log(purifier.toString())
-  // await purifier.persistPurified()
+//Spider Instantiation.
+;(function startServer(seeds) {
+  let scraperChild
+
+  try {
+    scraperChild = fork("start-server.js", {
+      cwd: path.join(__dirname, SCRAPER_DIRECTORY)
+    })
+  } catch (err) {
+    return console.log(err)
+  }
+
+  process.on("SIGINT", () => {
+    scraperChild.kill()
+  })
+
+  process.on("SIGTERM", () => {
+    scraperChild.kill()
+  })
 })()

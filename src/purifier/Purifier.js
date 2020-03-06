@@ -62,4 +62,5 @@ class Purifier {
     }
   }
 }
+
 module.exports = Purifier

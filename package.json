@@ -11,23 +11,27 @@
     "cheerio-eq": "^1.0.1",
     "decompress-response": "^5.0.0",
     "dotenv": "^8.2.0",
+    "eslint-plugin-react": "^7.17.0",
     "express": "^4.17.1",
     "got": "^10.4.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
     "request": "^2.88.0",
+    "request-promise-native": "^1.0.8",
+    "robots-parser": "^2.1.1",
     "util": "^0.12.1",
     "validator": "^12.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
     "jsdoc": "^3.6.3",
+    "jsdoc-to-markdown": "^5.0.3",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1"
@@ -37,7 +41,10 @@
     "dev": "nodemon src/app",
     "test-link": "mocha test/test-link.js -r chai/register-expect",
     "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect",
-    "test-decompress": "mocha test/test-decompress.js -r chai/register-expect"
+    "test-filter": "mocha test/test-filter.js -r chai/register-expect",
+    "test-spider": "mocha test/test-spider.js -r chai/register-expect",
+    "test-server": "mocha test/test-server.js -r chai/register-expect",
+    "test-robots": "mocha test/test-robots.js -r chai/register-expect"
   },
   "repository": {
     "type": "git",

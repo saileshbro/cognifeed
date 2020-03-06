@@ -1,7 +1,12 @@
 node_modules
 out
+.vscode
+.env
 package-lock.json
 yarn.lock
 .env
 .idea
 cognifeed_app/
+npm-debug.log
+yarn-error.log
+to-do-list.md
