@@ -100,7 +100,6 @@ class Server {
       // The spider has done its job now,
       // so remove it from the list of active spiders
       this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
-      console.log(this._links)
     }, 0)
   }
 
