@@ -1,3 +1,4 @@
+import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,40 +28,39 @@ class CognifeedTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         helperStyle: TextStyle(color: Colors.teal),
-        contentPadding: EdgeInsets.only(left: 25, top: 0, bottom: 0, right: 0),
         labelStyle: CognifeedTypography.textStyle2,
         hintStyle: TextStyle(
           color: CognifeedColors.teal,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
+          // borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide(
             color: CognifeedColors.aquaMarine,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28.0),
+          // borderRadius: BorderRadius.circular(28.0),
           borderSide: BorderSide(
             width: 1.2,
             color: CognifeedColors.aquaMarine,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28.0),
+          // borderRadius: BorderRadius.circular(28.0),
           borderSide: BorderSide(
             width: 1.2,
             color: CognifeedColors.aquaMarine,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
+          // borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide(
             width: 2,
             color: CognifeedColors.aquaMarine,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
+          // borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide(
             width: 2,
             color: CognifeedColors.aquaMarine,
@@ -121,4 +121,5 @@ final String baseUrl = "http://192.168.0.98:3100/api";
 
 class Cognifeed {
   static SharedPreferences pref;
+  static DrawerPages drawerPages;
 }

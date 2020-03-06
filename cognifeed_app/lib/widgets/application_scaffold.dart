@@ -1,10 +1,13 @@
+import 'package:cognifeed_app/fav/fav_page.dart';
+import 'package:cognifeed_app/profile/profile_page.dart';
+import 'package:cognifeed_app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/cognifeed_constants.dart';
 import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
+import '../home/home_page.dart';
+import '../home/home_page.dart';
 
 class ApplicationScaffold extends StatelessWidget {
   final Widget child;
@@ -76,7 +79,7 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
             ),
           ),
           Container(
-            color: Colors.grey.withOpacity(0.3),
+            color: this.getSelectedColor(DrawerPages.Home),
             child: ListTile(
               leading: Container(
                 padding: EdgeInsets.all(12),
@@ -92,62 +95,101 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                   fontSize: 20,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.Home) {
+                  Cognifeed.drawerPages = DrawerPages.Home;
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, HomePage.route);
+                }
+              },
             ),
           ),
-          ListTile(
-            leading: Container(
-              padding: EdgeInsets.all(12),
-              child: Icon(
-                FontAwesome.heart_o,
-                size: 20,
-                color: Colors.black,
+          Container(
+            color: this.getSelectedColor(DrawerPages.Fav),
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  FontAwesome.heart_o,
+                  size: 20,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            title: Text(
-              "Favourites",
-              style: CognifeedTypography.articleTitle.copyWith(
-                fontSize: 20,
+              title: Text(
+                "Favourites",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 20,
+                ),
               ),
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.Fav) {
+                  Cognifeed.drawerPages = DrawerPages.Fav;
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, FavPage.route);
+                }
+              },
             ),
-            onTap: () {},
           ),
-          ListTile(
-            leading: Container(
-              padding: EdgeInsets.all(12),
-              child: Icon(
-                FontAwesome.user_o,
-                size: 20,
-                color: Colors.black,
+          Container(
+            color: this.getSelectedColor(DrawerPages.Profile),
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  FontAwesome.user_o,
+                  size: 20,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            title: Text(
-              "Profile",
-              style: CognifeedTypography.articleTitle.copyWith(
-                fontSize: 20,
+              title: Text(
+                "Profile",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 20,
+                ),
               ),
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.Profile) {
+                  Cognifeed.drawerPages = DrawerPages.Profile;
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, ProfilePage.route);
+                }
+              },
             ),
-            onTap: () {},
           ),
-          ListTile(
-            leading: Container(
-              padding: EdgeInsets.all(12),
-              child: Icon(
-                Feather.settings,
-                size: 20,
-                color: Colors.black,
+          Container(
+            color: this.getSelectedColor(DrawerPages.Settings),
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  Feather.settings,
+                  size: 20,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            title: Text(
-              "Settings",
-              style: CognifeedTypography.articleTitle.copyWith(
-                fontSize: 20,
+              title: Text(
+                "Settings",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 20,
+                ),
               ),
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.Settings) {
+                  Cognifeed.drawerPages = DrawerPages.Settings;
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, SettingsPage.route);
+                }
+              },
             ),
-            onTap: () {},
           ),
         ],
       ),
     );
   }
+
+  getSelectedColor(DrawerPages page) {
+    return page == Cognifeed.drawerPages ? Colors.grey.withOpacity(0.3) : null;
+  }
 }
+
+enum DrawerPages { Home, Fav, Profile, Settings }
