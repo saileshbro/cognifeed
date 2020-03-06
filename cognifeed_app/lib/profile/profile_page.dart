@@ -1,6 +1,8 @@
+import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
+  static const route = "/profile";
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -8,6 +10,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ApplicationScaffold(
+      child: Container(
+        child: Center(
+          child: Text(ProfilePage.route),
+        ),
+      ),
+    );
   }
 }

@@ -465,13 +465,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../Models/articlemodel.dart';
-import '../Models/articlemodel.dart';
-import '../Models/articlemodel.dart';
-import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
 import '../constants/cognifeed_constants.dart';
 
 class HomePage extends StatefulWidget {
+  static const route = "/home";
   @override
   _HomePageState createState() => _HomePageState();
 }

@@ -11,3 +11,12 @@ dynamic validatePassword(String value) {
   }
   return null;
 }
+
+dynamic validatePhone(String value) {
+  try {
+    int.parse(value);
+  } catch (e) {
+    return "Invalid Phone number!";
+  }
+  return null;
+}

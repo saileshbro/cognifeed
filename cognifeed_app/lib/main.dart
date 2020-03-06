@@ -2,9 +2,14 @@ import 'package:cognifeed_app/application_wrapper.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
+import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
+import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
+import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
+import 'package:cognifeed_app/settings/settings_page.dart';
+import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
@@ -12,6 +17,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'auth/authentication_page.dart';
+import 'home/home_page.dart';
+import 'home/home_page.dart';
+import 'home/home_page.dart';
+import 'home/home_page.dart';
 import 'home/home_page.dart';
 import 'home/home_page.dart';
 import 'home/onboarding_page.dart';
@@ -43,7 +53,7 @@ Future<void> main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  Cognifeed.drawerPages = DrawerPages.Home;
   Cognifeed.pref = await SharedPreferences.getInstance();
   runApp(MultiBlocProvider(
     providers: [
@@ -77,6 +87,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: CognifeedTheme.getTheme(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        HomePage.route: (_) => HomePage(),
+        ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
+        FavPage.route: (_) => FavPage(),
+        SettingsPage.route: (_) => SettingsPage(),
+        ProfilePage.route: (_) => ProfilePage(),
+      },
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUninitialized) {
@@ -86,10 +103,10 @@ class App extends StatelessWidget {
             return OnboardingPage();
           }
           if (state is AuthenticationUnauthenticated) {
-            // return AuthenticationPage(
-            //   userRepository: UserRepository(),
-            // );
-            return HomePage();
+            return AuthenticationPage(
+              userRepository: UserRepository(),
+            );
+            // return HomePage();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
