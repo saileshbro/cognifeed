@@ -19,5 +19,34 @@ describe("Spider class", function() {
         expect(data instanceof LinksCollection).to.be.true
       })
     })
+
+    it("should correctly handle absolute and relative urls", function() {
+      let isURLValid = true
+      spider.getNewLinks().then(horizon => {
+        for (let link of horizon) {
+          if (link.path.startsWith("http")) {
+            isURLValid = false
+            break
+          }
+        }
+        expect(isURLValid).to.be.true
+      })
+    })
+
+    it("should not have the same link as the current seed", function() {
+      let isIdentical = false
+      spider.getNewLinks().then(horizon => {
+        for (let link of horizon) {
+          if (
+            link.baseURL === spider.link.baseURL &&
+            link.path === spider.link.path
+          ) {
+            isIdentical = true
+            break
+          }
+        }
+        expect(isIdentical).to.be.false
+      })
+    })
   })
 })

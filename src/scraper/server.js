@@ -57,7 +57,10 @@ class Server {
         try {
           robotsTXT = await this._getRobotsTXT(link)
         } catch (err) {
-          return console.error(err.message)
+          // Exit if no more links to traverse
+          console.error(err.message)
+          if (this._links.size === 0) process.exit(2)
+          return
         }
 
         // Update cache with new robots.txt
@@ -69,7 +72,10 @@ class Server {
       try {
         spider = await this._spawnSpider(link, robotsTXT)
       } catch (err) {
-        return console.error(err.message)
+        // Exit if no more links to traverse
+        console.error(err.message)
+        if (this._links.size === 0) process.exit(2)
+        return
       }
 
       this._spiders = this._spiders.concat(spider)
@@ -80,7 +86,10 @@ class Server {
       } catch (err) {
         // If spider fails, remove it from the array of active spiders
         this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
-        return console.error(err.message)
+        // Exit if no more links to traverse
+        console.error(err.message)
+        if (this._links.size === 0) process.exit(2)
+        return
       }
 
       // Run the new links through the filter
@@ -112,7 +121,12 @@ class Server {
 
     try {
       robotsTXT = await reqProm(new Link(url.baseURL, "robots.txt").resolve())
-    } catch (_) {
+    } catch (err) {
+      if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
+        throw new Error(
+          "Error fetching robots.txt! Please check the internet connection."
+        )
+      }
       throw new Error("Couldn't fetch robots.txt file")
     }
 

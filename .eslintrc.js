@@ -18,7 +18,6 @@ module.exports = {
   plugins: ["prettier"],
 
   rules: {
-    "prettier/prettier": "error",
     "no-unused-vars": [
       1,
       {
@@ -27,7 +26,7 @@ module.exports = {
       }
     ],
     "no-console": "off",
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     indent: ["error", 2],
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
