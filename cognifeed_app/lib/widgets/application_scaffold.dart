@@ -9,19 +9,26 @@ import '../constants/cognifeed_constants.dart';
 class ApplicationScaffold extends StatelessWidget {
   final Widget child;
   final bool isOnBoarding;
-  const ApplicationScaffold({
-    Key key,
-    @required this.child,
-    this.isOnBoarding = false,
-  }) : super(key: key);
+  final String title;
+  final Widget floatingActionButton;
+  final Color backgroundColor;
+  const ApplicationScaffold(
+      {Key key,
+      @required this.child,
+      this.floatingActionButton,
+      this.isOnBoarding = false,
+      this.backgroundColor,
+      this.title = "Cognifeed"})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: floatingActionButton,
       drawer: !isOnBoarding ? ApplicationDrawer() : null,
       appBar: AppBar(
         title: Text(
-          "Cognifeed",
+          title,
           style: CognifeedTypography.textStyle1,
         ),
         centerTitle: true,
