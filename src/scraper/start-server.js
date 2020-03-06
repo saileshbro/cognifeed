@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 "use strict"
 
 const Link = require("./link")

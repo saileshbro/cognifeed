@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 "use strict"
 
 /**
@@ -62,6 +63,7 @@ class Spider {
       if (!this._link.matches(newLink))
         this._horizon = this._horizon.addLinks(newLink)
     })
+    // eslint-disable-next-line no-undef
     return this._horizon
   }
 

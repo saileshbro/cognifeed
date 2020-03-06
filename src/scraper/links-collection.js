@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable linebreak-style */
 "use strict"
 
 /**
@@ -58,11 +60,11 @@ class LinksCollection {
     if (this.size === 0) return this
 
     if (typeof link === "number") {
-      return new LinksCollection(this._links
-        .filter((ln, i) => i !== link))
+      return new LinksCollection(this._links.filter((ln, i) => i !== link))
     }
-    return new LinksCollection(this._links
-      .filter(ln => ln.resolve() !== link.resolve()))
+    return new LinksCollection(
+      this._links.filter(ln => ln.resolve() !== link.resolve())
+    )
   }
 
   /**
