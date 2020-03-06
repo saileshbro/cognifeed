@@ -1,8 +1,14 @@
 require("dotenv").config()
-const Link = require("./link")
+const Link = require("./scraper/link")
 const app = require("express")()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
+
+// Modules required for scraper
+const { fork } = require("child_process")
+const path = require("path")
+// CONSTANTS for scraper
+const SCRAPER_DIRECTORY = "scraper"
 
 const { errorHandler, ErrorHandler } = require("./helpers/error_handler")
 const port = process.env.PORT || 8000
@@ -23,14 +29,22 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 //Spider Instantiation.
-const Spider = require("./spider/Spider")
-const WikiPurifier = require("./purifier/WikiPurifier")
-const spider = Spider.spawn(new Link("https://en.wikipedia.org", "/wiki/Node.js"))
-;(async function name() {
-  const horizion = await spider.resolveUrl()
-  console.log(horizion.links.length)
-  spider.getNewLinks()
-  const purifier = new WikiPurifier(spider.html, spider.link.resolve())
-  purifier.purify()
-  purifier.persistPurified()
+;(function startServer(seeds) {
+  let scraperChild
+
+  try {
+    scraperChild = fork("start-server.js", {
+      cwd: path.join(__dirname, SCRAPER_DIRECTORY)
+    })
+  } catch (err) {
+    return console.log(err)
+  }
+
+  process.on("SIGINT", () => {
+    scraperChild.kill()
+  })
+
+  process.on("SIGTERM", () => {
+    scraperChild.kill()
+  })
 })()
