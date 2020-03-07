@@ -27,7 +27,6 @@ class _EditProfileState extends State<EditProfile> {
         child: Icon(
           Icons.save,
           size: 18,
-          size: 35,
           color: Colors.black,
         ),
       ),

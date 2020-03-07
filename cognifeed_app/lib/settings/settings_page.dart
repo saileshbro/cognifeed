@@ -1,173 +1,256 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/home/onboarding_page.dart';
+import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   static const route = '/setting';
+
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  TimeOfDay _time = TimeOfDay.now();
+  bool isTagsDisabled = true;
+  bool isTimerDisabled = true;
+
+  Future<Null> selectTime(BuildContext context) async {
+    _time = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Card(
-                  elevation: 8.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  color: Colors.purple,
-                  child: ListTile(
-                    onTap: () {
-                      //open edit profile
-                    },
-                    title: Text(
-                      "John Doe",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    leading: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(
-                          "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
-                    ),
-                    trailing: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Card(
-                  elevation: 4.0,
-                  margin: const EdgeInsets.fromLTRB(32.0, 8.0, 32.0, 16.0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Column(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Color(0xffff5a5f),
+        child: Icon(
+          FontAwesome.power_off,
+          color: Colors.white,
+        ),
+      ),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: 120,
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      ListTile(
-                        leading: Icon(
-                          Icons.lock_outline,
-                          color: Colors.purple,
+                      Card(
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        color: Colors.white,
+                        child: Container(
+                          height: 80,
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                    "John Doe",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Computer Engineer",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 30,
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  FontAwesome5Solid.edit,
+                                  color: Color(0xffff5a5f),
+                                  size: 25,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditProfile(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        title: Text("Change Password"),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          //open change password
-                        },
-                      ),
-                      _buildDivider(),
-                      ListTile(
-                        leading: Icon(
-                          FontAwesome.language,
-                          color: Colors.purple,
-                        ),
-                        title: Text("Change Language"),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          //open change language
-                        },
-                      ),
-                      _buildDivider(),
-                      ListTile(
-                        leading: Icon(
-                          Icons.location_on,
-                          color: Colors.purple,
-                        ),
-                        title: Text("Change Location"),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          //open change location
-                        },
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 20.0),
+                  Container(
+                    margin: EdgeInsets.only(left: 20.0),
+                    child: CircleAvatar(
+                      maxRadius: 50,
+                      backgroundImage: CachedNetworkImageProvider(
+                          "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
                 Text(
-                  "Notification Settings",
+                  "Change Password",
                   style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo,
+                    fontSize: 16,
                   ),
                 ),
-                SwitchListTile(
-                  activeColor: Colors.purple,
-                  contentPadding: const EdgeInsets.all(0),
-                  value: true,
-                  title: Text("Received notification"),
-                  onChanged: (val) {},
-                ),
-                SwitchListTile(
-                  activeColor: Colors.purple,
-                  contentPadding: const EdgeInsets.all(0),
-                  value: false,
-                  title: Text("Received newsletter"),
-                  onChanged: null,
-                ),
-                SwitchListTile(
-                  activeColor: Colors.purple,
-                  contentPadding: const EdgeInsets.all(0),
-                  value: true,
-                  title: Text("Received Offer Notification"),
-                  onChanged: (val) {},
-                ),
-                SwitchListTile(
-                  activeColor: Colors.purple,
-                  contentPadding: const EdgeInsets.all(0),
-                  value: true,
-                  title: Text("Received App Updates"),
-                  onChanged: null,
-                ),
-                const SizedBox(height: 60.0),
+                IconButton(
+                    icon: Icon(
+                      FontAwesome5Solid.key,
+                      color: Color(0xffff5a5f),
+                    ),
+                    onPressed: isTimerDisabled
+                        ? null
+                        : () {
+                            setState(() {
+                              selectTime(context);
+                            });
+                          }),
               ],
             ),
-          ),
-          Positioned(
-            bottom: -20,
-            left: -20,
-            child: Container(
-              width: 80,
-              height: 80,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.purple,
-                shape: BoxShape.circle,
+            const SizedBox(height: 25.0),
+            Text(
+              "Notification Settings",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
-          ),
-          Positioned(
-            bottom: 00,
-            left: 00,
-            child: IconButton(
-              icon: Icon(
-                FontAwesome.power_off,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                //log out
+            SwitchListTile(
+              activeColor: Color(0xffff5a5f),
+              contentPadding: const EdgeInsets.all(0),
+              value: false,
+              title: Text("Receive notification"),
+              onChanged: (val) {
+                setState(() {
+                  if (val)
+                    isTimerDisabled = false;
+                  else
+                    isTimerDisabled = !isTimerDisabled;
+                });
               },
             ),
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("Set timer for Push Notification"),
+                IconButton(
+                    icon: Icon(
+                      Feather.clock,
+                    ),
+                    onPressed: isTimerDisabled
+                        ? null
+                        : () {
+                            setState(() {
+                              selectTime(context);
+                            });
+                          }),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "00",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  ":",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "35",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "PM",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            SwitchListTile(
+              activeColor: Color(0xffff5a5f),
+              contentPadding: const EdgeInsets.all(0),
+              value: false,
+              title: Text("Receive articles only from selected tags"),
+              onChanged: (val) {
+                setState(() {
+                  if (val)
+                    isTagsDisabled = false;
+                  else
+                    isTagsDisabled = !isTagsDisabled;
+                });
+              },
+            ),
+            RaisedButton(
+              disabledColor: Colors.grey,
+              color: Color(0xffff5a5f),
+              onPressed: isTagsDisabled
+                  ? null
+                  : () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OnboardingPage(),
+                        ),
+                      );
+                    },
+              child: Text(
+                'Select Tags',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: isTagsDisabled ? Colors.black : Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 60.0),
+          ],
+        ),
       ),
     );
   }
-}
-
-Container _buildDivider() {
-  return Container(
-    margin: const EdgeInsets.symmetric(
-      horizontal: 8.0,
-    ),
-    width: double.infinity,
-    height: 1.0,
-    color: Colors.grey.shade400,
-  );
 }
