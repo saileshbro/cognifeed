@@ -15,6 +15,7 @@ import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:cognifeed_app/profile/profile_bloc.dart';
+import 'package:cognifeed_app/profile/change_profile_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
@@ -28,6 +29,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'constants/cognifeed_constants.dart';
 import 'home/home_page.dart';
 import 'profile/profile_page.dart';
+
+import 'profile/edit_profile.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -124,7 +127,6 @@ class App extends StatelessWidget {
               FavPage.route: (_) => FavPage(),
               SettingsPage.route: (_) => SettingsPage(),
               ProfilePage.route: (_) => ProfilePage(),
-              EditProfile.route: (_) => EditProfile(),
             },
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {

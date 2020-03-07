@@ -39,8 +39,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: 250,
                       width: double.infinity,
-                      child: Image.network(
-                        state.profileResponseModel.imageUrl ??
+                      child: CachedNetworkImage(
+                        imageUrl: state.profileResponseModel.imageUrl ??
                             "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
                         fit: BoxFit.cover,
                       ),
@@ -86,18 +86,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: DecorationImage(
-                                        image: CachedNetworkImageProvider(state
-                                                .profileResponseModel
-                                                .imageUrl ??
-                                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
-                                        fit: BoxFit.cover)),
-                                margin: EdgeInsets.only(left: 16.0),
+                              Hero(
+                                tag: "ProfilePic",
+                                child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      image: DecorationImage(
+                                          image: CachedNetworkImageProvider(state
+                                                  .profileResponseModel
+                                                  .imageUrl ??
+                                              "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
+                                          fit: BoxFit.cover)),
+                                  margin: EdgeInsets.only(left: 16.0),
+                                ),
                               ),
                               Positioned(
                                 right: 30,
@@ -107,11 +110,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.of(context)
-                                            .pushNamed(EditProfile.route);
+                                            .push(MaterialPageRoute(
+                                                builder: (_) => EditProfile(
+                                                      profileResponseModel: state
+                                                          .profileResponseModel,
+                                                    )));
                                       },
                                       child: Icon(
                                         Feather.edit_3,
-                                        size: 25,
+                                        size: 18,
                                       ),
                                     ),
                                     SizedBox(height: 10),

@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/profile/change_password_page.dart';
+import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/cognifeed_constants.dart';
+import 'change_profile_page.dart';
 
 class EditProfile extends StatefulWidget {
-  static final String route = "/editprofile";
+  final ProfileResponseModel profileResponseModel;
+
+  const EditProfile({this.profileResponseModel});
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -13,12 +19,14 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
+    print(widget.profileResponseModel.toJson().toString());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {},
         child: Icon(
           Icons.save,
+          size: 18,
           size: 35,
           color: Colors.black,
         ),
@@ -27,49 +35,85 @@ class _EditProfileState extends State<EditProfile> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                SizedBox(
-                  height: 250,
-                  width: double.infinity,
-                  child: Image.network(
-                    "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-                    fit: BoxFit.cover,
-                  ),
+            Hero(
+              tag: "ProfilePic",
+              child: SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: CachedNetworkImage(
+                  imageUrl:
+                      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                  fit: BoxFit.cover,
                 ),
-                Container(
-                  height: 250,
-                  color: Colors.black.withOpacity(0.4),
-                ),
-                Positioned(
-                  right: 10,
-                  bottom: 10,
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Feather.camera,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Change Profile",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5),
-                      )
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 0.0),
+              margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
               child: Theme(
                 data: customFormField(),
                 child: Column(
                   children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangePasswordPage(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.lock,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Password",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              )
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ModifyImage()));
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.camera,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Profile",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              ),
+                              Text(
+                                "Image",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Container(
                       child: TextFormField(
                         decoration: InputDecoration(
@@ -79,6 +123,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               FontAwesome.pencil_square_o,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -98,6 +143,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Feather.briefcase,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -117,6 +163,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Feather.map,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -136,6 +183,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               FontAwesome.envelope_o,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -155,6 +203,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Feather.phone,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -174,6 +223,7 @@ class _EditProfileState extends State<EditProfile> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Icons.web_asset,
+                              size: 18,
                               color: Colors.black,
                             ),
                           ),
@@ -184,46 +234,24 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(
                       height: 40,
                     ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: "About",
-                              prefixIcon: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                ),
-                                child: Icon(
-                                  Feather.user_plus,
-                                  color: Colors.black,
-                                ),
-                              ),
+                    Container(
+                      child: TextFormField(
+                        maxLines: 7,
+                        decoration: InputDecoration(
+                          hintText: "About",
+                          prefix: Padding(
+                            padding: const EdgeInsets.only(
+                              right: 20,
+                            ),
+                            child: Icon(
+                              Feather.user_plus,
+                              size: 18,
+                              color: Colors.black,
                             ),
                           ),
-                          height: 40,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 20,
-                          ),
-                          child: TextFormField(),
-                          height: 40,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 20,
-                          ),
-                          child: TextFormField(),
-                          height: 40,
-                        ),
-                      ],
+                      ),
+                      // height: 0,
                     ),
                     SizedBox(
                       height: 30,
@@ -233,6 +261,7 @@ class _EditProfileState extends State<EditProfile> {
                       subtitle: Text("15 February 2019"),
                       leading: Icon(
                         Feather.calendar,
+                        size: 18,
                         color: Colors.black,
                       ),
                     ),
@@ -244,50 +273,6 @@ class _EditProfileState extends State<EditProfile> {
               height: 20,
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  ThemeData customFormField() {
-    return ThemeData(
-      inputDecorationTheme: InputDecorationTheme(
-        helperStyle: TextStyle(color: Colors.black),
-        contentPadding:
-            EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 0),
-        labelStyle: CognifeedTypography.articleDescription,
-        hintStyle: TextStyle(
-          color: Colors.black.withOpacity(0.65),
-          fontSize: 15,
-        ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.2,
-            color: Colors.black.withOpacity(0.4),
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.2,
-            color: Colors.orange,
-          ),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: Color(0xffff5a5f),
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: Colors.black,
-          ),
         ),
       ),
     );
