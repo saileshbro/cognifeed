@@ -6,7 +6,7 @@ const { ErrorHandler } = require("../helpers/error_handler")
 const { nameValidator, passwordValidator } = require("../helpers/customValidators")
 
 exports.signup = async (req, res, next) => {
-  const { email, name } = req.body
+  const { email, name, phone } = req.body
   let { password } = req.body
   try {
     if (!name) {
@@ -18,11 +18,17 @@ exports.signup = async (req, res, next) => {
     if (!password) {
       throw new ErrorHandler(406, "Empty password provided")
     }
+    if (!phone) {
+      throw new ErrorHandler(406, "Empty phone provided")
+    }
     if (!validator.isEmail(email)) {
       throw new ErrorHandler(406, "Invalid email provided")
     }
     if (!nameValidator(name)) {
       throw new ErrorHandler(406, "Invalid name provided")
+    }
+    if (!validator.isMobilePhone(phone) || phone.length < 10) {
+      throw new ErrorHandler(406, "Invalid number provided")
     }
     if (!passwordValidator(password)) {
       throw new ErrorHandler(
@@ -42,9 +48,10 @@ exports.signup = async (req, res, next) => {
       name
     ])
     if (result.affectedRows) {
-      await pool.query(`INSERT INTO ${tables.profile} SET user_id=?,name=?`, [
+      await pool.query(`INSERT INTO ${tables.profile} SET user_id=?,name=?,phone=?`, [
         result.insertId,
-        name
+        name,
+        phone
       ])
     }
     const token = jwt.sign({ user_id: result.insertId }, process.env.JWT_SECRET)
@@ -53,7 +60,9 @@ exports.signup = async (req, res, next) => {
       user_id: result.insertId,
       name,
       email,
-      token
+      phone,
+      token,
+      image_url: "default.png"
     })
   } catch (error) {
     return next(error)
@@ -69,7 +78,7 @@ exports.login = async (req, res, next) => {
       throw new ErrorHandler(406, "Empty password provided")
     }
     const result = await pool.query(
-      `SELECT user_id,email,password,name FROM ${tables.user} JOIN ${tables.profile} USING(user_id) WHERE email=? LIMIT 1`,
+      `SELECT user_id,email,password,name,image_url FROM ${tables.user} JOIN ${tables.profile} USING(user_id) WHERE email=? LIMIT 1`,
       [email]
     )
 
