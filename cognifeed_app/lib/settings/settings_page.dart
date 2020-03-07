@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/onboarding_page.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
@@ -17,12 +16,18 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   TimeOfDay _time = TimeOfDay.now();
-  bool receivedNotification = false;
-  bool canSelectTags = false;
+  bool isTagsDisabled = true;
+  bool isTimerDisabled = true;
+
+  Future<Null> selectTime(BuildContext context) async {
+    _time = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(Cognifeed.loggedInUser.email);
     return ApplicationScaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -50,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             borderRadius: BorderRadius.circular(10.0)),
                         color: Colors.white,
                         child: Container(
-                          height: 80,
+                          height: 105,
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -65,31 +70,39 @@ class _SettingsPageState extends State<SettingsPage> {
                                   );
                                 },
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      "John Doe",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
+                                    Container(
+                                      width: 180,
+                                      child: Text(
+                                        "John Doe",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: 8,
                                     ),
-                                    Text(
-                                      "Computer Engineer",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                    Container(
+                                      width: 180,
+                                      child: Text(
+                                        "Computer Engineering ",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: 30,
+                                width: 10,
                               ),
                               IconButton(
                                 icon: Icon(
@@ -196,11 +209,14 @@ class _SettingsPageState extends State<SettingsPage> {
             SwitchListTile(
               activeColor: Color(0xffff5a5f),
               contentPadding: const EdgeInsets.all(0),
-              value: receivedNotification,
+              value: false,
               title: Text("Receive notification"),
               onChanged: (val) {
                 setState(() {
-                  receivedNotification = val;
+                  if (val)
+                    isTimerDisabled = false;
+                  else
+                    isTimerDisabled = !isTimerDisabled;
                 });
               },
             ),
@@ -211,20 +227,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 IconButton(
                     icon: Icon(
                       FontAwesome5Solid.clock,
-                      color: !receivedNotification
-                          ? Colors.grey
-                          : Color(0xffff5a5f),
+                      color: isTimerDisabled ? Colors.grey : Color(0xffff5a5f),
                     ),
-                    onPressed: !receivedNotification
+                    onPressed: isTimerDisabled
                         ? null
-                        : () async {
-                            var resp = await showTimePicker(
-                              context: context,
-                              initialTime: _time,
-                            );
-                            _time = resp;
-                            print(_time);
-                            setState(() {});
+                        : () {
+                            setState(() {
+                              selectTime(context);
+                            });
                           }),
               ],
             ),
@@ -232,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  _time.hourOfPeriod.toString(),
+                  "00",
                   style: TextStyle(
                     fontSize: 25,
                   ),
@@ -246,14 +256,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  _time.minute.toString(),
+                  "35",
                   style: TextStyle(
                     fontSize: 25,
                   ),
                 ),
                 SizedBox(width: 10),
                 Text(
-                  _time.period.index == 0 ? "AM" : "PM",
+                  "PM",
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -263,18 +273,21 @@ class _SettingsPageState extends State<SettingsPage> {
             SwitchListTile(
               activeColor: Color(0xffff5a5f),
               contentPadding: const EdgeInsets.all(0),
-              value: canSelectTags,
+              value: false,
               title: Text("Receive articles only from selected tags"),
               onChanged: (val) {
                 setState(() {
-                  canSelectTags = val;
+                  if (val)
+                    isTagsDisabled = false;
+                  else
+                    isTagsDisabled = !isTagsDisabled;
                 });
               },
             ),
             RaisedButton(
               disabledColor: Colors.grey,
               color: Color(0xffff5a5f),
-              onPressed: !canSelectTags
+              onPressed: isTagsDisabled
                   ? null
                   : () {
                       Navigator.push(
@@ -288,7 +301,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 'Select Tags',
                 style: TextStyle(
                   fontSize: 16,
-                  color: !canSelectTags ? Colors.black : Colors.white,
+                  color: isTagsDisabled ? Colors.black : Colors.white,
                 ),
               ),
             ),
