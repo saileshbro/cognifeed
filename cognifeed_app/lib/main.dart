@@ -16,11 +16,11 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'auth/authentication_page.dart';
-import 'home/home_page.dart';
-import 'home/onboarding_page.dart';
+import 'package:cognifeed_app/auth/authentication_page.dart';
+import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/home/onboarding_page.dart';
 
-import 'login/login_bloc.dart';
+import 'package:cognifeed_app/login/login_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
