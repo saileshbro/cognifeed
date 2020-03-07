@@ -48,7 +48,7 @@ class _ApplicationScaffoldState extends State<ApplicationScaffold> {
             ? null
             : <Widget>[
                 IconButton(
-                  icon: Icon(Cognifeed.mode == CustomThemeMode.Light
+                  icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
                       ? FontAwesome.sun_o
                       : FontAwesome.moon_o),
                   onPressed: () {

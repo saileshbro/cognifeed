@@ -7,12 +7,6 @@ class ProfileInitialState extends ProfileState {}
 
 class ProfileFetchingState extends ProfileState {}
 
-class ProfileSuccessMessageState extends ProfileState {
-  final String message;
-
-  ProfileSuccessMessageState({@required this.message});
-}
-
 class ProfileFetchedState extends ProfileState {
   final ProfileResponseModel profileResponseModel;
   ProfileFetchedState({@required this.profileResponseModel});

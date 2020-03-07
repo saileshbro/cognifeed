@@ -17,17 +17,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             await ProfileRepository.getUserProfile();
         yield ProfileFetchedState(profileResponseModel: responseModel);
       }
-      if (event is UpdateProfileEvent) {
-        final String message = await ProfileRepository.updateUserProfile(
-            name: event.model.name,
-            email: event.model.email,
-            phone: event.model.phone,
-            bio: event.model.bio,
-            website: event.model.website,
-            address: event.model.address,
-            about: event.model.about);
-        yield ProfileSuccessMessageState(message: message);
-      }
     } catch (e) {
       yield ProfileErrorState(e.toString());
     }

@@ -14,6 +14,7 @@ import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
+import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
 
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
@@ -56,7 +57,6 @@ Future<void> main() async {
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
   Cognifeed.drawerPages = DrawerPages.Home;
-  Cognifeed.mode = CustomThemeMode.Light;
   Cognifeed.dioClient.interceptors
       .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
     options.headers = {
@@ -81,6 +81,11 @@ Future<void> main() async {
       BlocProvider<ProfileBloc>(
         create: (BuildContext context) {
           return ProfileBloc();
+        },
+      ),
+      BlocProvider<UpdateProfileBloc>(
+        create: (BuildContext context) {
+          return UpdateProfileBloc();
         },
       ),
       BlocProvider<ThemeBloc>(
@@ -137,10 +142,9 @@ class App extends StatelessWidget {
                   return HomePage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  // return AuthenticationPage(
-                  //   userRepository: UserRepository(),
-                  // );
-                  return SettingsPage();
+                  return AuthenticationPage(
+                    userRepository: UserRepository(),
+                  );
                 }
                 if (state is AuthenticationLoading) {
                   return LoadingIndicator();

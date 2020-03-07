@@ -228,18 +228,30 @@ final String baseUrl = "http://192.168.0.19:3100/api";
 class Cognifeed {
   static SharedPreferences pref;
   static DrawerPages drawerPages;
-  static CustomThemeMode mode;
   static UserModel loggedInUser;
   static Dio dioClient = new Dio();
 }
-
-enum CustomThemeMode { Light, Dark }
 
 class UserModel {
   String email;
   String name;
   String token;
   String imageUrl;
+  String phone;
+  String bio;
+  String address;
+  String website;
+  String about;
 
-  UserModel({this.email, this.name, this.token, this.imageUrl});
+  UserModel({
+    this.email,
+    this.name,
+    this.token,
+    this.imageUrl,
+    this.phone,
+    this.bio,
+    this.address,
+    this.website,
+    this.about,
+  });
 }

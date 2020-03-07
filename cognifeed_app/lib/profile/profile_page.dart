@@ -58,7 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 margin: EdgeInsets.only(top: 16.0),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5.0)),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 3,
+                                        spreadRadius: .03,
+                                        color: Colors.black.withOpacity(.3),
+                                      )
+                                    ]),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
@@ -131,9 +138,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(height: 20.0),
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 3,
+                                    spreadRadius: .03,
+                                    color: Colors.black.withOpacity(.3),
+                                  )
+                                ]),
                             child: Column(
                               children: <Widget>[
                                 ListTile(

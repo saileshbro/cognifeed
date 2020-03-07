@@ -3,6 +3,9 @@ import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/profile_state.dart';
+import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
+import 'package:cognifeed_app/profile/bloc/update_profile_event.dart';
+import 'package:cognifeed_app/profile/bloc/update_profile_state.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:cognifeed_app/profile/profile_update_request_model.dart';
@@ -93,10 +96,10 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: BlocListener<ProfileBloc, ProfileState>(
-        bloc: BlocProvider.of<ProfileBloc>(context),
+      floatingActionButton: BlocListener<UpdateProfileBloc, UpdateProfileState>(
+        bloc: BlocProvider.of<UpdateProfileBloc>(context),
         listener: (context, state) {
-          if (state is ProfileErrorState) {
+          if (state is ProfileUpdateErrorState) {
             Scaffold.of(context).showSnackBar(
               SnackBar(
                 content: Text('${state.error}'),
@@ -104,24 +107,30 @@ class _EditProfileState extends State<EditProfile> {
               ),
             );
           }
-          if (state is ProfileSuccessMessageState) {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${state.message}'),
-                backgroundColor: Colors.green,
-              ),
-            );
+          if (state is ProfileUpdateSuccessMessageState) {
+            Cognifeed.loggedInUser.email = _emailController.text;
+            Cognifeed.loggedInUser.name = _nameController.text;
+            BlocProvider.of<ProfileBloc>(context).add(GetProfileInfoEvent());
+            Scaffold.of(context)
+                .showSnackBar(
+                  SnackBar(
+                    content: Text('${state.message}'),
+                    backgroundColor: Colors.green,
+                  ),
+                )
+                .closed
+                .then((val) => Navigator.of(context).pop());
           }
         },
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-            bloc: BlocProvider.of<ProfileBloc>(context),
+        child: BlocBuilder<UpdateProfileBloc, UpdateProfileState>(
+            bloc: BlocProvider.of<UpdateProfileBloc>(context),
             builder: (context, state) {
               return FloatingActionButton(
                 backgroundColor: Colors.white,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    BlocProvider.of<ProfileBloc>(context).add(
-                      UpdateProfileEvent(
+                    BlocProvider.of<UpdateProfileBloc>(context).add(
+                      UpdateProfileClickedEvent(
                         model: UpdateProfileRequestModel(
                           about: _aboutController.text,
                           name: _nameController.text,
