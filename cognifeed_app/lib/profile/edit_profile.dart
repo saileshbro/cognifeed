@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -30,7 +31,7 @@ class _EditProfileState extends State<EditProfile> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 320,
+              height: 300,
               width: double.infinity,
               child: Image.network(
                 "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
@@ -49,9 +50,11 @@ class _EditProfileState extends State<EditProfile> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ModifyImage()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangePasswordPage(),
+                              ),
+                            );
                           },
                           child: Column(
                             children: <Widget>[
@@ -276,50 +279,6 @@ class _EditProfileState extends State<EditProfile> {
               height: 20,
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  ThemeData customFormField() {
-    return ThemeData(
-      inputDecorationTheme: InputDecorationTheme(
-        helperStyle: TextStyle(color: Colors.black),
-        contentPadding:
-            EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 0),
-        labelStyle: CognifeedTypography.articleDescription,
-        hintStyle: TextStyle(
-          color: Colors.black.withOpacity(0.65),
-          fontSize: 15,
-        ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.2,
-            color: Colors.black.withOpacity(0.4),
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.2,
-            color: Colors.orange,
-          ),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: Color(0xffff5a5f),
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: Colors.black,
-          ),
         ),
       ),
     );

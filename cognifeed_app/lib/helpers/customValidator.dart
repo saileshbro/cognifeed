@@ -20,3 +20,22 @@ dynamic validatePhone(String value) {
   }
   return null;
 }
+
+dynamic validateEmail(String email) {
+  final RegExp exp =
+      RegExp(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)");
+  if (exp.allMatches(email).length > 0) {
+    return null;
+  } else {
+    return 'Enter a valid email.';
+  }
+}
+
+dynamic validateName(String name) {
+  final RegExp exp = new RegExp('[A-Za-z]{2,25}( [A-Za-z]{2,25})?');
+  if (exp.allMatches(name).length > 0) {
+    return null;
+  } else {
+    return 'Enter a valid name.';
+  }
+}

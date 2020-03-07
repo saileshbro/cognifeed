@@ -10,6 +10,49 @@ class CognifeedColors {
   static Color duskyBlue = Color(0xff445ba0);
 }
 
+ThemeData customFormField() {
+  return ThemeData(
+    inputDecorationTheme: InputDecorationTheme(
+      helperStyle: TextStyle(color: Colors.black),
+      contentPadding: EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 0),
+      labelStyle: CognifeedTypography.articleDescription,
+      hintStyle: TextStyle(
+        color: Colors.black.withOpacity(0.65),
+        fontSize: 15,
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.grey,
+        ),
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          width: 1.2,
+          color: Colors.black.withOpacity(0.4),
+        ),
+      ),
+      errorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          width: 1.2,
+          color: Colors.orange,
+        ),
+      ),
+      focusedErrorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          width: 2,
+          color: Color(0xffff5a5f),
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: Colors.black,
+        ),
+      ),
+    ),
+  );
+}
+
 class CognifeedTheme {
   static ThemeData getTheme(bool isDarkTheme) {
     if (isDarkTheme == false)

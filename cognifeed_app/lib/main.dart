@@ -109,7 +109,7 @@ class App extends StatelessWidget {
                   return ModifyImage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  return EditProfile();
+                  return ProfilePage();
                   // return AuthenticationPage(
                   //   userRepository: UserRepository(),
                   // );

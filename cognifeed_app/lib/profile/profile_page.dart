@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -77,15 +78,25 @@ class _ProfilePageState extends State<ProfilePage> {
                       Positioned(
                         right: 30,
                         top: 40,
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Feather.edit_3,
-                              size: 25,
-                            ),
-                            SizedBox(height: 10),
-                            Text("Edit Profile")
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.edit_3,
+                                size: 25,
+                              ),
+                              SizedBox(height: 10),
+                              Text("Edit Profile")
+                            ],
+                          ),
                         ),
                       )
                     ],
