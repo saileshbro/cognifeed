@@ -1,4 +1,3 @@
-import 'package:cognifeed_app/application_wrapper.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
@@ -9,24 +8,18 @@ import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/authentication_page.dart';
 import 'home/home_page.dart';
-import 'home/home_page.dart';
-import 'home/home_page.dart';
-import 'home/home_page.dart';
-import 'home/home_page.dart';
-import 'home/home_page.dart';
 import 'home/onboarding_page.dart';
 
-import 'home/onboarding_page.dart';
 import 'login/login_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -54,6 +47,7 @@ Future<void> main() async {
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
   Cognifeed.drawerPages = DrawerPages.Home;
+  Cognifeed.mode = CustomThemeMode.Light;
   Cognifeed.pref = await SharedPreferences.getInstance();
   runApp(MultiBlocProvider(
     providers: [
@@ -61,6 +55,11 @@ Future<void> main() async {
         create: (BuildContext context) {
           return AuthenticationBloc(userRepository: userRepository)
             ..add(AppStarted());
+        },
+      ),
+      BlocProvider<ThemeBloc>(
+        create: (BuildContext context) {
+          return ThemeBloc();
         },
       ),
       BlocProvider<LoginBloc>(
@@ -84,35 +83,40 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: CognifeedTheme.getTheme(),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        HomePage.route: (_) => HomePage(),
-        ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
-        FavPage.route: (_) => FavPage(),
-        SettingsPage.route: (_) => SettingsPage(),
-        ProfilePage.route: (_) => ProfilePage(),
-      },
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationUninitialized) {
-            return SplashPage();
-          }
-          if (state is AuthenticationAuthenticated) {
-            return OnboardingPage();
-          }
-          if (state is AuthenticationUnauthenticated) {
-            return AuthenticationPage(
-              userRepository: UserRepository(),
-            );
-            // return HomePage();
-          }
-          if (state is AuthenticationLoading) {
-            return LoadingIndicator();
-          }
-        },
-      ),
-    );
+    return BlocBuilder<ThemeBloc, bool>(
+        bloc: BlocProvider.of<ThemeBloc>(context),
+        builder: (context, snapshot) {
+          return MaterialApp(
+            theme: CognifeedTheme.getTheme(
+                BlocProvider.of<ThemeBloc>(context).isDarkTheme),
+            debugShowCheckedModeBanner: false,
+            routes: {
+              HomePage.route: (_) => HomePage(),
+              ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
+              FavPage.route: (_) => FavPage(),
+              SettingsPage.route: (_) => SettingsPage(),
+              ProfilePage.route: (_) => ProfilePage(),
+            },
+            home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+                if (state is AuthenticationUninitialized) {
+                  return SplashPage();
+                }
+                if (state is AuthenticationAuthenticated) {
+                  return OnboardingPage();
+                }
+                if (state is AuthenticationUnauthenticated) {
+                  return HomePage();
+                  return AuthenticationPage(
+                    userRepository: UserRepository(),
+                  );
+                }
+                if (state is AuthenticationLoading) {
+                  return LoadingIndicator();
+                }
+              },
+            ),
+          );
+        });
   }
 }

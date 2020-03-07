@@ -1,15 +1,16 @@
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
+import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
-import '../home/home_page.dart';
 import '../home/home_page.dart';
 
-class ApplicationScaffold extends StatelessWidget {
+class ApplicationScaffold extends StatefulWidget {
   final Widget child;
   final bool isOnBoarding;
   final String title;
@@ -25,26 +26,38 @@ class ApplicationScaffold extends StatelessWidget {
       : super(key: key);
 
   @override
+  _ApplicationScaffoldState createState() => _ApplicationScaffoldState();
+}
+
+class _ApplicationScaffoldState extends State<ApplicationScaffold> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: floatingActionButton,
-      drawer: !isOnBoarding ? ApplicationDrawer() : null,
+      floatingActionButton: widget.floatingActionButton,
+      drawer: !widget.isOnBoarding ? ApplicationDrawer() : null,
       appBar: AppBar(
         title: Text(
-          title,
+          widget.title,
           style: CognifeedTypography.textStyle1,
         ),
         centerTitle: true,
-        actions: isOnBoarding
+        actions: widget.isOnBoarding
             ? null
             : <Widget>[
                 IconButton(
-                  icon: Icon(FontAwesome.lightbulb_o),
-                  onPressed: () {},
+                  icon: Icon(Cognifeed.mode == CustomThemeMode.Light
+                      ? FontAwesome.sun_o
+                      : FontAwesome.moon_o),
+                  onPressed: () {
+                    BlocProvider.of<ThemeBloc>(context).add(
+                        BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                            ? LightThemeEvent()
+                            : DarkThemeEvent());
+                  },
                 ),
               ],
       ),
-      body: child,
+      body: widget.child,
     );
   }
 }

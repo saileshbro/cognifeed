@@ -11,63 +11,123 @@ class CognifeedColors {
 }
 
 class CognifeedTheme {
-  static ThemeData getTheme() {
-    return ThemeData(
-      fontFamily: GoogleFonts.crimsonText().fontFamily,
-      textTheme: GoogleFonts.crimsonTextTextTheme(),
-      appBarTheme: AppBarTheme(
-        color: Colors.white,
-        elevation: 0.0,
+  static ThemeData getTheme(bool isDarkTheme) {
+    if (isDarkTheme == false)
+      return ThemeData(
+        brightness: Brightness.light,
+        fontFamily: GoogleFonts.crimsonText().fontFamily,
+        textTheme: GoogleFonts.crimsonTextTextTheme(),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          elevation: 0.0,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+        ),
         iconTheme: IconThemeData(
+          size: 18,
           color: Colors.black,
         ),
-      ),
-      iconTheme: IconThemeData(
-        size: 18,
-        color: Colors.black,
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        helperStyle: TextStyle(color: Colors.teal),
-        labelStyle: CognifeedTypography.textStyle2,
-        hintStyle: TextStyle(
-          color: CognifeedColors.teal,
-        ),
-        border: OutlineInputBorder(
-          // borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(
-            color: CognifeedColors.aquaMarine,
+        inputDecorationTheme: InputDecorationTheme(
+          helperStyle: TextStyle(color: Colors.teal),
+          labelStyle: CognifeedTypography.textStyle2,
+          hintStyle: TextStyle(
+            color: CognifeedColors.teal,
+          ),
+          border: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28.0),
+            borderSide: BorderSide(
+              width: 1.2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28.0),
+            borderSide: BorderSide(
+              width: 1.2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              width: 2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              width: 2,
+              color: CognifeedColors.aquaMarine,
+            ),
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          // borderRadius: BorderRadius.circular(28.0),
-          borderSide: BorderSide(
-            width: 1.2,
-            color: CognifeedColors.aquaMarine,
+      );
+    else
+      return ThemeData(
+        brightness: Brightness.dark,
+        fontFamily: GoogleFonts.crimsonText().fontFamily,
+        textTheme: GoogleFonts.crimsonTextTextTheme(),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          elevation: 0.0,
+          iconTheme: IconThemeData(
+            color: Colors.black,
           ),
         ),
-        errorBorder: OutlineInputBorder(
-          // borderRadius: BorderRadius.circular(28.0),
-          borderSide: BorderSide(
-            width: 1.2,
-            color: CognifeedColors.aquaMarine,
+        iconTheme: IconThemeData(
+          size: 18,
+          color: Colors.black,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          helperStyle: TextStyle(color: Colors.teal),
+          labelStyle: CognifeedTypography.textStyle2,
+          hintStyle: TextStyle(
+            color: CognifeedColors.teal,
+          ),
+          border: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28.0),
+            borderSide: BorderSide(
+              width: 1.2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28.0),
+            borderSide: BorderSide(
+              width: 1.2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              width: 2,
+              color: CognifeedColors.aquaMarine,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            // borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide(
+              width: 2,
+              color: CognifeedColors.aquaMarine,
+            ),
           ),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          // borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(
-            width: 2,
-            color: CognifeedColors.aquaMarine,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          // borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide(
-            width: 2,
-            color: CognifeedColors.aquaMarine,
-          ),
-        ),
-      ),
-    );
+      );
   }
 }
 
@@ -122,4 +182,7 @@ final String baseUrl = "http://192.168.0.98:3100/api";
 class Cognifeed {
   static SharedPreferences pref;
   static DrawerPages drawerPages;
+  static CustomThemeMode mode;
 }
+
+enum CustomThemeMode { Light, Dark }
