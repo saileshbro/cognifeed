@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/home/onboarding_page.dart';
+import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
+import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -58,28 +60,38 @@ class _SettingsPageState extends State<SettingsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Text(
-                                    "John Doe",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProfilePage(),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Computer Engineer",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
+                                  );
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "John Doe",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "Computer Engineer",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 width: 30,
@@ -107,10 +119,20 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 20.0),
-                    child: CircleAvatar(
-                      maxRadius: 50,
-                      backgroundImage: CachedNetworkImageProvider(
-                          "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      },
+                      child: CircleAvatar(
+                        maxRadius: 50,
+                        backgroundImage: CachedNetworkImageProvider(
+                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
+                      ),
                     ),
                   ),
                 ],
@@ -127,17 +149,44 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 IconButton(
-                    icon: Icon(
-                      FontAwesome5Solid.key,
-                      color: Color(0xffff5a5f),
-                    ),
-                    onPressed: isTimerDisabled
-                        ? null
-                        : () {
-                            setState(() {
-                              selectTime(context);
-                            });
-                          }),
+                  icon: Icon(
+                    FontAwesome5Solid.key,
+                    color: Color(0xffff5a5f),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangePasswordPage(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Change general tag preference",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    FontAwesome5.check_square,
+                    color: Color(0xffff5a5f),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnboardingPage(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 25.0),
@@ -169,7 +218,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 Text("Set timer for Push Notification"),
                 IconButton(
                     icon: Icon(
-                      Feather.clock,
+                      FontAwesome5Solid.clock,
+                      color: isTimerDisabled ? Colors.grey : Color(0xffff5a5f),
                     ),
                     onPressed: isTimerDisabled
                         ? null
@@ -247,6 +297,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             const SizedBox(height: 60.0),
           ],
         ),
