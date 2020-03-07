@@ -1,5 +1,6 @@
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
@@ -36,6 +37,11 @@ class AuthenticationBloc
         name: event.name,
         imageUrl: event.imageUrl,
       );
+      Cognifeed.loggedInUser = UserModel(
+          token: event.token,
+          email: event.email,
+          name: event.name,
+          imageUrl: event.imageUrl);
       yield AuthenticationAuthenticated();
     }
 

@@ -5,17 +5,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CognifeedColors {
-  static Color dockEggBlue = Color(0xffe9fdfc);
-  static Color aquaMarine = Color(0xff00c9c3);
-  static Color teal = Color(0xff00928d);
-  static Color duskyBlue = Color(0xff445ba0);
+  static const Color dockEggBlue = Color(0xffe9fdfc);
+  static const Color aquaMarine = Color(0xff00c9c3);
+  static const Color coralPink = Color(0xffff5a5f);
+  static const Color teal = Color(0xff00928d);
+  static const Color duskyBlue = Color(0xff445ba0);
 }
 
 ThemeData customFormField() {
   return ThemeData(
+    buttonColor: CognifeedColors.coralPink,
     inputDecorationTheme: InputDecorationTheme(
       helperStyle: TextStyle(color: Colors.black),
-      contentPadding: EdgeInsets.only(left: 25, top: 10, bottom: 10, right: 0),
+      contentPadding: EdgeInsets.only(left: 25, top: 20, bottom: 0, right: 0),
       labelStyle: CognifeedTypography.articleDescription,
       hintStyle: TextStyle(
         color: Colors.black.withOpacity(0.65),

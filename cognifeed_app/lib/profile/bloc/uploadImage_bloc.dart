@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:cognifeed_app/profile/profileBloc/uploadImage_event.dart';
-import 'package:cognifeed_app/profile/profileBloc/uploadImage_state.dart';
+import 'package:cognifeed_app/profile/bloc/uploadImage_event.dart';
+import 'package:cognifeed_app/profile/bloc/uploadImage_state.dart';
 
 class UploadBloc extends Bloc<UploadPictureEvent, UploadPictureState> {
   @override

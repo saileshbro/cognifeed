@@ -1,4 +1,6 @@
-import 'package:cognifeed_app/profile/profileBloc/uploadImage_event.dart';
+import 'package:cognifeed_app/profile/bloc/uploadImage_bloc.dart';
+import 'package:cognifeed_app/profile/bloc/uploadImage_event.dart';
+import 'package:cognifeed_app/profile/bloc/uploadImage_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +9,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'profileBloc/uploadImage_bloc.dart';
-import 'profileBloc/uploadImage_state.dart';
 
 class ModifyImage extends StatefulWidget {
   @override

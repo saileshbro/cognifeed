@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
+import 'package:cognifeed_app/profile/bloc/profile_event.dart';
+import 'package:cognifeed_app/profile/bloc/profile_state.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
-import 'package:cognifeed_app/profile/profile_bloc.dart';
-import 'package:cognifeed_app/profile/profile_event.dart';
-import 'package:cognifeed_app/profile/profile_state.dart';
+
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,25 +106,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               Positioned(
                                 right: 30,
                                 top: 40,
-                                child: Column(
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                                builder: (_) => EditProfile(
-                                                      profileResponseModel: state
-                                                          .profileResponseModel,
-                                                    )));
-                                      },
-                                      child: Icon(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (_) => EditProfile(
+                                                  profileResponseModel: state
+                                                      .profileResponseModel,
+                                                )));
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
                                         Feather.edit_3,
                                         size: 18,
                                       ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text("Edit Profile")
-                                  ],
+                                      Text("Edit Profile")
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
