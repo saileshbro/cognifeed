@@ -5,6 +5,7 @@ import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
+import 'package:cognifeed_app/profile/change_profile_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
@@ -21,6 +22,8 @@ import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/home/onboarding_page.dart';
 
 import 'package:cognifeed_app/login/login_bloc.dart';
+
+import 'profile/edit_profile.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -103,13 +106,13 @@ class App extends StatelessWidget {
                   return SplashPage();
                 }
                 if (state is AuthenticationAuthenticated) {
-                  return OnboardingPage();
+                  return ModifyImage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  return HomePage();
-                  return AuthenticationPage(
-                    userRepository: UserRepository(),
-                  );
+                  return EditProfile();
+                  // return AuthenticationPage(
+                  //   userRepository: UserRepository(),
+                  // );
                 }
                 if (state is AuthenticationLoading) {
                   return LoadingIndicator();

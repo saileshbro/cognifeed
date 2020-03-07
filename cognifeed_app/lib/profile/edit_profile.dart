@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/cognifeed_constants.dart';
+import 'change_profile_page.dart';
 
 class EditProfile extends StatefulWidget {
   static final String path = "lib/src/pages/profile/profile3.dart";
@@ -28,49 +29,79 @@ class _EditProfileState extends State<EditProfile> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                SizedBox(
-                  height: 250,
-                  width: double.infinity,
-                  child: Image.network(
-                    "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  color: Colors.black.withOpacity(0.4),
-                ),
-                Positioned(
-                  right: 10,
-                  bottom: 10,
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Feather.camera,
-                        size: 25,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Change Profile",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5),
-                      )
-                    ],
-                  ),
-                )
-              ],
+            SizedBox(
+              height: 320,
+              width: double.infinity,
+              child: Image.network(
+                "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 0.0),
+              margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
               child: Theme(
                 data: customFormField(),
                 child: Column(
                   children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ModifyImage()));
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.lock,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Password",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              )
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ModifyImage()));
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.camera,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Profile",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              ),
+                              Text(
+                                "Image",
+                                style: TextStyle(
+                                    color: Colors.black, letterSpacing: 1.6),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Container(
                       child: TextFormField(
                         decoration: InputDecoration(
