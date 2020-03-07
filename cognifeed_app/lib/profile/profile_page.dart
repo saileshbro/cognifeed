@@ -5,7 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '../constants/cognifeed_constants.dart';
 
 class ProfilePage extends StatefulWidget {
-  static final String path = "lib/src/pages/profile/profile3.dart";
+  static final String route = "/profile";
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
