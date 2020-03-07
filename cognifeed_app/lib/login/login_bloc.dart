@@ -25,11 +25,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is LoginButtonPressed) {
       yield LoginLoading();
       try {
-        final token = await userRepository.authenticate(
+        final loginResponse = await userRepository.authenticate(
           email: event.email,
           password: event.password,
         );
-        authenticationBloc.add(LoggedIn(token: token));
+        authenticationBloc.add(
+          LoggedIn(
+              token: loginResponse.token,
+              email: loginResponse.email,
+              name: loginResponse.name,
+              imageUrl: loginResponse.imageUrl),
+        );
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());
@@ -38,12 +44,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is SignupButtonPressed) {
       yield LoginLoading();
       try {
-        final token = await userRepository.signup(
+        final response = await userRepository.signup(
           email: event.email,
           password: event.password,
+          phone: event.phone,
+          name: event.name,
         );
 
-        authenticationBloc.add(LoggedIn(token: token));
+        authenticationBloc.add(LoggedIn(
+            token: response.token,
+            email: response.email,
+            name: response.name,
+            imageUrl: response.imageUrl));
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());

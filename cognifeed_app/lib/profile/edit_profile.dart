@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/cognifeed_constants.dart';
 
 class EditProfile extends StatefulWidget {
-  static final String path = "lib/src/pages/profile/profile3.dart";
+  static final String route = "/editprofile";
 
   @override
   _EditProfileState createState() => _EditProfileState();

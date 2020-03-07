@@ -8,8 +8,15 @@ class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {
   final String token;
-
-  const LoggedIn({@required this.token});
+  final String name;
+  final String email;
+  final String imageUrl;
+  const LoggedIn({
+    @required this.token,
+    @required this.email,
+    @required this.name,
+    @required this.imageUrl,
+  });
 
   @override
   String toString() => 'LoggedIn { token: $token }';

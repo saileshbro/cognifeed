@@ -30,7 +30,12 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-      userRepository.persistToken(event.token);
+      userRepository.persistUser(
+        token: event.token,
+        email: event.email,
+        name: event.name,
+        imageUrl: event.imageUrl,
+      );
       yield AuthenticationAuthenticated();
     }
 

@@ -460,30 +460,56 @@
 //   }
 // }
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/articles/articles_bloc.dart';
+import 'package:cognifeed_app/articles/articles_event.dart';
+import 'package:cognifeed_app/articles/articles_model.dart';
+import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-import '../Models/articlemodel.dart';
 import '../constants/cognifeed_constants.dart';
 
 class HomePage extends StatefulWidget {
   static const route = "/home";
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    BlocProvider.of<ArticlesBloc>(context).add(GetHomePageArticlesEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        itemCount: articles.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ArticleBox(article: articles[index]);
-        },
-      ),
+      child: BlocBuilder<ArticlesBloc, ArticlesState>(
+          bloc: BlocProvider.of<ArticlesBloc>(context),
+          builder: (BuildContext context, ArticlesState state) {
+            if (state is ArticlesLoadedState) {
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: state.articlesModel.articles.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ArticleBox(
+                      article: state.articlesModel.articles[index]);
+                },
+              );
+            } else if (state is ArticlesErrorState) {
+              return Container(
+                child: Text(state.error),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }

@@ -315,9 +315,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import '../constants/Tags.dart';
 import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
-import '../widgets/TagWidget.dart';
 
 class OnboardingPage extends StatefulWidget {
   OnboardingPage({Key key}) : super(key: key);

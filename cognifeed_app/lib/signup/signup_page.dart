@@ -80,6 +80,8 @@ class _SignupPageState extends State<SignupPage> {
         SignupButtonPressed(
           email: _emailController.text,
           password: _passwordController.text,
+          name: _nameController.text,
+          phone: _phoneNumberController.text,
         ),
       );
     }

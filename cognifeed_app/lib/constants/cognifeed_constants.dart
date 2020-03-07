@@ -1,4 +1,5 @@
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -177,12 +178,23 @@ class CognifeedTypography {
   );
 }
 
-final String baseUrl = "http://192.168.0.98:3100/api";
+final String baseUrl = "http://192.168.0.19:3100/api";
 
 class Cognifeed {
   static SharedPreferences pref;
   static DrawerPages drawerPages;
   static CustomThemeMode mode;
+  static UserModel loggedInUser;
+  static Dio dioClient = new Dio();
 }
 
 enum CustomThemeMode { Light, Dark }
+
+class UserModel {
+  String email;
+  String name;
+  String token;
+  String imageUrl;
+
+  UserModel({this.email, this.name, this.token, this.imageUrl});
+}

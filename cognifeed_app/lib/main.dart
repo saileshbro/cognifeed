@@ -1,26 +1,33 @@
+import 'dart:io';
+
+import 'package:bloc/bloc.dart';
+import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
+import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
+import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
+import 'package:cognifeed_app/profile/edit_profile.dart';
+import 'package:cognifeed_app/profile/profile_bloc.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:cognifeed_app/auth/authentication_page.dart';
-import 'package:cognifeed_app/home/home_page.dart';
-import 'package:cognifeed_app/home/onboarding_page.dart';
-
-import 'package:cognifeed_app/login/login_bloc.dart';
+import 'constants/cognifeed_constants.dart';
+import 'home/home_page.dart';
+import 'profile/profile_page.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -48,7 +55,18 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Cognifeed.drawerPages = DrawerPages.Home;
   Cognifeed.mode = CustomThemeMode.Light;
+  Cognifeed.dioClient.interceptors
+      .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
+    options.headers = {
+      HttpHeaders.authorizationHeader: "Bearer ${Cognifeed.loggedInUser.token}"
+    };
+  }));
   Cognifeed.pref = await SharedPreferences.getInstance();
+  Cognifeed.loggedInUser = UserModel(
+      email: Cognifeed.pref.getString('email'),
+      token: Cognifeed.pref.getString('token'),
+      name: Cognifeed.pref.getString('name'),
+      imageUrl: Cognifeed.pref.getString('image_url'));
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<AuthenticationBloc>(
@@ -57,9 +75,19 @@ Future<void> main() async {
             ..add(AppStarted());
         },
       ),
+      BlocProvider<ProfileBloc>(
+        create: (BuildContext context) {
+          return ProfileBloc();
+        },
+      ),
       BlocProvider<ThemeBloc>(
         create: (BuildContext context) {
           return ThemeBloc();
+        },
+      ),
+      BlocProvider<ArticlesBloc>(
+        create: (BuildContext context) {
+          return ArticlesBloc();
         },
       ),
       BlocProvider<LoginBloc>(
@@ -96,6 +124,7 @@ class App extends StatelessWidget {
               FavPage.route: (_) => FavPage(),
               SettingsPage.route: (_) => SettingsPage(),
               ProfilePage.route: (_) => ProfilePage(),
+              EditProfile.route: (_) => EditProfile(),
             },
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
@@ -103,10 +132,9 @@ class App extends StatelessWidget {
                   return SplashPage();
                 }
                 if (state is AuthenticationAuthenticated) {
-                  return OnboardingPage();
+                  return HomePage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  return HomePage();
                   return AuthenticationPage(
                     userRepository: UserRepository(),
                   );

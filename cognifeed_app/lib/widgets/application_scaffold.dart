@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
+import '../auth/authentication_bloc.dart';
+import '../auth/authentication_events.dart';
+import '../constants/cognifeed_constants.dart';
 import '../constants/cognifeed_constants.dart';
 import '../home/home_page.dart';
 
@@ -80,11 +83,11 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: Colors.white),
             accountName: Text(
-              "Sailesh Dahal",
+              Cognifeed.loggedInUser.name,
               style: CognifeedTypography.articleTitle.copyWith(fontSize: 20),
             ),
             accountEmail: Text(
-              'saileshbro@gmail.com',
+              Cognifeed.loggedInUser.email,
               style: CognifeedTypography.articleDescription,
             ),
             currentAccountPicture: CircleAvatar(
@@ -192,6 +195,27 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                   Navigator.pop(context);
                   Navigator.popAndPushNamed(context, SettingsPage.route);
                 }
+              },
+            ),
+          ),
+          Container(
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  Entypo.log_out,
+                  size: 20,
+                  color: Colors.black,
+                ),
+              ),
+              title: Text(
+                "Logout",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
               },
             ),
           ),
