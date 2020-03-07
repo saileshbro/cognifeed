@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cognifeed_app/login/login_response_model.dart';
-import 'package:cognifeed_app/signup/signup_response_model.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +29,7 @@ class UserRepository {
     }
   }
 
-  Future<SignupResponseModel> signup({
+  Future<LoginResponseModel> signup({
     @required String email,
     @required String password,
     @required String name,
@@ -48,7 +47,7 @@ class UserRepository {
         return Future.error(jsonDecode(response.body)['error']);
       }
       return Future.value(
-          SignupResponseModel.fromJson(jsonDecode(response.body)));
+          LoginResponseModel.fromJson(jsonDecode(response.body)));
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
@@ -65,15 +64,27 @@ class UserRepository {
   }
 
   void persistUser({
+    @required String about,
+    @required String address,
+    @required String bio,
+    @required String email,
+    @required String imageUrl,
+    @required String name,
+    @required String phone,
     @required String token,
-    @required name,
-    @required email,
-    @required imageUrl,
+    @required String website,
+    @required String joinedDate,
   }) {
-    Cognifeed.pref.setString('token', token);
-    Cognifeed.pref.setString('name', name);
-    Cognifeed.pref.setString('email', email);
-    Cognifeed.pref.setString('imageUrl', imageUrl);
+    Cognifeed.pref.setString("about", about);
+    Cognifeed.pref.setString("address", address);
+    Cognifeed.pref.setString("bio", bio);
+    Cognifeed.pref.setString("email", email);
+    Cognifeed.pref.setString("imageUrl", imageUrl);
+    Cognifeed.pref.setString("name", name);
+    Cognifeed.pref.setString("phone", phone);
+    Cognifeed.pref.setString("token", token);
+    Cognifeed.pref.setString("website", website);
+    Cognifeed.pref.setString("joinedDate", joinedDate);
     return;
   }
 

@@ -36,12 +36,25 @@ class AuthenticationBloc
         email: event.email,
         name: event.name,
         imageUrl: event.imageUrl,
+        about: event.about,
+        address: event.address,
+        bio: event.bio,
+        joinedDate: event.joinedDate,
+        phone: event.phone,
+        website: event.website,
       );
       Cognifeed.loggedInUser = UserModel(
-          token: event.token,
-          email: event.email,
-          name: event.name,
-          imageUrl: event.imageUrl);
+        token: event.token,
+        email: event.email,
+        name: event.name,
+        imageUrl: event.imageUrl,
+        about: event.about,
+        address: event.address,
+        bio: event.bio,
+        joinedDate: event.joinedDate,
+        phone: event.phone,
+        website: event.website,
+      );
       yield AuthenticationAuthenticated();
     }
 

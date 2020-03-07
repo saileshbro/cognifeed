@@ -30,8 +30,6 @@ import 'constants/cognifeed_constants.dart';
 import 'home/home_page.dart';
 import 'profile/profile_page.dart';
 
-import 'profile/edit_profile.dart';
-
 class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
@@ -66,10 +64,17 @@ Future<void> main() async {
   }));
   Cognifeed.pref = await SharedPreferences.getInstance();
   Cognifeed.loggedInUser = UserModel(
-      email: Cognifeed.pref.getString('email'),
-      token: Cognifeed.pref.getString('token'),
-      name: Cognifeed.pref.getString('name'),
-      imageUrl: Cognifeed.pref.getString('image_url'));
+    email: Cognifeed.pref.getString('email'),
+    token: Cognifeed.pref.getString('token'),
+    name: Cognifeed.pref.getString('name'),
+    imageUrl: Cognifeed.pref.getString('image_url'),
+    bio: Cognifeed.pref.getString('bio'),
+    phone: Cognifeed.pref.getString('phone'),
+    address: Cognifeed.pref.getString('address'),
+    website: Cognifeed.pref.getString('website'),
+    about: Cognifeed.pref.getString('about'),
+    joinedDate: Cognifeed.pref.getString('joinedDate'),
+  );
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<AuthenticationBloc>(

@@ -110,6 +110,18 @@ class _EditProfileState extends State<EditProfile> {
           if (state is ProfileUpdateSuccessMessageState) {
             Cognifeed.loggedInUser.email = _emailController.text;
             Cognifeed.loggedInUser.name = _nameController.text;
+            Cognifeed.loggedInUser.phone = _phoneController.text;
+            Cognifeed.loggedInUser.address = _addressController.text;
+            Cognifeed.loggedInUser.bio = _bioController.text;
+            Cognifeed.loggedInUser.website = _websiteController.text;
+            Cognifeed.loggedInUser.about = _aboutController.text;
+            Cognifeed.pref.setString("email", _emailController.text);
+            Cognifeed.pref.setString("name", _nameController.text);
+            Cognifeed.pref.setString("phone", _phoneController.text);
+            Cognifeed.pref.setString("address", _addressController.text);
+            Cognifeed.pref.setString("bio", _bioController.text);
+            Cognifeed.pref.setString("website", _websiteController.text);
+            Cognifeed.pref.setString("about", _aboutController.text);
             BlocProvider.of<ProfileBloc>(context).add(GetProfileInfoEvent());
             Scaffold.of(context)
                 .showSnackBar(
@@ -485,7 +497,8 @@ class _EditProfileState extends State<EditProfile> {
                           offset: Offset(-25, 0), child: Text("Joined Date")),
                       subtitle: Transform.translate(
                           offset: Offset(-25, 0),
-                          child: Text(widget.profileResponseModel.joinedDate)),
+                          child: Text(widget.profileResponseModel.joinedDate
+                              .toString())),
                       leading: Icon(
                         Feather.calendar,
                         size: 18,

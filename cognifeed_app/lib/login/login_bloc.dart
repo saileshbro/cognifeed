@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/login/login_events.dart';
 import 'package:cognifeed_app/login/login_states.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
@@ -29,13 +30,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: event.email,
           password: event.password,
         );
+        print(loginResponse.toJson().toString());
         authenticationBloc.add(
           LoggedIn(
-              token: loginResponse.token,
-              email: loginResponse.email,
-              name: loginResponse.name,
-              imageUrl: loginResponse.imageUrl),
+            token: loginResponse.token,
+            email: loginResponse.email,
+            name: loginResponse.name,
+            imageUrl: loginResponse.imageUrl,
+            about: loginResponse.about,
+            address: loginResponse.address,
+            bio: loginResponse.bio,
+            joinedDate: loginResponse.joinedDate,
+            phone: loginResponse.phone,
+            website: loginResponse.website,
+          ),
         );
+
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());
@@ -52,10 +62,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
 
         authenticationBloc.add(LoggedIn(
-            token: response.token,
-            email: response.email,
-            name: response.name,
-            imageUrl: response.imageUrl));
+          token: response.token,
+          email: response.email,
+          name: response.name,
+          imageUrl: response.imageUrl,
+          about: response.about,
+          address: response.address,
+          bio: response.bio,
+          joinedDate: response.joinedDate,
+          phone: response.phone,
+          website: response.website,
+        ));
         yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());

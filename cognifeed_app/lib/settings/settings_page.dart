@@ -4,6 +4,7 @@ import 'package:cognifeed_app/home/onboarding_page.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
+import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -22,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(Cognifeed.loggedInUser.email);
+    print(Cognifeed.loggedInUser.joinedDate);
     return ApplicationScaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -67,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      "John Doe",
+                                      Cognifeed.loggedInUser.name,
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500,
@@ -78,7 +79,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Computer Engineer",
+                                      Cognifeed.loggedInUser.bio ??
+                                          "Add your bio",
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500,
@@ -101,7 +103,24 @@ class _SettingsPageState extends State<SettingsPage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => EditProfile(),
+                                      builder: (context) => EditProfile(
+                                        profileResponseModel:
+                                            ProfileResponseModel(
+                                          about: Cognifeed.loggedInUser.about,
+                                          imageUrl:
+                                              Cognifeed.loggedInUser.imageUrl,
+                                          name: Cognifeed.loggedInUser.name,
+                                          address:
+                                              Cognifeed.loggedInUser.address,
+                                          phone: Cognifeed.loggedInUser.phone,
+                                          website:
+                                              Cognifeed.loggedInUser.website,
+                                          bio: Cognifeed.loggedInUser.bio,
+                                          email: Cognifeed.loggedInUser.email,
+                                          joinedDate:
+                                              Cognifeed.loggedInUser.joinedDate,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 },
