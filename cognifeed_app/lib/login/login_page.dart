@@ -6,6 +6,7 @@ import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:string_validator/string_validator.dart' as validator;
 
@@ -145,8 +146,12 @@ class _LoginPageState extends State<LoginPage> {
                                         TextStyle(color: CognifeedColors.teal),
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        FontAwesome.envelope_o,
+                                        color: Colors.black,
+                                        size: 18,
+                                      ),
                                       errorText: "",
-                                      fillColor: CognifeedColors.aquaMarine,
                                       labelText: "Email",
                                     ),
                                   ),
@@ -175,6 +180,11 @@ class _LoginPageState extends State<LoginPage> {
                                       style: TextStyle(
                                           color: CognifeedColors.teal),
                                       decoration: InputDecoration(
+                                        prefixIcon: Icon(
+                                          FontAwesome.key,
+                                          color: Colors.black,
+                                          size: 18,
+                                        ),
                                         errorText: "",
                                         suffixIcon: Container(
                                           height: 17,
@@ -186,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   ? Icons.visibility
                                                   : Icons.visibility_off,
                                               size: 17,
-                                              color: CognifeedColors.teal,
+                                              color: Colors.black,
                                             ),
                                             onPressed: () {
                                               setState(() {
@@ -205,8 +215,12 @@ class _LoginPageState extends State<LoginPage> {
                                   alignment: Alignment.centerRight,
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, ForgotPasswordPage.route);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => ForgotPasswordPage(),
+                                        ),
+                                      );
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -264,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
                                       style: CognifeedTypography.textStyle4
                                           .copyWith(color: Colors.white)),
                                   onPressed: widget.onChangedScreen,
-                                  color: CognifeedColors.duskyBlue,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(

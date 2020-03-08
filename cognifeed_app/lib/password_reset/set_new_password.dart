@@ -6,12 +6,19 @@ import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class ChangePasswordPage extends StatelessWidget {
+class SetPasswordPage extends StatelessWidget {
+  final String email;
+
+  const SetPasswordPage({
+    Key key,
+    @required this.email,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -23,8 +30,7 @@ class ChangePasswordPage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Change Password',
-                style: Theme.of(context).textTheme.headline),
+            Text('Reset Password', style: Theme.of(context).textTheme.headline),
             SizedBox(
               width: 0.03 * width,
             ),
@@ -82,18 +88,30 @@ class PasswordChangeForm extends StatefulWidget {
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {
-  bool obscureCP = true;
+  FocusNode codeFocusNode, newPWFocusNode, confirmPWFocusNode;
   bool obscureNP = true;
   bool obscureConP = true;
   GlobalKey<FormState> _formKey;
-  GlobalKey<FormFieldState> _newpwKey;
+  TextEditingController passwordController, confirmPasswordController;
   final ChangePassword changePassword = ChangePassword();
-
+  bool codeAutoVal = false, pwAutoVal = false, confPwAutoVal = false;
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _newpwKey = GlobalKey<FormFieldState>();
+    codeFocusNode = FocusNode();
+    newPWFocusNode = FocusNode();
+    confirmPWFocusNode = FocusNode();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    codeFocusNode.dispose();
+    newPWFocusNode.dispose();
+    confirmPWFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -126,43 +144,42 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 Container(
                   padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
                   child: TextFormField(
-                    onSaved: (value) {
-                      changePassword.currentpw = value;
+                    autovalidate: codeAutoVal,
+                    focusNode: codeFocusNode,
+                    onTap: () {
+                      setState(() {
+                        codeAutoVal = true;
+                      });
                     },
-                    validator: (password) => validatePassword(password),
-                    obscureText: obscureCP,
+                    validator: (val) {
+                      if (val.isEmpty) {
+                        return "Verification code is required!";
+                      }
+                      return null;
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(newPWFocusNode);
+                      setState(() {
+                        pwAutoVal = true;
+                      });
+                    },
+                    onSaved: (value) {
+                      changePassword.vcode = value;
+                    },
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.normal,
                     ),
                     decoration: InputDecoration(
                       errorText: "",
                       border: Theme.of(context).inputDecorationTheme.border,
                       prefixIcon: Icon(
-                        FontAwesome.key,
+                        Feather.hash,
                         size: 18,
                         color: Colors.black,
                       ),
-                      suffixIcon: IconButton(
-                          icon: obscureCP
-                              ? Icon(
-                                  FontAwesome5Solid.eye_slash,
-                                  size: 15,
-                                  color: Colors.black,
-                                )
-                              : Icon(
-                                  FontAwesome5Solid.eye,
-                                  size: 15,
-                                  color: Colors.black,
-                                ),
-                          onPressed: () {
-                            setState(() {
-                              obscureCP = !obscureCP;
-                            });
-                          }),
-                      hintText: 'Current Password',
+                      hintText: 'Verification Code',
                     ),
                   ),
                 ),
@@ -172,7 +189,19 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 Container(
                   padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
                   child: TextFormField(
-                    key: _newpwKey,
+                    autovalidate: pwAutoVal,
+                    focusNode: newPWFocusNode,
+                    onTap: () {
+                      setState(() {
+                        pwAutoVal = true;
+                      });
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(confirmPWFocusNode);
+                      setState(() {
+                        confPwAutoVal = true;
+                      });
+                    },
                     onSaved: (value) {
                       changePassword.newpw = value;
                     },
@@ -183,9 +212,9 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.normal,
                     ),
+                    controller: passwordController,
                     decoration: InputDecoration(
                       errorText: "",
                       border: Theme.of(context).inputDecorationTheme.border,
@@ -221,8 +250,20 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
                   child: TextFormField(
+                    autovalidate: confPwAutoVal,
+                    focusNode: confirmPWFocusNode,
+                    onTap: () {
+                      setState(() {
+                        confPwAutoVal = true;
+                      });
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    controller: confirmPasswordController,
                     validator: (value) {
-                      if (value != _newpwKey.currentState.value) {
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
                         return "Password didn't match";
                       }
                       return null;
@@ -234,7 +275,6 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.normal,
                     ),
                     decoration: InputDecoration(
@@ -285,7 +325,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
               builder: (BuildContext context, state) {
                 if (state is ManagePasswordUninitialisedState) {
                   return Text(
-                    'CHANGE',
+                    'RESET',
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -296,7 +336,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                   );
                 } else {
                   return Text(
-                    'CHANGE',
+                    'RESET',
                   );
                 }
               },
@@ -304,8 +344,9 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
             onPressed: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                print(changePassword.toJson().toString());
                 BlocProvider.of<ManagePasswordBloc>(context)
-                    .add(ChangePasswordEvent(changePassword: changePassword));
+                    .add(ForgetPasswordEvent(changePassword: changePassword));
               }
             },
           ),

@@ -1,7 +1,6 @@
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CognifeedColors {
@@ -12,57 +11,11 @@ class CognifeedColors {
   static const Color duskyBlue = Color(0xff445ba0);
 }
 
-ThemeData customFormField() {
-  return ThemeData(
-    buttonColor: CognifeedColors.coralPink,
-    inputDecorationTheme: InputDecorationTheme(
-      helperStyle: TextStyle(color: Colors.black),
-      contentPadding: EdgeInsets.only(left: 25, top: 20, bottom: 0, right: 0),
-      labelStyle: CognifeedTypography.articleDescription,
-      hintStyle: TextStyle(
-        color: Colors.black.withOpacity(0.65),
-        fontSize: 15,
-      ),
-      border: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.grey,
-        ),
-      ),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          width: 1.2,
-          color: Colors.black.withOpacity(0.4),
-        ),
-      ),
-      errorBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          width: 1.2,
-          color: Colors.orange,
-        ),
-      ),
-      focusedErrorBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          width: 2,
-          color: Color(0xffff5a5f),
-        ),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          width: 1,
-          color: Colors.black,
-        ),
-      ),
-    ),
-  );
-}
-
 class CognifeedTheme {
   static ThemeData getTheme(bool isDarkTheme) {
     if (isDarkTheme == false)
       return ThemeData(
         brightness: Brightness.light,
-        fontFamily: GoogleFonts.crimsonText().fontFamily,
-        textTheme: GoogleFonts.crimsonTextTextTheme(),
         appBarTheme: AppBarTheme(
           color: Colors.white,
           elevation: 0.0,
@@ -75,43 +28,41 @@ class CognifeedTheme {
           color: Colors.black,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          helperStyle: TextStyle(color: Colors.teal),
-          labelStyle: CognifeedTypography.textStyle2,
+          helperStyle: TextStyle(color: Colors.black),
+          contentPadding:
+              EdgeInsets.only(left: 25, top: 20, bottom: 0, right: 0),
+          labelStyle: CognifeedTypography.articleDescription,
           hintStyle: TextStyle(
-            color: CognifeedColors.teal,
+            color: Colors.black.withOpacity(0.65),
+            fontSize: 15,
           ),
-          border: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          border: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: CognifeedColors.aquaMarine,
+              color: Colors.grey,
             ),
           ),
-          enabledBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28.0),
+          enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1.2,
-              color: CognifeedColors.aquaMarine,
+              color: Colors.black.withOpacity(0.4),
             ),
           ),
-          errorBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28.0),
+          errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1.2,
-              color: CognifeedColors.aquaMarine,
+              color: Colors.orange,
             ),
           ),
-          focusedErrorBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          focusedErrorBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: CognifeedColors.aquaMarine,
+              color: Color(0xffff5a5f),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              width: 2,
-              color: CognifeedColors.aquaMarine,
+              width: 1,
+              color: Colors.black,
             ),
           ),
         ),
@@ -119,8 +70,6 @@ class CognifeedTheme {
     else
       return ThemeData(
         brightness: Brightness.dark,
-        fontFamily: GoogleFonts.crimsonText().fontFamily,
-        textTheme: GoogleFonts.crimsonTextTextTheme(),
         appBarTheme: AppBarTheme(
           color: Colors.white,
           elevation: 0.0,
@@ -133,43 +82,41 @@ class CognifeedTheme {
           color: Colors.black,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          helperStyle: TextStyle(color: Colors.teal),
-          labelStyle: CognifeedTypography.textStyle2,
+          helperStyle: TextStyle(color: Colors.black),
+          contentPadding:
+              EdgeInsets.only(left: 25, top: 20, bottom: 0, right: 0),
+          labelStyle: CognifeedTypography.articleDescription,
           hintStyle: TextStyle(
-            color: CognifeedColors.teal,
+            color: Colors.black.withOpacity(0.65),
+            fontSize: 15,
           ),
-          border: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          border: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: CognifeedColors.aquaMarine,
+              color: Colors.grey,
             ),
           ),
-          enabledBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28.0),
+          enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1.2,
-              color: CognifeedColors.aquaMarine,
+              color: Colors.black.withOpacity(0.4),
             ),
           ),
-          errorBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28.0),
+          errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 1.2,
-              color: CognifeedColors.aquaMarine,
+              color: Colors.orange,
             ),
           ),
-          focusedErrorBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          focusedErrorBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: CognifeedColors.aquaMarine,
+              color: Color(0xffff5a5f),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            // borderRadius: BorderRadius.circular(28),
+          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              width: 2,
-              color: CognifeedColors.aquaMarine,
+              width: 1,
+              color: Colors.black,
             ),
           ),
         ),

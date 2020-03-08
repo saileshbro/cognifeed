@@ -22,6 +22,11 @@ class ManagePasswordBloc
         );
         yield ManagePasswordSuccessState(message: message);
       } else if (event is ForgetPasswordEvent) {
+        message = await ProfileRepository.forgetPassword(
+          currentPassword: event.changePassword.currentpw,
+          newPassword: event.changePassword.newpw,
+          verificationCode: event.changePassword.vcode,
+        );
         yield ManagePasswordSuccessState(message: message);
       }
     } catch (e) {

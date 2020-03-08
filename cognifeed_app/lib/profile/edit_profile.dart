@@ -184,327 +184,322 @@ class _EditProfileState extends State<EditProfile> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 0.0),
-              child: Theme(
-                data: customFormField(),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChangePasswordPage()));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Feather.lock,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  "Change Password",
-                                  style: TextStyle(
-                                      color: Colors.white, letterSpacing: 1.6),
-                                )
-                              ],
-                            ),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePasswordPage()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.lock,
+                                size: 18,
+                                color: Colors.white,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Password",
+                                style: TextStyle(
+                                    color: Colors.white, letterSpacing: 1.6),
+                              )
+                            ],
                           ),
                         ),
-                        RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ModifyImage()))
-                                .then((onValue) {
-                              setState(() {});
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Feather.camera,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  "Change Image",
-                                  style: TextStyle(
-                                      color: Colors.white, letterSpacing: 1.6),
-                                ),
-                              ],
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ModifyImage()))
+                              .then((onValue) {
+                            setState(() {});
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Feather.camera,
+                                size: 18,
+                                color: Colors.white,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Change Image",
+                                style: TextStyle(
+                                    color: Colors.white, letterSpacing: 1.6),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _nameAutoValidate = true;
+                              });
+                            },
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_emailFocusNode);
+                              setState(() {
+                                _emailAutoValidate = true;
+                              });
+                            },
+                            controller: _nameController,
+                            autovalidate: _nameAutoValidate,
+                            focusNode: _nameFocusNode,
+                            validator: (val) => validateName(val),
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Name",
+                              prefixIcon: Icon(
+                                FontAwesome.pencil_square_o,
+                                size: 18,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _emailAutoValidate = true;
+                              });
+                            },
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_phoneFocusNode);
+                              setState(() {
+                                _phoneAutoValidate = true;
+                              });
+                            },
+                            controller: _emailController,
+                            validator: (val) => validateEmail(val),
+                            keyboardType: TextInputType.emailAddress,
+                            autovalidate: _emailAutoValidate,
+                            focusNode: _emailFocusNode,
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Email",
+                              prefixIcon: Icon(
+                                FontAwesome.envelope_o,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _phoneAutoValidate = true;
+                              });
+                            },
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_bioFocusNode);
+                              setState(() {
+                                _bioAutoValidate = true;
+                              });
+                            },
+                            controller: _phoneController,
+                            validator: (val) => validatePhone(val),
+                            keyboardType: TextInputType.number,
+                            autovalidate: _phoneAutoValidate,
+                            focusNode: _phoneFocusNode,
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Phone",
+                              prefixIcon: Icon(
+                                Feather.phone,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _bioAutoValidate = true;
+                              });
+                            },
+                            controller: _bioController,
+                            autovalidate: _bioAutoValidate,
+                            focusNode: _bioFocusNode,
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_addressFocusNode);
+                              setState(() {
+                                _addressAutoValidate = true;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Bio",
+                              prefixIcon: Icon(
+                                Feather.briefcase,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _addressAutoValidate = true;
+                              });
+                            },
+                            controller: _addressController,
+                            autovalidate: _addressAutoValidate,
+                            focusNode: _addressFocusNode,
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_websiteFocusNode);
+                              setState(() {
+                                _websiteAutoValidate = true;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Address",
+                              prefixIcon: Icon(
+                                Feather.map,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _websiteAutoValidate = true;
+                              });
+                            },
+                            controller: _websiteController,
+                            autovalidate: _websiteAutoValidate,
+                            focusNode: _websiteFocusNode,
+                            onEditingComplete: () {
+                              FocusScope.of(context)
+                                  .requestFocus(_aboutFocusNode);
+                              setState(() {
+                                _aboutAutoValidate = true;
+                              });
+                            },
+                            validator: (val) => validateWebsite(val),
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "Website",
+                              prefixIcon: Icon(
+                                Icons.web_asset,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          height: 60,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onTap: () {
+                              setState(() {
+                                _aboutAutoValidate = true;
+                              });
+                            },
+                            controller: _aboutController,
+                            autovalidate: _aboutAutoValidate,
+                            focusNode: _aboutFocusNode,
+                            onEditingComplete: () {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              setState(() {
+                                _emailAutoValidate = true;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              errorText: "",
+                              hintText: "About",
+                              prefixIcon: Icon(
+                                Feather.user_plus,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          // height: 0,
+                        ),
+                        SizedBox(
+                          height: 15,
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
+                  ),
+                  ListTile(
+                    title: Transform.translate(
+                        offset: Offset(-25, 0), child: Text("Joined Date")),
+                    subtitle: Transform.translate(
+                        offset: Offset(-25, 0),
+                        child: Text(
+                            widget.profileResponseModel.joinedDate.toString())),
+                    leading: Icon(
+                      Feather.calendar,
+                      size: 18,
+                      color: Colors.black,
                     ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _nameAutoValidate = true;
-                                });
-                              },
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_emailFocusNode);
-                                setState(() {
-                                  _emailAutoValidate = true;
-                                });
-                              },
-                              controller: _nameController,
-                              autovalidate: _nameAutoValidate,
-                              focusNode: _nameFocusNode,
-                              validator: (val) => validateName(val),
-                              textCapitalization: TextCapitalization.words,
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Name",
-                                prefixIcon: Icon(
-                                  FontAwesome.pencil_square_o,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _emailAutoValidate = true;
-                                });
-                              },
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_phoneFocusNode);
-                                setState(() {
-                                  _phoneAutoValidate = true;
-                                });
-                              },
-                              controller: _emailController,
-                              validator: (val) => validateEmail(val),
-                              keyboardType: TextInputType.emailAddress,
-                              autovalidate: _emailAutoValidate,
-                              focusNode: _emailFocusNode,
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Email",
-                                prefixIcon: Icon(
-                                  FontAwesome.envelope_o,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _phoneAutoValidate = true;
-                                });
-                              },
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_bioFocusNode);
-                                setState(() {
-                                  _bioAutoValidate = true;
-                                });
-                              },
-                              controller: _phoneController,
-                              validator: (val) => validatePhone(val),
-                              keyboardType: TextInputType.number,
-                              autovalidate: _phoneAutoValidate,
-                              focusNode: _phoneFocusNode,
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Phone",
-                                prefixIcon: Icon(
-                                  Feather.phone,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _bioAutoValidate = true;
-                                });
-                              },
-                              controller: _bioController,
-                              autovalidate: _bioAutoValidate,
-                              focusNode: _bioFocusNode,
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_addressFocusNode);
-                                setState(() {
-                                  _addressAutoValidate = true;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Bio",
-                                prefixIcon: Icon(
-                                  Feather.briefcase,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _addressAutoValidate = true;
-                                });
-                              },
-                              controller: _addressController,
-                              autovalidate: _addressAutoValidate,
-                              focusNode: _addressFocusNode,
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_websiteFocusNode);
-                                setState(() {
-                                  _websiteAutoValidate = true;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Address",
-                                prefixIcon: Icon(
-                                  Feather.map,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _websiteAutoValidate = true;
-                                });
-                              },
-                              controller: _websiteController,
-                              autovalidate: _websiteAutoValidate,
-                              focusNode: _websiteFocusNode,
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(_aboutFocusNode);
-                                setState(() {
-                                  _aboutAutoValidate = true;
-                                });
-                              },
-                              validator: (val) => validateWebsite(val),
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "Website",
-                                prefixIcon: Icon(
-                                  Icons.web_asset,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              onTap: () {
-                                setState(() {
-                                  _aboutAutoValidate = true;
-                                });
-                              },
-                              controller: _aboutController,
-                              autovalidate: _aboutAutoValidate,
-                              focusNode: _aboutFocusNode,
-                              onEditingComplete: () {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                setState(() {
-                                  _emailAutoValidate = true;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                errorText: "",
-                                hintText: "About",
-                                prefixIcon: Icon(
-                                  Feather.user_plus,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            // height: 0,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ListTile(
-                      title: Transform.translate(
-                          offset: Offset(-25, 0), child: Text("Joined Date")),
-                      subtitle: Transform.translate(
-                          offset: Offset(-25, 0),
-                          child: Text(widget.profileResponseModel.joinedDate
-                              .toString())),
-                      leading: Icon(
-                        Feather.calendar,
-                        size: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             SizedBox(

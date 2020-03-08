@@ -2,12 +2,14 @@ class ChangePassword {
   String newpw;
   String currentpw;
   String confirmpw;
-  ChangePassword({this.newpw, this.currentpw, this.confirmpw});
+  String vcode;
+  ChangePassword({this.newpw, this.currentpw, this.confirmpw, this.vcode});
 
   ChangePassword.fromJson(Map<String, dynamic> json) {
     newpw = json['newpw'];
     currentpw = json['currentpw'];
     confirmpw = json['confirmpw'];
+    vcode = json['vcode'];
   }
 
   Map<String, dynamic> toJson() {
@@ -15,6 +17,7 @@ class ChangePassword {
     data['newpw'] = this.newpw;
     data['currentpw'] = this.currentpw;
     data['confirmpw'] = this.confirmpw;
+    data['vcode'] = this.vcode;
     return data;
   }
 }
