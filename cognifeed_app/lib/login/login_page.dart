@@ -69,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar:
           PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
       bottomNavigationBar: SizedBox.shrink(),
@@ -93,33 +92,37 @@ class _LoginPageState extends State<LoginPage> {
                   statusBarColor: Colors.transparent,
                 ),
                 child: Stack(
-                  fit: StackFit.expand,
+                  // fit: StackFit.expand,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: ListView(
+                        // mainAxisSize: MainAxisSize.max,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.15 -
-                                      10),
-                          Container(
-                            height: 200,
-                            child: FlareActor(
-                              "assets/flare/cognifeed.flr",
-                              animation: 'animate',
-                              fit: BoxFit.cover,
-                              color: Colors.black,
-                            ),
-                            // child: SvgPicture.asset(
-                            //   "assets/images/logo.svg",
-                            //   width: 148,
-                            //   height: 50,
-                            // ),
+                          SizedBox(height: 30),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              SvgPicture.asset(
+                                "assets/images/logo.svg",
+                                width: 148,
+                                height: 50,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                height: 200,
+                                child: FlareActor(
+                                  "assets/flare/cognifeed3.flr",
+                                  animation: 'animate',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 65),
+                          SizedBox(height: 25),
                           Form(
                             key: _formKey,
                             child: Column(
@@ -263,7 +266,9 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          Spacer(),
+                          SizedBox(
+                            height: 70,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
