@@ -258,6 +258,7 @@ class UserModel {
     address = json['address'];
     token = json['token'];
   }
+
   UserModel({
     this.email,
     this.name,
@@ -270,6 +271,7 @@ class UserModel {
     this.joinedDate,
     this.about,
   });
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['user_id'] = this.userId;

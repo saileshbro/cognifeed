@@ -26,6 +26,7 @@ class Article {
   String title;
   String description;
   String imageUrl;
+  bool isFav;
   String linkUrl;
   int viewCount;
 
@@ -34,6 +35,7 @@ class Article {
     this.title,
     this.description,
     this.imageUrl,
+    this.isFav,
     this.linkUrl,
     this.viewCount,
   });
@@ -45,12 +47,14 @@ class Article {
     imageUrl = json['image_url'];
     linkUrl = json['link_url'];
     viewCount = json['view_count'];
+    isFav = json['is_fav'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['article_id'] = this.articleId;
     data['title'] = this.title;
+    data['is_fav'] = this.isFav;
     data['description'] = this.description;
     data['image_url'] = this.imageUrl;
     data['link_url'] = this.linkUrl;
