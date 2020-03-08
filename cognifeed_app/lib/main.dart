@@ -12,7 +12,6 @@ import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
-import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
@@ -157,9 +156,10 @@ class App extends StatelessWidget {
                   return HomePage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  return AuthenticationPage(
-                    userRepository: UserRepository(),
-                  );
+                  // return AuthenticationPage(
+                  //   userRepository: UserRepository(),
+                  // );
+                  return SettingsPage();
                 }
                 if (state is AuthenticationLoading) {
                   return LoadingIndicator();
