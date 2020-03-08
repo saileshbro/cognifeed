@@ -1,3 +1,4 @@
+const path = require("path")
 const bcrypt = require("bcryptjs")
 const moment = require("moment")
 const validator = require("validator").default
@@ -92,11 +93,13 @@ exports.login = async (req, res, next) => {
     }
     const token = jwt.sign({ user_id: result[0].user_id }, process.env.JWT_SECRET)
     delete result[0].password
+    let joined_date = moment(result[0].joined_date).format("MMMM Do YY")
     delete result[0].created_at
     delete result[0].updated_at
     delete result[0].reset_token
     return res.json({
       ...result[0],
+      joined_date,
       token
     })
   } catch (error) {
@@ -112,6 +115,9 @@ exports.profile = async (req, res, next) => {
     )
     console.log(userProfile)
     userProfile[0].joined_date = moment(userProfile[0].joined_date).format("MMMM Do YY")
+
+    userProfile[0].image_url =
+      req.protocol + "://" + req.get("host") + "/" + userProfile[0].image_url
     if (userProfile) {
       return res.json(userProfile[0])
     }
@@ -179,5 +185,68 @@ exports.updateProfile = async (req, res, next) => {
   } catch (error) {
     console.log(error)
     return next(error)
+  }
+}
+
+exports.changepw = async (req, res, next) => {
+  console.log(req.body)
+  const { currentPassword, newPassword } = req.body
+  const { email, user_id } = req.user
+  try {
+    const user = await pool.query(
+      `SELECT email, user_id, password FROM ${tables.user} WHERE email=? AND user_id=?`,
+      [email, user_id]
+    )
+    if (user.length > 0) {
+      if (user[0].email !== email) {
+        throw new ErrorHandler(400, "Invalid1 user!")
+      }
+      const isValid = await bcrypt.compare(currentPassword, user[0].password)
+      if (!isValid) {
+        throw new ErrorHandler(400, "Current password is invalid!")
+      }
+      if (!passwordValidator(newPassword)) {
+        throw new ErrorHandler(
+          406,
+          "Required: Minimum eight characters, at least one letter, one number and one special character."
+        )
+      }
+      const newHashedPw = await bcrypt.hash(newPassword, parseInt(process.env.SALT_ROUNDS, 10))
+      const updated = await pool.query(
+        `UPDATE ${tables.user} SET password = ? WHERE email=? AND user_id=?`,
+        [newHashedPw, email, user_id]
+      )
+      if (!updated) {
+        throw new ErrorHandler(400, "Unable to change password")
+      }
+      return res.json({
+        message: "Successfully updated!"
+      })
+    } else {
+      throw new ErrorHandler(400, "Invalid3 user!")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+exports.uploadPicture = async (req, res, next) => {
+  const { user_id } = req.user
+  try {
+    if (!req.file) {
+      throw new ErrorHandler(401, "Please provide an image!")
+    }
+    const result = await pool.query(`UPDATE ${tables.profile} SET image_url=? WHERE user_id=?`, [
+      req.file.path,
+      user_id
+    ])
+    if (result.affectedRows > 0) {
+      return res.json({
+        message: "Profile updated successfully!"
+      })
+    } else {
+      throw new ErrorHandler(400, "Unable to update profile picture!")
+    }
+  } catch (error) {
+    next(error)
   }
 }

@@ -19,6 +19,7 @@ module.exports = async (req, res, next) => {
     delete user.created_at
     delete user.updated_at
     req.user = user
+
     next()
   } catch (error) {
     next(error)

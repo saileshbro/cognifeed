@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const articleController = require("../controller/articleController")
-const auth = require("../auth/auth")
+const auth = require("../middlewares/auth")
 
 router.get("/articles/fav", auth, articleController.getFav)
 router.post("/articles/:article_id/add_fav", auth, articleController.setFav)
