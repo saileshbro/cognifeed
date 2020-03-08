@@ -15,6 +15,7 @@ class CognifeedTheme {
   static ThemeData getTheme(bool isDarkTheme) {
     if (isDarkTheme == false)
       return ThemeData(
+        buttonColor: CognifeedColors.coralPink,
         brightness: Brightness.light,
         appBarTheme: AppBarTheme(
           color: Colors.white,
@@ -69,6 +70,7 @@ class CognifeedTheme {
       );
     else
       return ThemeData(
+        buttonColor: CognifeedColors.coralPink,
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
           color: Colors.white,

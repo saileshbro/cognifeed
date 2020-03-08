@@ -85,7 +85,7 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
             decoration: BoxDecoration(color: Colors.white),
             accountName: Text(
               Cognifeed.loggedInUser.name,
-              style: CognifeedTypography.articleTitle.copyWith(fontSize: 20),
+              style: CognifeedTypography.articleTitle.copyWith(fontSize: 18),
             ),
             accountEmail: Text(
               Cognifeed.loggedInUser.email,
@@ -103,14 +103,14 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   Feather.home,
-                  size: 20,
+                  size: 18,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 "Home",
                 style: CognifeedTypography.articleTitle.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               onTap: () {
@@ -129,14 +129,14 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   FontAwesome.heart_o,
-                  size: 20,
+                  size: 18,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 "Favourites",
                 style: CognifeedTypography.articleTitle.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               onTap: () {
@@ -155,14 +155,14 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   FontAwesome.user_o,
-                  size: 20,
+                  size: 18,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 "Profile",
                 style: CognifeedTypography.articleTitle.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               onTap: () {
@@ -181,14 +181,14 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   Feather.settings,
-                  size: 20,
+                  size: 18,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 "Settings",
                 style: CognifeedTypography.articleTitle.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               onTap: () {
@@ -206,14 +206,14 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 padding: EdgeInsets.all(12),
                 child: Icon(
                   Entypo.log_out,
-                  size: 20,
+                  size: 18,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 "Logout",
                 style: CognifeedTypography.articleTitle.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               onTap: () {

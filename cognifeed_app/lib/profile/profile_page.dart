@@ -100,10 +100,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
                                       image: DecorationImage(
-                                          image: CachedNetworkImageProvider(state
-                                                  .profileResponseModel
-                                                  .imageUrl ??
-                                              "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"),
+                                          image: CachedNetworkImageProvider(
+                                              state.profileResponseModel
+                                                  .imageUrl),
                                           fit: BoxFit.cover)),
                                   margin: EdgeInsets.only(left: 16.0),
                                 ),

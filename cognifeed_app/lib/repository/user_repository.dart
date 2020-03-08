@@ -79,7 +79,7 @@ class UserRepository {
     Cognifeed.pref.setString("address", address);
     Cognifeed.pref.setString("bio", bio);
     Cognifeed.pref.setString("email", email);
-    Cognifeed.pref.setString("imageUrl", imageUrl);
+    Cognifeed.pref.setString("image_url", imageUrl);
     Cognifeed.pref.setString("name", name);
     Cognifeed.pref.setString("phone", phone);
     Cognifeed.pref.setString("token", token);
