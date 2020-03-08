@@ -4,12 +4,10 @@ import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_state.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   @override
@@ -82,6 +80,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
   GlobalKey<FormState> _formKey;
   GlobalKey<FormFieldState> _newpwKey;
   final ChangePassword changePassword = ChangePassword();
+
   @override
   void initState() {
     super.initState();

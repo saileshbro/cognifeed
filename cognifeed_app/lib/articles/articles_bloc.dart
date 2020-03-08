@@ -18,6 +18,10 @@ class ArticlesBloc extends Bloc<ArticleEvent, ArticlesState> {
         ArticlesModel response = await ArticleRepository.getHomePageArticles();
         yield ArticlesLoadedState(articlesModel: response);
       }
+      if (event is GetFavPageArticlesEvent) {
+        ArticlesModel response = await ArticleRepository.getFavPageArticles();
+        yield ArticlesLoadedState(articlesModel: response);
+      }
     } catch (e) {
       yield ArticlesErrorState(e.toString());
     }

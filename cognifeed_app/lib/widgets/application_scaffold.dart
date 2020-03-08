@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '../auth/authentication_bloc.dart';
 import '../auth/authentication_events.dart';
 import '../constants/cognifeed_constants.dart';
-import '../constants/cognifeed_constants.dart';
 import '../home/home_page.dart';
 
 class ApplicationScaffold extends StatefulWidget {
@@ -19,6 +19,7 @@ class ApplicationScaffold extends StatefulWidget {
   final String title;
   final Widget floatingActionButton;
   final Color backgroundColor;
+
   const ApplicationScaffold(
       {Key key,
       @required this.child,
@@ -91,7 +92,8 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               style: CognifeedTypography.articleDescription,
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.red,
+              backgroundImage:
+                  CachedNetworkImageProvider(Cognifeed.loggedInUser.imageUrl),
             ),
           ),
           Container(
