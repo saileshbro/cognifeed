@@ -10,16 +10,17 @@ class ProfileResponseModel {
 
   String joinedDate;
 
-  ProfileResponseModel(
-      {this.name,
-      this.email,
-      this.phone,
-      this.bio,
-      this.about,
-      this.website,
-      this.address,
-      this.imageUrl,
-      this.joinedDate});
+  ProfileResponseModel({
+    this.name,
+    this.email,
+    this.phone,
+    this.bio,
+    this.about,
+    this.website,
+    this.address,
+    this.imageUrl,
+    this.joinedDate,
+  });
 
   ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];

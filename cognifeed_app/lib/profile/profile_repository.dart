@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
 class ProfileRepository {
@@ -94,6 +96,28 @@ class ProfileRepository {
         return Future.error(response.data['error']);
       }
       return Future.value(response.data['message']);
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future uploadProfilePicture({@required File image}) async {
+    String filename = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "profile": await MultipartFile.fromFile(image.path, filename: filename)
+    });
+    try {
+      final response = await Cognifeed.dioClient.patch(
+        "$baseUrl/users/profile/image",
+        data: formData,
+      );
+      if (response.data.containsKey('error')) {
+        return Future.error(response.data['error']);
+      }
+      return Future.value(response.data);
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");

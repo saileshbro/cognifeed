@@ -3,7 +3,6 @@ import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/profile_state.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
-
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
           bloc: BlocProvider.of<ProfileBloc>(context),
           builder: (BuildContext context, ProfileState state) {
             if (state is ProfileFetchedState) {
-              print(state.profileResponseModel.toJson().toString());
               return SingleChildScrollView(
                 child: Stack(
                   children: <Widget>[

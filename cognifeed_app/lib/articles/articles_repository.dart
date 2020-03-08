@@ -3,19 +3,33 @@ import 'dart:io';
 
 import 'package:cognifeed_app/articles/articles_model.dart';
 
-import 'package:http/http.dart' as http;
-
 import '../constants/cognifeed_constants.dart';
 
 class ArticleRepository {
   static Future<ArticlesModel> getHomePageArticles() async {
     try {
-      final response = await http.get("$baseUrl/articles");
+      final response = await Cognifeed.dioClient.get("$baseUrl/articles/");
 
-      if ((jsonDecode(response.body) as Map).containsKey('error')) {
-        return Future.error(jsonDecode(response.body)['error']);
+      if (response.data.containsKey('error')) {
+        return Future.error(jsonDecode(response.data)['error']);
       }
-      return Future.value(ArticlesModel.fromJson(jsonDecode(response.body)));
+      return Future.value(ArticlesModel.fromJson(response.data));
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<ArticlesModel> getFavPageArticles() async {
+    try {
+      final response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
+
+      if (response.data.containsKey('error')) {
+        return Future.error(jsonDecode(response.data)['error']);
+      }
+      return Future.value(ArticlesModel.fromJson(response.data));
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");

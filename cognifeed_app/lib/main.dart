@@ -16,7 +16,7 @@ import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
-
+import 'package:cognifeed_app/profile/bloc/uploadImage_bloc.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
@@ -107,6 +107,11 @@ Future<void> main() async {
       BlocProvider<ArticlesBloc>(
         create: (BuildContext context) {
           return ArticlesBloc();
+        },
+      ),
+      BlocProvider<UploadBloc>(
+        create: (BuildContext context) {
+          return UploadBloc();
         },
       ),
       BlocProvider<LoginBloc>(

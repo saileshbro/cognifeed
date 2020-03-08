@@ -18,6 +18,7 @@ import 'change_profile_page.dart';
 
 class EditProfile extends StatefulWidget {
   final ProfileResponseModel profileResponseModel;
+
   const EditProfile({this.profileResponseModel});
 
   @override
@@ -47,6 +48,7 @@ class _EditProfileState extends State<EditProfile> {
   bool _phoneAutoValidate = false;
   bool _websiteAutoValidate = false;
   bool _aboutAutoValidate = false;
+
   @override
   void initState() {
     super.initState();
@@ -175,8 +177,7 @@ class _EditProfileState extends State<EditProfile> {
                 height: 300,
                 width: double.infinity,
                 child: CachedNetworkImage(
-                  imageUrl:
-                      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                  imageUrl: Cognifeed.loggedInUser.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -190,51 +191,42 @@ class _EditProfileState extends State<EditProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
+                        RaisedButton(
+                          onPressed: () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChangePasswordPage(),
-                              ),
-                            );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChangePasswordPage()));
                           },
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ChangePasswordPage()));
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Feather.lock,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "Change Password",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        letterSpacing: 1.6),
-                                  )
-                                ],
-                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  Feather.lock,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  "Change Password",
+                                  style: TextStyle(
+                                      color: Colors.white, letterSpacing: 1.6),
+                                )
+                              ],
                             ),
                           ),
                         ),
                         RaisedButton(
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ModifyImage()));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ModifyImage()))
+                                .then((onValue) {
+                              setState(() {});
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
