@@ -162,9 +162,13 @@ class _SignupPageState extends State<SignupPage> {
                                     style:
                                         TextStyle(color: CognifeedColors.teal),
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.person,
+                                        size: 18,
+                                      ),
                                       errorText: "",
                                       fillColor: CognifeedColors.aquaMarine,
-                                      labelText: "Name",
+                                      hintText: "Name",
                                     ),
                                   ),
                                 ),
@@ -196,9 +200,13 @@ class _SignupPageState extends State<SignupPage> {
                                     style:
                                         TextStyle(color: CognifeedColors.teal),
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.alternate_email,
+                                        size: 18,
+                                      ),
                                       errorText: "",
                                       fillColor: CognifeedColors.aquaMarine,
-                                      labelText: "Email",
+                                      hintText: "Email",
                                     ),
                                   ),
                                 ),
@@ -230,8 +238,12 @@ class _SignupPageState extends State<SignupPage> {
                                     style:
                                         TextStyle(color: CognifeedColors.teal),
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.phone,
+                                        size: 18,
+                                      ),
                                       errorText: "",
-                                      labelText: "Phone Number",
+                                      hintText: "Phone Number",
                                     ),
                                   ),
                                 ),
@@ -259,6 +271,10 @@ class _SignupPageState extends State<SignupPage> {
                                     style:
                                         TextStyle(color: CognifeedColors.teal),
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        size: 18,
+                                      ),
                                       errorText: "",
                                       suffixIcon: IconButton(
                                         icon: Icon(
@@ -274,7 +290,7 @@ class _SignupPageState extends State<SignupPage> {
                                           });
                                         },
                                       ),
-                                      labelText: "Password",
+                                      hintText: "Password",
                                     ),
                                   ),
                                 ),
@@ -307,6 +323,10 @@ class _SignupPageState extends State<SignupPage> {
                                     style:
                                         TextStyle(color: CognifeedColors.teal),
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.vpn_key,
+                                        size: 18,
+                                      ),
                                       errorText: "",
                                       suffixIcon: Container(
                                         height: 17,
@@ -328,7 +348,7 @@ class _SignupPageState extends State<SignupPage> {
                                           },
                                         ),
                                       ),
-                                      labelText: "Confirm Password",
+                                      hintText: "Confirm Password",
                                     ),
                                   ),
                                 ),
@@ -377,7 +397,7 @@ class _SignupPageState extends State<SignupPage> {
                                       style: CognifeedTypography.textStyle4
                                           .copyWith(color: Colors.white)),
                                   onPressed: widget.onChangedScreen,
-                                  color: CognifeedColors.duskyBlue,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(

@@ -3,6 +3,7 @@ import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
       appBar:
           PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
       bottomNavigationBar: SizedBox.shrink(),
-      // backgroundColor: CognifeedColors.dockEggBlue,
       body: BlocListener<LoginBloc, LoginState>(
         bloc: BlocProvider.of<LoginBloc>(context),
         listener: (context, state) {
@@ -105,12 +105,19 @@ class _LoginPageState extends State<LoginPage> {
                               height:
                                   MediaQuery.of(context).size.height * 0.15 -
                                       10),
-                          Center(
-                            child: SvgPicture.asset(
-                              "assets/images/logo.svg",
-                              width: 148,
-                              height: 50,
+                          Container(
+                            height: 200,
+                            child: FlareActor(
+                              "assets/flare/cognifeed.flr",
+                              animation: 'animate',
+                              fit: BoxFit.cover,
+                              color: Colors.black,
                             ),
+                            // child: SvgPicture.asset(
+                            //   "assets/images/logo.svg",
+                            //   width: 148,
+                            //   height: 50,
+                            // ),
                           ),
                           SizedBox(height: 65),
                           Form(
@@ -146,14 +153,13 @@ class _LoginPageState extends State<LoginPage> {
                                         TextStyle(color: CognifeedColors.teal),
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesome.envelope_o,
-                                        color: Colors.black,
-                                        size: 18,
-                                      ),
-                                      errorText: "",
-                                      labelText: "Email",
-                                    ),
+                                        prefixIcon: Icon(
+                                          FontAwesome.envelope_o,
+                                          color: Colors.black,
+                                          size: 18,
+                                        ),
+                                        errorText: "",
+                                        hintText: "Email"),
                                   ),
                                 ),
                                 SizedBox(height: 16),
@@ -186,6 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                                           size: 18,
                                         ),
                                         errorText: "",
+                                        hintText: "Password",
                                         suffixIcon: Container(
                                           height: 17,
                                           width: 17,
@@ -206,7 +213,6 @@ class _LoginPageState extends State<LoginPage> {
                                             },
                                           ),
                                         ),
-                                        labelText: "Password",
                                       ),
                                     ),
                                   ),
