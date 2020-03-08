@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:meta/meta.dart';
@@ -40,6 +39,30 @@ class ProfileRepository {
           "website": website,
           "address": address,
           "about": about,
+        },
+      );
+      if (response.data.containsKey('error')) {
+        return Future.error(response.data['error']);
+      }
+      return Future.value(response.data['message']);
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<String> changePassword({
+    @required String currentPassword,
+    @required String newPassword,
+  }) async {
+    try {
+      final response = await Cognifeed.dioClient.post(
+        "$baseUrl/users/changepw",
+        data: {
+          "currentPassword": currentPassword,
+          "newPassword": newPassword,
         },
       );
       if (response.data.containsKey('error')) {
