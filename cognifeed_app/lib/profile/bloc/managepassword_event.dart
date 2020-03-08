@@ -10,6 +10,7 @@ class ChangePasswordEvent extends ManagePasswordEvent {
 }
 
 class ForgetPasswordEvent extends ManagePasswordEvent {
-  final String email;
-  ForgetPasswordEvent({@required this.email}) : assert(email != null);
+  final ChangePassword changePassword;
+  ForgetPasswordEvent({@required this.changePassword})
+      : assert(changePassword != null);
 }

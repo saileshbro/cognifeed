@@ -139,7 +139,6 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               HomePage.route: (_) => HomePage(),
-              ForgotPasswordPage.route: (_) => ForgotPasswordPage(),
               FavPage.route: (_) => FavPage(),
               SettingsPage.route: (_) => SettingsPage(),
               ProfilePage.route: (_) => ProfilePage(),

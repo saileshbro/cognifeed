@@ -12,7 +12,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class ChangePasswordPage extends StatelessWidget {
+class SetPasswordPage extends StatelessWidget {
+  final String email;
+
+  const SetPasswordPage({
+    Key key,
+    @required this.email,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,8 +30,7 @@ class ChangePasswordPage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Change Password',
-                style: Theme.of(context).textTheme.headline),
+            Text('Reset Password', style: Theme.of(context).textTheme.headline),
             SizedBox(
               width: 0.03 * width,
             ),
@@ -83,7 +88,7 @@ class PasswordChangeForm extends StatefulWidget {
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {
-  bool obscureCP = true;
+  bool obscureC = true;
   bool obscureNP = true;
   bool obscureConP = true;
   GlobalKey<FormState> _formKey;
@@ -129,10 +134,9 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0.006 * height),
                     child: TextFormField(
                       onSaved: (value) {
-                        changePassword.currentpw = value;
+                        changePassword.vcode = value;
                       },
-                      validator: (password) => validatePassword(password),
-                      obscureText: obscureCP,
+                      obscureText: obscureC,
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -143,12 +147,12 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                         errorText: "",
                         border: Theme.of(context).inputDecorationTheme.border,
                         icon: Icon(
-                          FontAwesome.key,
+                          Feather.hash,
                           size: 25,
                           color: Colors.black,
                         ),
                         suffixIcon: IconButton(
-                            icon: obscureCP
+                            icon: obscureC
                                 ? Icon(
                                     FontAwesome5Solid.eye_slash,
                                     size: 15,
@@ -161,10 +165,10 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                                   ),
                             onPressed: () {
                               setState(() {
-                                obscureCP = !obscureCP;
+                                obscureC = !obscureC;
                               });
                             }),
-                        hintText: 'Current Password',
+                        hintText: 'Verification Code',
                       ),
                     ),
                   ),
@@ -284,7 +288,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 builder: (BuildContext context, state) {
                   if (state is ManagePasswordUninitialisedState) {
                     return Text(
-                      'CHANGE',
+                      'RESET',
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -295,7 +299,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     );
                   } else {
                     return Text(
-                      'CHANGE',
+                      'RESET',
                     );
                   }
                 },
@@ -304,7 +308,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
                   BlocProvider.of<ManagePasswordBloc>(context)
-                      .add(ChangePasswordEvent(changePassword: changePassword));
+                      .add(ForgetPasswordEvent(changePassword: changePassword));
                 }
               },
             ),
