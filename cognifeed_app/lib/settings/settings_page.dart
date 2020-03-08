@@ -159,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: CircleAvatar(
                         maxRadius: 50,
                         backgroundImage: CachedNetworkImageProvider(
-                            Cognifeed.loggedInUser.imageUrl),
+                            Cognifeed.loggedInUser.imageUrl ?? ""),
                       ),
                     ),
                   ),

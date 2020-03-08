@@ -123,7 +123,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: <Widget>[
                                       Icon(
                                         Feather.edit_3,
-                                        size: 18,
+                                        size: 22,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
                                       ),
                                       Text("Edit Profile")
                                     ],

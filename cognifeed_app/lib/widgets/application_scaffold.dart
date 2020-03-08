@@ -92,8 +92,8 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               style: CognifeedTypography.articleDescription,
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage:
-                  CachedNetworkImageProvider(Cognifeed.loggedInUser.imageUrl),
+              backgroundImage: CachedNetworkImageProvider(
+                  Cognifeed.loggedInUser.imageUrl ?? ""),
             ),
           ),
           Container(

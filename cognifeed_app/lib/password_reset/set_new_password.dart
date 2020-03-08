@@ -1,7 +1,6 @@
 import 'package:cognifeed_app/Models/passwordmodel.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';

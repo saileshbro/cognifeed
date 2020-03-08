@@ -61,7 +61,7 @@ class ProfileRepository {
   }) async {
     try {
       final response = await Cognifeed.dioClient.post(
-        "$baseUrl/users/changepw",
+        "$baseUrl/users/reset/changepw",
         data: {
           "currentPassword": currentPassword,
           "newPassword": newPassword,
@@ -85,7 +85,7 @@ class ProfileRepository {
       @required String verificationCode}) async {
     try {
       final response = await Cognifeed.dioClient.post(
-        "$baseUrl/users/forgetpw",
+        "$baseUrl/users/forget/changepw",
         data: {
           "currentPassword": currentPassword,
           "newPassword": newPassword,
