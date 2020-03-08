@@ -36,18 +36,34 @@ class ChangePasswordPage extends StatelessWidget {
         ),
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 0.15 * height,
-                ),
-                PasswordChangeForm(),
-              ],
-            ),
-          ],
+      body: BlocListener<ManagePasswordBloc, ManagePasswordState>(
+        bloc: BlocProvider.of<ManagePasswordBloc>(context),
+        listener: (BuildContext context, ManagePasswordState state) {
+          if (state is ManagePasswordSuccessState) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.green,
+            ));
+          } else if (state is ManagePasswordErrorState) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.error),
+              backgroundColor: Colors.red,
+            ));
+          }
+        },
+        child: SingleChildScrollView(
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 0.15 * height,
+                  ),
+                  PasswordChangeForm(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -60,7 +76,9 @@ class PasswordChangeForm extends StatefulWidget {
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {
-  ManagePasswordBloc managePasswordBloc;
+  bool obscureCP = true;
+  bool obscureNP = true;
+  bool obscureConP = true;
   GlobalKey<FormState> _formKey;
   GlobalKey<FormFieldState> _newpwKey;
   final ChangePassword changePassword = ChangePassword();
@@ -69,7 +87,6 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _newpwKey = GlobalKey<FormFieldState>();
-    managePasswordBloc = ManagePasswordBloc();
   }
 
   @override
@@ -108,10 +125,10 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                         changePassword.currentpw = value;
                       },
                       validator: (password) => validatePassword(password),
-                      obscureText: true,
+                      obscureText: obscureCP,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.red[700],
+                        color: Colors.black,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.normal,
                       ),
@@ -123,6 +140,23 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                           size: 25,
                           color: Colors.black,
                         ),
+                        suffixIcon: IconButton(
+                            icon: obscureCP
+                                ? Icon(
+                                    FontAwesome5Solid.eye_slash,
+                                    size: 15,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    FontAwesome5Solid.eye,
+                                    size: 15,
+                                    color: Colors.black,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                obscureCP = !obscureCP;
+                              });
+                            }),
                         hintText: 'Current Password',
                       ),
                     ),
@@ -140,10 +174,10 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                       validator: (password) {
                         return validatePassword(password);
                       },
-                      obscureText: true,
+                      obscureText: obscureNP,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.red[700],
+                        color: Colors.black,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.normal,
                       ),
@@ -156,6 +190,23 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                           color: Colors.black,
                         ),
                         hintText: 'New Password',
+                        suffixIcon: IconButton(
+                            icon: obscureNP
+                                ? Icon(
+                                    FontAwesome5Solid.eye_slash,
+                                    size: 15,
+                                    color: Colors.black,
+                                  )
+                                : Icon(
+                                    FontAwesome5Solid.eye,
+                                    size: 15,
+                                    color: Colors.black,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                obscureNP = !obscureNP;
+                              });
+                            }),
                       ),
                     ),
                   ),
@@ -172,10 +223,10 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     onSaved: (value) {
                       changePassword.confirmpw = value;
                     },
-                    obscureText: true,
+                    obscureText: obscureConP,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.red[700],
+                      color: Colors.black,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.normal,
                     ),
@@ -188,6 +239,23 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                         color: Colors.black,
                       ),
                       hintText: 'Confirm New Password',
+                      suffixIcon: IconButton(
+                          icon: obscureConP
+                              ? Icon(
+                                  FontAwesome5Solid.eye_slash,
+                                  size: 15,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  FontAwesome5Solid.eye,
+                                  size: 15,
+                                  color: Colors.black,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              obscureConP = !obscureConP;
+                            });
+                          }),
                     ),
                   ),
                 ],
@@ -204,8 +272,8 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 5,
-              child: BlocBuilder(
-                bloc: managePasswordBloc,
+              child: BlocBuilder<ManagePasswordBloc, ManagePasswordState>(
+                bloc: BlocProvider.of<ManagePasswordBloc>(context),
                 builder: (BuildContext context, state) {
                   if (state is ManagePasswordUninitialisedState) {
                     return Text(
@@ -218,26 +286,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     return CircularProgressIndicator(
                       strokeWidth: 1,
                     );
-                  } else if (state is ManagePasswordSuccessState) {
-                    Fluttertoast.showToast(
-                        msg: state.message,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIos: 1,
-                        backgroundColor: Colors.black,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-
-                    Navigator.of(context).pop();
-                  } else if (state is ManagePasswordErrorState) {
-                    Fluttertoast.showToast(
-                        msg: state.error,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIos: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
+                  } else {
                     return Text(
                       'CHANGE',
                     );
@@ -247,7 +296,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  managePasswordBloc
+                  BlocProvider.of<ManagePasswordBloc>(context)
                       .add(ChangePasswordEvent(changePassword: changePassword));
                 }
               },

@@ -200,7 +200,13 @@ class _EditProfileState extends State<EditProfile> {
                             );
                           },
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangePasswordPage()));
+                            },
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
