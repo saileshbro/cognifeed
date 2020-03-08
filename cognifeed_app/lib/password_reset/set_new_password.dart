@@ -88,145 +88,182 @@ class PasswordChangeForm extends StatefulWidget {
 }
 
 class _PasswordChangeFormState extends State<PasswordChangeForm> {
-  bool obscureC = true;
+  FocusNode codeFocusNode, newPWFocusNode, confirmPWFocusNode;
   bool obscureNP = true;
   bool obscureConP = true;
   GlobalKey<FormState> _formKey;
-  GlobalKey<FormFieldState> _newpwKey;
+  TextEditingController passwordController, confirmPasswordController;
   final ChangePassword changePassword = ChangePassword();
+  bool codeAutoVal = false, pwAutoVal = false, confPwAutoVal = false;
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    _newpwKey = GlobalKey<FormFieldState>();
+    codeFocusNode = FocusNode();
+    newPWFocusNode = FocusNode();
+    confirmPWFocusNode = FocusNode();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    codeFocusNode.dispose();
+    newPWFocusNode.dispose();
+    confirmPWFocusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Theme(
-      data: customFormField(),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: 310,
-            margin: EdgeInsets.fromLTRB(
-                0.08 * width, .02 * height, .08 * width, .054 * height),
-            padding: EdgeInsets.fromLTRB(
-                .02 * width, .034 * height, .02 * width, .05 * height),
-            decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.85),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 3,
-                    spreadRadius: .03,
-                    color: Colors.black.withOpacity(.3),
-                  )
-                ]),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0.006 * height),
-                    child: TextFormField(
-                      onSaved: (value) {
-                        changePassword.vcode = value;
-                      },
-                      obscureText: obscureC,
-                      style: TextStyle(
-                        fontSize: 16,
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: 310,
+          margin: EdgeInsets.fromLTRB(
+              0.08 * width, .02 * height, .08 * width, .054 * height),
+          padding: EdgeInsets.fromLTRB(
+              .02 * width, .034 * height, .02 * width, .05 * height),
+          decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 3,
+                  spreadRadius: .03,
+                  color: Colors.black.withOpacity(.3),
+                )
+              ]),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
+                  child: TextFormField(
+                    autovalidate: codeAutoVal,
+                    focusNode: codeFocusNode,
+                    onTap: () {
+                      setState(() {
+                        codeAutoVal = true;
+                      });
+                    },
+                    validator: (val) {
+                      if (val.isEmpty) {
+                        return "Verification code is required!";
+                      }
+                      return null;
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(newPWFocusNode);
+                      setState(() {
+                        pwAutoVal = true;
+                      });
+                    },
+                    onSaved: (value) {
+                      changePassword.vcode = value;
+                    },
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    decoration: InputDecoration(
+                      errorText: "",
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      prefixIcon: Icon(
+                        Feather.hash,
+                        size: 18,
                         color: Colors.black,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.normal,
                       ),
-                      decoration: InputDecoration(
-                        errorText: "",
-                        border: Theme.of(context).inputDecorationTheme.border,
-                        icon: Icon(
-                          Feather.hash,
-                          size: 25,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: IconButton(
-                            icon: obscureC
-                                ? Icon(
-                                    FontAwesome5Solid.eye_slash,
-                                    size: 15,
-                                    color: Colors.black,
-                                  )
-                                : Icon(
-                                    FontAwesome5Solid.eye,
-                                    size: 15,
-                                    color: Colors.black,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                obscureC = !obscureC;
-                              });
-                            }),
-                        hintText: 'Verification Code',
-                      ),
+                      hintText: 'Verification Code',
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0.006 * height),
-                    child: TextFormField(
-                      key: _newpwKey,
-                      onSaved: (value) {
-                        changePassword.newpw = value;
-                      },
-                      validator: (password) {
-                        return validatePassword(password);
-                      },
-                      obscureText: obscureNP,
-                      style: TextStyle(
-                        fontSize: 16,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
+                  child: TextFormField(
+                    autovalidate: pwAutoVal,
+                    focusNode: newPWFocusNode,
+                    onTap: () {
+                      setState(() {
+                        pwAutoVal = true;
+                      });
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(confirmPWFocusNode);
+                      setState(() {
+                        confPwAutoVal = true;
+                      });
+                    },
+                    onSaved: (value) {
+                      changePassword.newpw = value;
+                    },
+                    validator: (password) {
+                      return validatePassword(password);
+                    },
+                    obscureText: obscureNP,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      errorText: "",
+                      border: Theme.of(context).inputDecorationTheme.border,
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        size: 18,
                         color: Colors.black,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.normal,
                       ),
-                      decoration: InputDecoration(
-                        errorText: "",
-                        border: Theme.of(context).inputDecorationTheme.border,
-                        icon: Icon(
-                          Icons.lock_outline,
-                          size: 25,
-                          color: Colors.black,
-                        ),
-                        hintText: 'New Password',
-                        suffixIcon: IconButton(
-                            icon: obscureNP
-                                ? Icon(
-                                    FontAwesome5Solid.eye_slash,
-                                    size: 15,
-                                    color: Colors.black,
-                                  )
-                                : Icon(
-                                    FontAwesome5Solid.eye,
-                                    size: 15,
-                                    color: Colors.black,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                obscureNP = !obscureNP;
-                              });
-                            }),
-                      ),
+                      hintText: 'New Password',
+                      suffixIcon: IconButton(
+                          icon: obscureNP
+                              ? Icon(
+                                  FontAwesome5Solid.eye_slash,
+                                  size: 15,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  FontAwesome5Solid.eye,
+                                  size: 15,
+                                  color: Colors.black,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              obscureNP = !obscureNP;
+                            });
+                          }),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 0.006 * height),
+                  child: TextFormField(
+                    autovalidate: confPwAutoVal,
+                    focusNode: confirmPWFocusNode,
+                    onTap: () {
+                      setState(() {
+                        confPwAutoVal = true;
+                      });
+                    },
+                    onEditingComplete: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    controller: confirmPasswordController,
                     validator: (value) {
-                      if (value != _newpwKey.currentState.value) {
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
                         return "Password didn't match";
                       }
                       return null;
@@ -238,15 +275,14 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: 'Montserrat',
                       fontWeight: FontWeight.normal,
                     ),
                     decoration: InputDecoration(
                       errorText: "",
                       border: Theme.of(context).inputDecorationTheme.border,
-                      icon: Icon(
+                      prefixIcon: Icon(
                         Feather.check_circle,
-                        size: 25,
+                        size: 18,
                         color: Colors.black,
                       ),
                       hintText: 'Confirm New Password',
@@ -269,52 +305,53 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
                           }),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          Positioned(
-            bottom: .029 * height,
-            left: (MediaQuery.of(context).size.width * 0.5) - (0.179 * width),
-            right: (MediaQuery.of(context).size.width * 0.5) - (0.179 * width),
-            child: RaisedButton(
-              color: Theme.of(context).buttonColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 5,
-              child: BlocBuilder<ManagePasswordBloc, ManagePasswordState>(
-                bloc: BlocProvider.of<ManagePasswordBloc>(context),
-                builder: (BuildContext context, state) {
-                  if (state is ManagePasswordUninitialisedState) {
-                    return Text(
-                      'RESET',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    );
-                  } else if (state is ManagePasswordRequestingState) {
-                    return CircularProgressIndicator(
-                      strokeWidth: 1,
-                    );
-                  } else {
-                    return Text(
-                      'RESET',
-                    );
-                  }
-                },
-              ),
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-                  BlocProvider.of<ManagePasswordBloc>(context)
-                      .add(ForgetPasswordEvent(changePassword: changePassword));
+        ),
+        Positioned(
+          bottom: .029 * height,
+          left: (MediaQuery.of(context).size.width * 0.5) - (0.179 * width),
+          right: (MediaQuery.of(context).size.width * 0.5) - (0.179 * width),
+          child: RaisedButton(
+            color: Theme.of(context).buttonColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            child: BlocBuilder<ManagePasswordBloc, ManagePasswordState>(
+              bloc: BlocProvider.of<ManagePasswordBloc>(context),
+              builder: (BuildContext context, state) {
+                if (state is ManagePasswordUninitialisedState) {
+                  return Text(
+                    'RESET',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  );
+                } else if (state is ManagePasswordRequestingState) {
+                  return CircularProgressIndicator(
+                    strokeWidth: 1,
+                  );
+                } else {
+                  return Text(
+                    'RESET',
+                  );
                 }
               },
             ),
-          )
-        ],
-      ),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
+                print(changePassword.toJson().toString());
+                BlocProvider.of<ManagePasswordBloc>(context)
+                    .add(ForgetPasswordEvent(changePassword: changePassword));
+              }
+            },
+          ),
+        )
+      ],
     );
   }
 }
