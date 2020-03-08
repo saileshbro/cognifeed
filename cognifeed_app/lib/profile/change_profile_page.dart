@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cognifeed_app/profile/bloc/uploadImage_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/uploadImage_event.dart';
 import 'package:cognifeed_app/profile/bloc/uploadImage_state.dart';
@@ -6,9 +8,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class ModifyImage extends StatefulWidget {
   @override
@@ -23,18 +23,13 @@ class _ModifyImageState extends State<ModifyImage> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: image.path,
-      // ratioX: 1.0,
-      // ratioY: 1.0,
       maxWidth: 512,
       maxHeight: 512,
-    );
-    var result = await FlutterImageCompress.compressAndGetFile(
-      croppedFile.path,
-      croppedFile.path,
-      quality: 88,
+      compressFormat: ImageCompressFormat.png,
+      compressQuality: 90,
     );
     setState(() {
-      _image = result;
+      _image = croppedFile;
     });
   }
 
@@ -160,6 +155,11 @@ class _ModifyImageState extends State<ModifyImage> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                         fontSize: 16.0);
+                    return Container(
+                      height: 50,
+                      width: 50,
+                    );
+                  }else{
                     return Container(
                       height: 50,
                       width: 50,
