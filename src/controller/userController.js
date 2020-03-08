@@ -1,4 +1,3 @@
-const path = require("path")
 const bcrypt = require("bcryptjs")
 const moment = require("moment")
 const validator = require("validator").default
@@ -241,10 +240,56 @@ exports.uploadPicture = async (req, res, next) => {
     ])
     if (result.affectedRows > 0) {
       return res.json({
-        message: "Profile updated successfully!"
+        message: "Profile updated successfully!",
+        image_url: req.protocol + "://" + req.get("host") + "/" + req.file.path
       })
     } else {
       throw new ErrorHandler(400, "Unable to update profile picture!")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+exports.getForgotCode = async (req, res, next) => {
+  const { email } = req.body
+  const results = await pool.query(`SELECT email FROM ${tables.user} WHERE email=?`, [email])
+  if (results.length > 0) {
+    const reset_token = Math.floor(100000 + Math.random() * 900000)
+    await pool.query(`UPDATE ${tables.user} SET reset_token=? WHERE email=?`, [reset_token, email])
+    return res.json({
+      reset_token
+    })
+  } else {
+    throw new ErrorHandler(400, "Email not found!")
+  }
+}
+exports.setForgotPassword = async (req, res, next) => {
+  try {
+    const { email, reset_token, newPassword } = req.body
+    const results = await pool.query(
+      `SELECT email FROM ${tables.user} WHERE email=? AND reset_token=?`,
+      [email, reset_token]
+    )
+    if (results.length > 0) {
+      if (!passwordValidator(newPassword)) {
+        throw new ErrorHandler(
+          406,
+          "Required: Minimum eight characters, at least one letter, one number and one special character."
+        )
+      }
+      const newHashedPw = await bcrypt.hash(newPassword, parseInt(process.env.SALT_ROUNDS, 10))
+
+      const result = await pool.query(
+        `UPDATE ${tables.user}  SET password=?,reset_token=? WHERE email=? AND reset_token=?`,
+        [newHashedPw, "", email, reset_token]
+      )
+      if (result) {
+        return res.json({ message: "Password changed successfully!" })
+      } else {
+        throw new ErrorHandler(400, "Unable to change password1!")
+      }
+    } else {
+      throw new ErrorHandler(400, "Unable to change password2!")
     }
   } catch (error) {
     next(error)

@@ -113,3 +113,6 @@ module.exports.addArticle = async (req, res, next) => {
     next(error)
   }
 }
+exports.favArticles = async (req, res) => {
+  return res.redirect("/api/articles")
+}

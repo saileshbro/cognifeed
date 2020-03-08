@@ -5,3 +5,5 @@ yarn.lock
 .env
 .idea
 cognifeed_app/
+public/uploads/
+public/images/
