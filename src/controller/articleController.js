@@ -6,6 +6,20 @@ module.exports.articles = async (req, res, next) => {
       `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id NOT IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
       [req.user.user_id, req.user.user_id]
     )
+
+    const result2 = await pool.query(
+      `select * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
+      [req.user.user_id]
+    )
+    for (let i = 0; i < result2.length; i++) {
+      for (let j = 0; j < articles.length; j++) {
+        if (result2[i].article_id === articles[j].article_id) {
+          articles[j].tag_name = result2[i].tag_name
+          articles[j].tag_id = result2[i].tag_id
+          articles[j].is_selected = result2[i].user_id == req.user.user_id
+        }
+      }
+    }
     articles.forEach(article => {
       article.is_fav = article.is_fav == 1
     })
@@ -48,6 +62,20 @@ module.exports.getFav = async (req, res, next) => {
       `SELECT article_id,title,description,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
       [req.user.user_id, req.user.user_id]
     )
+
+    const result2 = await pool.query(
+      `select * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
+      [req.user.user_id]
+    )
+    for (let i = 0; i < result2.length; i++) {
+      for (let j = 0; j < articles.length; j++) {
+        if (result2[i].article_id === articles[j].article_id) {
+          articles[j].tag_name = result2[i].tag_name
+          articles[j].tag_id = result2[i].tag_id
+          articles[j].is_selected = result2[i].user_id == req.user.user_id
+        }
+      }
+    }
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
     }
@@ -67,6 +95,20 @@ module.exports.getHidden = async (req, res, next) => {
       `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
       [req.user.user_id, req.user.user_id]
     )
+
+    const result2 = await pool.query(
+      `select * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
+      [req.user.user_id]
+    )
+    for (let i = 0; i < result2.length; i++) {
+      for (let j = 0; j < articles.length; j++) {
+        if (result2[i].article_id === articles[j].article_id) {
+          articles[j].tag_name = result2[i].tag_name
+          articles[j].tag_id = result2[i].tag_id
+          articles[j].is_selected = result2[i].user_id == req.user.user_id
+        }
+      }
+    }
     articles.forEach(article => {
       article.is_fav = article.is_fav == 1
       article.is_hidden = true

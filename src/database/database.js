@@ -29,7 +29,7 @@ exports.tables = {
   articles: "article",
   user_tags: "user_tags",
   tags: "tags",
-  articleTags: "article_tags",
+  articleTags: "article_tag",
   selectedTags: "selected_tags",
   user: "users",
   favourites: "favourites",

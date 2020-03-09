@@ -2,7 +2,18 @@ const axios = require("axios")
 const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler.js")
 module.exports.addTag = async (req, res, next) => {
-  console.log(req.body)
+  const { tag_id } = req.params
+  try {
+    await pool.query(`INSERT IGNORE INTO ${tables.user_tags} SET tag_id=?,user_id=?`, [
+      tag_id,
+      req.user.user_id
+    ])
+    return res.json({
+      message: "Successfully added"
+    })
+  } catch (error) {
+    next(error)
+  }
 }
 module.exports.addTags = async (req, res, next) => {
   const { tags } = req.body
@@ -26,15 +37,20 @@ module.exports.addTags = async (req, res, next) => {
 module.exports.removeTag = async (req, res, next) => {
   try {
     const { tag_id } = req.params
-    const tag_res = await pool.query(`SELECT tag_name FROM ${tables.tags} WHERE tag_id=?`, [tag_id])
+    const tag_res = await pool.query(
+      `SELECT tag_id FROM ${tables.user_tags} WHERE tag_id=? AND user_id=?`,
+      [tag_id, req.user.user_id]
+    )
     if (tag_res.length > 0) {
-      await pool.query(`DELETE FROM ${tables.tags} WHERE tag_id=?`, [tag_id])
+      await pool.query(`DELETE FROM ${tables.user_tags} WHERE tag_id=? AND user_id=?`, [
+        tag_id,
+        req.user.user_id
+      ])
     } else {
       throw new ErrorHandler(404, "Tag doesn't exist")
     }
     return res.json({
-      tag_id,
-      tag_name: tag_res[0].tag_name
+      message: "Removed successfully"
     })
   } catch (error) {
     next(error)
