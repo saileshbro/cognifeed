@@ -155,10 +155,9 @@ class App extends StatelessWidget {
                   return HomePage();
                 }
                 if (state is AuthenticationUnauthenticated) {
-                  // return AuthenticationPage(
-                  //   userRepository: UserRepository(),
-                  // );
-                  return SettingsPage();
+                  return AuthenticationPage(
+                    userRepository: UserRepository(),
+                  );
                 }
                 if (state is AuthenticationLoading) {
                   return LoadingIndicator();

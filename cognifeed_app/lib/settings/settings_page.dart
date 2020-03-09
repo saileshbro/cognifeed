@@ -30,6 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return ApplicationScaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Navigator.of(context).pushReplacementNamed('/');
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
         },
         backgroundColor: Color(0xffff5a5f),
@@ -40,14 +41,17 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: <Widget>[
-            Container(
-              height: 120,
-              child: Stack(
-                children: <Widget>[
-                  Column(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 30,
+                  ),
+                  height: 120,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Card(
@@ -144,186 +148,189 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
+                ),
+                const SizedBox(height: 25.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Change Password",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        FontAwesome5Solid.key,
+                        color: Color(0xffff5a5f),
+                      ),
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfilePage(),
+                            builder: (context) => ChangePasswordPage(),
                           ),
                         );
                       },
-                      child: CircleAvatar(
-                        maxRadius: 50,
-                        backgroundImage: CachedNetworkImageProvider(
-                            Cognifeed.loggedInUser.imageUrl ?? ""),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Change general tag preference",
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 25.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Change Password",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    FontAwesome5Solid.key,
-                    color: Color(0xffff5a5f),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangePasswordPage(),
+                    IconButton(
+                      icon: Icon(
+                        FontAwesome5.check_square,
+                        color: Color(0xffff5a5f),
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Change general tag preference",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    FontAwesome5.check_square,
-                    color: Color(0xffff5a5f),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OnboardingPage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 25.0),
-            Text(
-              "Notification Settings",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            SwitchListTile(
-              activeColor: Color(0xffff5a5f),
-              contentPadding: const EdgeInsets.all(0),
-              value: isTimerEnabled,
-              title: Text("Receive notification"),
-              onChanged: (val) {
-                setState(() {
-                  isTimerEnabled = !isTimerEnabled;
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Set timer for Push Notification"),
-                IconButton(
-                    icon: Icon(
-                      FontAwesome5Solid.clock,
-                      color: !isTimerEnabled ? Colors.grey : Color(0xffff5a5f),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingPage(),
+                          ),
+                        );
+                      },
                     ),
-                    onPressed: !isTimerEnabled
-                        ? null
-                        : () async {
-                            newTime = await showTimePicker(
-                              context: context,
-                              initialTime: _time,
-                            );
-                            setState(() {
-                              _time = newTime;
-                            });
-                          }),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+                  ],
+                ),
+                const SizedBox(height: 25.0),
                 Text(
-                  _time.hourOfPeriod.toString(),
+                  "Notification Settings",
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
-                SizedBox(width: 10),
-                Text(
-                  ":",
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
+                SwitchListTile(
+                  activeColor: Color(0xffff5a5f),
+                  contentPadding: const EdgeInsets.all(0),
+                  value: isTimerEnabled,
+                  title: Text("Receive notification"),
+                  onChanged: (val) {
+                    setState(() {
+                      isTimerEnabled = !isTimerEnabled;
+                    });
+                  },
                 ),
-                SizedBox(width: 10),
-                Text(
-                  _time.minute.toString(),
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  _time.period.index == 0 ? "AM" : "PM",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            SwitchListTile(
-              activeColor: Color(0xffff5a5f),
-              contentPadding: const EdgeInsets.all(0),
-              value: isTagsEnabled,
-              title: Text("Receive articles only from selected tags"),
-              onChanged: (val) {
-                setState(() {
-                  isTagsEnabled = !isTagsEnabled;
-                });
-              },
-            ),
-            RaisedButton(
-              disabledColor: Colors.grey,
-              color: Color(0xffff5a5f),
-              onPressed: !isTagsEnabled
-                  ? null
-                  : () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OnboardingPage(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Set timer for Push Notification"),
+                    IconButton(
+                        icon: Icon(
+                          FontAwesome5Solid.clock,
+                          color:
+                              !isTimerEnabled ? Colors.grey : Color(0xffff5a5f),
                         ),
-                      );
-                    },
-              child: Text(
-                'Select Tags',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: isTagsEnabled ? Colors.black : Colors.white,
+                        onPressed: !isTimerEnabled
+                            ? null
+                            : () async {
+                                newTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: _time,
+                                );
+                                setState(() {
+                                  _time = newTime;
+                                });
+                              }),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      _time.hourOfPeriod.toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      ":",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      _time.minute.toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      _time.period.index == 0 ? "AM" : "PM",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                SwitchListTile(
+                  activeColor: Color(0xffff5a5f),
+                  contentPadding: const EdgeInsets.all(0),
+                  value: isTagsEnabled,
+                  title: Text("Receive articles only from selected tags"),
+                  onChanged: (val) {
+                    setState(() {
+                      isTagsEnabled = !isTagsEnabled;
+                    });
+                  },
+                ),
+                RaisedButton(
+                  disabledColor: Colors.grey,
+                  color: Color(0xffff5a5f),
+                  onPressed: !isTagsEnabled
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OnboardingPage(),
+                            ),
+                          );
+                        },
+                  child: Text(
+                    'Select Tags',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: isTagsEnabled ? Colors.black : Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                const SizedBox(height: 60.0),
+              ],
+            ),
+            Positioned(
+              child: Container(
+                margin: EdgeInsets.only(left: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(),
+                      ),
+                    );
+                  },
+                  child: CircleAvatar(
+                    maxRadius: 50,
+                    backgroundImage: CachedNetworkImageProvider(
+                        Cognifeed.loggedInUser.imageUrl ?? ""),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            const SizedBox(height: 60.0),
           ],
         ),
       ),
