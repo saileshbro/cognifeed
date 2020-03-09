@@ -34,9 +34,13 @@ class _SettingsPageState extends State<SettingsPage> {
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
         },
         backgroundColor: Color(0xffff5a5f),
-        child: Icon(
-          FontAwesome.power_off,
-          color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            FontAwesome.power_off,
+            size: 30,
+            color: Colors.white,
+          ),
         ),
       ),
       child: SingleChildScrollView(
@@ -275,39 +279,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ],
                 ),
-                SwitchListTile(
-                  activeColor: Color(0xffff5a5f),
-                  contentPadding: const EdgeInsets.all(0),
-                  value: isTagsEnabled,
-                  title: Text("Receive articles only from selected tags"),
-                  onChanged: (val) {
-                    setState(() {
-                      isTagsEnabled = !isTagsEnabled;
-                    });
-                  },
-                ),
-                RaisedButton(
-                  disabledColor: Colors.grey,
-                  color: Color(0xffff5a5f),
-                  onPressed: !isTagsEnabled
-                      ? null
-                      : () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OnboardingPage(),
-                            ),
-                          );
-                        },
-                  child: Text(
-                    'Select Tags',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: !isTagsEnabled ? Colors.black : Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
                 const SizedBox(height: 60.0),
               ],
             ),
