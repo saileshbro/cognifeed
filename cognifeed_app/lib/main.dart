@@ -4,10 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
-import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
-import 'package:cognifeed_app/fav/fav_bloc.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
@@ -92,11 +90,6 @@ Future<void> main() async {
       BlocProvider<ManagePasswordBloc>(
         create: (BuildContext context) {
           return ManagePasswordBloc();
-        },
-      ),
-      BlocProvider<FavBloc>(
-        create: (BuildContext context) {
-          return FavBloc();
         },
       ),
       BlocProvider<UpdateProfileBloc>(
