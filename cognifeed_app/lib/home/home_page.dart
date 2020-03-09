@@ -6,6 +6,7 @@ import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
+import 'package:cognifeed_app/tags/tags_repository.dart';
 
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
@@ -244,8 +245,9 @@ class _ArticleBoxState extends State<ArticleBox> {
                         });
                       }
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(12.0),
                       child: Icon(
                         widget.article.isFav
                             ? FontAwesome.heart
@@ -274,12 +276,78 @@ class _ArticleBoxState extends State<ArticleBox> {
                                               color: Colors.grey[200],
                                               width: 2))),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Flexible(
                                           child: Text(widget.article.title)),
-                                      Container(
-                                        height: 10,
-                                        width: 15,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (widget.article.isSelected) {
+                                            TagRepository.unfollow(
+                                                    tagId: widget.article.tagId
+                                                        .toString())
+                                                .then((response) {
+                                              setState(() {
+                                                widget.article.isSelected =
+                                                    !widget.article.isSelected;
+                                              });
+                                              Navigator.of(context).pop();
+                                              Scaffold.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    response.data['message']),
+                                                backgroundColor: Colors.red,
+                                              ));
+                                            });
+                                          } else {
+                                            TagRepository.follow(
+                                                    tagId: widget.article.tagId
+                                                        .toString())
+                                                .then((response) {
+                                              setState(() {
+                                                widget.article.isSelected =
+                                                    !widget.article.isSelected;
+                                              });
+                                              Navigator.of(context).pop();
+                                              Scaffold.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    response.data['message']),
+                                                backgroundColor: Colors.green,
+                                              ));
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: widget.article.isSelected
+                                                  ? Colors.green
+                                                  : CognifeedColors.coralPink,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 6, horizontal: 8),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              Icon(
+                                                !widget.article.isSelected
+                                                    ? Icons.add
+                                                    : Icons.check,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                widget.article.tagName,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -420,8 +488,9 @@ class _ArticleBoxState extends State<ArticleBox> {
                             ),
                           ));
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(12.0),
                       child: Icon(
                         Icons.more_vert,
                         // size: 18,

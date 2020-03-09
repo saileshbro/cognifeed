@@ -10,6 +10,7 @@ import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/home/onboarding_page.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
@@ -154,6 +155,7 @@ class App extends StatelessWidget {
               HiddenPage.route: (_) => HiddenPage(),
               SettingsPage.route: (_) => SettingsPage(),
               ProfilePage.route: (_) => ProfilePage(),
+              OnboardingPage.route: (_) => OnboardingPage(),
             },
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
