@@ -303,7 +303,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     'Select Tags',
                     style: TextStyle(
                       fontSize: 16,
-                      color: isTagsEnabled ? Colors.black : Colors.white,
+                      color: !isTagsEnabled ? Colors.black : Colors.white,
                     ),
                   ),
                 ),
