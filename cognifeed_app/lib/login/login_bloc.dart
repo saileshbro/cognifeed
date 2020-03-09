@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/login/login_events.dart';
 import 'package:cognifeed_app/login/login_states.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
