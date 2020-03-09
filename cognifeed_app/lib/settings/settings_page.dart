@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/auth/authentication_bloc.dart';
+import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/onboarding_page.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
@@ -7,6 +9,7 @@ import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -18,21 +21,17 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   TimeOfDay _time = TimeOfDay.now();
-  bool isTagsDisabled = true;
-  bool isTimerDisabled = true;
-
-  Future<Null> selectTime(BuildContext context) async {
-    _time = await showTimePicker(
-      context: context,
-      initialTime: _time,
-    );
-  }
+  TimeOfDay newTime;
+  bool isTagsEnabled = false;
+  bool isTimerEnabled = false;
 
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+        },
         backgroundColor: Color(0xffff5a5f),
         child: Icon(
           FontAwesome.power_off,
@@ -78,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     Container(
                                       width: 180,
                                       child: Text(
-                                        Cognifeed.loggedInUser.name,
+                                        Cognifeed.loggedInUser.name ?? "",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
@@ -229,14 +228,11 @@ class _SettingsPageState extends State<SettingsPage> {
             SwitchListTile(
               activeColor: Color(0xffff5a5f),
               contentPadding: const EdgeInsets.all(0),
-              value: false,
+              value: isTimerEnabled,
               title: Text("Receive notification"),
               onChanged: (val) {
                 setState(() {
-                  if (val)
-                    isTimerDisabled = false;
-                  else
-                    isTimerDisabled = !isTimerDisabled;
+                  isTimerEnabled = !isTimerEnabled;
                 });
               },
             ),
@@ -247,13 +243,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 IconButton(
                     icon: Icon(
                       FontAwesome5Solid.clock,
-                      color: isTimerDisabled ? Colors.grey : Color(0xffff5a5f),
+                      color: !isTimerEnabled ? Colors.grey : Color(0xffff5a5f),
                     ),
-                    onPressed: isTimerDisabled
+                    onPressed: !isTimerEnabled
                         ? null
-                        : () {
+                        : () async {
+                            newTime = await showTimePicker(
+                              context: context,
+                              initialTime: _time,
+                            );
                             setState(() {
-                              selectTime(context);
+                              _time = newTime;
                             });
                           }),
               ],
@@ -262,7 +262,7 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "00",
+                  _time.hourOfPeriod.toString(),
                   style: TextStyle(
                     fontSize: 25,
                   ),
@@ -276,14 +276,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "35",
+                  _time.minute.toString(),
                   style: TextStyle(
                     fontSize: 25,
                   ),
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "PM",
+                  _time.period.index == 0 ? "AM" : "PM",
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -293,21 +293,18 @@ class _SettingsPageState extends State<SettingsPage> {
             SwitchListTile(
               activeColor: Color(0xffff5a5f),
               contentPadding: const EdgeInsets.all(0),
-              value: false,
+              value: isTagsEnabled,
               title: Text("Receive articles only from selected tags"),
               onChanged: (val) {
                 setState(() {
-                  if (val)
-                    isTagsDisabled = false;
-                  else
-                    isTagsDisabled = !isTagsDisabled;
+                  isTagsEnabled = !isTagsEnabled;
                 });
               },
             ),
             RaisedButton(
               disabledColor: Colors.grey,
               color: Color(0xffff5a5f),
-              onPressed: isTagsDisabled
+              onPressed: !isTagsEnabled
                   ? null
                   : () {
                       Navigator.push(
@@ -321,7 +318,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 'Select Tags',
                 style: TextStyle(
                   fontSize: 16,
-                  color: isTagsDisabled ? Colors.black : Colors.white,
+                  color: isTagsEnabled ? Colors.black : Colors.white,
                 ),
               ),
             ),
