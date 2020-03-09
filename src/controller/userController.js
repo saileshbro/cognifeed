@@ -92,6 +92,7 @@ exports.login = async (req, res, next) => {
     }
     const token = jwt.sign({ user_id: result[0].user_id }, process.env.JWT_SECRET)
     delete result[0].password
+    result[0].image_url = req.protocol + "://" + req.get("host") + "/" + result[0].image_url
     let joined_date = moment(result[0].joined_date).format("MMMM Do YY")
     delete result[0].created_at
     delete result[0].updated_at

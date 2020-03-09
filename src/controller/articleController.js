@@ -2,7 +2,13 @@ const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
 module.exports.articles = async (req, res, next) => {
   try {
-    const articles = await pool.query("SELECT * FROM article")
+    const articles = await pool.query(
+      `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id)`,
+      [req.user.user_id]
+    )
+    articles.forEach(article => {
+      article.is_fav = article.is_fav == 1
+    })
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
     }
@@ -46,7 +52,9 @@ module.exports.getFav = async (req, res, next) => {
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
     }
-
+    articles.forEach(article => {
+      article.is_fav = true
+    })
     return res.json({
       articles
     })
@@ -112,7 +120,4 @@ module.exports.addArticle = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}
-exports.favArticles = async (req, res) => {
-  return res.redirect("/api/articles")
 }
