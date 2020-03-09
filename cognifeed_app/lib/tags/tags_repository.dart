@@ -12,7 +12,7 @@ class TagRepository {
       final response = await Cognifeed.dioClient.get("$baseUrl/tags/");
 
       if (response.data.containsKey('error')) {
-        return Future.error(jsonDecode(response.data)['error']);
+        return Future.error(response.data['error']);
       }
       return Future.value(TagArray.fromJson(response.data));
     } catch (e) {
@@ -26,7 +26,7 @@ class TagRepository {
   static Future sendSelectedTags({@required TagArray tags}) async {
     try {
       final response =
-          await Cognifeed.dioClient.post("$baseUrl/tags/", data: tags.toJson());
+          await Cognifeed.dioClient.post("$baseUrl/tags", data: tags.toJson());
       if (response.data.containsKey('error')) {
         return Future.error(response);
       }

@@ -20,6 +20,7 @@ import 'package:cognifeed_app/profile/bloc/uploadImage_bloc.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
+import 'package:cognifeed_app/tags/tags_bloc.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:dio/dio.dart';
@@ -112,6 +113,11 @@ Future<void> main() async {
       BlocProvider<UploadBloc>(
         create: (BuildContext context) {
           return UploadBloc();
+        },
+      ),
+      BlocProvider<TagBloc>(
+        create: (BuildContext context) {
+          return TagBloc();
         },
       ),
       BlocProvider<LoginBloc>(

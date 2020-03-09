@@ -19,23 +19,36 @@ class TagArray {
     }
     return data;
   }
+
+  TagArray getSelectedTags() {
+    List<Tag> selectedTags = [];
+    this.tags.forEach((tag) {
+      if (tag.isSelected) {
+        selectedTags.add(tag);
+      }
+    });
+    return TagArray(tags: selectedTags);
+  }
 }
 
 class Tag {
-  String tagId;
+  int tagId;
   String tagName;
+  bool isSelected;
 
-  Tag({this.tagId, this.tagName});
+  Tag({this.tagId, this.tagName, this.isSelected});
 
   Tag.fromJson(Map<String, dynamic> json) {
     tagId = json['tag_id'];
     tagName = json['tag_name'];
+    isSelected = json['is_selected'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tag_id'] = this.tagId;
     data['tag_name'] = this.tagName;
+    data['is_selected'] = this.isSelected;
     return data;
   }
 }
