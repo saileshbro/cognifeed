@@ -128,7 +128,12 @@ class _SignupPageState extends State<SignupPage> {
                             width: 148,
                             height: 50,
                           ),
-                          SizedBox(height: 45),
+                          SizedBox(height: 25),
+                          Image.asset(
+                            "assets/images/signup.png",
+                            height: 150,
+                          ),
+                          SizedBox(height: 25),
                           Form(
                             key: _formKey,
                             child: Column(
