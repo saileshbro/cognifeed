@@ -39,10 +39,10 @@ class TagRepository {
     }
   }
 
-  static Future selectTag({@required String tagId}) async {
+  static Future follow({@required String tagId}) async {
     try {
       final response = await Cognifeed.dioClient.post(
-        "$baseUrl/tags/$tagId/selectTag",
+        "$baseUrl/tags/$tagId/add",
       );
       if (response.data.containsKey('error')) {
         return Future.error(response);
@@ -56,10 +56,10 @@ class TagRepository {
     }
   }
 
-  static Future unselectTag({@required String tagId}) async {
+  static Future unfollow({@required String tagId}) async {
     try {
       final response = await Cognifeed.dioClient.delete(
-        "$baseUrl/tags/$tagId/unselectTag",
+        "$baseUrl/tags/$tagId/remove",
       );
       if (response.data.containsKey('error')) {
         return Future.error(response);

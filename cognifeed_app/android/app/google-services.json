@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "445327237741",
+    "firebase_url": "https://cognifeed-de720.firebaseio.com",
+    "project_id": "cognifeed-de720",
+    "storage_bucket": "cognifeed-de720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445327237741:android:4a49fbef0afd29aef4d564",
+        "android_client_info": {
+          "package_name": "com.example.cognifeed_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445327237741-q3nqpr38gscofkcfpq55m08trvr3sh5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM1sk7Ty9Vh9Z4NN8CP_3Ba02t6FmBMRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445327237741-q3nqpr38gscofkcfpq55m08trvr3sh5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
+import 'package:cognifeed_app/home/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -94,8 +95,9 @@ class _SignupPageState extends State<SignupPage> {
         bloc: BlocProvider.of<AuthenticationBloc>(context),
         listener: (context, state) {
           if (state is AuthenticationAuthenticated) {
-            Navigator.popUntil(
-                context, ModalRoute.withName(Navigator.defaultRouteName));
+            // Navigator.popUntil(
+            //     context, ModalRoute.withName(Navigator.defaultRouteName));
+            Navigator.of(context).pushReplacementNamed(OnboardingPage.route);
           }
         },
         child: BlocListener(
