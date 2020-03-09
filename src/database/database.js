@@ -27,6 +27,7 @@ pool.query = util.promisify(pool.query)
 exports.pool = pool
 exports.tables = {
   articles: "article",
+  user_tags: "user_tags",
   tags: "tags",
   articleTags: "article_tags",
   selectedTags: "selected_tags",

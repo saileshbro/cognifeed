@@ -1,16 +1,23 @@
+const axios = require("axios")
 const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler.js")
 module.exports.addTag = async (req, res, next) => {
+  console.log(req.body)
+}
+module.exports.addTags = async (req, res, next) => {
+  const { tags } = req.body
+
   try {
-    const tag = req.body.tag
-    const tag_res = await pool.query(`SELECT tag_id FROM ${tables.tags} WHERE tag_name=?`, [tag])
-    if (tag_res.length == 0) {
-      await pool.query(`INSERT INTO ${tables.tags} SET tag_name=?`, [tag])
-    } else {
-      throw new ErrorHandler(404, "Tag already exists")
+    await pool.query(`DELETE FROM ${tables.user_tags} WHERE user_id=?`, [req.user.user_id])
+    for (let i = 0; i < tags.length; i++) {
+      const tag_id = tags[i].tag_id
+      await pool.query(`INSERT INTO ${tables.user_tags} SET tag_id=?,user_id=?`, [
+        tag_id,
+        req.user.user_id
+      ])
     }
     return res.json({
-      tag: tag
+      message: "Successfully added."
     })
   } catch (error) {
     next(error)
@@ -36,15 +43,11 @@ module.exports.removeTag = async (req, res, next) => {
 
 module.exports.getAllTags = async (req, res, next) => {
   try {
-    const page_num = req.query.page
-    let tags
-    if (page_num) {
-      tags = await pool.query(`SELECT * FROM ${tables.tags} ORDER BY tag_name LIMIT 10 OFFSET ? `, [
-        (page_num - 1) * 10
-      ])
-    } else {
-      tags = await pool.query(`SELECT * FROM ${tables.tags} ORDER BY tag_name`)
-    }
+    let tags = await pool.query(
+      `SELECT tag_id,tag_name,STRCMP(${tables.user_tags}.user_id,?)+1 AS is_selected FROM ${tables.tags} LEFT JOIN ${tables.user_tags} USING(tag_id)`,
+      [req.user.user_id]
+    )
+
     if (tags.length > 0) {
       tags.forEach(tag => {
         tag.tag_name = tag.tag_name
@@ -52,6 +55,7 @@ module.exports.getAllTags = async (req, res, next) => {
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(" ")
           .replace("And", "and")
+        tag.is_selected = tag.is_selected == 1
       })
       return res.json({
         tags
