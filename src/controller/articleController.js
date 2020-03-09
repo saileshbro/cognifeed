@@ -3,8 +3,8 @@ const { ErrorHandler } = require("../helpers/error_handler")
 module.exports.articles = async (req, res, next) => {
   try {
     const articles = await pool.query(
-      `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id)`,
-      [req.user.user_id]
+      `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id NOT IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
+      [req.user.user_id, req.user.user_id]
     )
     articles.forEach(article => {
       article.is_fav = article.is_fav == 1
@@ -44,10 +44,9 @@ module.exports.showArticle = async (req, res, next) => {
 
 module.exports.getFav = async (req, res, next) => {
   try {
-    const user_id = req.user.user_id
     const articles = await pool.query(
-      `SELECT article_id,title,description,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=?`,
-      [user_id]
+      `SELECT article_id,title,description,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
+      [req.user.user_id, req.user.user_id]
     )
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
@@ -55,6 +54,26 @@ module.exports.getFav = async (req, res, next) => {
     articles.forEach(article => {
       article.is_fav = true
     })
+    return res.json({
+      articles
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports.getHidden = async (req, res, next) => {
+  try {
+    const articles = await pool.query(
+      `SELECT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
+      [req.user.user_id, req.user.user_id]
+    )
+    articles.forEach(article => {
+      article.is_fav = article.is_fav == 1
+      article.is_hidden = true
+    })
+    if (articles.length == 0) {
+      throw new ErrorHandler(404, "articles not found")
+    }
     return res.json({
       articles
     })
@@ -88,6 +107,36 @@ module.exports.removeFav = async (req, res, next) => {
     ])
     return res.json({
       message: "Removed from favourite"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports.hideArticle = async (req, res, next) => {
+  try {
+    const user_id = req.user.user_id
+    const article_id = req.params.article_id
+    await pool.query(`INSERT INTO ${tables.hidden} SET user_id=?,article_id=?`, [
+      user_id,
+      article_id
+    ])
+    return res.json({
+      message: "Article hidden"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports.showArticle = async (req, res, next) => {
+  try {
+    const user_id = req.user.user_id
+    const article_id = req.params.article_id
+    await pool.query(`DELETE FROM ${tables.hidden} WHERE user_id=? AND article_id=?`, [
+      user_id,
+      article_id
+    ])
+    return res.json({
+      message: "Removed from hidden"
     })
   } catch (error) {
     next(error)

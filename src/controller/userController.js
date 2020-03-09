@@ -110,7 +110,7 @@ exports.profile = async (req, res, next) => {
   const userId = req.user.user_id
   try {
     const userProfile = await pool.query(
-      `SELECT name, email, phone, bio, address,about, website, image_url, ${tables.user}.created_at as joined_date FROM ${tables.user} JOIN ${tables.profile} USING(user_id) WHERE user_id=?`,
+      `SELECT user_id,name, email, phone, bio, address,about, website, image_url, ${tables.user}.created_at as joined_date FROM ${tables.user} JOIN ${tables.profile} USING(user_id) WHERE user_id=?`,
       [userId]
     )
     console.log(userProfile)
