@@ -43,13 +43,19 @@ class _FavPageState extends State<FavPage> {
           bloc: BlocProvider.of<ArticlesBloc>(context),
           builder: (BuildContext context, ArticlesState state) {
             if (state is ArticlesLoadedState) {
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                itemCount: state.articlesModel.articles.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ArticleBox(
-                      article: state.articlesModel.articles[index]);
+              return RefreshIndicator(
+                onRefresh: () async {
+                  BlocProvider.of<ArticlesBloc>(context)
+                      .add(GetFavPageArticlesEvent());
                 },
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  itemCount: state.articlesModel.articles.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ArticleBox(
+                        article: state.articlesModel.articles[index]);
+                  },
+                ),
               );
             } else if (state is ArticlesErrorState) {
               return Container(

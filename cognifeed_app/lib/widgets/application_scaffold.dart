@@ -18,17 +18,16 @@ class ApplicationScaffold extends StatefulWidget {
   final Widget floatingActionButton;
   final Color backgroundColor;
   final List<Widget> actions;
-  final Key key;
 
-  const ApplicationScaffold({
-    @required this.child,
-    this.floatingActionButton,
-    this.showDrawer = true,
-    this.actions,
-    this.backgroundColor,
-    this.title = "Cognifeed",
-    this.key,
-  }) : super(key: key);
+  const ApplicationScaffold(
+      {Key key,
+      @required this.child,
+      this.floatingActionButton,
+      this.showDrawer = true,
+      this.actions,
+      this.backgroundColor,
+      this.title = "Cognifeed"})
+      : super(key: key);
 
   @override
   _ApplicationScaffoldState createState() => _ApplicationScaffoldState();

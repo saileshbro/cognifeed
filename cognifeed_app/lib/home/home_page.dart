@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
+import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
 
-import 'package:cognifeed_app/fav/fav_repository.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:cognifeed_app/webview/full_article_page.dart';
@@ -13,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:share/share.dart';
 
 import '../constants/cognifeed_constants.dart';
 
@@ -50,13 +52,19 @@ class _HomePageState extends State<HomePage> {
           bloc: BlocProvider.of<ArticlesBloc>(context),
           builder: (BuildContext context, ArticlesState state) {
             if (state is ArticlesLoadedState) {
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                itemCount: state.articlesModel.articles.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ArticleBox(
-                      article: state.articlesModel.articles[index]);
+              return RefreshIndicator(
+                onRefresh: () async {
+                  BlocProvider.of<ArticlesBloc>(context)
+                      .add(GetHomePageArticlesEvent());
                 },
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  itemCount: state.articlesModel.articles.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ArticleBox(
+                        article: state.articlesModel.articles[index]);
+                  },
+                ),
               );
             } else if (state is ArticlesErrorState) {
               return Container(
@@ -189,13 +197,13 @@ class _ArticleBoxState extends State<ArticleBox> {
                       ],
                     ),
                     SizedBox(
-                      width: 15,
+                      width: 12,
                     ),
                     GestureDetector(
                       onTap: () async {
                         if (!widget.article.isFav) {
                           print("add clicked");
-                          FavRepository.addToFav(
+                          ArticleRepository.addToFav(
                                   articleId:
                                       widget.article.articleId.toString())
                               .then((response) {
@@ -217,7 +225,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                           });
                         } else {
                           print("remove clicked");
-                          FavRepository.removeFromFav(
+                          ArticleRepository.removeFromFav(
                                   articleId:
                                       widget.article.articleId.toString())
                               .then((response) {
@@ -239,16 +247,20 @@ class _ArticleBoxState extends State<ArticleBox> {
                           });
                         }
                       },
-                      child: Icon(
-                        widget.article.isFav
-                            ? FontAwesome.heart
-                            : FontAwesome.heart_o,
-                        color: widget.article.isFav ? Colors.red : Colors.black,
-                        // size: 18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          widget.article.isFav
+                              ? FontAwesome.heart
+                              : FontAwesome.heart_o,
+                          color:
+                              widget.article.isFav ? Colors.red : Colors.black,
+                          // size: 18,
+                        ),
                       ),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: 4,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -267,7 +279,8 @@ class _ArticleBoxState extends State<ArticleBox> {
                                                 width: 2))),
                                     child: Row(
                                       children: <Widget>[
-                                        Text("Operating System"),
+                                        Flexible(
+                                            child: Text(widget.article.title)),
                                         Container(
                                           height: 10,
                                           width: 15,
@@ -282,12 +295,63 @@ class _ArticleBoxState extends State<ArticleBox> {
                                         CustomListTile(
                                           icon: Icons.share,
                                           label: "Share",
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Share.share(getShareText(
+                                                widget.article.title,
+                                                widget.article.description,
+                                                widget.article.linkUrl));
+                                          },
+                                        ),
+                                        CustomListTile(
+                                          icon: Icons.link,
+                                          label: "Copy link",
+                                          onPressed: () {
+                                            ClipboardManager.copyToClipBoard(
+                                                    widget.article.linkUrl)
+                                                .then((result) {
+                                              Navigator.pop(context);
+                                              Scaffold.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                      'Copied to Clipboard'),
+                                                  backgroundColor: Colors.green,
+                                                ),
+                                              );
+                                            });
+                                          },
                                         ),
                                         CustomListTile(
                                           icon: Icons.highlight_off,
                                           label: "Hide this article",
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            ArticleRepository.hideArticle(
+                                                    articleId: widget
+                                                        .article.articleId
+                                                        .toString())
+                                                .then((response) {
+                                              if (response.statusCode == 200) {
+                                                Navigator.pop(context);
+                                                Scaffold.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      widget.article.title +
+                                                          " hidden!"),
+                                                  backgroundColor: Colors.green,
+                                                ));
+                                                BlocProvider.of<ArticlesBloc>(
+                                                        context)
+                                                    .add(
+                                                        GetHomePageArticlesEvent());
+                                              } else {
+                                                Scaffold.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      response.data['error']),
+                                                  backgroundColor: Colors.red,
+                                                ));
+                                              }
+                                            });
+                                          },
                                         ),
                                         CustomListTile(
                                           icon: FontAwesome.magic,
@@ -297,17 +361,24 @@ class _ArticleBoxState extends State<ArticleBox> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(vertical: 16),
-                                    child: Text('Close'),
+                                  GestureDetector(
+                                    onTap: Navigator.of(context).pop,
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 16),
+                                      child: Text('Close'),
+                                    ),
                                   )
                                 ],
                               ),
                             ));
                       },
-                      child: Icon(
-                        Icons.more_vert,
-                        // size: 18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.more_vert,
+                          // size: 18,
+                        ),
                       ),
                     )
                   ],
@@ -360,7 +431,8 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Padding(
+      child: Container(
+        color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: Row(
           children: <Widget>[
@@ -374,4 +446,8 @@ class CustomListTile extends StatelessWidget {
       ),
     );
   }
+}
+
+String getShareText(String title, String description, String link) {
+  return "$title\n\n$description\n\n---------------------------------------\nView more here:\n$link\n\n---------------------------------------\nDownload-\nCognifeed: Level You Up\n\nTo view more such articles";
 }
