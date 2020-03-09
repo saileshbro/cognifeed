@@ -17,6 +17,9 @@ class ProfileRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
@@ -51,6 +54,9 @@ class ProfileRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
@@ -74,6 +80,9 @@ class ProfileRepository {
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
       }
       return Future.error(e.toString());
     }
@@ -100,6 +109,9 @@ class ProfileRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
@@ -121,6 +133,9 @@ class ProfileRepository {
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
       }
       return Future.error(e.toString());
     }

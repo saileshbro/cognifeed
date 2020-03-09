@@ -29,6 +29,7 @@ class Article {
   bool isFav;
   String linkUrl;
   int viewCount;
+  bool isHidden;
 
   Article({
     this.articleId,
@@ -38,6 +39,7 @@ class Article {
     this.isFav,
     this.linkUrl,
     this.viewCount,
+    this.isHidden,
   });
 
   Article.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class Article {
     imageUrl = json['image_url'];
     linkUrl = json['link_url'];
     viewCount = json['view_count'];
+    isHidden = json['is_hidden'] ?? false;
     isFav = json['is_fav'] ?? false;
   }
 
@@ -58,6 +61,7 @@ class Article {
     data['description'] = this.description;
     data['image_url'] = this.imageUrl;
     data['link_url'] = this.linkUrl;
+    data['is_hidden'] = this.viewCount;
     data['view_count'] = this.viewCount;
     return data;
   }

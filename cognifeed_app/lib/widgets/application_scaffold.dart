@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
+import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +38,11 @@ class _ApplicationScaffoldState extends State<ApplicationScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: widget.floatingActionButton,
       drawer: widget.showDrawer ? ApplicationDrawer() : null,
       appBar: AppBar(
+        elevation: 0.5,
         title: Text(
           widget.title,
           style: CognifeedTypography.textStyle1,
@@ -136,6 +139,32 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
             ),
           ),
           Container(
+            color: this.getSelectedColor(DrawerPages.Hidden),
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  Icons.highlight_off,
+                  size: 18,
+                  color: Colors.black,
+                ),
+              ),
+              title: Text(
+                "Hidden",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 18,
+                ),
+              ),
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.Hidden) {
+                  Cognifeed.drawerPages = DrawerPages.Hidden;
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(HiddenPage.route);
+                }
+              },
+            ),
+          ),
+          Container(
             color: this.getSelectedColor(DrawerPages.Profile),
             child: ListTile(
               leading: Container(
@@ -221,4 +250,4 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
   }
 }
 
-enum DrawerPages { Home, Fav, Profile, Settings }
+enum DrawerPages { Home, Fav, Profile, Hidden, Settings }

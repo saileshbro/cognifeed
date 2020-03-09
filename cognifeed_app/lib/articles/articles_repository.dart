@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cognifeed_app/articles/articles_model.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
 import '../constants/cognifeed_constants.dart';
@@ -18,6 +19,29 @@ class ArticleRepository {
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<ArticlesModel> getHiddenPageArticles() async {
+    try {
+      final response =
+          await Cognifeed.dioClient.get("$baseUrl/articles/hidden");
+
+      if (response.data.containsKey('error')) {
+        return Future.error(jsonDecode(response.data)['error']);
+      }
+      return Future.value(ArticlesModel.fromJson(response.data));
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
       }
       return Future.error(e.toString());
     }
@@ -36,6 +60,9 @@ class ArticleRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
@@ -53,13 +80,16 @@ class ArticleRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
 
   static Future hideArticle({@required String articleId}) async {
     try {
-      final response = await Cognifeed.dioClient.delete(
+      final response = await Cognifeed.dioClient.post(
         "$baseUrl/articles/$articleId/hide",
       );
       if (response.data.containsKey('error')) {
@@ -70,6 +100,29 @@ class ArticleRepository {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
       }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future showArticle({@required String articleId}) async {
+    try {
+      final response = await Cognifeed.dioClient.post(
+        "$baseUrl/articles/$articleId/show",
+      );
+      if (response.data.containsKey('error')) {
+        return Future.error(response);
+      }
+      return Future.value(response);
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
       return Future.error(e.toString());
     }
   }
@@ -77,7 +130,7 @@ class ArticleRepository {
   static Future<ArticlesModel> getFavPageArticles() async {
     try {
       final response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
-
+      print(response);
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
       }
@@ -85,6 +138,9 @@ class ArticleRepository {
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
       }
       return Future.error(e.toString());
     }
@@ -102,6 +158,9 @@ class ArticleRepository {
     } catch (e) {
       if (e is SocketException) {
         return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
       }
       return Future.error(e.toString());
     }

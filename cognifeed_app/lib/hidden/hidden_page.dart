@@ -1,5 +1,6 @@
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
+
 import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/home_page.dart';
@@ -10,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class FavPage extends StatefulWidget {
-  static const route = "/fav";
+class HiddenPage extends StatefulWidget {
+  static const route = "/hidden";
 
   @override
-  _FavPageState createState() => _FavPageState();
+  HiddenPageState createState() => HiddenPageState();
 }
 
-class _FavPageState extends State<FavPage> {
+class HiddenPageState extends State<HiddenPage> {
   @override
   void initState() {
-    BlocProvider.of<ArticlesBloc>(context).add(GetFavPageArticlesEvent());
+    BlocProvider.of<ArticlesBloc>(context).add(GetHiddenPageArticlesEvent());
     super.initState();
   }
 
@@ -47,7 +48,7 @@ class _FavPageState extends State<FavPage> {
               return RefreshIndicator(
                 onRefresh: () async {
                   BlocProvider.of<ArticlesBloc>(context)
-                      .add(GetFavPageArticlesEvent());
+                      .add(GetHiddenPageArticlesEvent());
                 },
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(vertical: 10),

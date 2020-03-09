@@ -22,6 +22,11 @@ class ArticlesBloc extends Bloc<ArticleEvent, ArticlesState> {
         ArticlesModel response = await ArticleRepository.getFavPageArticles();
         yield ArticlesLoadedState(articlesModel: response);
       }
+      if (event is GetHiddenPageArticlesEvent) {
+        ArticlesModel response =
+            await ArticleRepository.getHiddenPageArticles();
+        yield ArticlesLoadedState(articlesModel: response);
+      }
     } catch (e) {
       yield ArticlesErrorState(e.toString());
     }
