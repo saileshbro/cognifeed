@@ -2,12 +2,15 @@ import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
+import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class FavPage extends StatefulWidget {
-  static const route = "/home";
+  static const route = "/fav";
 
   @override
   _FavPageState createState() => _FavPageState();
@@ -23,6 +26,19 @@ class _FavPageState extends State<FavPage> {
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
+      actions: [
+        IconButton(
+          icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
+              ? FontAwesome.sun_o
+              : FontAwesome.moon_o),
+          onPressed: () {
+            BlocProvider.of<ThemeBloc>(context).add(
+                BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                    ? LightThemeEvent()
+                    : DarkThemeEvent());
+          },
+        ),
+      ],
       child: BlocBuilder<ArticlesBloc, ArticlesState>(
           bloc: BlocProvider.of<ArticlesBloc>(context),
           builder: (BuildContext context, ArticlesState state) {

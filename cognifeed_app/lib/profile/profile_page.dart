@@ -3,6 +3,8 @@ import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/profile_state.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
+import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +29,19 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
+      actions: [
+        IconButton(
+          icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
+              ? FontAwesome.sun_o
+              : FontAwesome.moon_o),
+          onPressed: () {
+            BlocProvider.of<ThemeBloc>(context).add(
+                BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                    ? LightThemeEvent()
+                    : DarkThemeEvent());
+          },
+        ),
+      ],
       backgroundColor: Colors.grey.shade300,
       child: BlocBuilder<ProfileBloc, ProfileState>(
           bloc: BlocProvider.of<ProfileBloc>(context),

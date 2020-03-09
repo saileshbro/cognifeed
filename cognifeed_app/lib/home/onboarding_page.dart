@@ -350,7 +350,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
       ),
       title: "Make Your Choices!",
-      isOnBoarding: true,
+      showDrawer: false,
     );
   }
 }
@@ -394,6 +394,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 // }
 class CustomChip extends StatefulWidget {
   final String tag;
+
   const CustomChip({Key key, @required this.tag}) : super(key: key);
 
   @override

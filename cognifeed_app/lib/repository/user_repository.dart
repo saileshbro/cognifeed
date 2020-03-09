@@ -57,6 +57,7 @@ class UserRepository {
   }
 
   void deleteToken() {
+    Cognifeed.loggedInUser.token = "";
     Cognifeed.pref.remove('token');
     Cognifeed.pref.remove('name');
     Cognifeed.pref.remove('email');

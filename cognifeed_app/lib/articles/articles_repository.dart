@@ -37,4 +37,21 @@ class ArticleRepository {
       return Future.error(e.toString());
     }
   }
+
+  static Future<ArticlesModel> incrementArticleView({String articleId}) async {
+    try {
+      final response =
+          await Cognifeed.dioClient.get("$baseUrl/articles/$articleId");
+
+      if (response.data.containsKey('error')) {
+        return Future.error(jsonDecode(response.data)['error']);
+      }
+      return Future.value(ArticlesModel.fromJson(response.data));
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      return Future.error(e.toString());
+    }
+  }
 }

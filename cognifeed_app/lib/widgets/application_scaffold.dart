@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
-import 'package:cognifeed_app/theme/theme_bloc.dart';
-import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -15,16 +13,18 @@ import '../home/home_page.dart';
 
 class ApplicationScaffold extends StatefulWidget {
   final Widget child;
-  final bool isOnBoarding;
+  final bool showDrawer;
   final String title;
   final Widget floatingActionButton;
   final Color backgroundColor;
+  final List<Widget> actions;
 
   const ApplicationScaffold(
       {Key key,
       @required this.child,
       this.floatingActionButton,
-      this.isOnBoarding = false,
+      this.showDrawer = true,
+      this.actions,
       this.backgroundColor,
       this.title = "Cognifeed"})
       : super(key: key);
@@ -38,28 +38,14 @@ class _ApplicationScaffoldState extends State<ApplicationScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: widget.floatingActionButton,
-      drawer: !widget.isOnBoarding ? ApplicationDrawer() : null,
+      drawer: widget.showDrawer ? ApplicationDrawer() : null,
       appBar: AppBar(
         title: Text(
           widget.title,
           style: CognifeedTypography.textStyle1,
         ),
         centerTitle: true,
-        actions: widget.isOnBoarding
-            ? null
-            : <Widget>[
-                IconButton(
-                  icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
-                      ? FontAwesome.sun_o
-                      : FontAwesome.moon_o),
-                  onPressed: () {
-                    BlocProvider.of<ThemeBloc>(context).add(
-                        BlocProvider.of<ThemeBloc>(context).isDarkTheme
-                            ? LightThemeEvent()
-                            : DarkThemeEvent());
-                  },
-                ),
-              ],
+        actions: widget.actions,
       ),
       body: widget.child,
     );
@@ -114,10 +100,11 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 ),
               ),
               onTap: () {
+                print("Press");
                 if (Cognifeed.drawerPages != DrawerPages.Home) {
                   Cognifeed.drawerPages = DrawerPages.Home;
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, HomePage.route);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(HomePage.route);
                 }
               },
             ),
@@ -142,8 +129,8 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               onTap: () {
                 if (Cognifeed.drawerPages != DrawerPages.Fav) {
                   Cognifeed.drawerPages = DrawerPages.Fav;
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, FavPage.route);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(FavPage.route);
                 }
               },
             ),
@@ -168,8 +155,8 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               onTap: () {
                 if (Cognifeed.drawerPages != DrawerPages.Profile) {
                   Cognifeed.drawerPages = DrawerPages.Profile;
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, ProfilePage.route);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(ProfilePage.route);
                 }
               },
             ),
@@ -194,8 +181,9 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               onTap: () {
                 if (Cognifeed.drawerPages != DrawerPages.Settings) {
                   Cognifeed.drawerPages = DrawerPages.Settings;
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, SettingsPage.route);
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushReplacementNamed(SettingsPage.route);
                 }
               },
             ),
@@ -217,6 +205,8 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 ),
               ),
               onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
                 BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
               },
             ),

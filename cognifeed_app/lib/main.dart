@@ -7,12 +7,12 @@ import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
+import 'package:cognifeed_app/fav/fav_bloc.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/misc/splash_page.dart';
-import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
@@ -92,6 +92,11 @@ Future<void> main() async {
       BlocProvider<ManagePasswordBloc>(
         create: (BuildContext context) {
           return ManagePasswordBloc();
+        },
+      ),
+      BlocProvider<FavBloc>(
+        create: (BuildContext context) {
+          return FavBloc();
         },
       ),
       BlocProvider<UpdateProfileBloc>(
