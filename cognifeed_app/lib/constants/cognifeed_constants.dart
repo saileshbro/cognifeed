@@ -158,7 +158,7 @@ class CognifeedTypography {
   );
 
   static TextStyle textStyle1 = TextStyle(
-    fontSize: 28,
+    fontSize: 24,
     color: Colors.black,
   );
   static TextStyle articleTitle = TextStyle(

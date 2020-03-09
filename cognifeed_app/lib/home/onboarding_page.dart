@@ -30,6 +30,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
+      // backgroundColor: Colors.black.withOpacity(0.2),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
           backgroundColor: Color(0xffff5a5f),
@@ -64,11 +65,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
               selectedTags = state.tags.getSelectedTags();
               return SingleChildScrollView(
                 child: Container(
-                  color: Colors.black.withOpacity(0.2),
                   padding: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
                   child: Wrap(
                     spacing: 6,
-                    alignment: WrapAlignment.spaceBetween,
+                    runAlignment: WrapAlignment.start,
                     runSpacing: 15,
                     children: state.tags.tags.map((tag) {
                       return CustomChip(tag: tag);
