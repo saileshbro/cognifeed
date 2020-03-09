@@ -29,16 +29,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
         },
         child: Icon(
           Feather.arrow_right,
-          size: 25,
+          size: 35,
         ),
       ),
       child: SingleChildScrollView(
         child: Container(
-          color: Color(0xfff2f5f9),
+          // color: Color(0xfff2f5f9),
+          color: Colors.black.withOpacity(0.2),
           padding: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           child: Wrap(
-            spacing: 15,
-            alignment: WrapAlignment.spaceEvenly,
+            spacing: 6,
+            alignment: WrapAlignment.spaceBetween,
             runSpacing: 15,
             children: alltags.map((tag) {
               return CustomChip(tag: tag);
