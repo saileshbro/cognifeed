@@ -39,7 +39,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
           padding: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
           child: Wrap(
             spacing: 6,
-            alignment: WrapAlignment.spaceBetween,
+            runAlignment: WrapAlignment.start,
+            textDirection: TextDirection.ltr,
             runSpacing: 15,
             children: alltags.map((tag) {
               return CustomChip(tag: tag);
