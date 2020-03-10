@@ -44,7 +44,8 @@
     "test-filter": "mocha test/test-filter.js -r chai/register-expect",
     "test-spider": "mocha test/test-spider.js -r chai/register-expect",
     "test-server": "mocha test/test-server.js -r chai/register-expect",
-    "test-robots": "mocha test/test-robots.js -r chai/register-expect"
+    "test-robots": "mocha test/test-robots.js -r chai/register-expect",
+    "test-purifier": "mocha test/test-purifier.js -r chai/register-expect"
   },
   "repository": {
     "type": "git",

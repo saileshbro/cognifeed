@@ -24,7 +24,7 @@ class Spider {
    * Returns a new Spider object with link as parameter.
    * If the links collection of one spider spawned in a url is full,
    * then links collecction field can be added to spawn
-   * @param {Link} link
+   * @param {Link} link - The link object for the site to be traversed
    * @returns {Spider}
    */
   static spawn(link) {
@@ -36,11 +36,16 @@ class Spider {
    */
   async getNewLinks() {
     try {
+      /**
+       * The decompressed HTML string returned by the website
+       * @private
+       * @type {string}
+       */
       this._html = (await got(this.link.resolve())).body
     } catch (err) {
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
-          "Error fetching new links! Please check the internet connection."
+          "Spider Error! Couldn't fetch new links! Please check the internet connection."
         )
       }
       throw err
@@ -73,6 +78,17 @@ class Spider {
    */
   get link() {
     return this._link
+  }
+
+  /**
+   * Getter for the html property
+   * @returns {string}
+   */
+  get html() {
+    if (this._html === undefined)
+      throw new Error("Spider Error! html property undefined")
+
+    return this._html
   }
 
   /**

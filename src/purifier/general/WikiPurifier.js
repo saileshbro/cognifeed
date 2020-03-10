@@ -1,5 +1,6 @@
-const Purifier = require("./Purifier")
 const cheerio = require("cheerio")
+const Purifier = require("../Purifier")
+
 class WikiPurifier extends Purifier {
   /**
    *

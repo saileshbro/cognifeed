@@ -6,60 +6,55 @@ const Link = require("../scraper/link")
  */
 class Purifier {
   /**
-   * @field title
-   * @field imageUrl
-   * @field description
-   * @field link_url
-   */
-
-  /**
-   *
-   * @param {String} html
-   * @param {Link} url
-   */
-  constructor(html, url) {
-    ;(this.html = html), (this.url = url)
-    this.link_url = this.url.resolve()
-    this.image_url = "defaultimage.png"
-    this.title = ""
-    this.description = ""
-  }
-  /**
-   * Implementation required
+   * Purify the html string into an Article object
    */
   purify() {
-    throw new Error("You have to implement the method purify()!")
+    throw new Error("Purifier Error! Abstract Method!")
   }
+
   /**
-   * Implementation required
+   * Persist the purified article to a database
    */
   async persistPurified() {
+    const payload = {
+      title: this.title,
+      description: this.description,
+      image_url: this.image_url
+    }
+
     try {
-      const payload = {
-        title: this.title,
-        description: this.description,
-        image_url: this.image_url
-      }
-      const response = await axios.post(
-        `${baseUrl}/api/purifier/persist`,
-        payload
-      )
-      console.log(response.data)
+      await axios.post(`${baseUrl}/api/purifier/persist`, payload)
     } catch (error) {
       console.error(error.response.data)
+      throw new Error("Purifier Error! Could not persist data to database.")
     }
   }
 
   /**
-   * Convert object to string
+   * Returns the article as an object
+   * @returns {object}
    */
-  toString() {
+  getArticle() {
     return {
       title: this.title,
       image_url: this.image_url,
       description: this.description,
       link_url: this.link_url
     }
+  }
+
+  /**
+   *
+   * @param {string} html
+   * @param {Link} url
+   */
+  constructor(html, url) {
+    this.html = html
+    this.url = url
+    this.link_url = this.url.resolve()
+    this.image_url = "defaultimage.png"
+    this.title = ""
+    this.description = ""
   }
 }
 
