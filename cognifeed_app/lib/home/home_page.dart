@@ -6,6 +6,7 @@ import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
+import 'package:cognifeed_app/search/search_page.dart';
 import 'package:cognifeed_app/tags/tags_repository.dart';
 
 import 'package:cognifeed_app/theme/theme_bloc.dart';
@@ -38,6 +39,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ApplicationScaffold(
       actions: [
+        IconButton(
+          icon: Icon(Feather.search),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => SearchPage(
+                      searchType: SearchType.HOME,
+                    )));
+          },
+        ),
         IconButton(
           icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
               ? FontAwesome.sun_o

@@ -15,16 +15,24 @@ class ArticlesBloc extends Bloc<ArticleEvent, ArticlesState> {
     yield ArticlesLoadingState();
     try {
       if (event is GetHomePageArticlesEvent) {
-        ArticlesModel response = await ArticleRepository.getHomePageArticles();
+        ArticlesModel response = await ArticleRepository.getHomePageArticles(
+          query: "",
+          searchby: "",
+        );
         yield ArticlesLoadedState(articlesModel: response);
       }
       if (event is GetFavPageArticlesEvent) {
-        ArticlesModel response = await ArticleRepository.getFavPageArticles();
+        ArticlesModel response = await ArticleRepository.getFavPageArticles(
+          query: "",
+          searchby: "",
+        );
         yield ArticlesLoadedState(articlesModel: response);
       }
       if (event is GetHiddenPageArticlesEvent) {
-        ArticlesModel response =
-            await ArticleRepository.getHiddenPageArticles();
+        ArticlesModel response = await ArticleRepository.getHiddenPageArticles(
+          query: "",
+          searchby: "",
+        );
         yield ArticlesLoadedState(articlesModel: response);
       }
     } catch (e) {

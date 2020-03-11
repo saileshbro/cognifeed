@@ -8,9 +8,16 @@ import 'package:meta/meta.dart';
 import '../constants/cognifeed_constants.dart';
 
 class ArticleRepository {
-  static Future<ArticlesModel> getHomePageArticles() async {
+  static Future<ArticlesModel> getHomePageArticles(
+      {String searchby, String query}) async {
     try {
-      final response = await Cognifeed.dioClient.get("$baseUrl/articles/");
+      var response;
+      // if (searchby.isNotEmpty && query.isNotEmpty) {
+      response = await Cognifeed.dioClient.get("$baseUrl/articles",
+          queryParameters: {'searchby': searchby, 'query': query});
+      // } else {
+      //   response = await Cognifeed.dioClient.get("$baseUrl/articles");
+      // }
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
@@ -27,10 +34,15 @@ class ArticleRepository {
     }
   }
 
-  static Future<ArticlesModel> getHiddenPageArticles() async {
+  static Future<ArticlesModel> getHiddenPageArticles(
+      {String searchby, String query}) async {
     try {
-      final response =
-          await Cognifeed.dioClient.get("$baseUrl/articles/hidden");
+      var response;
+      // if (searchby.isNotEmpty && query.isNotEmpty) {
+      response = await Cognifeed.dioClient.get("$baseUrl/articles/hidden",
+          queryParameters: {'searchby': searchby, 'query': query});
+      // } else
+      // response = await Cognifeed.dioClient.get("$baseUrl/articles/hidden");
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
@@ -52,6 +64,7 @@ class ArticleRepository {
       final response = await Cognifeed.dioClient.post(
         "$baseUrl/articles/$articleId/add_fav",
       );
+
       if (response.data.containsKey('error')) {
         return Future.error(response);
       }
@@ -127,9 +140,15 @@ class ArticleRepository {
     }
   }
 
-  static Future<ArticlesModel> getFavPageArticles() async {
+  static Future<ArticlesModel> getFavPageArticles(
+      {String searchby, String query}) async {
     try {
-      final response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
+      var response;
+      // if (searchby.isEmpty && query.isNotEmpty) {
+      response = await Cognifeed.dioClient.get("$baseUrl/articles/fav",
+          queryParameters: {'searchby': searchby, 'query': query});
+      // } else
+      //   response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
       print(response);
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
