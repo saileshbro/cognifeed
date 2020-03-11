@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2019 at 09:46 AM
--- Server version: 8.0.13-4
--- PHP Version: 7.2.24-0ubuntu0.18.04.1
+-- Generation Time: Mar 11, 2020 at 04:12 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,17 +32,44 @@ CREATE TABLE `article` (
   `article_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `website` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `image_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `link_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `view_count` int(11) NOT NULL DEFAULT '0'
+  `view_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `article`
 --
 
-INSERT INTO `article` (`article_id`, `title`, `description`, `image_url`, `link_url`, `view_count`) VALUES
-(4, 'Node.js', 'Node.js is an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user\'s web browser. Consequently, Node.js represents a \"JavaScript everywhere\" paradigm,[6] unifying web-application development around a single programming language, rather than dif', 'upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/220px-Node.js_logo.svg.png', 'https://en.wikipedia.org/wiki/Node.js', 0);
+INSERT INTO `article` (`article_id`, `title`, `description`, `website`, `image_url`, `link_url`, `view_count`) VALUES
+(1, 'Getting to the Bottom of Navigation in Flutter', 'Bottom navigation in mobile apps is popular because our phones keep getting bigger but our thumbs do not. The Material Design specification describes a bottom navigation bar as a row of three to five buttons at the', '', 'https://miro.medium.com/max/1524/1*pzfLG6bpSs8KGe48AXZR_g.png', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 9),
+(2, 'Party Makeup', 'Who doesn\'t enjoy getting dolled up for a party? It\'s a great opportunity to go all out and look your absolute best! You can stun them with some wild and flashy makeup, adding sparkles and bold colors that are just perfect for parties.', '', 'https://www.beautytipsonline.com/images/eye-makeup.jpg', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 6),
+(3, 'One of the World’s Most Dangerous Spiders Could Invade Homes after Australia\'s Recent Rainfall', 'While recent rainfall has been a welcome change in Australia after destructive bushfires caused a widespread crisis, it hasn’t come without an asterisk. According to the Australian Reptile Park, the wet and warm conditions have made Sydney funnel web spiders highly active—and the funnel', '', 'https://images2.minutemediacdn.com/image/upload/c_crop,h_1124,w_2000,x_0,y_67/f_auto,q_auto,w_1100/v1579797307/shape/mentalfloss/613403-ianwaldie-gettyimages-56714645.jp}g', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 7),
+(4, '5 Mistakes That Could Ruin Your Content Marketing Campaign', 'However, making it work is not easy. Some businesses fail because of silly mistakes such as misconceptions about what content marketing really is and isn’t. For example, they think of content marketing as something that doesn’t require a lot of investments and ultimately fail because of boring, mediocre content.', '', 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMDk2Mn0', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 2),
+(5, 'What\'s the Best Way to Leash Your Dog?', 'Awe ... You got a puppy. Bet you\'re looking forward to lots of fun days playing with her, taking walks. Feeding her, teaching her to roll over, taking walks. Cuddling on the couch with her and, yes, taking walks. Are you sensing a theme?', '', 'https://resize.hswstatic.com/w_907/gif/dog-leash.jpg', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 7),
+(6, 'India’s economy risks swapping stagnation for stagflation', 'The hawkers had some plausible excuses. The weather has been erratic, and delivery systems unreliable. But although an increase in inflation was widely foreseen, the severity of it was not. Consumer prices rose by over 7.3% i', '', 'https://www.economist.com/img/b/1000/563/85/sites/default/files/20200125_FNP501.jpg', 'https://medium.com/flutter/the-power-of-webviews-in-flutter-a56234b57df2', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `article_tag`
+--
+
+CREATE TABLE `article_tag` (
+  `article_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `article_tag`
+--
+
+INSERT INTO `article_tag` (`article_id`, `tag_id`) VALUES
+(1, 9),
+(2, 30),
+(3, 36),
+(4, 41);
 
 -- --------------------------------------------------------
 
@@ -55,6 +82,35 @@ CREATE TABLE `favourites` (
   `article_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `favourites`
+--
+
+INSERT INTO `favourites` (`user_id`, `article_id`) VALUES
+(2, 3),
+(2, 6),
+(2, 4),
+(4, 1),
+(2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hidden`
+--
+
+CREATE TABLE `hidden` (
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hidden`
+--
+
+INSERT INTO `hidden` (`user_id`, `article_id`) VALUES
+(2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -64,19 +120,96 @@ CREATE TABLE `favourites` (
 CREATE TABLE `profile` (
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `image_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `bio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'public/images/profile.png',
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `about` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`user_id`, `name`, `image_url`) VALUES
-(6, 'Saray uGautam', NULL),
-(7, 'Saray uGautam', NULL),
-(8, 'Saray uGautam', NULL),
-(9, 'Saray uGautam', NULL),
-(15, 'Saray uGautam', NULL);
+INSERT INTO `profile` (`user_id`, `name`, `phone`, `bio`, `image_url`, `website`, `about`, `address`) VALUES
+(1, 'Sailesh Dahal', '1234567890', NULL, 'public/images/profile.png', NULL, NULL, NULL),
+(2, 'Sarayu Dahal', '9813095820', 'FLutter Dev', 'public/uploads/profile1583833405000.jpg', 'www.saileshdon.com', 'hello there how are you', 'Sikkim'),
+(3, 'Sailesh Dahal', '1234567890', NULL, 'public/images/profile.png', NULL, NULL, NULL),
+(4, 'SAILESH DAHAL', '9813095820', NULL, 'public/images/profile.png', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+CREATE TABLE `tags` (
+  `tag_id` int(11) NOT NULL,
+  `tag_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`tag_id`, `tag_name`) VALUES
+(1, 'food and drink'),
+(2, 'cooking'),
+(3, 'music'),
+(4, 'arts'),
+(5, 'women'),
+(6, 'anime'),
+(7, 'stories'),
+(8, 'environment'),
+(9, 'programming'),
+(10, 'general'),
+(11, 'sports'),
+(12, 'culture'),
+(13, 'inspirational'),
+(14, 'relationship'),
+(15, 'books'),
+(16, 'nutrition'),
+(17, 'celebrities'),
+(18, 'parenthood'),
+(19, 'babies'),
+(20, 'education'),
+(21, 'travel'),
+(22, 'humour'),
+(23, 'writing'),
+(24, 'interesting facts'),
+(25, 'animals'),
+(26, 'fitness'),
+(27, 'beauty'),
+(28, 'technology'),
+(29, 'movies'),
+(30, 'nature'),
+(31, 'science'),
+(32, 'business'),
+(33, 'psychology'),
+(34, 'history'),
+(35, 'fashion and style'),
+(36, 'economics'),
+(37, 'mathematics'),
+(38, 'philosophy'),
+(39, 'health'),
+(40, 'finance'),
+(41, 'marketing'),
+(42, 'television series'),
+(43, 'literature'),
+(44, 'journalism'),
+(45, 'politics');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag_website`
+--
+
+CREATE TABLE `tag_website` (
+  `tag_id` int(11) NOT NULL,
+  `website_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -88,26 +221,62 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `password` text COLLATE utf8_unicode_ci NOT NULL,
-  `reset_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `receive_notification` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `email`, `password`, `reset_token`) VALUES
-(2, 'sarayugautam@gmail.com', '$2a$08$pgOI1NKYmxytH8swRZDbEOGF03qIxgLUZZr4u5g465eD7HjBN.oQG', NULL),
-(3, 'saraayugautam@gmail.com', '$2a$08$ZGMDla8bksIhxoAo1OZ/PeipogluKzguH/ItdWPFirpXTKLLwj9ra', NULL),
-(4, 'saraaayugautam@gmail.com', '$2a$08$so8BHTxaCwVdzH0GSBIMKufyWQ3FP5hKPIbgYA4LTcaEibFX0g.JC', NULL),
-(5, 'saryugautam@gmail.com', '$2a$08$S1/a3jBLy9kbyh.1pCi..Oj.5XaGsgKp7Ck1GfOaU7gX6Wsl1dn9O', NULL),
-(6, 'sayugautam@gmail.com', '$2a$08$nfBgxKvbWB4eGfQOuFArFeGxPcDgI6hlDOZbs2xZ/Sl4c.stQA8WS', NULL),
-(7, 'sayugautam@gmasil.com', '$2a$08$Yoqp0eXoa9ltTymR0HgAwuJCLZWqmK3O.1mlOyWd4iTiHzlQv17Cu', NULL),
-(8, 'saadayugautam@gmasil.com', '$2a$08$WnQ5mtQ9mObkHsyEVywRteVun8exzpWSIbLsr0ignrAQu.pOgS24y', NULL),
-(9, 'saadajakyugautam@gmasil.com', '$2a$08$YgXi4CGvOkhcdRINZnO3te8fvKxH4cdfMnWI7WgJ.2YUrdmLN5TnG', NULL),
-(11, 'saileshdon@gmasil.com', '$2a$08$yu.x9PgIQD0GaieELhls2OqPIW29.K5cy8k7q1xSIZN3F6jyIeVbC', NULL),
-(15, 'hahahah@gmasil.com', '$2a$08$C0iiJoAizY56zOMosckLP.qRSaPSxfOKOfL.p8WKToCvRbF9FufLG', NULL);
+INSERT INTO `users` (`user_id`, `email`, `password`, `reset_token`, `receive_notification`, `created_at`, `updated_at`) VALUES
+(1, 'saileshbro@gmaaasil.com', '$2a$08$1dhEk4nyakMIJxmwpO72VO6JtFruzH23ig8Zl0cYTaF/.H426T5a2', NULL, 0, '2020-03-07 09:18:05', '2020-03-07 09:18:05'),
+(2, 'saileshbro@gmail.com', '$2a$08$TrZ1iIyrtPNXCCHN609MleQEf3vzTi8bqnTKer5SgS4N9hB6mtLTu', '', 0, '2020-03-07 09:21:15', '2020-03-08 11:23:12'),
+(3, 'sarayu@gmail.com', '$2a$08$BfwZ.o7n7YLHL/CCxVBiaeZZkpN4Ztz01efytKxc8d7aKkUsH90Qy', NULL, 0, '2020-03-07 13:12:13', '2020-03-07 13:12:13'),
+(4, 'saileshbro@ggmail.com', '$2a$08$znZSGPEe9.kmJAdCX/wjRuhZPErLFFYhNTIZA.uEI.K5pvPBvgh5K', NULL, 1, '2020-03-09 11:43:30', '2020-03-09 11:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_tags`
+--
+
+CREATE TABLE `user_tags` (
+  `user_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_tags`
+--
+
+INSERT INTO `user_tags` (`user_id`, `tag_id`) VALUES
+(4, 24),
+(4, 17),
+(4, 18),
+(4, 1),
+(2, 24),
+(2, 11),
+(2, 17),
+(2, 18),
+(2, 25),
+(2, 36),
+(2, 12),
+(2, 9),
+(2, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `website`
+--
+
+CREATE TABLE `website` (
+  `website_id` int(11) NOT NULL,
+  `link_url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -126,10 +295,22 @@ ALTER TABLE `profile`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`tag_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `website`
+--
+ALTER TABLE `website`
+  ADD PRIMARY KEY (`website_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -139,13 +320,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `website`
+--
+ALTER TABLE `website`
+  MODIFY `website_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
