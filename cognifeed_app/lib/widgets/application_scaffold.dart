@@ -71,6 +71,7 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
+            margin: EdgeInsets.only(top: 30),
             decoration: BoxDecoration(color: Colors.white),
             accountName: Text(
               Cognifeed.loggedInUser.name,

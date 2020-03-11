@@ -3,6 +3,7 @@ import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/search/search_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
@@ -28,6 +29,15 @@ class _FavPageState extends State<FavPage> {
   Widget build(BuildContext context) {
     return ApplicationScaffold(
       actions: [
+        IconButton(
+          icon: Icon(Feather.search),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => SearchPage(
+                      searchType: SearchType.FAV,
+                    )));
+          },
+        ),
         IconButton(
           icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
               ? FontAwesome.sun_o
