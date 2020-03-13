@@ -12,6 +12,7 @@ class SeriousEatsPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Serious Eats"
   }
   purify() {
     const $ = cheerio.load(this.html)

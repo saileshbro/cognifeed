@@ -9,6 +9,7 @@ class PopSciPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "PopSci"
   }
   purify() {
     const $ = cheerio.load(this.html)

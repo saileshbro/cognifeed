@@ -9,6 +9,7 @@ class AboveTheHimalayaPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "ABout the Himalaya"
   }
   purify() {
     const $ = cheerio.load(this.html)

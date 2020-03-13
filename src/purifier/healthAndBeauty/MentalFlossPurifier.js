@@ -10,6 +10,7 @@ class MentalFlossPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Mental Floss"
   }
   purify() {
     const $ = cheerio.load(this.html)

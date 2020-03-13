@@ -11,6 +11,7 @@ class BounceBackParentingPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Bounce Back Parenting"
   }
   purify() {
     const $ = cheerio.load(this.html)

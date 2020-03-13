@@ -10,6 +10,7 @@ class ScienceDailyPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "ScienceDaily"
   }
   purify() {
     const $ = cheerio.load(this.html)
@@ -17,7 +18,8 @@ class ScienceDailyPurifier extends Purifier {
     this.description = $("dd#abstract")
       .text()
       .substr(0, 500)
-    this.image_url = this.url.baseURL + $("div#story_photo .photo-image img").attr("src")
+    this.image_url =
+      this.url.baseURL + $("div#story_photo .photo-image img").attr("src")
   }
 }
 module.exports = ScienceDailyPurifier

@@ -12,6 +12,7 @@ class TheGundrukPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "The Gundruk"
   }
   purify() {
     const $ = cheerio.load(this.html)

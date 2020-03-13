@@ -10,6 +10,7 @@ class WebDevBlogPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "WebDevBlog"
   }
   purify() {
     const $ = cheerio.load(this.html)

@@ -9,6 +9,7 @@ class LittleOldLadyComedyPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Little old Lady Comedy"
   }
   purify() {
     const $ = cheerio.load(this.html)

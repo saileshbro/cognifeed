@@ -10,6 +10,7 @@ class TreeHuggerPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Tree Hugger"
   }
   purify() {
     const $ = cheerio.load(this.html)

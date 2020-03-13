@@ -11,6 +11,7 @@ class YahooSportsPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Yahoo Sports"
   }
   purify() {
     const $ = cheerio.load(this.html)

@@ -10,6 +10,7 @@ class MissTouristPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Miss Tourist"
   }
   purify() {
     const $ = cheerio.load(this.html)

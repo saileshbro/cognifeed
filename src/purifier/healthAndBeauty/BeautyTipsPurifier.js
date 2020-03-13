@@ -10,6 +10,7 @@ class BeautyTipsPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Beauty Tips"
   }
   purify() {
     const $ = cheerio.load(this.html)

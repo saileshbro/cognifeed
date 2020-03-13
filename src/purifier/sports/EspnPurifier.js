@@ -12,6 +12,7 @@ class EspnPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Espn"
   }
   purify() {
     const $ = cheerio.load(this.html)

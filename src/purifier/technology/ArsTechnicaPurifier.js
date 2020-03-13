@@ -9,6 +9,7 @@ class ArsTechnicaPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "ArsTechnical"
   }
   purify() {
     const $ = cheerio.load(this.html)

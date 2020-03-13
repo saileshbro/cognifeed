@@ -9,6 +9,7 @@ class CodingAlphaPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "CodingAlpha"
   }
   purify() {
     const $ = cheerio.load(this.html)

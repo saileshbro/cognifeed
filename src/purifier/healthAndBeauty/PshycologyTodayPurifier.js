@@ -10,6 +10,7 @@ class PshycologyTodayPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Pshycology Today"
   }
   purify() {
     const $ = cheerio.load(this.html)

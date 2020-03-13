@@ -9,6 +9,7 @@ class CinemaBlendPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Cinema Blend"
   }
   purify() {
     const $ = cheerio.load(this.html)

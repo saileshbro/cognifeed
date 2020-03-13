@@ -13,6 +13,7 @@ class HealthyChildrenPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Healthy Children"
   }
   purify() {
     const $ = cheerio.load(this.html)

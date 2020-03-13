@@ -9,6 +9,7 @@ class EconomistsPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Economists"
   }
   purify() {
     const $ = cheerio.load(this.html)

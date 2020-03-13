@@ -12,6 +12,7 @@ class PinchOfYumPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Pinch of yum"
   }
   purify() {
     const $ = cheerio.load(this.html)

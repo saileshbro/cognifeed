@@ -12,6 +12,7 @@ class IAmFoodBlogPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "I am food blog"
   }
   purify() {
     const $ = cheerio.load(this.html)

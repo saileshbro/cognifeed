@@ -9,6 +9,7 @@ class ShortStoryMe extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "ShortStorrMe"
   }
   purify() {
     const $ = cheerio.load(this.html)

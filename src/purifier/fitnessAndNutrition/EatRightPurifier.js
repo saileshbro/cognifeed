@@ -9,6 +9,7 @@ class EatRightPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Eat Right"
   }
   purify() {
     const $ = cheerio.load(this.html)

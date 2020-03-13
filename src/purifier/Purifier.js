@@ -19,7 +19,8 @@ class Purifier {
     const payload = {
       title: this.title,
       description: this.description,
-      image_url: this.image_url
+      image_url: this.image_url,
+      website: this.website
     }
 
     try {
@@ -39,7 +40,8 @@ class Purifier {
       title: this.title,
       image_url: this.image_url,
       description: this.description,
-      link_url: this.link_url
+      link_url: this.link_url,
+      website: this.website
     }
   }
 
@@ -55,6 +57,7 @@ class Purifier {
     this.image_url = "defaultimage.png"
     this.title = ""
     this.description = ""
+    this.website = ""
   }
 }
 

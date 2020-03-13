@@ -9,6 +9,7 @@ class FashionLadyPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Fashion Lady"
   }
   purify() {
     const $ = cheerio.load(this.html)

@@ -11,6 +11,7 @@ class FactSidePurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Fact Site"
   }
   purify() {
     const $ = cheerio.load(this.html)

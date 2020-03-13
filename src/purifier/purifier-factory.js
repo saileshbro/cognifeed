@@ -56,8 +56,7 @@ class PurifierFactory {
    * @returns {Purifier} - The concrete purifier object
    */
   createPurifier(html, link) {
-    if (link.baseURL.includes("espn.in"))
-      return new ESPNPurifier(html, link)
+    if (link.baseURL.includes("espn.in")) return new ESPNPurifier(html, link)
     else if (link.baseURL.includes("sports.yahoo.com"))
       return new YahooSportsPurifier(html, link)
     else if (link.baseURL.includes("wikipedia.org"))

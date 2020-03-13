@@ -9,6 +9,7 @@ class HuffPostPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Huff Post"
   }
   purify() {
     const $ = cheerio.load(this.html)

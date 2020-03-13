@@ -9,6 +9,7 @@ class CodeWallPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "CodeWall"
   }
   purify() {
     const $ = cheerio.load(this.html)

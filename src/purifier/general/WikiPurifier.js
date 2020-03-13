@@ -9,6 +9,7 @@ class WikiPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Wikipedia"
   }
   purify() {
     const $ = cheerio.load(this.html)

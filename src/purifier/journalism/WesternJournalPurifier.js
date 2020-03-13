@@ -9,6 +9,7 @@ class PhilosophyForLifePurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Philosopy for life"
   }
   purify() {
     const $ = cheerio.load(this.html)

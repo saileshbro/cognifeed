@@ -9,6 +9,7 @@ class TheGeoPoliticsPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "The GeoPloitics"
   }
   purify() {
     const $ = cheerio.load(this.html)

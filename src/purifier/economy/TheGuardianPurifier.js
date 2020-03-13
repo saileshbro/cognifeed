@@ -10,6 +10,7 @@ class TheGuardianPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "The Guardian"
   }
   purify() {
     const $ = cheerio.load(this.html)

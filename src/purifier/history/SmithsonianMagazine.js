@@ -9,6 +9,7 @@ class SmithsonianMagazine extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Smithsonian Magazine"
   }
   purify() {
     const $ = cheerio.load(this.html)

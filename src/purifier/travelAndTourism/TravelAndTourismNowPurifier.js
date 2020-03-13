@@ -10,14 +10,19 @@ class TravelTourismNowPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Travel And Tourism"
   }
   purify() {
     const $ = cheerio.load(this.html)
-    this.title = $(".post-content container .post-title-container h3.entry_title")
+    this.title = $(
+      ".post-content container .post-title-container h3.entry_title"
+    )
       .text()
       .trim()
     this.image_url = $("div[id*='post-body'] div.seperator>a>img").attr("src")
-    this.description = $("div.post-body.entry_content#post-body-7954336653691802289")
+    this.description = $(
+      "div.post-body.entry_content#post-body-7954336653691802289"
+    )
       .text()
       .substr(0, 500)
   }

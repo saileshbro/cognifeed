@@ -10,6 +10,7 @@ class LiveSciencePurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "LiveScience"
   }
   purify() {
     const $ = cheerio.load(this.html)

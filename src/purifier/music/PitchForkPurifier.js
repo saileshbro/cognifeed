@@ -10,6 +10,7 @@ class PitchForkPurifier extends Purifier {
    */
   constructor(html, url) {
     super(html, url)
+    this.website = "Pitch Fork"
   }
   purify() {
     const $ = cheerio.load(this.html)
