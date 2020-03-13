@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2020 at 04:12 AM
+-- Generation Time: Mar 13, 2020 at 10:12 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -91,6 +91,7 @@ INSERT INTO `favourites` (`user_id`, `article_id`) VALUES
 (2, 6),
 (2, 4),
 (4, 1),
+(2, 1),
 (2, 1);
 
 -- --------------------------------------------------------
@@ -103,13 +104,6 @@ CREATE TABLE `hidden` (
   `user_id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `hidden`
---
-
-INSERT INTO `hidden` (`user_id`, `article_id`) VALUES
-(2, 1);
 
 -- --------------------------------------------------------
 
@@ -134,7 +128,7 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`user_id`, `name`, `phone`, `bio`, `image_url`, `website`, `about`, `address`) VALUES
 (1, 'Sailesh Dahal', '1234567890', NULL, 'public/images/profile.png', NULL, NULL, NULL),
-(2, 'Sarayu Dahal', '9813095820', 'FLutter Dev', 'public/uploads/profile1583833405000.jpg', 'www.saileshdon.com', 'hello there how are you', 'Sikkim'),
+(2, 'Sarayu Gautam', '9813095820', 'FLutter Dev', 'public/uploads/profile1583932762976.jpg', 'www.sarayugautam.com', 'hello there how are you', 'Chandragiri'),
 (3, 'Sailesh Dahal', '1234567890', NULL, 'public/images/profile.png', NULL, NULL, NULL),
 (4, 'SAILESH DAHAL', '9813095820', NULL, 'public/images/profile.png', NULL, NULL, NULL);
 
@@ -211,6 +205,61 @@ CREATE TABLE `tag_website` (
   `website_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tag_website`
+--
+
+INSERT INTO `tag_website` (`tag_id`, `website_id`) VALUES
+(9, 2),
+(9, 11),
+(21, 15),
+(21, 4),
+(9, 13),
+(9, 12),
+(27, 7),
+(33, 8),
+(21, 14),
+(11, 1),
+(27, 10),
+(11, 3),
+(8, 16),
+(8, 17),
+(1, 18),
+(1, 19),
+(33, 6),
+(1, 21),
+(7, 22),
+(31, 23),
+(31, 24),
+(31, 25),
+(31, 26),
+(5, 27),
+(43, 28),
+(1, 20),
+(43, 30),
+(14, 31),
+(9, 9),
+(29, 33),
+(45, 34),
+(38, 35),
+(44, 36),
+(35, 37),
+(12, 29),
+(43, 39),
+(28, 40),
+(34, 32),
+(6, 42),
+(26, 43),
+(19, 44),
+(18, 45),
+(24, 46),
+(39, 38),
+(40, 48),
+(3, 49),
+(22, 41),
+(40, 47),
+(36, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -233,7 +282,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `email`, `password`, `reset_token`, `receive_notification`, `created_at`, `updated_at`) VALUES
 (1, 'saileshbro@gmaaasil.com', '$2a$08$1dhEk4nyakMIJxmwpO72VO6JtFruzH23ig8Zl0cYTaF/.H426T5a2', NULL, 0, '2020-03-07 09:18:05', '2020-03-07 09:18:05'),
-(2, 'saileshbro@gmail.com', '$2a$08$TrZ1iIyrtPNXCCHN609MleQEf3vzTi8bqnTKer5SgS4N9hB6mtLTu', '', 0, '2020-03-07 09:21:15', '2020-03-08 11:23:12'),
+(2, 'sarayugautam1@gmail.com', '$2a$08$TrZ1iIyrtPNXCCHN609MleQEf3vzTi8bqnTKer5SgS4N9hB6mtLTu', '', 0, '2020-03-07 09:21:15', '2020-03-11 13:14:53'),
 (3, 'sarayu@gmail.com', '$2a$08$BfwZ.o7n7YLHL/CCxVBiaeZZkpN4Ztz01efytKxc8d7aKkUsH90Qy', NULL, 0, '2020-03-07 13:12:13', '2020-03-07 13:12:13'),
 (4, 'saileshbro@ggmail.com', '$2a$08$znZSGPEe9.kmJAdCX/wjRuhZPErLFFYhNTIZA.uEI.K5pvPBvgh5K', NULL, 1, '2020-03-09 11:43:30', '2020-03-09 11:43:30');
 
@@ -277,6 +326,61 @@ CREATE TABLE `website` (
   `website_id` int(11) NOT NULL,
   `link_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `website`
+--
+
+INSERT INTO `website` (`website_id`, `link_url`) VALUES
+(1, 'https://www.espn.in'),
+(2, 'https://davidwalsh.name'),
+(3, 'https://sports.yahoo.com'),
+(4, 'https://misstourist.com'),
+(5, 'https://www.theguardian.com/international'),
+(6, 'https://www.mentalfloss.com'),
+(7, 'https://www.beautytipsonline.com'),
+(8, 'https://www.psychologytoday.com'),
+(9, 'https://www.codewall.co.uk'),
+(10, 'https://www.mindbodygreen.com'),
+(11, 'https://webdevblog.com'),
+(12, 'https://www.codingalpha.com'),
+(13, 'https://hackernoon.com'),
+(14, 'https://travelandtourismnow.blogspot.com'),
+(15, 'https://abovethehimalaya.com'),
+(16, 'https://www.treehugger.com'),
+(17, 'https://www.huffpost.com'),
+(18, 'https://iamafoodblog.com'),
+(19, 'https://www.thegundruk.com'),
+(20, 'https://pinchofyum.com'),
+(21, 'https://www.seriouseats.com'),
+(22, 'https://www.short-story.me'),
+(23, 'https://www.howstuffworks.com'),
+(24, 'https://www.sciencedaily.com'),
+(25, 'https://www.popsci.com'),
+(26, 'https://www.livescience.com'),
+(27, 'https://www.bloodandmilk.com'),
+(28, 'https://lithub.com'),
+(29, 'https://www.newyorker.com/culture'),
+(30, 'https://themillions.com'),
+(31, 'https://www.loveisrespect.org/blogs'),
+(32, 'https://www.smithsonianmag.com'),
+(33, 'https://www.cinemablend.com/news'),
+(34, 'https://thegeopolitics.com'),
+(35, 'https://www.philosophyforlife.org/blog'),
+(36, 'https://www.westernjournal.com'),
+(37, 'https://www.fashionlady.in/category/fashion'),
+(38, 'https://www.fashionlady.in/category/health-tips'),
+(39, 'https://www.helpingwritersbecomeauthors.com'),
+(40, 'https://arstechnica.com'),
+(41, 'https://littleoldladycomedy.com'),
+(42, 'https://www.cbr.com'),
+(43, 'https://www.eatright.org'),
+(44, 'https://www.healthychildren.org/English/ages-stages/baby'),
+(45, 'https://bouncebackparenting.com'),
+(46, 'https://www.thefactsite.com'),
+(47, 'https://www.thepennyhoarder.com'),
+(48, 'https://www.mrmoneymustache.com'),
+(49, 'https://pitchfork.com');
 
 --
 -- Indexes for dumped tables
@@ -338,7 +442,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `website`
 --
 ALTER TABLE `website`
-  MODIFY `website_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `website_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
