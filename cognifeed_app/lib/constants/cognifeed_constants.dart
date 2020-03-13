@@ -15,6 +15,7 @@ class CognifeedTheme {
   static ThemeData getTheme(bool isDarkTheme) {
     if (isDarkTheme == false)
       return ThemeData(
+        primaryColor: Colors.white,
         buttonColor: CognifeedColors.coralPink,
         brightness: Brightness.light,
         appBarTheme: AppBarTheme(
@@ -70,26 +71,28 @@ class CognifeedTheme {
       );
     else
       return ThemeData(
+        canvasColor: Color(0xff212121),
+        scaffoldBackgroundColor: Color(0xff212121),
         buttonColor: CognifeedColors.coralPink,
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
-          color: Colors.white,
+          color: Color(0xff1b1b1b),
           elevation: 0.0,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         iconTheme: IconThemeData(
           size: 18,
-          color: Colors.black,
+          color: Colors.white,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          helperStyle: TextStyle(color: Colors.black),
+          helperStyle: TextStyle(color: Colors.white),
           contentPadding:
               EdgeInsets.only(left: 25, top: 20, bottom: 0, right: 0),
           labelStyle: CognifeedTypography.articleDescription,
           hintStyle: TextStyle(
-            color: Colors.black.withOpacity(0.65),
+            color: Colors.white.withOpacity(0.65),
             fontSize: 15,
           ),
           border: UnderlineInputBorder(
@@ -159,12 +162,10 @@ class CognifeedTypography {
 
   static TextStyle textStyle1 = TextStyle(
     fontSize: 24,
-    color: Colors.black,
   );
   static TextStyle articleTitle = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
   );
   static TextStyle articleDescription = TextStyle(
     fontSize: 14,
@@ -172,7 +173,7 @@ class CognifeedTypography {
   );
 }
 
-final String baseUrl = "http://172.17.21.41:3100/api";
+final String baseUrl = "http://192.168.0.19:3100/api";
 
 class Cognifeed {
   static SharedPreferences pref;

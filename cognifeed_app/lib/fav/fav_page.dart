@@ -1,6 +1,6 @@
-import 'package:cognifeed_app/articles/articles_bloc.dart';
-import 'package:cognifeed_app/articles/articles_event.dart';
-import 'package:cognifeed_app/articles/articles_state.dart';
+import 'package:cognifeed_app/articles/fav_bloc.dart';
+import 'package:cognifeed_app/articles/fav_event.dart';
+import 'package:cognifeed_app/articles/fav_state.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/search/search_page.dart';
@@ -21,7 +21,7 @@ class FavPage extends StatefulWidget {
 class _FavPageState extends State<FavPage> {
   @override
   void initState() {
-    BlocProvider.of<ArticlesBloc>(context).add(GetFavPageArticlesEvent());
+    BlocProvider.of<FavArticlesBloc>(context).add(GetFavPageArticlesEvent());
     super.initState();
   }
 
@@ -50,13 +50,13 @@ class _FavPageState extends State<FavPage> {
           },
         ),
       ],
-      child: BlocBuilder<ArticlesBloc, ArticlesState>(
-          bloc: BlocProvider.of<ArticlesBloc>(context),
-          builder: (BuildContext context, ArticlesState state) {
-            if (state is ArticlesLoadedState) {
+      child: BlocBuilder<FavArticlesBloc, FavArticlesState>(
+          bloc: BlocProvider.of<FavArticlesBloc>(context),
+          builder: (BuildContext context, FavArticlesState state) {
+            if (state is FavArticlesLoadedState) {
               return RefreshIndicator(
                 onRefresh: () async {
-                  BlocProvider.of<ArticlesBloc>(context)
+                  BlocProvider.of<FavArticlesBloc>(context)
                       .add(GetFavPageArticlesEvent());
                 },
                 child: ListView.builder(

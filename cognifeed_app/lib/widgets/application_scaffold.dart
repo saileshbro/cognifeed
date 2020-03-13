@@ -3,6 +3,7 @@ import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -38,14 +39,17 @@ class _ApplicationScaffoldState extends State<ApplicationScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       floatingActionButton: widget.floatingActionButton,
       drawer: widget.showDrawer ? ApplicationDrawer() : null,
       appBar: AppBar(
         elevation: 0.5,
         title: Text(
           widget.title,
-          style: CognifeedTypography.textStyle1,
+          style: CognifeedTypography.textStyle1.copyWith(
+            color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                ? Colors.white
+                : Colors.black,
+          ),
         ),
         centerTitle: true,
         actions: widget.actions,
@@ -71,15 +75,18 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            margin: EdgeInsets.only(top: 30),
-            decoration: BoxDecoration(color: Colors.white),
+            // margin: EdgeInsets.only(top: 30),
             accountName: Text(
               Cognifeed.loggedInUser.name,
               style: CognifeedTypography.articleTitle.copyWith(fontSize: 18),
             ),
             accountEmail: Text(
               Cognifeed.loggedInUser.email,
-              style: CognifeedTypography.articleDescription,
+              style: CognifeedTypography.articleDescription.copyWith(
+                color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                    ? Colors.white.withOpacity(0.87)
+                    : Colors.black.withOpacity(0.87),
+              ),
             ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: CachedNetworkImageProvider(
@@ -94,7 +101,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   Feather.home,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(
@@ -121,7 +127,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   FontAwesome.heart_o,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(
@@ -147,7 +152,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   Icons.highlight_off,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(
@@ -173,7 +177,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   FontAwesome.user_o,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(
@@ -199,7 +202,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   Feather.settings,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(
@@ -225,7 +227,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 child: Icon(
                   Entypo.log_out,
                   size: 18,
-                  color: Colors.black,
                 ),
               ),
               title: Text(

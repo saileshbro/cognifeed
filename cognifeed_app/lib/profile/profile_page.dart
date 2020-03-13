@@ -70,7 +70,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     left: 16.0, top: 16.0, right: 10),
                                 margin: EdgeInsets.only(top: 16.0),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.black
+                                        : Colors.white,
                                     borderRadius: BorderRadius.circular(5.0),
                                     boxShadow: [
                                       BoxShadow(
@@ -134,17 +137,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                                       .profileResponseModel,
                                                 )));
                                   },
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(
-                                        Feather.edit_3,
-                                        size: 22,
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text("Edit Profile")
-                                    ],
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          Feather.edit_3,
+                                          size: 22,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Edit Profile")
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
@@ -153,7 +159,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(height: 20.0),
                           Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: BlocProvider.of<ThemeBloc>(context)
+                                        .isDarkTheme
+                                    ? Colors.black
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(5.0),
                                 boxShadow: [
                                   BoxShadow(

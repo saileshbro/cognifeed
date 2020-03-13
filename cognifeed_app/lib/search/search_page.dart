@@ -2,7 +2,9 @@ import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class SearchPage extends StatefulWidget {
@@ -70,7 +72,9 @@ class _SearchPageState extends State<SearchPage> {
           decoration: InputDecoration(
             prefixIcon: Icon(
               Feather.search,
-              color: Colors.black,
+              color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                  ? Colors.white
+                  : Colors.black,
               size: 18,
             ),
             suffixIcon: DropdownButton<String>(

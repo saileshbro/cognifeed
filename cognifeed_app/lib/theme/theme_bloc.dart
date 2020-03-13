@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, bool> {
-  bool isDarkTheme = false;
+  bool isDarkTheme = true;
   @override
-  bool get initialState => false;
+  bool get initialState => isDarkTheme;
 
   @override
   Stream<bool> mapEventToState(

@@ -1,7 +1,6 @@
-import 'package:cognifeed_app/articles/articles_bloc.dart';
-import 'package:cognifeed_app/articles/articles_event.dart';
-
-import 'package:cognifeed_app/articles/articles_state.dart';
+import 'package:cognifeed_app/articles/hide_bloc.dart';
+import 'package:cognifeed_app/articles/hide_event.dart';
+import 'package:cognifeed_app/articles/hide_state.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/search/search_page.dart';
@@ -22,7 +21,8 @@ class HiddenPage extends StatefulWidget {
 class HiddenPageState extends State<HiddenPage> {
   @override
   void initState() {
-    BlocProvider.of<ArticlesBloc>(context).add(GetHiddenPageArticlesEvent());
+    BlocProvider.of<HideArticlesBloc>(context)
+        .add(GetHiddenPageArticlesEvent());
     super.initState();
   }
 
@@ -51,13 +51,13 @@ class HiddenPageState extends State<HiddenPage> {
           },
         ),
       ],
-      child: BlocBuilder<ArticlesBloc, ArticlesState>(
-          bloc: BlocProvider.of<ArticlesBloc>(context),
-          builder: (BuildContext context, ArticlesState state) {
-            if (state is ArticlesLoadedState) {
+      child: BlocBuilder<HideArticlesBloc, HideArticlesState>(
+          bloc: BlocProvider.of<HideArticlesBloc>(context),
+          builder: (BuildContext context, HideArticlesState state) {
+            if (state is HideArticlesLoadedState) {
               return RefreshIndicator(
                 onRefresh: () async {
-                  BlocProvider.of<ArticlesBloc>(context)
+                  BlocProvider.of<HideArticlesBloc>(context)
                       .add(GetHiddenPageArticlesEvent());
                 },
                 child: ListView.builder(
@@ -69,7 +69,7 @@ class HiddenPageState extends State<HiddenPage> {
                   },
                 ),
               );
-            } else if (state is ArticlesErrorState) {
+            } else if (state is HideArticlesErrorState) {
               return NotFound404();
             } else {
               return Center(

@@ -5,6 +5,8 @@ import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/articles/articles_state.dart';
+import 'package:cognifeed_app/articles/hide_bloc.dart';
+import 'package:cognifeed_app/articles/hide_event.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/search/search_page.dart';
 import 'package:cognifeed_app/tags/tags_repository.dart';
@@ -104,7 +106,9 @@ class _ArticleBoxState extends State<ArticleBox> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+            ? Color(0xff1b1b1b)
+            : Colors.white,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -146,7 +150,11 @@ class _ArticleBoxState extends State<ArticleBox> {
                       ),
                       Text(
                         widget.article.description,
-                        style: CognifeedTypography.articleDescription,
+                        style: CognifeedTypography.articleDescription.copyWith(
+                          color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                              ? Colors.white.withOpacity(0.87)
+                              : Colors.black87,
+                        ),
                         maxLines: 7,
                       )
                     ],
@@ -197,8 +205,10 @@ class _ArticleBoxState extends State<ArticleBox> {
                     children: <Widget>[
                       Text(
                         widget.article.viewCount.toString(),
-                        style: CognifeedTypography.textStyle2
-                            .copyWith(fontSize: 14, height: 1.1),
+                        style: CognifeedTypography.textStyle2.copyWith(
+                          fontSize: 14,
+                          height: 1.1,
+                        ),
                       ),
                       Text(
                         "views",
@@ -256,13 +266,13 @@ class _ArticleBoxState extends State<ArticleBox> {
                       }
                     },
                     child: Container(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       padding: const EdgeInsets.all(12.0),
                       child: Icon(
                         widget.article.isFav
                             ? FontAwesome.heart
                             : FontAwesome.heart_o,
-                        color: widget.article.isFav ? Colors.red : Colors.black,
+                        color: widget.article.isFav ? Colors.red : null,
                         // size: 18,
                       ),
                     ),
@@ -273,18 +283,19 @@ class _ArticleBoxState extends State<ArticleBox> {
                   GestureDetector(
                     onTap: () {
                       showCustomBottomSheet(context,
-                          backgroundColor: Colors.grey[100],
+                          // backgroundColor: Colors.grey[100],
                           child: Container(
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 18),
+                                  margin: EdgeInsets.symmetric(horizontal: 16),
+                                  padding: EdgeInsets.symmetric(vertical: 18),
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
-                                              color: Colors.grey[200],
-                                              width: 2))),
+                                              color: Colors.grey[200]
+                                                  .withOpacity(.5),
+                                              width: 1))),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -363,7 +374,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                                   ),
                                 ),
                                 Container(
-                                  color: Colors.white,
+                                  // color: Colors.white,
                                   child: Column(
                                     children: <Widget>[
                                       CustomListTile(
@@ -424,7 +435,8 @@ class _ArticleBoxState extends State<ArticleBox> {
                                                       .add(
                                                           GetHomePageArticlesEvent());
                                                 } else {
-                                                  BlocProvider.of<ArticlesBloc>(
+                                                  BlocProvider.of<
+                                                              HideArticlesBloc>(
                                                           context)
                                                       .add(
                                                           GetHiddenPageArticlesEvent());
@@ -462,7 +474,8 @@ class _ArticleBoxState extends State<ArticleBox> {
                                                       .add(
                                                           GetHomePageArticlesEvent());
                                                 } else {
-                                                  BlocProvider.of<ArticlesBloc>(
+                                                  BlocProvider.of<
+                                                              HideArticlesBloc>(
                                                           context)
                                                       .add(
                                                           GetHiddenPageArticlesEvent());
@@ -499,7 +512,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                           ));
                     },
                     child: Container(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       padding: const EdgeInsets.all(12.0),
                       child: Icon(
                         Icons.more_vert,
@@ -520,7 +533,6 @@ class _ArticleBoxState extends State<ArticleBox> {
 void showCustomBottomSheet(BuildContext context,
     {Widget child,
     Function callOnThen,
-    Color backgroundColor = Colors.white,
     double bottomPadding = 32,
     Color barColor = const Color(0XFFeeedee)}) {
   showModalBottomSheet(
@@ -530,7 +542,9 @@ void showCustomBottomSheet(BuildContext context,
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                ? Color(0xff212121)
+                : Colors.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8), topRight: Radius.circular(8)),
           ),
@@ -557,8 +571,18 @@ class CustomListTile extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Colors.grey[200].withOpacity(0.2), width: 1)),
+          color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+              ? Color(0xff212121)
+              : Colors.white,
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: 16,
+        ),
         child: Row(
           children: <Widget>[
             Icon(icon),

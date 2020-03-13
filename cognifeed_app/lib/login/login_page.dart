@@ -3,6 +3,7 @@ import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,7 +79,9 @@ class _LoginPageState extends State<LoginPage> {
           if (state is LoginFailure) {
             Scaffold.of(context).showSnackBar(
               SnackBar(
-                content: Text('${state.error}'),
+                content: Text(
+                  '${state.error}',
+                ),
                 backgroundColor: Colors.red,
               ),
             );
@@ -158,7 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(
                                           FontAwesome.envelope_o,
-                                          color: Colors.black,
                                           size: 18,
                                         ),
                                         errorText: "",
@@ -191,7 +193,6 @@ class _LoginPageState extends State<LoginPage> {
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(
                                           FontAwesome.key,
-                                          color: Colors.black,
                                           size: 18,
                                         ),
                                         errorText: "",
@@ -206,7 +207,6 @@ class _LoginPageState extends State<LoginPage> {
                                                   ? Icons.visibility
                                                   : Icons.visibility_off,
                                               size: 17,
-                                              color: Colors.black,
                                             ),
                                             onPressed: () {
                                               setState(() {
@@ -254,7 +254,13 @@ class _LoginPageState extends State<LoginPage> {
                                             BorderRadius.circular(15)),
                                     child: Text("Log In",
                                         style: CognifeedTypography.textStyle4
-                                            .copyWith(color: Colors.white)),
+                                            .copyWith(
+                                          color: BlocProvider.of<ThemeBloc>(
+                                                      context)
+                                                  .isDarkTheme
+                                              ? Colors.black
+                                              : Colors.white,
+                                        )),
                                     onPressed: () {
                                       if (_formKey.currentState.validate()) {
                                         _onLoginPressed();

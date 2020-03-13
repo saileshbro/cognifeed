@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
+import 'package:cognifeed_app/articles/fav_bloc.dart';
+import 'package:cognifeed_app/articles/hide_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_page.dart';
@@ -104,6 +106,16 @@ Future<void> main() async {
       BlocProvider<ThemeBloc>(
         create: (BuildContext context) {
           return ThemeBloc();
+        },
+      ),
+      BlocProvider<FavArticlesBloc>(
+        create: (BuildContext context) {
+          return FavArticlesBloc();
+        },
+      ),
+      BlocProvider<HideArticlesBloc>(
+        create: (BuildContext context) {
+          return HideArticlesBloc();
         },
       ),
       BlocProvider<ArticlesBloc>(

@@ -140,7 +140,8 @@ class _EditProfileState extends State<EditProfile> {
             bloc: BlocProvider.of<UpdateProfileBloc>(context),
             builder: (context, state) {
               return FloatingActionButton(
-                backgroundColor: Colors.white,
+                backgroundColor: CognifeedColors.coralPink,
+                foregroundColor: Colors.white,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     BlocProvider.of<UpdateProfileBloc>(context).add(
@@ -163,7 +164,6 @@ class _EditProfileState extends State<EditProfile> {
                     : Icon(
                         Icons.save,
                         size: 18,
-                        color: Colors.black,
                       ),
               );
             }),
@@ -278,7 +278,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 FontAwesome.pencil_square_o,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -312,7 +311,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 FontAwesome.envelope_o,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -346,7 +344,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 Feather.phone,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -378,7 +375,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 Feather.briefcase,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -410,7 +406,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 Feather.map,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -443,7 +438,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 Icons.web_asset,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -474,7 +468,6 @@ class _EditProfileState extends State<EditProfile> {
                               prefixIcon: Icon(
                                 Feather.user_plus,
                                 size: 18,
-                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -496,7 +489,6 @@ class _EditProfileState extends State<EditProfile> {
                     leading: Icon(
                       Feather.calendar,
                       size: 18,
-                      color: Colors.black,
                     ),
                   ),
                 ],
