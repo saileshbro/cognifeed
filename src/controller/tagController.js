@@ -1,4 +1,3 @@
-const axios = require("axios")
 const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler.js")
 module.exports.addTag = async (req, res, next) => {
@@ -102,6 +101,31 @@ module.exports.getTopTags = async (req, res, next) => {
       })
     } else {
       throw new ErrorHandler(404, "Tags Not Found")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+exports.addTagToWebsite = async (req, res, next) => {
+  try {
+    const { tag, website } = req.body
+    const tag_id = await pool.query(`SELECT tag_id FROM ${tables.tags} WHERE tag_name=?`, [
+      tag.toLowerCase()
+    ])
+    if (tag_id.length > 0) {
+      const website_id = await pool.query(
+        `SELECT website_id FROM ${tables.websites} WHERE link_url=?`,
+        [website.toLowerCase()]
+      )
+      if (website_id.length > 0) {
+        const result = await pool.query(
+          `INSERT IGNORE INTO ${tables.tag_website} SET tag_id=?,website_id=?`,
+          [tag_id[0].tag_id, website_id[0].website_id]
+        )
+        if (result) {
+          return res.send({ message: "Successfully added!" })
+        }
+      }
     }
   } catch (error) {
     next(error)

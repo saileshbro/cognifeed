@@ -36,5 +36,6 @@ exports.tables = {
   profile: "profile",
   links: "links",
   hidden: "hidden",
-  websites: "website"
+  websites: "website",
+  tag_website: "tag_website"
 }

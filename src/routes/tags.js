@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const tagController = require("../controller/tagController")
 const auth = require("../middlewares/auth")
+router.post("/tags/website", tagController.addTagToWebsite)
 router.post("/tags", auth, tagController.addTags)
 router.post("/tags/:tag_id/add", auth, tagController.addTag)
 router.delete("/tags/:tag_id/remove", auth, tagController.removeTag)

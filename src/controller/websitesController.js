@@ -12,8 +12,12 @@ exports.getWebsites = async (req, res, next) => {
 
 exports.addWebsite = async (req, res, next) => {
   try {
-    await pool.query(`INSERT IGNORE INTO ${tables.websites} SET link_url=?`, [req.body.link_url])
-    return res.status(200)
+    const { website } = req.body
+    const resp = await pool.query(`INSERT IGNORE INTO ${tables.websites} SET link_url=?`, [website])
+    if (resp) {
+      return res.send(website)
+    }
+    return res.send(website)
   } catch (error) {
     next(error)
   }
