@@ -1,10 +1,9 @@
 require("dotenv").config()
 const express = require("express")
-const path = require("path")
 const app = express()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
-const { errorHandler, ErrorHandler } = require("./helpers/error_handler")
+const { errorHandler } = require("./helpers/error_handler")
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -16,6 +15,7 @@ app.use("/api", require("./routes/spider"))
 app.use("/api", require("./routes/purifier"))
 app.use("/api", require("./routes/articles"))
 app.use("/api", require("./routes/tags"))
+app.use("/api", require("./routes/websites"))
 
 // 404 page not found
 // app.all("*", (req, res) => {
