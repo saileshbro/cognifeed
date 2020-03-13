@@ -1,4 +1,5 @@
 const Purifier = require("../Purifier")
+const Article = require("../Article")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
 class CodingAlphaPurifier extends Purifier {
@@ -11,6 +12,9 @@ class CodingAlphaPurifier extends Purifier {
     super(html, url)
     this.website = "CodingAlpha"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".entry-header>.entry-title")
@@ -25,6 +29,13 @@ class CodingAlphaPurifier extends Purifier {
     this.description = this.description.substr(0, 500)
     if ($("img[class*='wp-image']").attr("src") !== undefined)
       this.image_url = $("img[class*='wp-image']").attr("src")
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = CodingAlphaPurifier

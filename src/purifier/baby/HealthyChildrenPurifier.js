@@ -4,6 +4,7 @@ const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const eq = require("cheerio-eq")
 const Link = require("../../scraper/link")
+const Article = require("../Article")
 
 class HealthyChildrenPurifier extends Purifier {
   /**
@@ -15,6 +16,9 @@ class HealthyChildrenPurifier extends Purifier {
     super(html, url)
     this.website = "Healthy Children"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $("div#read_content>h1.page-title")
@@ -35,6 +39,13 @@ class HealthyChildrenPurifier extends Purifier {
       .map(str => str.trim())
       .join("")
       .substr(0, 500)
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = HealthyChildrenPurifier

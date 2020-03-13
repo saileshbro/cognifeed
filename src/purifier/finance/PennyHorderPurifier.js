@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -13,6 +13,9 @@ class PennyHorderPurifier extends Purifier {
     super(html, url)
     this.website = "Penny Holder"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $("div.single-post-title>h1")
@@ -24,6 +27,14 @@ class PennyHorderPurifier extends Purifier {
     this.description = $("div.single-post-content-inner>p>span")
       .text()
       .substr(0, 500)
+
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = PennyHorderPurifier

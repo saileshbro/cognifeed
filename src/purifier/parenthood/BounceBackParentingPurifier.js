@@ -1,3 +1,4 @@
+const Article = require("../Article")
 /* eslint-disable linebreak-style */
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
@@ -13,6 +14,9 @@ class BounceBackParentingPurifier extends Purifier {
     super(html, url)
     this.website = "Bounce Back Parenting"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $("header.entry-header>h1.entry-title")
@@ -25,6 +29,13 @@ class BounceBackParentingPurifier extends Purifier {
     this.description = $("div.entry-content>p")
       .text()
       .substr(0, 500)
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = BounceBackParentingPurifier

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -13,6 +13,9 @@ class MindBodyPurifier extends Purifier {
     super(html, url)
     this.website = "Mind Body"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(
@@ -26,6 +29,14 @@ class MindBodyPurifier extends Purifier {
     this.description = $("div.article-text div.article-text__inner>p")
       .text()
       .substr(0, 500)
+
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = MindBodyPurifier

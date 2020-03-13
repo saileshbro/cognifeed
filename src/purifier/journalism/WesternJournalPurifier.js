@@ -1,3 +1,4 @@
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -11,6 +12,9 @@ class PhilosophyForLifePurifier extends Purifier {
     super(html, url)
     this.website = "Philosopy for life"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".entry-title")
@@ -24,6 +28,13 @@ class PhilosophyForLifePurifier extends Purifier {
     this.image_url = $("meta[property='og:image']")
       .eq(0)
       .attr("content")
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = PhilosophyForLifePurifier

@@ -1,3 +1,4 @@
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -12,6 +13,9 @@ class PshycologyTodayPurifier extends Purifier {
     super(html, url)
     this.website = "Pshycology Today"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $("blog_entry--full__title").text()
@@ -23,6 +27,13 @@ class PshycologyTodayPurifier extends Purifier {
     this.image_url = $(".insertArea")
       .find("img")
       .attr("src")
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = PshycologyTodayPurifier

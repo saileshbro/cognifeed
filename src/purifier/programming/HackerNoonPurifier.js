@@ -1,3 +1,4 @@
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -12,6 +13,9 @@ class HackerNoonPurifier extends Purifier {
     super(html, url)
     this.website = "HackerNoon"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".story-container .title")
@@ -32,6 +36,13 @@ class HackerNoonPurifier extends Purifier {
       this.image_url = $(".story .content")
         .find("img")
         .attr("src")
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = HackerNoonPurifier

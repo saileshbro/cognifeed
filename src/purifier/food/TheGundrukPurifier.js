@@ -1,3 +1,4 @@
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -14,6 +15,9 @@ class TheGundrukPurifier extends Purifier {
     super(html, url)
     this.website = "The Gundruk"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".entry-title")
@@ -25,6 +29,14 @@ class TheGundrukPurifier extends Purifier {
       .substr(0, 500)
 
     this.image_url = $(".wp-post-image").attr("src")
+
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = TheGundrukPurifier

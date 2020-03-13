@@ -8,6 +8,9 @@ class Purifier {
   /**
    * Purify the html string into an Article object
    */
+  /**
+   * @returns {Article}
+   */
   purify() {
     throw new Error("Purifier Error! Abstract Method!")
   }

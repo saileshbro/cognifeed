@@ -1,3 +1,4 @@
+const Article = require("../Article")
 /* eslint-disable linebreak-style */
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
@@ -12,6 +13,9 @@ class PitchForkPurifier extends Purifier {
     super(html, url)
     this.website = "Pitch Fork"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title =
@@ -43,6 +47,13 @@ class PitchForkPurifier extends Purifier {
     this.description = $("div.contents>p")
       .text()
       .substr(0, 500)
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = PitchForkPurifier

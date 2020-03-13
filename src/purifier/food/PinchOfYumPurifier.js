@@ -1,3 +1,4 @@
+const Article = require("../Article")
 const Purifier = require("../Purifier")
 const cheerio = require("cheerio")
 const Link = require("../../scraper/link")
@@ -14,6 +15,9 @@ class PinchOfYumPurifier extends Purifier {
     super(html, url)
     this.website = "Pinch of yum"
   }
+  /**
+   * @returns {Article}
+   */
   purify() {
     const $ = cheerio.load(this.html)
     this.title = $(".entry-title")
@@ -25,6 +29,13 @@ class PinchOfYumPurifier extends Purifier {
       .text()
       .trim()
       .substr(0, 500)
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 }
 module.exports = PinchOfYumPurifier
