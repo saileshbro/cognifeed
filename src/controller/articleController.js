@@ -8,6 +8,7 @@ module.exports.articles = async (req, res, next) => {
 
   try {
     if (!searchby || searchby == "") {
+      console.log(searchby)
       articles = await pool.query(
         `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
         [req.user.user_id, req.user.user_id]
@@ -46,10 +47,16 @@ module.exports.articles = async (req, res, next) => {
     }
     articles.forEach(article => {
       article.is_fav = article.is_fav == 1
+      if (article.tag_name)
+        article.tag_name = article.tag_name
+          .split(" ")
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(" ")
     })
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
     }
+    console.log(articles)
     return res.json({
       articles
     })
@@ -125,6 +132,11 @@ module.exports.getFav = async (req, res, next) => {
     }
     articles.forEach(article => {
       article.is_fav = true
+      if (article.tag_name)
+        article.tag_name = article.tag_name
+          .split(" ")
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(" ")
     })
     return res.json({
       articles
@@ -179,6 +191,11 @@ module.exports.getHidden = async (req, res, next) => {
     articles.forEach(article => {
       article.is_fav = article.is_fav == 1
       article.is_hidden = true
+      if (article.tag_name)
+        article.tag_name = article.tag_name
+          .split(" ")
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(" ")
     })
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
