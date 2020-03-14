@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
+import 'package:cognifeed_app/all_articles/all_articles_page.dart';
+import 'package:cognifeed_app/articles/all_articles_bloc.dart';
+import 'package:cognifeed_app/articles/all_articles_event.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
@@ -13,6 +16,7 @@ import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/helpers/getShareText.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/onboarding/onboarding_page.dart';
 import 'package:cognifeed_app/tags/tags_repository.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/webview/full_article_page.dart';
@@ -99,7 +103,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                       height: 100,
                       child: CachedNetworkImage(
                         imageUrl: widget.article.imageUrl,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
                   ),
@@ -150,60 +154,68 @@ class _ArticleBoxState extends State<ArticleBox> {
                     width: 12,
                   ),
                   GestureDetector(
-                    onTap: () async {
-                      if (!widget.article.isFav) {
-                        print("add clicked");
-                        ArticleRepository.addToFav(
-                                articleId: widget.article.articleId.toString())
-                            .then((response) {
-                          if (response.statusCode == 200) {
-                            setState(() {
-                              widget.article.isFav = !widget.article.isFav;
-                            });
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(widget.article.title +
-                                  " added to favourite!"),
-                              backgroundColor: Colors.green,
-                            ));
-                          } else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(response.data['error']),
-                              backgroundColor: Colors.red,
-                            ));
-                          }
-                        });
-                      } else {
-                        ArticleRepository.removeFromFav(
-                                articleId: widget.article.articleId.toString())
-                            .then((response) {
-                          if (response.statusCode == 200) {
-                            setState(() {
-                              widget.article.isFav = !widget.article.isFav;
-                            });
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(widget.article.title +
-                                  " removed from favourite!"),
-                              backgroundColor: Colors.green,
-                            ));
-                          } else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(response.data['error']),
-                              backgroundColor: Colors.red,
-                            ));
-                          }
-                        });
-                      }
-                    },
+                    onTap: widget.article.all
+                        ? null
+                        : () async {
+                            if (!widget.article.isFav) {
+                              print("add clicked");
+                              ArticleRepository.addToFav(
+                                      articleId:
+                                          widget.article.articleId.toString())
+                                  .then((response) {
+                                if (response.statusCode == 200) {
+                                  setState(() {
+                                    widget.article.isFav =
+                                        !widget.article.isFav;
+                                  });
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(widget.article.title +
+                                        " added to favourite!"),
+                                    backgroundColor: Colors.green,
+                                  ));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(response.data['error']),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                              });
+                            } else {
+                              ArticleRepository.removeFromFav(
+                                      articleId:
+                                          widget.article.articleId.toString())
+                                  .then((response) {
+                                if (response.statusCode == 200) {
+                                  setState(() {
+                                    widget.article.isFav =
+                                        !widget.article.isFav;
+                                  });
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(widget.article.title +
+                                        " removed from favourite!"),
+                                    backgroundColor: Colors.green,
+                                  ));
+                                } else {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(response.data['error']),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                              });
+                            }
+                          },
                     child: Container(
                       color: Colors.transparent,
                       padding: const EdgeInsets.all(12.0),
-                      child: Icon(
-                        widget.article.isFav
-                            ? FontAwesome.heart
-                            : FontAwesome.heart_o,
-                        color: widget.article.isFav ? Colors.red : null,
-                        // size: 18,
-                      ),
+                      child: widget.article.all
+                          ? null
+                          : Icon(
+                              widget.article.isFav
+                                  ? FontAwesome.heart
+                                  : FontAwesome.heart_o,
+                              color: widget.article.isFav ? Colors.red : null,
+                              // size: 18,
+                            ),
                     ),
                   ),
                   SizedBox(
@@ -334,125 +346,136 @@ class _ArticleBoxState extends State<ArticleBox> {
                                           });
                                         },
                                       ),
-                                      CustomListTile(
-                                        icon: Icons.highlight_off,
-                                        label: widget.article.isHidden
-                                            ? "Remove from hidden"
-                                            : "Hide this article",
-                                        onPressed: () async {
-                                          if (!widget.article.isHidden) {
-                                            ArticleRepository.hideArticle(
-                                                    articleId: widget
-                                                        .article.articleId
-                                                        .toString())
-                                                .then((response) {
-                                              if (response.statusCode == 200) {
-                                                Navigator.pop(context);
-                                                Scaffold.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      widget.article.title +
-                                                          " hidden!"),
-                                                  backgroundColor: Colors.green,
-                                                ));
-                                                if (ModalRoute.of(context)
-                                                        .settings
-                                                        .name ==
-                                                    HomePage.route) {
-                                                  BlocProvider.of<ArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetHomePageArticlesEvent());
-                                                } else if (ModalRoute.of(
+                                      if (!widget.article.all)
+                                        CustomListTile(
+                                          icon: Icons.highlight_off,
+                                          label: widget.article.isHidden
+                                              ? "Remove from hidden"
+                                              : "Hide this article",
+                                          onPressed: () async {
+                                            if (!widget.article.isHidden) {
+                                              ArticleRepository.hideArticle(
+                                                      articleId: widget
+                                                          .article.articleId
+                                                          .toString())
+                                                  .then((response) {
+                                                if (response.statusCode ==
+                                                    200) {
+                                                  Navigator.pop(context);
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        widget.article.title +
+                                                            " hidden!"),
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                  ));
+                                                  if (ModalRoute.of(context)
+                                                          .settings
+                                                          .name ==
+                                                      HomePage.route) {
+                                                    BlocProvider.of<
+                                                                ArticlesBloc>(
                                                             context)
-                                                        .settings
-                                                        .name ==
-                                                    FavPage.route) {
-                                                  BlocProvider.of<
-                                                              FavArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetFavPageArticlesEvent());
-                                                } else if (ModalRoute.of(
+                                                        .add(
+                                                            GetHomePageArticlesEvent());
+                                                  } else if (ModalRoute.of(
+                                                              context)
+                                                          .settings
+                                                          .name ==
+                                                      FavPage.route) {
+                                                    BlocProvider.of<
+                                                                FavArticlesBloc>(
                                                             context)
-                                                        .settings
-                                                        .name ==
-                                                    HiddenPage.route) {
-                                                  BlocProvider.of<
-                                                              HideArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetHiddenPageArticlesEvent());
+                                                        .add(
+                                                            GetFavPageArticlesEvent());
+                                                  } else if (ModalRoute.of(
+                                                              context)
+                                                          .settings
+                                                          .name ==
+                                                      HiddenPage.route) {
+                                                    BlocProvider.of<
+                                                                HideArticlesBloc>(
+                                                            context)
+                                                        .add(
+                                                            GetHiddenPageArticlesEvent());
+                                                  }
+                                                } else {
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        response.data['error']),
+                                                    backgroundColor: Colors.red,
+                                                  ));
                                                 }
-                                              } else {
-                                                Scaffold.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      response.data['error']),
-                                                  backgroundColor: Colors.red,
-                                                ));
-                                              }
-                                            });
-                                          } else {
-                                            ArticleRepository.showArticle(
-                                                    articleId: widget
-                                                        .article.articleId
-                                                        .toString())
-                                                .then((response) {
-                                              if (response.statusCode == 200) {
-                                                Navigator.pop(context);
-                                                Scaffold.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(widget
-                                                          .article.title +
-                                                      " removed from hidden!"),
-                                                  backgroundColor: Colors.green,
-                                                ));
-                                                if (ModalRoute.of(context)
-                                                        .settings
-                                                        .name ==
-                                                    HomePage.route) {
-                                                  BlocProvider.of<ArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetHomePageArticlesEvent());
-                                                } else if (ModalRoute.of(
+                                              });
+                                            } else {
+                                              ArticleRepository.showArticle(
+                                                      articleId: widget
+                                                          .article.articleId
+                                                          .toString())
+                                                  .then((response) {
+                                                if (response.statusCode ==
+                                                    200) {
+                                                  Navigator.pop(context);
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(widget
+                                                            .article.title +
+                                                        " removed from hidden!"),
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                  ));
+                                                  if (ModalRoute.of(context)
+                                                          .settings
+                                                          .name ==
+                                                      HomePage.route) {
+                                                    BlocProvider.of<
+                                                                ArticlesBloc>(
                                                             context)
-                                                        .settings
-                                                        .name ==
-                                                    FavPage.route) {
-                                                  BlocProvider.of<
-                                                              FavArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetFavPageArticlesEvent());
-                                                } else if (ModalRoute.of(
+                                                        .add(
+                                                            GetHomePageArticlesEvent());
+                                                  } else if (ModalRoute.of(
+                                                              context)
+                                                          .settings
+                                                          .name ==
+                                                      FavPage.route) {
+                                                    BlocProvider.of<
+                                                                FavArticlesBloc>(
                                                             context)
-                                                        .settings
-                                                        .name ==
-                                                    HiddenPage.route) {
-                                                  BlocProvider.of<
-                                                              HideArticlesBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetHiddenPageArticlesEvent());
+                                                        .add(
+                                                            GetFavPageArticlesEvent());
+                                                  } else if (ModalRoute.of(
+                                                              context)
+                                                          .settings
+                                                          .name ==
+                                                      HiddenPage.route) {
+                                                    BlocProvider.of<
+                                                                HideArticlesBloc>(
+                                                            context)
+                                                        .add(
+                                                            GetHiddenPageArticlesEvent());
+                                                  }
+                                                } else {
+                                                  Scaffold.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        response.data['error']),
+                                                    backgroundColor: Colors.red,
+                                                  ));
                                                 }
-                                              } else {
-                                                Scaffold.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      response.data['error']),
-                                                  backgroundColor: Colors.red,
-                                                ));
-                                              }
-                                            });
-                                          }
-                                        },
-                                      ),
+                                              });
+                                            }
+                                          },
+                                        ),
                                       CustomListTile(
                                         icon: FontAwesome.magic,
                                         label: "Manage Interests",
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.of(context)
+                                              .pushNamed(OnboardingPage.route);
+                                        },
                                       ),
                                     ],
                                   ),

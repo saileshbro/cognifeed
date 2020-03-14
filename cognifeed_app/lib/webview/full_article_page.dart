@@ -29,63 +29,65 @@ class _FullArticlePageState extends State<FullArticlePage> {
   @override
   Widget build(BuildContext context) {
     return ApplicationScaffold(
-        actions: <Widget>[
-          Builder(builder: (context) {
-            return IconButton(
-              onPressed: () async {
-                if (!widget.article.isFav) {
-                  ArticleRepository.addToFav(
-                          articleId: widget.article.articleId.toString())
-                      .then((response) {
-                    if (response.statusCode == 200) {
-                      setState(() {
-                        widget.article.isFav = !widget.article.isFav;
-                      });
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content:
-                            Text(widget.article.title + " added to favourite!"),
-                        backgroundColor: Colors.green,
-                      ));
-                    } else {
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text(response.data['error']),
-                        backgroundColor: Colors.red,
-                      ));
-                    }
-                  });
-                } else {
-                  ArticleRepository.removeFromFav(
-                          articleId: widget.article.articleId.toString())
-                      .then((response) {
-                    if (response.statusCode == 200) {
-                      setState(() {
-                        widget.article.isFav = !widget.article.isFav;
-                      });
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            widget.article.title + " removed from favourite!"),
-                        backgroundColor: Colors.green,
-                      ));
-                    } else {
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text(response.data['error']),
-                        backgroundColor: Colors.red,
-                      ));
-                    }
-                  });
-                }
-              },
-              icon: widget.article.isFav
-                  ? Icon(
-                      FontAwesome.heart,
-                      color: Colors.red,
-                    )
-                  : Icon(
-                      FontAwesome.heart_o,
-                    ),
-            );
-          }),
-        ],
+        actions: widget.article.all
+            ? null
+            : <Widget>[
+                Builder(builder: (context) {
+                  return IconButton(
+                    onPressed: () async {
+                      if (!widget.article.isFav) {
+                        ArticleRepository.addToFav(
+                                articleId: widget.article.articleId.toString())
+                            .then((response) {
+                          if (response.statusCode == 200) {
+                            setState(() {
+                              widget.article.isFav = !widget.article.isFav;
+                            });
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(widget.article.title +
+                                  " added to favourite!"),
+                              backgroundColor: Colors.green,
+                            ));
+                          } else {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(response.data['error']),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        });
+                      } else {
+                        ArticleRepository.removeFromFav(
+                                articleId: widget.article.articleId.toString())
+                            .then((response) {
+                          if (response.statusCode == 200) {
+                            setState(() {
+                              widget.article.isFav = !widget.article.isFav;
+                            });
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(widget.article.title +
+                                  " removed from favourite!"),
+                              backgroundColor: Colors.green,
+                            ));
+                          } else {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(response.data['error']),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        });
+                      }
+                    },
+                    icon: widget.article.isFav
+                        ? Icon(
+                            FontAwesome.heart,
+                            color: Colors.red,
+                          )
+                        : Icon(
+                            FontAwesome.heart_o,
+                          ),
+                  );
+                }),
+              ],
         showDrawer: false,
         child: IndexedStack(
           index: _stackToView,

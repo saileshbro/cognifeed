@@ -122,4 +122,4 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-enum SearchType { HOME, FAV, HIDDEN }
+enum SearchType { HOME, FAV, HIDDEN, ALL }

@@ -21,5 +21,6 @@ class PushNotificationService {
         print("onResume: $message");
       },
     );
+    _fcm.subscribeToTopic('cognifeed');
   }
 }

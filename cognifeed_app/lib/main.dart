@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:cognifeed_app/all_articles/all_articles_page.dart';
+import 'package:cognifeed_app/articles/all_articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/fav_bloc.dart';
 import 'package:cognifeed_app/articles/hide_bloc.dart';
@@ -117,6 +119,11 @@ Future<void> main() async {
           return HideArticlesBloc();
         },
       ),
+      BlocProvider<AllArticlesBloc>(
+        create: (BuildContext context) {
+          return AllArticlesBloc();
+        },
+      ),
       BlocProvider<ArticlesBloc>(
         create: (BuildContext context) {
           return ArticlesBloc();
@@ -167,6 +174,7 @@ class App extends StatelessWidget {
               SettingsPage.route: (_) => SettingsPage(),
               ProfilePage.route: (_) => ProfilePage(),
               OnboardingPage.route: (_) => OnboardingPage(),
+              AllArticlesPage.route: (_) => AllArticlesPage(),
             },
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {

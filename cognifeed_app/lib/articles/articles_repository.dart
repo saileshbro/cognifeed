@@ -11,12 +11,32 @@ class ArticleRepository {
       {String searchby, String query}) async {
     try {
       var response;
-      // if (searchby.isNotEmpty && query.isNotEmpty) {
+
       response = await Cognifeed.dioClient.get("$baseUrl/articles",
           queryParameters: {'searchby': searchby, 'query': query});
-      // } else {
-      //   response = await Cognifeed.dioClient.get("$baseUrl/articles");
-      // }
+
+      if (response.data.containsKey('error')) {
+        return Future.error(jsonDecode(response.data)['error']);
+      }
+      return Future.value(ArticlesModel.fromJson(response.data));
+    } catch (e) {
+      if (e is SocketException) {
+        return Future.error("Unable to connect to internet.");
+      }
+      if (e is DioError) {
+        return Future.error(e.response.data['error']);
+      }
+      return Future.error(e.toString());
+    }
+  }
+
+  static Future<ArticlesModel> getAllPageArticles(
+      {String searchby, String query}) async {
+    try {
+      var response;
+
+      response = await Cognifeed.dioClient.get("$baseUrl/articles/all",
+          queryParameters: {'searchby': searchby, 'query': query});
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
@@ -37,7 +57,7 @@ class ArticleRepository {
       {String searchby, String query}) async {
     try {
       var response;
-      // if (searchby.isNotEmpty && query.isNotEmpty) {
+
       response = await Cognifeed.dioClient.get("$baseUrl/articles/hidden",
           queryParameters: {'searchby': searchby, 'query': query});
       // } else
@@ -166,8 +186,8 @@ class ArticleRepository {
 
   static Future<ArticlesModel> incrementArticleView({String articleId}) async {
     try {
-      final response =
-          await Cognifeed.dioClient.get("$baseUrl/articles/$articleId");
+      final response = await Cognifeed.dioClient
+          .get("$baseUrl/articles/$articleId/increment");
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);

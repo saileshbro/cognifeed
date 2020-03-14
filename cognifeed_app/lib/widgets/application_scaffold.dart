@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/all_articles/all_articles_page.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
@@ -169,6 +170,32 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
             ),
           ),
           Container(
+            color: this.getSelectedColor(DrawerPages.All),
+            child: ListTile(
+              leading: Container(
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  Icons.note,
+                  size: 18,
+                ),
+              ),
+              title: Text(
+                "All Articles",
+                style: CognifeedTypography.articleTitle.copyWith(
+                  fontSize: 18,
+                ),
+              ),
+              onTap: () {
+                if (Cognifeed.drawerPages != DrawerPages.All) {
+                  Cognifeed.drawerPages = DrawerPages.All;
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushReplacementNamed(AllArticlesPage.route);
+                }
+              },
+            ),
+          ),
+          Container(
             color: this.getSelectedColor(DrawerPages.Profile),
             child: ListTile(
               leading: Container(
@@ -251,4 +278,4 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
   }
 }
 
-enum DrawerPages { Home, Fav, Profile, Hidden, Settings }
+enum DrawerPages { Home, Fav, Profile, Hidden, Settings, All }
