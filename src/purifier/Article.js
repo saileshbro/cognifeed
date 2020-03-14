@@ -1,4 +1,9 @@
-module.exports = class Article {
+/**
+ * Module to abstract away an article
+ * @module src/purifier/Article
+ */
+
+class Article {
   /**
    *
    * @param {String} title
@@ -15,3 +20,5 @@ module.exports = class Article {
     this.link_url = link_url
   }
 }
+
+module.exports = Article

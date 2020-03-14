@@ -1,14 +1,16 @@
+/**
+ * Abstract Class to define interface for the Purifier
+ * @module src/purifier/Purifier
+ */
+
 const axios = require("axios")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 const Link = require("../scraper/link")
-/**
- * Abstract Class Purifier
- */
+const Article = require("./Article")
+
 class Purifier {
   /**
    * Purify the html string into an Article object
-   */
-  /**
    * @returns {Article}
    */
   purify() {
@@ -17,19 +19,13 @@ class Purifier {
 
   /**
    * Persist the purified article to a database
+   * @param {Article} article - The article object to persist
    */
-  async persistPurified() {
-    const payload = {
-      title: this.title,
-      description: this.description,
-      image_url: this.image_url,
-      website: this.website
-    }
-
+  async persistPurified(article) {
     try {
-      await axios.post(`${baseUrl}/api/purifier/persist`, payload)
+      await axios.post(`${baseUrl}/api/purifier/persist`, article)
     } catch (error) {
-      console.error(error.response.data)
+      console.error(error)
       throw new Error("Purifier Error! Could not persist data to database.")
     }
   }
@@ -39,13 +35,13 @@ class Purifier {
    * @returns {object}
    */
   getArticle() {
-    return {
-      title: this.title,
-      image_url: this.image_url,
-      description: this.description,
-      link_url: this.link_url,
-      website: this.website
-    }
+    return new Article(
+      this.title,
+      this.description,
+      this.website,
+      this.image_url,
+      this.link_url
+    )
   }
 
   /**
@@ -54,12 +50,40 @@ class Purifier {
    * @param {Link} url
    */
   constructor(html, url) {
+    /**
+     * @type {string} - The HTML string
+     * @private
+     */
     this.html = html
+    /**
+     * @type {string} - The url of the HTML string
+     * @private
+     */
     this.url = url
+    /**
+     * @type {string}
+     * @private
+     */
     this.link_url = this.url.resolve()
+    /**
+     * @type {string} - The url for the extracted image
+     * @private
+     */
     this.image_url = "defaultimage.png"
+    /**
+     * @type {string} - The title of the extracted article
+     * @private
+     */
     this.title = ""
+    /**
+     * @type {string} - The article summary
+     * @private
+     */
     this.description = ""
+    /**
+     * @type {string} - The website base URL
+     * @private
+     */
     this.website = ""
   }
 }

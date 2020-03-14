@@ -107,11 +107,11 @@ class Server {
       }
 
       // This is a side-effects method call
-      purifier.purify()
+      const article = purifier.purify()
 
       // Push to database and check for errors
       try {
-        await purifier.persistPurified()
+        await purifier.persistPurified(article)
       } catch (err) {
         return console.error(err.message)
       }

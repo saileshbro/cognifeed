@@ -1,0 +1,719 @@
+[33mcommit a79340b9fd849fbb110e45aa03a133c13825b423[m[33m ([m[1;36mHEAD -> [m[1;32mpurifier[m[33m, [m[1;31morigin/purifier[m[33m)[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 16:33:55 2020 +0545
+
+    Remove useless files and folders
+
+[33mcommit 53b755a1cfaf24456c3907d37b4a8c1a7923064c[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 16:32:45 2020 +0545
+
+    Remove useless files and folders
+
+[33mcommit 4d712a8c4bde5ef20a4849a9e5463d15ff3f2280[m
+Merge: 0b8df7c ba5df5b
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 16:31:01 2020 +0545
+
+    Fix merge conflicts
+
+[33mcommit 0b8df7c4e1ca9dd6862c3b1e3da150dc7ce3700c[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 16:10:45 2020 +0545
+
+    Revert "CBRPurifier done."
+    
+    This reverts commit e1df1c46d7db76ea9d44c21e29237e86c430e7ac.
+
+[33mcommit ba5df5b636aa2752f19190ac9d8ac31d21af0af8[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 16:05:37 2020 +0545
+
+    Cleanup
+
+[33mcommit 4cec4d8bd8abd408e30159f1e13ddc8e34415a11[m
+Merge: b1921b4 d6214e5
+Author: Aashish Pokharel <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 10:16:38 2020 +0000
+
+    Merge branch 'scraper' into 'master'
+    
+    Merge branch for scraper and server
+    
+    See merge request saileshbro/cognifeed!1
+
+[33mcommit b1921b4ac95444071cff191a3dcaaa4e9efd2280[m
+Author: Aashish Pokharel <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 10:14:40 2020 +0000
+
+    Delete LICENSE
+
+[33mcommit 19d13cd9667cbb231bbf8de49843fe4696d0a0d3[m
+Author: Aashish Pokharel <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 10:14:28 2020 +0000
+
+    Add LICENSE
+
+[33mcommit d6214e575b532bfa68e764b2ee2dcfa2f45ec09b[m[33m ([m[1;31morigin/scraper[m[33m, [m[1;32mscraper[m[33m)[m
+Merge: 20f94d6 ceb2729
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 15:46:35 2020 +0545
+
+    Fix merge confilcts
+
+[33mcommit 20f94d647a7b3b62d9011569d474af1ab6c85f68[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Fri Mar 6 15:41:39 2020 +0545
+
+    Make following changes:
+    - Add error checking for spider and robots.txt fetching
+    - Add logic in spider for fixing the "same baseURL" issue
+    - Add logic in spider to filter out relative links
+
+[33mcommit e1df1c46d7db76ea9d44c21e29237e86c430e7ac[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Sat Feb 8 21:47:51 2020 +0545
+
+    CBRPurifier done.
+    Listed Purifier Purifying Completed :)
+    Changes to be committed:
+            modified:   src/app.js
+            new file:   src/purifier/anime/CBRPurifier.js
+
+[33mcommit 96b32aea4d1660a9e067c2432eafc555ac37e47a[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Sat Feb 8 21:24:58 2020 +0545
+
+    HealthyChildrenPurifier done
+    Changes to be committed:
+            modified:   package.json
+            modified:   src/app.js
+            modified:   src/purifier/baby/HealthyChildrenPurifier.js
+
+[33mcommit 728c35953de488efee45a588e4da65cdd43d217b[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Fri Feb 7 12:55:11 2020 +0545
+
+    .
+
+[33mcommit ba40e036fd15a20114139cdf89b96207196cbec8[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Fri Feb 7 12:26:16 2020 +0545
+
+    BounceBackParentingPurifier done
+    Changes to be committed:
+            modified:   src/app.js
+            new file:   src/purifier/parenthood/BounceBackParentingPurifier.js
+
+[33mcommit ebe9155683b4c82abbb98d97ddbb6111cb861165[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Fri Feb 7 12:01:37 2020 +0545
+
+    FactSitePurifier done
+    Changes to be committed:
+            modified:   src/app.js
+            modified:   src/purifier/interestingFacts/FactSitePurifier.js
+            modified:   src/scraper/spider.js
+
+[33mcommit dc9b85ae207d8929087d0b4fbb7e50c20d521ef4[m
+Merge: f4409e3 9498adc
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Fri Feb 7 11:43:00 2020 +0545
+
+    Merge branch 'purifier' of https://gitlab.com/saileshbro/cognifeed into purifier
+
+[33mcommit f4409e3d067a49924a08edd3811a2f2cc41332a7[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Feb 6 21:42:28 2020 +0545
+
+    .
+
+[33mcommit f0a0ce51f25e4ed2f64d8060314c10a3e0cfb920[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Feb 6 21:28:50 2020 +0545
+
+    PennyHorderPurifier added
+    Changes to be committed:
+            modified:   src/app.js
+            new file:   src/purifier/finance/PennyHorderPurifier.js
+
+[33mcommit 9498adc4fe1cc0b18dbcb6ccd12437585d4abaa1[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Feb 6 21:10:24 2020 +0545
+
+            modified:   src/app.js
+            new file:   src/purifier/booksAndCulture/NewYorkerPurifier.js
+            new file:   src/purifier/booksAndCulture/TheMillionsPurifier.js
+            new file:   src/purifier/fitnessAndNutrition/EatRightPurifier.js
+            new file:   src/purifier/humor/LittleOldLadyComedy.js
+            modified:   src/purifier/relationship/LoveIsRespectPurifier.js
+            new file:   src/purifier/science/PopSciPurifier.js
+            new file:   src/purifier/technology/ArsTechnicaPurifier.js
+            modified:   src/purifier/writing/HelpWritersBecomeAuthorPurifier.js
+            modified:   src/scraper/spider.js
+
+[33mcommit 1d5c668545855c8b7383e6c9b40bd309d6a4640b[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Feb 6 20:37:26 2020 +0545
+
+    PitchFork Purifier Added
+    Changes to be committed:
+            new file:   composer.json
+            modified:   src/app.js
+            new file:   src/purifier/music/PitchForkPurifier.js
+
+[33mcommit 0eddabb94f9cc4d331358535133a3bbafff704d0[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Feb 6 18:53:33 2020 +0545
+
+            modified:   package.json
+            modified:   src/app.js
+            modified:   src/purifier/Purifier.js
+            modified:   src/purifier/food/IAmFoogBlogPurifier.js
+            modified:   src/purifier/food/PinchOfYumPurifier.js
+            new file:   src/purifier/food/SeriousEatsPurifier.js
+            new file:   src/purifier/food/TheGundrukPurifier.js
+            new file:   src/purifier/science/HowStuffWorksPurifier.js
+            modified:   src/purifier/travelAndTourism/MissTouristPurifier.js
+            modified:   src/scraper/spider.js
+
+[33mcommit ceb27295d15c77a7238c55364b553a279aa60eb5[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Feb 6 18:46:57 2020 +0545
+
+    Changes to be committed:
+            modified:   src/scraper/links-collection.js
+            modified:   src/scraper/server.js
+            modified:   src/scraper/spider.js
+            modified:   src/scraper/start-server.js
+
+[33mcommit 2f7fe24b1eaed2f14473531ccb47bcf00e4df68f[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Feb 6 18:01:06 2020 +0545
+
+    .
+
+[33mcommit 46a4a3948c655b9f7e2692b6b91cb0351b63d2ac[m
+Merge: ea650fe cf7e9ab
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Feb 6 08:27:45 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit ea650fe0ac2aff8ab3cd14d26f1f668a61b364d9[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Feb 6 08:27:18 2020 +0545
+
+            new file:   src/purifier/fashion/FashionLadyPurifier.js
+            new file:   src/purifier/history/SmithsonianMagazine.js
+            new file:   src/purifier/journalism/WesternJournalPurifier.js
+            new file:   src/purifier/movies/CinemaBlendPurifier.js
+            new file:   src/purifier/philosophy/PhilosophyForLifePurifier.js
+            new file:   src/purifier/politics/TheGeoPoliticsPurifier.js
+            modified:   src/purifier/programming/CodeWallPurifier.js
+
+[33mcommit cf7e9ab9e3ea79858230fc176355f8b933506353[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Thu Feb 6 07:02:32 2020 +0545
+
+    Update name of test for decompress module
+
+[33mcommit 74e914127053321d7e6920071046e2a4f75c4652[m
+Merge: c4d6928 2d7210c
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Thu Feb 6 06:57:52 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit c4d69289719ae6229e76036c289729a882bb45ce[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Thu Feb 6 06:55:54 2020 +0545
+
+    Following changes made:
+    - Add a util function decompress
+    - Write tests for decompress module
+    - Change max line length to 80 in prettierrc
+
+[33mcommit ae2fe49c37b498d3bcce9a2ef9fe9702af41c3b9[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Wed Feb 5 08:00:28 2020 +0545
+
+    Cleanup unnecessary dirs
+
+[33mcommit d388c255c81914b7ff804841a58a3f8ceeb0a1d5[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Wed Feb 5 07:45:45 2020 +0545
+
+    Change behavior of filter, add message to signal handling, write tests for RobotsCache
+
+[33mcommit 2d7210c043e191c0f2f3c997962d51d57b1b18cf[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Feb 4 12:10:18 2020 +0545
+
+     Changes to be committed:
+    -TEST CODE
+            modified:   src/app.js
+            modified:   src/purifier/Purifier.js
+    -RENAMED
+            renamed:    src/purifier/food/iamfoodblogPurifier.js -> src/purifier/food/IAmFoogBlogPurifier.js
+            renamed:    src/purifier/food/pinchofyumPurifier.js -> src/purifier/food/PinchOfYumPurifier.js
+    -ADDED
+            new file:   src/purifier/relationship/LoveIsRespectPurifier.js
+            new file:   src/purifier/stories/ShortStoryMePurifier.js
+
+[33mcommit fb8a5041d38a2806336c84802d3cb7d923856010[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Feb 4 11:18:41 2020 +0545
+
+    .
+
+[33mcommit 697dc4e106c9bffcaecebef1205d791ec8bbe73c[m
+Merge: 5288707 0c41c4b
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Feb 4 11:16:57 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit 52887075669370d08787d0304eb00c885c2eb91b[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Feb 4 11:16:36 2020 +0545
+
+    Code cleanup and refactoring
+
+[33mcommit 0c41c4b07785abc220113a5d2ea1ccefc6a9e43b[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Mon Feb 3 09:02:52 2020 +0545
+
+    .
+
+[33mcommit ed54edd33d6edd6af50444102e7aa45013665a7f[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Jan 28 22:24:14 2020 +0545
+
+    Added more purifiers
+
+[33mcommit 6c72334b3e86571fa753f5161aff51166f1d227a[m
+Merge: 17f0774 c580381
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Jan 28 22:15:46 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit 17f077462603741d4bd065494312f3e10b753588[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Jan 28 22:15:06 2020 +0545
+
+    Added some more purifier and fixed linting
+
+[33mcommit c580381259131b7c2aaf1154fc95fc563065ffda[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 21:48:09 2020 +0545
+
+    .
+
+[33mcommit 0c65d1e645341cec8445cacb557fd38b743987cf[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 21:40:58 2020 +0545
+
+    BeautyTipsPurifierDone
+
+[33mcommit 9f7ced8a8973cd14c1a1d2f9b10c535edf565425[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 21:14:58 2020 +0545
+
+    .
+
+[33mcommit c1b0bd62d057f945ae1b2e809e4fcfb81445c35e[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 21:12:48 2020 +0545
+
+    MindBodyPurifierDone
+
+[33mcommit 87e12ed56ea77240645cd3fd04b3a894f305b6ca[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 21:01:28 2020 +0545
+
+    LiveSciencePurifierDone
+
+[33mcommit 8fc1fe078f5944e4b6bb25ffa5c666111562cdd4[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 20:09:19 2020 +0545
+
+    LithubPurifierDone
+
+[33mcommit e97c7e88ec79c42df191fc1e5bc702b8c49994b6[m
+Merge: 50e08aa fdaf72f
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 19:32:35 2020 +0545
+
+    Merge branch 'purifier' of https://gitlab.com/saileshbro/cognifeed into purifier
+
+[33mcommit 50e08aa9f74a48ff25be6c44de77bb9128ad3ece[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 19:32:23 2020 +0545
+
+    .
+
+[33mcommit fdaf72f10bb8a7070f613569b4fba26c01401b37[m
+Merge: 5a97aca 0f65318
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Jan 28 12:47:34 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit 5a97aca0f3a45ed5b83c0d259b554db4b185c1e9[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Tue Jan 28 12:45:13 2020 +0545
+
+    Added more purifiers
+
+[33mcommit 0f653185ff31ab76c95e679cfa552e24e7f425cf[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 12:44:16 2020 +0545
+
+    .
+
+[33mcommit bf91d3559b04650a9b87f6dbf9fccee14f1382a6[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 12:24:11 2020 +0545
+
+    Blood&MilkPurifier Done
+
+[33mcommit e890707d1a33762057e974ccc37e345471507c54[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 12:11:19 2020 +0545
+
+    Done Tree Hugger Purifier
+
+[33mcommit 21dcc2c6f990a15f7a562ddfac6d9a3b5363c37f[m
+Merge: d983c3f 8b6d87a
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 11:30:47 2020 +0545
+
+    Merge branch 'purifier' of https://gitlab.com/saileshbro/cognifeed into purifier
+
+[33mcommit d983c3f55f4438a680073331bab500bb8c19be1b[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 11:30:29 2020 +0545
+
+    Miss Tourist Purifier Done
+
+[33mcommit b42c3725daefadc79a63a4186898f71d43e51739[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Jan 28 10:55:57 2020 +0545
+
+    ScienceDaily Purifier Done
+
+[33mcommit 8b6d87a93a346709f4cc95bc8139572310c31e29[m
+Author: shirish sigdel <38792227+ssigdel@users.noreply.github.com>
+Date:   Tue Jan 28 09:39:44 2020 +0545
+
+    add-ons to the food category
+
+[33mcommit d4ebc8efac1e54e049d838ce35b644c54b6bba00[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Mon Jan 27 22:03:06 2020 +0545
+
+    .
+
+[33mcommit 06e440aafff4ca85da14299b47925df628567d7b[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Mon Jan 27 21:35:00 2020 +0545
+
+    .
+
+[33mcommit bb7db65a02ba6673116f07ebe8f421568f58e2e9[m
+Author: shirish sigdel <38792227+ssigdel@users.noreply.github.com>
+Date:   Mon Jan 27 13:15:18 2020 +0545
+
+    food category of purifier added
+
+[33mcommit 1997b7cbb9edccae1b7f0be25b9eb62f09c0470b[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Jan 26 22:55:32 2020 +0545
+
+    Added purifiers
+
+[33mcommit 2ec3be27cfc3167be9482d9a37b1e6b59fabbc4e[m
+Merge: 539e485 c6643b5
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Jan 26 14:02:20 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit 539e485b179c9f4b91498e2d82cfea32ddc75a48[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Jan 26 13:58:21 2020 +0545
+
+    * CHANGELOG
+    - Added testscript in app.js to test EspnPurifier
+    - Added a field link_url in the purifier class to retain the url of the purified article
+    - Added a field image_url to retain a default image if not found
+    - Added a toString method in Purifier class for debug
+    - Added Espn Purifier
+    - Linting may have been fixed
+
+[33mcommit c6643b5d3c41f4af022960d7abfabf2e26cef888[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Jan 23 11:47:58 2020 +0545
+
+    .
+
+[33mcommit 36caf78db0ebbd4bc239696f997608be34a97815[m
+Merge: 4286bca 6c1997e
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Jan 23 11:47:45 2020 +0545
+
+    Merge branch 'purifier' of gitlab.com:saileshbro/cognifeed into purifier
+
+[33mcommit 4286bcaf8fb26b5529e59c745df1c8a7b3d48e8a[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Thu Jan 23 11:41:44 2020 +0545
+
+    YahooSportsPurifier done
+
+[33mcommit 6c1997ef7a13ae775b8534d9cde4b0bb40be62d7[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Jan 23 11:24:02 2020 +0545
+
+    Added espn purifier
+
+[33mcommit d66f3ed730d3bfe9b0194db7e7299a6d420f0782[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Thu Jan 23 10:04:03 2020 +0545
+
+    fixed import errors
+
+[33mcommit 5f54a57e524323a57a9570ce36c845a1253eb8e1[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Wed Jan 22 16:38:32 2020 +0545
+
+    Add RobotsCache class and update _start of server.js
+
+[33mcommit 100cff43af3bfb2aa639931375e243daab8c751b[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Wed Jan 22 10:58:55 2020 +0545
+
+    LINTING ERROR FIXED
+
+[33mcommit 64cd84721f41ef76addb9aee1c50527d2accf49b[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Jan 20 15:39:12 2020 +0545
+
+    Add wrapper class for robots.txt parser
+
+[33mcommit 6742a9e41b511d537ded58eb1707a96c3fecf3a7[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Jan 20 15:21:29 2020 +0545
+
+    Add wrapper class for robots.txt parser
+
+[33mcommit 664f2b6bb71df898480ddcd23fd25c3bc342c981[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Jan 19 16:19:19 2020 +0545
+
+    Add new npm module for robots.txt parsing
+
+[33mcommit 972d8f412cbd893fb0a89e82e53aa2f3c834edbe[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Jan 19 13:43:49 2020 +0545
+
+    Fixed working of server.js
+
+[33mcommit a7371dba708e6e56eb0cb77c274dad363f4cbff0[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Jan 19 13:43:24 2020 +0545
+
+    Fixed working of server.js
+
+[33mcommit 981eb0e884b122c501e431060c090fb56999dae7[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Jan 12 16:24:12 2020 +0545
+
+    The following additions and changes have been made
+    - Implement the server (Though it is not working as of yet)
+    - Add test file (test/test-server.js) for server
+    - Add test cases to test-links-collection.js and test-spider.js
+    - Add getLink method to LinksCollection in links-collection.js
+    - Update jsdocs for all files
+    - Modify getNewLinks method of spider.js
+
+[33mcommit 6b684f2126f3540582caddcdc31d74adc906ef6e[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Dec 9 18:39:54 2019 +0545
+
+    Modify package.json
+
+[33mcommit 33220db2f0501cdeca2d28a102ab4b96f39188f6[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Dec 9 18:37:20 2019 +0545
+
+    Make following changes
+    
+    - Add filter module and Filter class
+    - Add test-filter for testing Filter class
+    - Modified constructor of LinksCollection
+    - Add geter for size in LinksCollection
+
+[33mcommit eca7d046adecb92bf7e3a712be2853afdbaa474e[m[33m ([m[1;32mapp-frontend[m[33m, [m[1;32mapp-backend[m[33m)[m
+Merge: 3552b40 25bb1d4
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Dec 8 18:04:23 2019 +0545
+
+    Make following changes
+    
+    - Merge branch 'master' of gitlab.com:saileshbro/cognifeed
+    - Add out directory to .gitignore
+
+[33mcommit 3552b40fcd72d826accf270115e15f23206818a7[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Dec 8 17:53:49 2019 +0545
+
+    Make following changes
+    
+    - Update tests for link.js and link-collection.js
+    - Update hasLink and removeLink to work with Link objects in link-collection.js
+    - Make baseURL and path private in link.js
+    - Add corresponding getters to access baseURL and path in link.js
+    - Move code for scraper into src/scraper from src
+
+[33mcommit 25bb1d4333ae41f8a8ae29a2f9f3d92a0b1189f3[m
+Merge: b53db6d de2ea8e
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 8 14:56:53 2019 +0545
+
+    Merge branch 'master' of gitlab.com:saileshbro/cognifeed
+
+[33mcommit b53db6de11e5819aaa36719c50cc44a6e0079c98[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 8 14:55:48 2019 +0545
+
+    api refactored with schema
+
+[33mcommit de2ea8e74639cd7baf034f0f7b0e7c7ffb2fcdfe[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Sun Dec 8 14:52:25 2019 +0545
+
+    Purifier extended.
+    Made Wiki Purifier and Implemented
+
+[33mcommit 708c06941eabf8f365ffa73d4762e773657b129f[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 8 13:08:50 2019 +0545
+
+    - Abstract class Purifier created
+    - purify(html) takes html and purifies the content
+    - persistPurified() persists the purified data to the db
+
+[33mcommit 4a649776c4942b352842b02df4dd5ff02c95641a[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 8 12:48:02 2019 +0545
+
+    Added controller for spider and router
+
+[33mcommit 745e408606f84c28ff62b69c0784251e6f2ee903[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Sun Dec 8 09:01:42 2019 +0545
+
+    Added jsdocs
+
+[33mcommit b3c18ba708833a0f55c9149e0a29fdb430193a36[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sat Dec 7 14:44:18 2019 +0545
+
+    Added auth middleware
+
+[33mcommit 1f9b8a6439864afa62574ebb241591dd278e2295[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Sat Dec 7 14:03:40 2019 +0545
+
+    Refactor
+
+[33mcommit f1ad47aa3081c80e5ace7da15f077244a8776a82[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Dec 3 22:03:52 2019 +0545
+
+    Errors yet to be fixed- Promise needs to be resolved in spider module
+
+[33mcommit a099f5147f97f355c9c375415971aadd9afd7554[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Dec 3 20:43:52 2019 +0545
+
+    Work on Beta version of Spider-errors yet to be resolved
+
+[33mcommit 1b153bc13aa549eb752cbf62f847e9f1cb391e40[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Dec 3 16:52:53 2019 +0545
+
+    Basic prototype of Spider Done
+
+[33mcommit 39b4ce32b158e8e3ec105ad8695519cc2e4458f3[m
+Author: Sarayu Gautam <sarayugautam1@gmail.com>
+Date:   Tue Dec 3 14:53:22 2019 +0545
+
+    added prettier support
+
+[33mcommit 47e4095fe1ed7e2340072723692aa1e7df59944f[m
+Merge: bce7378 7612a6a
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Dec 2 16:45:12 2019 +0545
+
+    Fix merge conflictts
+
+[33mcommit bce7378082fca1b487b8b0841f55c8269aefbd69[m
+Author: 2goodAP <2478444-2goodAP@users.noreply.gitlab.com>
+Date:   Mon Dec 2 16:39:05 2019 +0545
+
+    Made following changes
+    - Add .eslintrc.json for eslint
+    - Add link.js and links-collection.js
+    - Add mocha and chai for testing
+    - Add 2 test scripts
+
+[33mcommit 7612a6a97d60c3181b59459ac7de686a48deb3f5[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 1 21:37:33 2019 +0545
+
+    Fix
+
+[33mcommit e4d241031b0b699fa79dd7eeaa5563989c5b3f5c[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 1 00:04:55 2019 +0545
+
+    fix
+
+[33mcommit aec48990fcc48f62f5a450dd47c1cebb108af951[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 1 00:04:14 2019 +0545
+
+    Updated .gitignore
+
+[33mcommit 911e7e4c6b99d3ffbae9756a6b056c2f767d5bf5[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Dec 1 00:03:51 2019 +0545
+
+    Authentication login and signup addeed
+
+[33mcommit 1378f6e2098cad28430031737d9828efb25fef16[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sat Nov 30 20:53:33 2019 +0545
+
+    Fix readme
+
+[33mcommit a13dd4db5a7cf7003f0767112d8129c93ce125f0[m
+Author: 2goodAP <45424904+2goodAP@users.noreply.github.com>
+Date:   Tue Nov 26 20:12:47 2019 +0545
+
+    Update README
+
+[33mcommit 47165624f69af5be580c6d6e6a59b151db22aa47[m
+Author: 2goodAP <45424904+2goodAP@users.noreply.github.com>
+Date:   Tue Nov 26 20:11:19 2019 +0545
+
+    Add .gitignore and src directory
+
+[33mcommit f8931d76c5f4115bcea0172b4f32281ea6a2f191[m
+Author: Sailesh Dahal <saileshbro@gmail.com>
+Date:   Sun Nov 24 05:04:48 2019 +0000
+
+    Initial commit
