@@ -8,9 +8,11 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
+    "cheerio-eq": "^1.0.1",
+    "decompress-response": "^5.0.0",
     "dotenv": "^8.2.0",
-    "eslint-plugin-react": "^7.17.0",
     "express": "^4.17.1",
+    "got": "^10.4.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
@@ -21,6 +23,7 @@
     "validator": "^12.1.0"
   },
   "devDependencies": {
+    "eslint-plugin-react": "^7.17.0",
     "chai": "^4.2.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -41,14 +44,14 @@
     "test-filter": "mocha test/test-filter.js -r chai/register-expect",
     "test-spider": "mocha test/test-spider.js -r chai/register-expect",
     "test-server": "mocha test/test-server.js -r chai/register-expect",
-    "test-robots": "mocha test/test-robots.js -r chai/register-expect"
+    "test-robots": "mocha test/test-robots.js -r chai/register-expect",
+    "test-purifier": "mocha test/test-purifier.js -r chai/register-expect"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/saileshbro/cognifeed.git"
   },
   "author": "Sailesh Dahal",
-  "license": "GPL-3.0",
   "private": true,
   "bugs": {
     "url": "https://gitlab.com/saileshbro/cognifeed/issues"

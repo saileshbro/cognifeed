@@ -7,13 +7,13 @@
  * @module src/scraper/spider
  */
 
-const Link = require("./link")
-const requestPromise = require("request-promise-native")
-const pool = require("../database/database")
-const { ErrorHandler } = require("../helpers/error_handler")
+const got = require("got")
 const cheerio = require("cheerio")
 const axios = require("axios").default
+
 const LinksCollection = require("./links-collection")
+const Link = require("./link")
+
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
 /**
@@ -24,7 +24,7 @@ class Spider {
    * Returns a new Spider object with link as parameter.
    * If the links collection of one spider spawned in a url is full,
    * then links collecction field can be added to spawn
-   * @param {Link} link
+   * @param {Link} link - The link object for the site to be traversed
    * @returns {Spider}
    */
   static spawn(link) {
@@ -36,11 +36,16 @@ class Spider {
    */
   async getNewLinks() {
     try {
-      this._html = await requestPromise.get(this._link.resolve())
+      /**
+       * The decompressed HTML string returned by the website
+       * @private
+       * @type {string}
+       */
+      this._html = (await got(this.link.resolve())).body
     } catch (err) {
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
-          "Error fetching new links! Please check the internet connection."
+          "Spider Error! Couldn't fetch new links! Please check the internet connection."
         )
       }
       throw err
@@ -76,6 +81,17 @@ class Spider {
   }
 
   /**
+   * Getter for the html property
+   * @returns {string}
+   */
+  get html() {
+    if (this._html === undefined)
+      throw new Error("Spider Error! html property undefined")
+
+    return this._html
+  }
+
+  /**
    * Saves or returns html from this._link
    * @private
    */
@@ -93,7 +109,7 @@ class Spider {
       )
       console.log(response)
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
     }
   }
 

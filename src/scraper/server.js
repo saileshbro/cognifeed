@@ -7,19 +7,13 @@
  * @module src/scraper/server
  */
 
-/**
- * The Link object
- * @typedef {object} Link
- * @property {string} _baseURL - The base url of the link
- * @property {string} _path = The path slug
- */
-
 const reqProm = require("request-promise-native")
 const Link = require("./link")
 const LinksCollection = require("./links-collection")
 const getOriginalLinks = require("./filter")
 const Spider = require("./spider")
 const { RobotsParser, RobotsCache } = require("./robots")
+const PurifierFactory = require("../purifier/purifier-factory")
 
 /**
  * @class
@@ -100,6 +94,27 @@ class Server {
       // The spider has done its job now,
       // so remove it from the list of active spiders
       this._spiders = this._spiders.filter(s => !s.link.matches(spider.link))
+
+      // Purifier section
+      // Create the right purifier for the current link
+      let purifier
+
+      // Test for purifier spawning errors
+      try {
+        purifier = this._purifierFactory.createPurifier(spider.html, link)
+      } catch (err) {
+        return console.error(err.message)
+      }
+
+      // This is a side-effects method call
+      const article = purifier.purify()
+
+      // Push to database and check for errors
+      try {
+        await purifier.persistPurified(article)
+      } catch (err) {
+        return console.error(err.message)
+      }
     }, 0)
   }
 
@@ -124,10 +139,10 @@ class Server {
     } catch (err) {
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
-          "Error fetching robots.txt! Please check the internet connection."
+          "Robots Error! Couldn't fetch robots.txt! Please check the internet connection."
         )
       }
-      throw new Error("Couldn't fetch robots.txt file")
+      throw new Error("Robots Error! Couldn't fetch robots.txt file")
     }
 
     return robotsTXT
@@ -147,13 +162,17 @@ class Server {
 
       if (robotsParser.isDisallowed(link))
         return reject(
-          new Error(`robots.txt disallows traversing url ${link.resolve()}`)
+          new Error(
+            `Robots Error! robots.txt disallows traversing url ${link.resolve()}`
+          )
         )
 
       try {
         crawlDelay = Number(robotsParser.getCrawlDelay()) * 1000 || 1000
       } catch (_) {
-        return reject(new Error("Crawl delay in robots.txt file not a number"))
+        return reject(
+          new Error("Robots Error! Crawl delay in robots.txt file not a number")
+        )
       }
 
       setTimeout(() => {
@@ -178,6 +197,12 @@ class Server {
      * @type {LinksCollection}
      */
     this._links = LinksCollection.create()
+    /**
+     * The collection robots.txt parsers
+     * @private
+     * @type {RobotsCache[]}
+     */
+    this._robotsCache = new RobotsCache()
 
     /**
      * The collection of all spiders currently visiting a page
@@ -185,12 +210,13 @@ class Server {
      * @type {Spider[]}
      */
     this._spiders = []
+
     /**
-     * The collection robots.txt parsers
+     * The purifier object used to convert HTML text into objects
      * @private
-     * @type {RobotsCache[]}
+     * @type {PurifierFactory}
      */
-    this._robotsCache = new RobotsCache()
+    this._purifierFactory = new PurifierFactory()
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 require("dotenv").config()
 const Link = require("./scraper/link")
 const app = require("express")()

@@ -1,7 +1,6 @@
-const {expect} = require("chai")
+const { expect } = require("chai")
 const Link = require("../src/scraper/link")
 const LinksCollection = require("../src/scraper/links-collection")
-
 
 describe("LinksCollection", function() {
   context("#create()", function() {
