@@ -33,6 +33,7 @@ class Article {
   String tagName;
   int viewCount;
   bool isHidden;
+  bool all;
   bool isSelected;
 
   Article({
@@ -43,6 +44,7 @@ class Article {
     this.imageUrl,
     this.website,
     this.linkUrl,
+    this.all,
     this.isFav,
     this.tagName,
     this.viewCount,
@@ -62,6 +64,7 @@ class Article {
     isHidden = json['is_hidden'] ?? false;
     isSelected = json['is_selected'] ?? false;
     isFav = json['is_fav'] ?? false;
+    all = json['all'] ?? false;
     tagName = json['tag_name'] ?? "TAG";
   }
 
@@ -78,6 +81,7 @@ class Article {
     data['is_selected'] = this.isSelected;
     data['website'] = this.website;
     data['is_fav'] = this.isFav;
+    data['all'] = this.all;
     data['tag_name'] = this.tagName;
     return data;
   }

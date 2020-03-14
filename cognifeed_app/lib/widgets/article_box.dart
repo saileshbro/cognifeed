@@ -4,10 +4,14 @@ import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
+import 'package:cognifeed_app/articles/fav_bloc.dart';
+import 'package:cognifeed_app/articles/fav_event.dart';
 import 'package:cognifeed_app/articles/hide_bloc.dart';
 import 'package:cognifeed_app/articles/hide_event.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
+import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/helpers/getShareText.dart';
+import 'package:cognifeed_app/hidden/hidden_page.dart';
 import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/tags/tags_repository.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
@@ -359,7 +363,21 @@ class _ArticleBoxState extends State<ArticleBox> {
                                                           context)
                                                       .add(
                                                           GetHomePageArticlesEvent());
-                                                } else {
+                                                } else if (ModalRoute.of(
+                                                            context)
+                                                        .settings
+                                                        .name ==
+                                                    FavPage.route) {
+                                                  BlocProvider.of<
+                                                              FavArticlesBloc>(
+                                                          context)
+                                                      .add(
+                                                          GetFavPageArticlesEvent());
+                                                } else if (ModalRoute.of(
+                                                            context)
+                                                        .settings
+                                                        .name ==
+                                                    HiddenPage.route) {
                                                   BlocProvider.of<
                                                               HideArticlesBloc>(
                                                           context)
@@ -398,7 +416,21 @@ class _ArticleBoxState extends State<ArticleBox> {
                                                           context)
                                                       .add(
                                                           GetHomePageArticlesEvent());
-                                                } else {
+                                                } else if (ModalRoute.of(
+                                                            context)
+                                                        .settings
+                                                        .name ==
+                                                    FavPage.route) {
+                                                  BlocProvider.of<
+                                                              FavArticlesBloc>(
+                                                          context)
+                                                      .add(
+                                                          GetFavPageArticlesEvent());
+                                                } else if (ModalRoute.of(
+                                                            context)
+                                                        .settings
+                                                        .name ==
+                                                    HiddenPage.route) {
                                                   BlocProvider.of<
                                                               HideArticlesBloc>(
                                                           context)
