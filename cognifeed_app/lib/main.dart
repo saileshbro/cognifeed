@@ -31,10 +31,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'auth/user_model.dart';
-import 'constants/cognifeed_constants.dart';
-import 'home/home_page.dart';
-import 'profile/profile_page.dart';
+import 'package:cognifeed_app/auth/user_model.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -69,6 +66,7 @@ Future<void> main() async {
     };
   }));
   Cognifeed.pref = await SharedPreferences.getInstance();
+  await Cognifeed.pushNotificationService.initialise();
   Cognifeed.loggedInUser = UserModel(
     email: Cognifeed.pref.getString('email'),
     token: Cognifeed.pref.getString('token'),

@@ -428,6 +428,15 @@ class _ArticleBoxState extends State<ArticleBox> {
                                 GestureDetector(
                                   onTap: Navigator.of(context).pop,
                                   child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: Colors.white.withOpacity(0.8),
+                                          style: BorderStyle.solid,
+                                          width: 1,
+                                        ),
+                                      ),
+                                    ),
                                     padding: EdgeInsets.symmetric(vertical: 16),
                                     child: Text('Close'),
                                   ),

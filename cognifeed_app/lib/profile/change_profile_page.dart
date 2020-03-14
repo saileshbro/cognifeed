@@ -5,6 +5,7 @@ import 'package:cognifeed_app/profile/bloc/profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/uploadImage_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/uploadImage_event.dart';
 import 'package:cognifeed_app/profile/bloc/uploadImage_state.dart';
+import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +47,9 @@ class _ModifyImageState extends State<ModifyImage> {
               'Upload/Change Profile',
               style: TextStyle(
                 fontSize: 22,
-                color: Colors.black,
+                color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                    ? Colors.white
+                    : Colors.black,
               ),
             ),
             SizedBox(
@@ -98,7 +101,9 @@ class _ModifyImageState extends State<ModifyImage> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(13),
-                      color: Colors.white,
+                      color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+                          ? Colors.black.withOpacity(0.5)
+                          : Colors.white,
                     ),
                     height: width * 0.65,
                     width: width * 0.65,
@@ -124,6 +129,11 @@ class _ModifyImageState extends State<ModifyImage> {
                                         .textTheme
                                         .body2
                                         .copyWith(
+                                          color: BlocProvider.of<ThemeBloc>(
+                                                      context)
+                                                  .isDarkTheme
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: 22,
                                           fontWeight: FontWeight.w500,
                                         ),

@@ -1,4 +1,5 @@
 import 'package:cognifeed_app/auth/user_model.dart';
+import 'package:cognifeed_app/pushnotification/push_notification_service.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -154,11 +155,13 @@ class CognifeedTypography {
   );
 }
 
-final String baseUrl = "http://192.168.0.19:3100/api";
+final String baseUrl = "http://192.168.0.7:3300/api";
 
 class Cognifeed {
   static SharedPreferences pref;
   static DrawerPages drawerPages;
   static UserModel loggedInUser;
   static Dio dioClient = new Dio();
+  static PushNotificationService pushNotificationService =
+      PushNotificationService();
 }
