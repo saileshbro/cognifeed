@@ -63,7 +63,7 @@ class LinksCollection {
       return new LinksCollection(this._links.filter((ln, i) => i !== link))
     }
     return new LinksCollection(
-      this._links.filter(ln => ln.resolve() !== link.resolve())
+      this._links.filter(ln => !ln.matches(link))
     )
   }
 

@@ -25,8 +25,9 @@ class Purifier {
     try {
       await axios.post(`${baseUrl}/api/purifier/persist`, article)
     } catch (error) {
-      console.error(error)
-      throw new Error("Purifier Error! Could not persist data to database.")
+      throw new Error(
+        `Purifier Error! Could not persist to database, ${error.message}.`
+      )
     }
   }
 

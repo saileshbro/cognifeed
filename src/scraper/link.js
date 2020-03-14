@@ -26,7 +26,8 @@ class Link {
    * @returns {boolean}
    */
   matches(link) {
-    if (this._baseURL === link.baseURL && this._path === link.path) return true
+    if (!link && this._baseURL === link.baseURL && this._path === link.path)
+      return true
     return false
   }
 
