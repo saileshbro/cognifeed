@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_state.dart';
-
-import '../profile_repository.dart';
+import 'package:cognifeed_app/profile/profile_repository.dart';
 
 class ManagePasswordBloc
     extends Bloc<ManagePasswordEvent, ManagePasswordState> {

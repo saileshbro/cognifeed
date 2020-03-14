@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/profile_state.dart';
@@ -9,8 +10,6 @@ import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-
-import '../constants/cognifeed_constants.dart';
 
 class ProfilePage extends StatefulWidget {
   static final String route = "/profile";

@@ -1,4 +1,4 @@
-import 'package:cognifeed_app/Models/passwordmodel.dart';
+import 'package:cognifeed_app/password_reset/passwordmodel.dart';
 import 'package:meta/meta.dart';
 
 abstract class ManagePasswordEvent {}

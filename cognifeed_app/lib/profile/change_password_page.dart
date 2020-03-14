@@ -1,8 +1,7 @@
-import 'package:cognifeed_app/Models/passwordmodel.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
+import 'package:cognifeed_app/password_reset/passwordmodel.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_state.dart';
@@ -93,6 +92,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
       confirmPasswordController;
   final ChangePassword changePassword = ChangePassword();
   bool currentAutoVal = false, pwAutoVal = false, confPwAutoVal = false;
+
   @override
   void initState() {
     super.initState();

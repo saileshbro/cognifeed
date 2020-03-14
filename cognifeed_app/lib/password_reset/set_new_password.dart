@@ -1,11 +1,10 @@
-import 'package:cognifeed_app/Models/passwordmodel.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
+import 'package:cognifeed_app/password_reset/passwordmodel.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_event.dart';
 import 'package:cognifeed_app/profile/bloc/managepassword_state.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +17,7 @@ class SetPasswordPage extends StatelessWidget {
     Key key,
     @required this.email,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -94,6 +94,7 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
   TextEditingController passwordController, confirmPasswordController;
   final ChangePassword changePassword = ChangePassword();
   bool codeAutoVal = false, pwAutoVal = false, confPwAutoVal = false;
+
   @override
   void initState() {
     super.initState();

@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/tags/tags_model.dart';
 import 'package:meta/meta.dart';
-
-import '../constants/cognifeed_constants.dart';
 
 class TagRepository {
   static Future<TagArray> getTags() async {

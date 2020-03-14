@@ -1,6 +1,7 @@
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/login/login_bloc.dart';
+import 'package:cognifeed_app/misc/loading_indicator.dart';
 import 'package:cognifeed_app/password_reset/forgot_password_page.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
@@ -12,8 +13,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:string_validator/string_validator.dart' as validator;
 
-import '../constants/cognifeed_constants.dart';
-import '../misc/loading_indicator.dart';
 import 'login_events.dart';
 import 'login_states.dart';
 
@@ -39,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
     super.initState();
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar:
-          PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
+      PreferredSize(preferredSize: Size(0, 0), child: SizedBox.shrink()),
       bottomNavigationBar: SizedBox.shrink(),
       body: BlocListener<LoginBloc, LoginState>(
         bloc: BlocProvider.of<LoginBloc>(context),
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                                       });
                                     },
                                     style:
-                                        TextStyle(color: CognifeedColors.teal),
+                                    TextStyle(color: CognifeedColors.teal),
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
                                         prefixIcon: Icon(
@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                             onPressed: () {
                                               setState(() {
                                                 obscurePassword =
-                                                    !obscurePassword;
+                                                !obscurePassword;
                                               });
                                             },
                                           ),
@@ -236,9 +236,9 @@ class _LoginPageState extends State<LoginPage> {
                                           vertical: 8.0),
                                       child: Text(
                                         "Forgot Password?",
-                                        style: CognifeedTypography.textStyle2
+                                        style: CognifeedTypography.medium
                                             .copyWith(
-                                                fontWeight: FontWeight.normal),
+                                            fontWeight: FontWeight.normal),
                                         textAlign: TextAlign.end,
                                       ),
                                     ),
@@ -251,13 +251,14 @@ class _LoginPageState extends State<LoginPage> {
                                   child: FlatButton(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(15)),
+                                        BorderRadius.circular(15)),
                                     child: Text("Log In",
-                                        style: CognifeedTypography.textStyle4
+                                        style: CognifeedTypography.small
                                             .copyWith(
-                                          color: BlocProvider.of<ThemeBloc>(
-                                                      context)
-                                                  .isDarkTheme
+                                          color: BlocProvider
+                                              .of<ThemeBloc>(
+                                              context)
+                                              .isDarkTheme
                                               ? Colors.black
                                               : Colors.white,
                                         )),
@@ -280,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: <Widget>[
                               Text(
                                 "Don't have an account?",
-                                style: CognifeedTypography.textStyle4,
+                                style: CognifeedTypography.small,
                               ),
                               SizedBox(
                                 width: 9,
@@ -292,7 +293,7 @@ class _LoginPageState extends State<LoginPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Text("Sign Up",
-                                      style: CognifeedTypography.textStyle4
+                                      style: CognifeedTypography.small
                                           .copyWith(color: Colors.white)),
                                   onPressed: widget.onChangedScreen,
                                   color: Colors.black,

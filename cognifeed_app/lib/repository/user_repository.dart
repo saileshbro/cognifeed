@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/login/login_response_model.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-
-import '../constants/cognifeed_constants.dart';
+import 'package:meta/meta.dart';
 
 class UserRepository {
   Future<LoginResponseModel> authenticate({

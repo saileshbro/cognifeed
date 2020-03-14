@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
 import 'package:cognifeed_app/profile/bloc/profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/profile_event.dart';
@@ -7,14 +8,12 @@ import 'package:cognifeed_app/profile/bloc/update_profile_bloc.dart';
 import 'package:cognifeed_app/profile/bloc/update_profile_event.dart';
 import 'package:cognifeed_app/profile/bloc/update_profile_state.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
+import 'package:cognifeed_app/profile/change_profile_page.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
 import 'package:cognifeed_app/profile/profile_update_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-
-import '../constants/cognifeed_constants.dart';
-import 'change_profile_page.dart';
 
 class EditProfile extends StatefulWidget {
   final ProfileResponseModel profileResponseModel;

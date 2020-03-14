@@ -1,3 +1,4 @@
+import 'package:cognifeed_app/auth/user_model.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -130,37 +131,17 @@ class CognifeedTheme {
 }
 
 class CognifeedTypography {
-  static TextStyle textStyle2 = TextStyle(
+  static TextStyle medium = TextStyle(
     fontSize: 17,
     fontWeight: FontWeight.bold,
     // color: CognifeedColors.aquaMarine,
   );
-  static TextStyle textStyle4 = TextStyle(
+  static TextStyle small = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
     // color: Colors.white,
   );
-  static TextStyle textStyleOnboardHeading = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w600,
-  );
-  static TextStyle searchBox = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w300,
-  );
-  static TextStyle tags = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.normal,
-  );
-  static TextStyle title = TextStyle(
-    fontSize: 20,
-    letterSpacing: 1,
-    height: 1.2,
-    fontWeight: FontWeight.w600,
-    color: Color(0xff192965),
-  );
-
-  static TextStyle textStyle1 = TextStyle(
+  static TextStyle large = TextStyle(
     fontSize: 24,
   );
   static TextStyle articleTitle = TextStyle(
@@ -180,61 +161,4 @@ class Cognifeed {
   static DrawerPages drawerPages;
   static UserModel loggedInUser;
   static Dio dioClient = new Dio();
-}
-
-class UserModel {
-  int userId;
-  String email;
-  String name;
-  String token;
-  String imageUrl;
-  String phone;
-  String bio;
-  String address;
-  String website;
-  String joinedDate;
-  String about;
-
-  UserModel.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    email = json['email'];
-    name = json['name'];
-    phone = json['phone'];
-    bio = json['bio'];
-    imageUrl = json['image_url'];
-    joinedDate = json['joined_date'];
-    website = json['website'];
-    about = json['about'];
-    address = json['address'];
-    token = json['token'];
-  }
-
-  UserModel({
-    this.email,
-    this.name,
-    this.token,
-    this.imageUrl,
-    this.phone,
-    this.bio,
-    this.address,
-    this.website,
-    this.joinedDate,
-    this.about,
-  });
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['email'] = this.email;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['bio'] = this.bio;
-    data['image_url'] = this.imageUrl;
-    data['website'] = this.website;
-    data['about'] = this.about;
-    data['address'] = this.address;
-    data['joined_date'] = this.joinedDate;
-    data['token'] = this.token;
-    return data;
-  }
 }

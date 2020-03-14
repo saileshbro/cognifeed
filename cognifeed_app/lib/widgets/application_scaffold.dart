@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cognifeed_app/auth/authentication_bloc.dart';
+import 'package:cognifeed_app/auth/authentication_events.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
+import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/settings/settings_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-
-import '../auth/authentication_bloc.dart';
-import '../auth/authentication_events.dart';
-import '../constants/cognifeed_constants.dart';
-import '../home/home_page.dart';
 
 class ApplicationScaffold extends StatefulWidget {
   final Widget child;
@@ -45,7 +44,7 @@ class _ApplicationScaffoldState extends State<ApplicationScaffold> {
         elevation: 0.5,
         title: Text(
           widget.title,
-          style: CognifeedTypography.textStyle1.copyWith(
+          style: CognifeedTypography.large.copyWith(
             color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
                 ? Colors.white
                 : Colors.black,

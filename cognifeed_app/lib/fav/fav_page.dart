@@ -1,12 +1,12 @@
 import 'package:cognifeed_app/articles/fav_bloc.dart';
 import 'package:cognifeed_app/articles/fav_event.dart';
 import 'package:cognifeed_app/articles/fav_state.dart';
-import 'package:cognifeed_app/constants/cognifeed_constants.dart';
-import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/search/search_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
+import 'package:cognifeed_app/widgets/404.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
+import 'package:cognifeed_app/widgets/article_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -76,35 +76,6 @@ class _FavPageState extends State<FavPage> {
               );
             }
           }),
-    );
-  }
-}
-
-class NotFound404 extends StatelessWidget {
-  const NotFound404({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Image.asset(
-            'assets/images/404.png',
-          ),
-          Text(
-            "Not Found !!",
-            style: CognifeedTypography.textStyle1.copyWith(
-              color: CognifeedColors.coralPink,
-            ),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-        ],
-      ),
     );
   }
 }

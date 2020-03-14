@@ -1,19 +1,18 @@
+import 'package:cognifeed_app/auth/authentication_bloc.dart';
+import 'package:cognifeed_app/auth/authentication_states.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/helpers/customValidator.dart';
-import 'package:cognifeed_app/home/onboarding_page.dart';
+import 'package:cognifeed_app/login/login_bloc.dart';
+import 'package:cognifeed_app/login/login_events.dart';
+import 'package:cognifeed_app/login/login_states.dart';
+import 'package:cognifeed_app/misc/loading_indicator.dart';
+import 'package:cognifeed_app/onboarding/onboarding_page.dart';
+import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:string_validator/string_validator.dart' as validator;
-import '../auth/authentication_bloc.dart';
-import '../auth/authentication_states.dart';
-import '../helpers/customValidator.dart';
-import '../login/login_bloc.dart';
-import '../login/login_events.dart';
-import '../login/login_states.dart';
-import '../misc/loading_indicator.dart';
-import '../repository/user_repository.dart';
 
 class SignupPage extends StatefulWidget {
   final UserRepository userRepository;
@@ -22,6 +21,7 @@ class SignupPage extends StatefulWidget {
   const SignupPage(
       {Key key, @required this.userRepository, @required this.onChangedScreen})
       : super(key: key);
+
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -45,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController _nameController;
   TextEditingController _confirmPasswordController;
   GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
     super.initState();
@@ -368,7 +369,7 @@ class _SignupPageState extends State<SignupPage> {
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: Text("Sign Up",
-                                        style: CognifeedTypography.textStyle4
+                                        style: CognifeedTypography.small
                                             .copyWith(color: Colors.white)),
                                     onPressed: () {
                                       if (_formKey.currentState.validate()) {
@@ -389,7 +390,7 @@ class _SignupPageState extends State<SignupPage> {
                             children: <Widget>[
                               Text(
                                 "Already have an account?",
-                                style: CognifeedTypography.textStyle4,
+                                style: CognifeedTypography.small,
                               ),
                               SizedBox(
                                 width: 9,
@@ -401,7 +402,7 @@ class _SignupPageState extends State<SignupPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Text("Log In",
-                                      style: CognifeedTypography.textStyle4
+                                      style: CognifeedTypography.small
                                           .copyWith(color: Colors.white)),
                                   onPressed: widget.onChangedScreen,
                                   color: Colors.black,

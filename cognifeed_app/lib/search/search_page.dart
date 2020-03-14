@@ -1,8 +1,7 @@
-import 'package:cognifeed_app/articles/articles_model.dart';
 import 'package:cognifeed_app/articles/articles_repository.dart';
-import 'package:cognifeed_app/hidden/hidden_page.dart';
-import 'package:cognifeed_app/home/home_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
+import 'package:cognifeed_app/widgets/404.dart';
+import 'package:cognifeed_app/widgets/article_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -11,6 +10,7 @@ class SearchPage extends StatefulWidget {
   final SearchType searchType;
 
   const SearchPage({Key key, @required this.searchType}) : super(key: key);
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -18,6 +18,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController _controller;
   bool shouldCall = false;
+
   @override
   void initState() {
     _controller = TextEditingController();
@@ -31,6 +32,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   String selection = "title";
+
   Future getSearchArticles({String searchBy, String query}) {
     switch (widget.searchType) {
       case SearchType.FAV:

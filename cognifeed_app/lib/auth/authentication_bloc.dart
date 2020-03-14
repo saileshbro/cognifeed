@@ -1,10 +1,11 @@
+import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
+import 'package:cognifeed_app/auth/user_model.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/repository/user_repository.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:meta/meta.dart';
-import 'package:bloc/bloc.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {

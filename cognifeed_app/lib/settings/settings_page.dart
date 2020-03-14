@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
-import 'package:cognifeed_app/home/onboarding_page.dart';
+import 'package:cognifeed_app/onboarding/onboarding_page.dart';
 import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';

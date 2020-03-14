@@ -1,5 +1,4 @@
-import 'package:cognifeed_app/hidden/hidden_page.dart';
-import 'package:cognifeed_app/home/home_page.dart';
+import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/tags/tags_bloc.dart';
 import 'package:cognifeed_app/tags/tags_event.dart';
 import 'package:cognifeed_app/tags/tags_model.dart';
@@ -9,10 +8,10 @@ import 'package:cognifeed_app/widgets/application_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import '../constants/cognifeed_constants.dart';
 
 class OnboardingPage extends StatefulWidget {
   static const String route = '/onboarding';
+
   OnboardingPage({Key key}) : super(key: key);
 
   @override
