@@ -29,7 +29,6 @@ module.exports = {
     "no-console": "off",
     "prettier/prettier": "warn",
     indent: ["error", 2],
-    "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "never"]
   }

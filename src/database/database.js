@@ -24,4 +24,18 @@ pool.getConnection((err, connection) => {
   if (connection) connection.release()
 })
 pool.query = util.promisify(pool.query)
-module.exports = pool
+exports.pool = pool
+exports.tables = {
+  articles: "article",
+  user_tags: "user_tags",
+  tags: "tags",
+  articleTags: "article_tag",
+  selectedTags: "selected_tags",
+  user: "users",
+  favourites: "favourites",
+  profile: "profile",
+  links: "links",
+  hidden: "hidden",
+  websites: "website",
+  tag_website: "tag_website"
+}

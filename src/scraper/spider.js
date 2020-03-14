@@ -9,12 +9,9 @@
 
 const got = require("got")
 const cheerio = require("cheerio")
-const axios = require("axios").default
 
 const LinksCollection = require("./links-collection")
 const Link = require("./link")
-
-const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
 /**
  * @class
@@ -57,7 +54,11 @@ class Spider {
 
       let baseURL = this._link.baseURL
       let path
-      if ($(e).attr("href").startsWith("http")) {
+      if (
+        $(e)
+          .attr("href")
+          .startsWith("http")
+      ) {
         const url = new URL($(e).attr("href"))
         baseURL = url.origin
         path = url.pathname
@@ -89,28 +90,6 @@ class Spider {
       throw new Error("Spider Error! html property undefined")
 
     return this._html
-  }
-
-  /**
-   * Saves or returns html from this._link
-   * @private
-   */
-  async _persistHtml() {
-    console.log(this._html.length)
-
-    try {
-      const payload = {
-        url: this._link.resolve(),
-        html: this._html
-      }
-      const response = await axios.post(
-        `${baseUrl}/api/spider/persist`,
-        payload
-      )
-      console.log(response)
-    } catch (error) {
-      console.error(error.message)
-    }
   }
 
   /**

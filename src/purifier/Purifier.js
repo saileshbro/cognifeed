@@ -1,10 +1,11 @@
+const axios = require("axios")
+const baseUrl = "http://127.0.0.1:" + process.env.PORT
+
 /**
  * Abstract Class to define interface for the Purifier
  * @module src/purifier/Purifier
  */
 
-const axios = require("axios")
-const baseUrl = "http://127.0.0.1:" + process.env.PORT
 const Link = require("../scraper/link")
 const Article = require("./Article")
 
@@ -23,7 +24,7 @@ class Purifier {
    */
   async persistPurified(article) {
     try {
-      await axios.post(`${baseUrl}/api/purifier/persist`, article)
+      await axios.post(`${baseUrl}/api/articles`, article)
     } catch (error) {
       throw new Error(
         `Purifier Error! Could not persist to database, ${error.message}.`
@@ -70,7 +71,7 @@ class Purifier {
      * @type {string} - The url for the extracted image
      * @private
      */
-    this.image_url = "defaultimage.png"
+    this.image_url = "public/images/imagenotfound.png"
     /**
      * @type {string} - The title of the extracted article
      * @private

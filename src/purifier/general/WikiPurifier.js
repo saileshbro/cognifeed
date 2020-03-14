@@ -22,7 +22,11 @@ class WikiPurifier extends Purifier {
       .not("p .mw.empty-elt")
       .text()
       .substr(0, 500)
-    this.image_url = $(".infobox td a img").attr("src")
+    if ($(".infobox td a img").attr("src")) {
+      this.image_url = $(".infobox td a img")
+        .attr("src")
+        .replace("//", "")
+    }
 
     return new Article(
       this.title,

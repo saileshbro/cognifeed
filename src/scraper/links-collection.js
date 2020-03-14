@@ -9,6 +9,11 @@
 
 /**
  * A collection of Link objects
+ * @typedef {Object} Link - The link class
+ */
+
+/**
+ * A collection of links
  * @class
  */
 class LinksCollection {
