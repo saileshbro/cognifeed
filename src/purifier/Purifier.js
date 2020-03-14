@@ -26,7 +26,7 @@ class Purifier {
     try {
       await axios.post(`${baseUrl}/api/articles`, article)
     } catch (error) {
-      console.error(error)
+      console.error(error.message)
       throw new Error("Purifier Error! Could not persist data to database.")
     }
   }
@@ -70,7 +70,7 @@ class Purifier {
      * @type {string} - The url for the extracted image
      * @private
      */
-    this.image_url = "defaultimage.png"
+    this.image_url = "public/images/imagenotfound.png"
     /**
      * @type {string} - The title of the extracted article
      * @private

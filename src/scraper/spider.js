@@ -9,12 +9,9 @@
 
 const got = require("got")
 const cheerio = require("cheerio")
-const axios = require("axios").default
 
 const LinksCollection = require("./links-collection")
 const Link = require("./link")
-
-const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
 /**
  * @class

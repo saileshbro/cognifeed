@@ -38,9 +38,15 @@ module.exports.allArticles = async (req, res, next) => {
           .split(" ")
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(" ")
-      if (article.image_url.contains("imagenotfound.png")) {
+      if (article.image_url.includes("imagenotfound.png")) {
         article.image_url =
           req.protocol + "://" + req.get("host") + "/" + article.image_url
+      }
+      if (
+        !article.image_url.includes("http://") &&
+        !article.image_url.includes("https://")
+      ) {
+        article.image_url = "http://" + article.image_url
       }
     })
     if (articles.length == 0) {
@@ -90,9 +96,15 @@ module.exports.articles = async (req, res, next) => {
           .split(" ")
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(" ")
-      if (article.image_url.contains("imagenotfound.png")) {
+      if (article.image_url.includes("imagenotfound.png")) {
         article.image_url =
           req.protocol + "://" + req.get("host") + "/" + article.image_url
+      }
+      if (
+        !article.image_url.includes("http://") &&
+        !article.image_url.includes("https://")
+      ) {
+        article.image_url = "http://" + article.image_url
       }
     })
     if (articles.length == 0) {
@@ -168,9 +180,15 @@ module.exports.getFav = async (req, res, next) => {
           .split(" ")
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(" ")
-      if (article.image_url.contains("imagenotfound.png")) {
+      if (article.image_url.includes("imagenotfound.png")) {
         article.image_url =
           req.protocol + "://" + req.get("host") + "/" + article.image_url
+      }
+      if (
+        !article.image_url.includes("http://") &&
+        !article.image_url.includes("https://")
+      ) {
+        article.image_url = "http://" + article.image_url
       }
     })
     return res.json({
@@ -217,9 +235,15 @@ module.exports.getHidden = async (req, res, next) => {
           .split(" ")
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(" ")
-      if (article.image_url.contains("imagenotfound.png")) {
+      if (article.image_url.includes("imagenotfound.png")) {
         article.image_url =
           req.protocol + "://" + req.get("host") + "/" + article.image_url
+      }
+      if (
+        !article.image_url.includes("http://") &&
+        !article.image_url.includes("https://")
+      ) {
+        article.image_url = "http://" + article.image_url
       }
     })
     if (articles.length == 0) {
@@ -295,7 +319,6 @@ module.exports.showArticle = async (req, res, next) => {
 }
 
 module.exports.addArticle = async (req, res, next) => {
-  console.log(req.body)
   try {
     const { title, description, image_url, link_url, website } = req.body
     const baseURL = url.parse(link_url).host
@@ -328,7 +351,7 @@ module.exports.addArticle = async (req, res, next) => {
         return res.send({ message: "Added successfully" })
       }
     } else {
-      throw new ErrorHandler(400, "Article already exists")
+      throw new ErrorHandler(409, "Article already exists")
     }
 
     return res.json({
