@@ -36,22 +36,22 @@ app.use((err, req, res, next) => {
 })
 
 //Spider Instantiation.
-;(function startServer(seeds) {
-  let scraperChild
+// ;(function startServer(seeds) {
+//   let scraperChild
 
-  try {
-    scraperChild = fork("start-server.js", {
-      cwd: path.join(__dirname, SCRAPER_DIRECTORY)
-    })
-  } catch (err) {
-    return console.log(err)
-  }
+//   try {
+//     scraperChild = fork("start-server.js", {
+//       cwd: path.join(__dirname, SCRAPER_DIRECTORY)
+//     })
+//   } catch (err) {
+//     return console.log(err)
+//   }
 
-  process.on("SIGINT", () => {
-    scraperChild.kill()
-  })
+//   process.on("SIGINT", () => {
+//     scraperChild.kill()
+//   })
 
-  process.on("SIGTERM", () => {
-    scraperChild.kill()
-  })
-})()
+//   process.on("SIGTERM", () => {
+//     scraperChild.kill()
+//   })
+// })()

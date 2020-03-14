@@ -15,6 +15,10 @@ router.delete(
 router.post("/articles/:article_id/hide", auth, articleController.hideArticle)
 router.post("/articles/:article_id/show", auth, articleController.showArticle)
 router.post("/articles", articleController.addArticle)
-router.get("/articles/:article_id", auth, articleController.showArticle)
+router.get(
+  "/articles/:article_id/increment",
+  auth,
+  articleController.incrementView
+)
 
 module.exports = router

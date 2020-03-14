@@ -118,8 +118,9 @@ module.exports.articles = async (req, res, next) => {
   }
 }
 
-module.exports.showArticle = async (req, res, next) => {
+module.exports.incrementView = async (req, res, next) => {
   try {
+    console.log("hit")
     const article_id = req.params.article_id
     const article = await pool.query(
       `SELECT * FROM ${tables.articles} where article_id=?`,
