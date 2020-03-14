@@ -19,7 +19,6 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "robots-parser": "^2.1.1",
-    "util": "^0.12.1",
     "validator": "^12.1.0"
   },
   "devDependencies": {
@@ -39,6 +38,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app",
+    "test": "mocha test/test.js -r chai/register-expect",
     "test-link": "mocha test/test-link.js -r chai/register-expect",
     "test-links-collection": "mocha test/test-links-collection.js -r chai/register-expect",
     "test-filter": "mocha test/test-filter.js -r chai/register-expect",

@@ -76,7 +76,7 @@ class LinksCollection {
     if (this.size === 0) return false
 
     for (let ln of this._links) {
-      if (link.resolve() === ln.resolve()) return true
+      return link.matches(ln)
     }
     return false
   }
@@ -100,6 +100,9 @@ class LinksCollection {
     this._links = [...links]
   }
 
+  /**
+   * The iterator interface specifier for LinksCollection
+   */
   [Symbol.iterator]() {
     return new LinksCollectionIterator(this._links)
   }
