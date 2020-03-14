@@ -1,6 +1,6 @@
 "use strict"
 
-const targetTime = new Date(2020, 2, 14, 16, 17)
+const targetTime = new Date(2020, 2, 14, 21, 19)
 
 setInterval(() => {
   const now = new Date()
@@ -8,5 +8,5 @@ setInterval(() => {
     now.getHours() === targetTime.getHours() &&
     now.getMinutes() === targetTime.getMinutes()
   )
-    console.log("It is 4:15 PM")
+    console.log("It is 9:13 PM")
 }, 60000)
