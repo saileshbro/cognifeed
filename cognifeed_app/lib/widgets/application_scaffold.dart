@@ -175,7 +175,7 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
               leading: Container(
                 padding: EdgeInsets.all(12),
                 child: Icon(
-                  Icons.note,
+                  Feather.file,
                   size: 18,
                 ),
               ),
