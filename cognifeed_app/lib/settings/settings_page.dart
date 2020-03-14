@@ -7,6 +7,7 @@ import 'package:cognifeed_app/profile/change_password_page.dart';
 import 'package:cognifeed_app/profile/edit_profile.dart';
 import 'package:cognifeed_app/profile/profile_page.dart';
 import 'package:cognifeed_app/profile/profile_response_model.dart';
+import 'package:cognifeed_app/pushnotification/notification_repository.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
 import 'package:cognifeed_app/widgets/application_scaffold.dart';
@@ -25,7 +26,28 @@ class _SettingsPageState extends State<SettingsPage> {
   TimeOfDay _time = TimeOfDay.now();
   TimeOfDay newTime;
   bool isTagsEnabled = false;
-  bool isTimerEnabled = false;
+  bool status = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getstatus();
+  }
+
+  void getstatus() async {
+    try {
+      var response = await NotificationRepository.status();
+      status = response.data['status'] == 1;
+
+      _time = TimeOfDay(
+        hour: int.parse(response.data['hour'], radix: 10),
+        minute: int.parse(response.data['minute'], radix: 10),
+      );
+      setState(() {});
+    } catch (e) {
+      status = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -251,11 +273,22 @@ class _SettingsPageState extends State<SettingsPage> {
                         SwitchListTile(
                           activeColor: Color(0xffff5a5f),
                           contentPadding: const EdgeInsets.all(0),
-                          value: isTimerEnabled,
+                          value: status,
                           title: Text("Receive notification"),
-                          onChanged: (val) {
-                            setState(() {
-                              isTimerEnabled = !isTimerEnabled;
+                          onChanged: (val) async {
+                            await NotificationRepository.toggle().then((resp) {
+                              setState(() {
+                                status = !status;
+                              });
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: resp.body['message'],
+                                backgroundColor: Colors.green,
+                              ));
+                            }).catchError((err) {
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: err.body['error'],
+                                backgroundColor: Colors.red,
+                              ));
                             });
                           },
                         ),
@@ -266,11 +299,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             IconButton(
                                 icon: Icon(
                                   FontAwesome5Solid.clock,
-                                  color: !isTimerEnabled
-                                      ? Colors.grey
-                                      : Color(0xffff5a5f),
+                                  color:
+                                      !status ? Colors.grey : Color(0xffff5a5f),
                                 ),
-                                onPressed: !isTimerEnabled
+                                onPressed: !status
                                     ? null
                                     : () async {
                                         newTime = await showTimePicker(
@@ -280,6 +312,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         setState(() {
                                           if (newTime is TimeOfDay)
                                             _time = newTime;
+                                          NotificationRepository.setTime(
+                                              time: newTime);
                                         });
                                       }),
                           ],
