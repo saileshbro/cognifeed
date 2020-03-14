@@ -1,12 +1,13 @@
 const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
+const url = require("url")
 module.exports.articles = async (req, res, next) => {
   const { searchby, query } = req.query
   let articles
   console.log(req.query)
 
   try {
-    if (!searchby) {
+    if (!searchby || searchby == "") {
       articles = await pool.query(
         `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
         [req.user.user_id, req.user.user_id]
@@ -83,7 +84,7 @@ module.exports.getFav = async (req, res, next) => {
   const { searchby, query } = req.query
   let articles
   try {
-    if (!searchby) {
+    if (!searchby || searchby == "") {
       articles = await pool.query(
         `SELECT DISTINCT article_id,title,description,website,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
         [req.user.user_id, req.user.user_id]
@@ -138,26 +139,26 @@ module.exports.getHidden = async (req, res, next) => {
   console.log(req.query)
   let articles
   try {
-    if (!searchby) {
+    if (!searchby || searchby == "") {
       articles = await pool.query(
-        `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-        [req.user.user_id, req.user.user_id]
+        `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
+        [req.user.user_id, req.user.user_id, req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND title LIKE ?`,
-          [req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND title LIKE ?`,
+          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND website LIKE ?`,
-          [req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND website LIKE ?`,
+          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) LEFT JOIN ${tables.articleTags} USING(article_id) LEFT JOIN ${tables.tags} USING(tag_id) WHERE tag_name LIKE ? AND article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-          [req.user.user_id, "%" + query + "%", req.user.user_id]
+          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) LEFT JOIN ${tables.articleTags} USING(article_id) LEFT JOIN ${tables.tags} USING(tag_id) WHERE ${tables.favourites}.user_id=? AND tag_name LIKE ? AND article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
+          [req.user.user_id, req.user.user_id, "%" + query + "%", req.user.user_id]
         )
       }
     }
@@ -252,17 +253,30 @@ module.exports.showArticle = async (req, res, next) => {
 }
 
 module.exports.addArticle = async (req, res, next) => {
-  // TODO add to article tag
   try {
     const { title, description, image_url, link_url, website } = req.body
+    const baseURL = url.parse(link_url).host
+
+    const tagForLink = await pool.query(
+      `SELECT distinct * FROM ${tables.tag_website} JOIN ${tables.websites} USING(website_id) WHERE link_url LIKE ?`,
+      [`%${baseURL}%`]
+    )
+    const tagId = tagForLink[0].tag_id || 10
     const article = await pool.query(`SELECT article_id FROM ${tables.articles} WHERE link_url=?`, [
       link_url
     ])
     if (article.length == 0) {
-      await pool.query(
+      const insert = await pool.query(
         `INSERT INTO ${tables.articles} SET title=?,description=?,image_url=?,link_url=?,website=?`,
         [title, description, image_url, link_url, website]
       )
+      if (insert.insertId) {
+        await pool.query(`INSERT INTO ${tables.articleTags} SET article_id=?,tag_id=?`, [
+          insert.insertId,
+          tagId
+        ])
+        return res.send({ message: "Added successfully" })
+      }
     } else {
       throw new ErrorHandler(400, "Article already exists")
     }
