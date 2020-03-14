@@ -8,8 +8,14 @@ const bodyParser = require("body-parser")
 // Modules required for scraper
 const { fork } = require("child_process")
 const path = require("path")
+
 // CONSTANTS for scraper
-const SCRAPER_DIRECTORY = "scraper"
+const SCRAPER_DIR = "./scraper"
+const HELPERS_DIR = "./helpers"
+
+// Exit codes for signals
+const EXIT_INT = 130
+const EXIT_TERM = 143
 
 const { errorHandler } = require("./helpers/error_handler")
 const express = require("express")
@@ -36,23 +42,46 @@ app.use((err, req, res, next) => {
   errorHandler(err, res)
 })
 
-//Spider Instantiation.
-// ;(function startServer(seeds) {
+// Fork out a child process to start-up the scraper
+// ;(function startServer() {
 //   let scraperChild
-
+//
 //   try {
 //     scraperChild = fork("start-server.js", {
-//       cwd: path.join(__dirname, SCRAPER_DIRECTORY)
+//       cwd: path.join(__dirname, SCRAPER_DIR)
 //     })
 //   } catch (err) {
-//     return console.log(err)
+//     return console.error(err)
 //   }
-
+//
 //   process.on("SIGINT", () => {
 //     scraperChild.kill()
+//     process.exit(EXIT_INT)
 //   })
-
 //   process.on("SIGTERM", () => {
 //     scraperChild.kill()
+//     process.exit(EXIT_TERM)
 //   })
 // })()
+
+// Start the child process for the notification daemon
+;(function startNoficationTimer() {
+  let timerChild
+
+  try {
+    timerChild = fork("timer.js", {
+      cwd: path.join(__dirname, HELPERS_DIR)
+    })
+  } catch (err) {
+    return console.error(err)
+  }
+
+  process.on("SIGINT", () => {
+    timerChild.kill()
+    process.exit(EXIT_INT)
+  })
+  process.on("SIGTERM", () => {
+    timerChild.kill()
+    process.exit(EXIT_TERM)
+  })
+})()
