@@ -193,7 +193,7 @@ class _ArticleBoxState extends State<ArticleBox> {
                     width: 10,
                   ),
                   Text(
-                    "Website",
+                    this.widget.article.website,
                     style:
                         CognifeedTypography.textStyle2.copyWith(fontSize: 14),
                   )

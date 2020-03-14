@@ -28,6 +28,7 @@ class Article {
   String description;
   String imageUrl;
   String linkUrl;
+  String website;
   bool isFav;
   String tagName;
   int viewCount;
@@ -40,6 +41,7 @@ class Article {
     this.title,
     this.description,
     this.imageUrl,
+    this.website,
     this.linkUrl,
     this.isFav,
     this.tagName,
@@ -56,6 +58,7 @@ class Article {
     imageUrl = json['image_url'];
     linkUrl = json['link_url'];
     viewCount = json['view_count'];
+    website = json['website'] != "" ? json['website'] : 'Website';
     isHidden = json['is_hidden'] ?? false;
     isSelected = json['is_selected'] ?? false;
     isFav = json['is_fav'] ?? false;
@@ -73,6 +76,7 @@ class Article {
     data['view_count'] = this.viewCount;
     data['is_hidden'] = this.isHidden;
     data['is_selected'] = this.isSelected;
+    data['website'] = this.website;
     data['is_fav'] = this.isFav;
     data['tag_name'] = this.tagName;
     return data;
