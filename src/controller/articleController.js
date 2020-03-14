@@ -1,52 +1,39 @@
 const { pool, tables } = require("../database/database")
 const { ErrorHandler } = require("../helpers/error_handler")
 const url = require("url")
-module.exports.articles = async (req, res, next) => {
+module.exports.allArticles = async (req, res, next) => {
   const { searchby, query } = req.query
   let articles
   console.log(req.query)
 
   try {
-    if (!searchby || searchby == "") {
-      console.log(searchby)
+    if (!searchby) {
       articles = await pool.query(
-        `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id)  WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-        [req.user.user_id, req.user.user_id, req.user.user_id]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id)`
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND title LIKE ?`,
-          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title LIKE ?`,
+          [`%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND website LIKE ?`,
-          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE website LIKE ?`,
+          [`%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) LEFT JOIN ${tables.articleTags} USING(article_id) LEFT JOIN ${tables.tags} USING(tag_id) WHERE tag_name LIKE ? AND ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-          [req.user.user_id, "%" + query + "%", req.user.user_id, req.user.user_id]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE tag_name LIKE ?`,
+          [`%${query}%`]
         )
       }
     }
 
-    const result2 = await pool.query(
-      `select DISTINCT * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
-      [req.user.user_id]
-    )
-    for (let i = 0; i < result2.length; i++) {
-      for (let j = 0; j < articles.length; j++) {
-        if (result2[i].article_id === articles[j].article_id) {
-          articles[j].tag_name = result2[i].tag_name
-          articles[j].tag_id = result2[i].tag_id
-          articles[j].is_selected = result2[i].user_id == req.user.user_id
-        }
-      }
-    }
     articles.forEach(article => {
-      article.is_fav = article.is_fav == 1
+      article.is_fav = false
+      article.is_selected = article.user_id == req.user.user_id
+      article.all = true
       if (article.tag_name)
         article.tag_name = article.tag_name
           .split(" ")
@@ -56,7 +43,55 @@ module.exports.articles = async (req, res, next) => {
     if (articles.length == 0) {
       throw new ErrorHandler(404, "articles not found")
     }
-    console.log(articles)
+    return res.json({
+      articles
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+module.exports.articles = async (req, res, next) => {
+  const { searchby, query } = req.query
+  let articles
+  console.log(req.query)
+
+  try {
+    if (!searchby) {
+      articles = await pool.query(
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
+        [req.user.user_id]
+      )
+    } else {
+      if (searchby == "title") {
+        articles = await pool.query(
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          [req.user.user_id, `%${query}%`]
+        )
+      } else if (searchby == "website") {
+        articles = await pool.query(
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          [req.user.user_id, `%${query}%`]
+        )
+      } else if (searchby == "tag") {
+        articles = await pool.query(
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag LIKE ?`,
+          [req.user.user_id, `%${query}%`]
+        )
+      }
+    }
+
+    articles.forEach(article => {
+      article.is_fav = false
+      article.is_selected = true
+      if (article.tag_name)
+        article.tag_name = article.tag_name
+          .split(" ")
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(" ")
+    })
+    if (articles.length == 0) {
+      throw new ErrorHandler(404, "articles not found")
+    }
     return res.json({
       articles
     })
@@ -91,40 +126,27 @@ module.exports.getFav = async (req, res, next) => {
   const { searchby, query } = req.query
   let articles
   try {
-    if (!searchby || searchby == "") {
+    if (!searchby) {
       articles = await pool.query(
-        `SELECT DISTINCT article_id,title,description,website,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-        [req.user.user_id, req.user.user_id]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
+        [req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,description,website,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND title LIKE ?`,
-          [req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,description,website,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) WHERE ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND website LIKE ?`,
-          [req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,description,website,image_url,link_url,view_count FROM ${tables.articles} join ${tables.favourites} using(article_id) LEFT JOIN ${tables.articleTags} USING(article_id) LEFT JOIN ${tables.tags} USING(tag_id) WHERE tag_name LIKE ? AND ${tables.favourites}.user_id=? AND article_id NOT IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) `,
-          ["%" + query + "%", req.user.user_id, req.user.user_id]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
-      }
-    }
-    const result2 = await pool.query(
-      `select DISTINCT * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
-      [req.user.user_id]
-    )
-    for (let i = 0; i < result2.length; i++) {
-      for (let j = 0; j < articles.length; j++) {
-        if (result2[i].article_id === articles[j].article_id) {
-          articles[j].tag_name = result2[i].tag_name
-          articles[j].tag_id = result2[i].tag_id
-          articles[j].is_selected = result2[i].user_id == req.user.user_id
-        }
       }
     }
     if (articles.length == 0) {
@@ -132,6 +154,7 @@ module.exports.getFav = async (req, res, next) => {
     }
     articles.forEach(article => {
       article.is_fav = true
+      article.is_selected = true
       if (article.tag_name)
         article.tag_name = article.tag_name
           .split(" ")
@@ -146,51 +169,37 @@ module.exports.getFav = async (req, res, next) => {
   }
 }
 module.exports.getHidden = async (req, res, next) => {
-  // SELECT DISTINCT article_id,title,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)
   const { searchby, query } = req.query
   console.log(req.query)
   let articles
   try {
-    if (!searchby || searchby == "") {
+    if (!searchby) {
       articles = await pool.query(
-        `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-        [req.user.user_id, req.user.user_id, req.user.user_id]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden})`,
+        [req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND title LIKE ?`,
-          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) WHERE ${tables.favourites}.user_id=? AND article_id IN (SELECT DISTINCT article_id FROM ${tables.hidden} WHERE user_id=?) AND website LIKE ?`,
-          [req.user.user_id, req.user.user_id, req.user.user_id, "%" + query + "%"]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT DISTINCT article_id,title,website,description,image_url,link_url,view_count,STRCMP(${tables.favourites}.user_id,?)+1 AS is_fav FROM ${tables.articles} LEFT JOIN ${tables.favourites} USING(article_id) LEFT JOIN ${tables.articleTags} USING(article_id) LEFT JOIN ${tables.tags} USING(tag_id) WHERE ${tables.favourites}.user_id=? AND tag_name LIKE ? AND article_id IN (SELECT article_id FROM ${tables.hidden} WHERE user_id=?)`,
-          [req.user.user_id, req.user.user_id, "%" + query + "%", req.user.user_id]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND tag LIKE ?`,
+          [req.user.user_id, `%${query}%`]
         )
       }
     }
-
-    const result2 = await pool.query(
-      `select * from ${tables.articles} left join ${tables.articleTags}  using(article_id) left join ${tables.tags} using(tag_id) left join ${tables.user_tags} using(tag_id)`,
-      [req.user.user_id]
-    )
-    for (let i = 0; i < result2.length; i++) {
-      for (let j = 0; j < articles.length; j++) {
-        if (result2[i].article_id === articles[j].article_id) {
-          articles[j].tag_name = result2[i].tag_name
-          articles[j].tag_id = result2[i].tag_id
-          articles[j].is_selected = result2[i].user_id == req.user.user_id
-        }
-      }
-    }
     articles.forEach(article => {
-      article.is_fav = article.is_fav == 1
+      article.is_fav = false
       article.is_hidden = true
+      article.is_selected = true
       if (article.tag_name)
         article.tag_name = article.tag_name
           .split(" ")

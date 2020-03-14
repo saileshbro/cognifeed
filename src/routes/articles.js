@@ -3,6 +3,7 @@ const articleController = require("../controller/articleController")
 const auth = require("../middlewares/auth")
 
 router.get("/articles/fav", auth, articleController.getFav)
+router.get("/articles/all", auth, articleController.allArticles)
 router.get("/articles/hidden", auth, articleController.getHidden)
 router.get("/articles", auth, articleController.articles)
 router.post("/articles/:article_id/add_fav", auth, articleController.setFav)
