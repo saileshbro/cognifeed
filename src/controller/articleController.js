@@ -252,15 +252,16 @@ module.exports.showArticle = async (req, res, next) => {
 }
 
 module.exports.addArticle = async (req, res, next) => {
+  // TODO add to article tag
   try {
-    const { title, description, image_url, link_url } = req.body
+    const { title, description, image_url, link_url, website } = req.body
     const article = await pool.query(`SELECT article_id FROM ${tables.articles} WHERE link_url=?`, [
       link_url
     ])
     if (article.length == 0) {
       await pool.query(
-        `INSERT INTO ${tables.articles} SET title=?,description=?,image_url=?,link_url=?`,
-        [title, description, image_url, link_url]
+        `INSERT INTO ${tables.articles} SET title=?,description=?,image_url=?,link_url=?,website=?`,
+        [title, description, image_url, link_url, website]
       )
     } else {
       throw new ErrorHandler(400, "Article already exists")

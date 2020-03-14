@@ -3,7 +3,14 @@ const { ErrorHandler } = require("../helpers/error_handler.js")
 module.exports.addTag = async (req, res, next) => {
   const { tag_id } = req.params
   try {
-    await pool.query(`INSERT IGNORE INTO ${tables.user_tags} SET tag_id=?,user_id=?`, [
+    const exists = await pool.query(
+      `SELECT * FROM ${tables.user_tags} WHERE tag_id=? AND user_id=?`,
+      [tag_id, req.user.user_id]
+    )
+    if (exists.length > 0) {
+      return res.status(400).json({ error: "Tag already exists" })
+    }
+    await pool.query(`INSERT INTO ${tables.user_tags} SET tag_id=?,user_id=?`, [
       tag_id,
       req.user.user_id
     ])
@@ -118,8 +125,15 @@ exports.addTagToWebsite = async (req, res, next) => {
         [website.toLowerCase()]
       )
       if (website_id.length > 0) {
+        const ifExists = await pool.query(
+          `SELECT * FROM ${tables.tag_website} WHERE tag_id=? AND website_id=?`,
+          [tag_id[0].tag_id, website_id[0].website_id]
+        )
+        if (ifExists.length > 0) {
+          return res.status(400).json({ error: "Tag and website already associated!" })
+        }
         const result = await pool.query(
-          `INSERT IGNORE INTO ${tables.tag_website} SET tag_id=?,website_id=?`,
+          `INSERT INTO ${tables.tag_website} SET tag_id=?,website_id=?`,
           [tag_id[0].tag_id, website_id[0].website_id]
         )
         if (result) {
