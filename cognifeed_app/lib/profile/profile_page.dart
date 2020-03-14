@@ -185,7 +185,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Text(state.profileResponseModel.email),
                                   leading: Icon(
                                     FontAwesome.envelope_o,
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                                 ListTile(
@@ -194,7 +197,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Text(state.profileResponseModel.phone),
                                   leading: Icon(
                                     Feather.phone,
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                                 ListTile(
@@ -204,7 +210,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                           "Add your website."),
                                   leading: Icon(
                                     Icons.web_asset,
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                                 ListTile(
@@ -214,7 +223,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                           "Write about you."),
                                   leading: Icon(
                                     Feather.user_plus,
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                                 ListTile(
@@ -223,7 +235,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       state.profileResponseModel.joinedDate),
                                   leading: Icon(
                                     Feather.calendar,
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeBloc>(context)
+                                            .isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                               ],

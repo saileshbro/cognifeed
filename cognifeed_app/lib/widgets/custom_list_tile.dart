@@ -16,14 +16,9 @@ class CustomListTile extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Colors.grey[200].withOpacity(0.2), width: 1)),
-          color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
-              ? Color(0xff212121)
-              : Colors.white,
-        ),
+        color: BlocProvider.of<ThemeBloc>(context).isDarkTheme
+            ? Color(0xff212121)
+            : Colors.white,
         padding: EdgeInsets.symmetric(
           vertical: 16,
         ),
