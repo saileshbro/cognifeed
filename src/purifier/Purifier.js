@@ -1,10 +1,11 @@
+const axios = require("axios")
+const baseUrl = "http://127.0.0.1:" + process.env.PORT
+
 /**
  * Abstract Class to define interface for the Purifier
  * @module src/purifier/Purifier
  */
 
-const axios = require("axios")
-const baseUrl = "http://127.0.0.1:" + process.env.PORT
 const Link = require("../scraper/link")
 const Article = require("./Article")
 
@@ -23,7 +24,7 @@ class Purifier {
    */
   async persistPurified(article) {
     try {
-      await axios.post(`${baseUrl}/api/purifier/persist`, article)
+      await axios.post(`${baseUrl}/api/articles`, article)
     } catch (error) {
       console.error(error)
       throw new Error("Purifier Error! Could not persist data to database.")
