@@ -3,7 +3,7 @@
 const Link = require("./link")
 const Server = require("./server")
 
-const url = "127.0.0.1:3300/api/websites"
+const url = `http://127.0.0.1:${process.env.PORT}/api/websites`
 const scraperServer = new Server()
 
 let seeds = []
