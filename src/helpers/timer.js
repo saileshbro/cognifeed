@@ -1,5 +1,3 @@
-"use strict"
-
 const targetTime = new Date(2020, 2, 14, 21, 19)
 
 setInterval(() => {
