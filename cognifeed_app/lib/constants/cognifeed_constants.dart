@@ -155,7 +155,7 @@ class CognifeedTypography {
   );
 }
 
-final String baseUrl = "http://192.168.0.2:3100/api";
+final String baseUrl = "http://192.168.0.6:3100/api";
 
 class Cognifeed {
   static SharedPreferences pref;

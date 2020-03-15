@@ -1,8 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
-import 'package:cognifeed_app/all_articles/all_articles_page.dart';
-import 'package:cognifeed_app/articles/all_articles_bloc.dart';
-import 'package:cognifeed_app/articles/all_articles_event.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
@@ -57,15 +54,17 @@ class _ArticleBoxState extends State<ArticleBox> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => FullArticlePage(
-                    article: widget.article,
-                  ),
-                ),
-              );
-            },
+            onTap: ModalRoute.of(context).settings.name == HiddenPage.route
+                ? null
+                : () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => FullArticlePage(
+                          article: widget.article,
+                        ),
+                      ),
+                    );
+                  },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
