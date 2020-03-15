@@ -7,8 +7,8 @@ const Server = require("./server")
 const EXIT_INT = 130
 const EXIT_TERM = 143
 
-const url = "127.0.0.1:3300/api/websites"
-const testURL = "https://my-json-server.typicode.com/2goodAP/fake-json/websites"
+const url = "http://127.0.0.1:3300/api/websites"
+// const testURL = "https://my-json-server.typicode.com/2goodAP/fake-json/websites"
 const scraperServer = new Server()
 
 process.on("SIGTERM", stopServer)
@@ -25,7 +25,7 @@ function stopServer(signal) {
   process.exit(ecode)
 }
 
-require("request-promise-native")(testURL)
+require("request-promise-native")(url)
   .then(res => {
     let links
 
