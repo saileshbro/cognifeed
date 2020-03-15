@@ -65,23 +65,23 @@ app.use((err, req, res, next) => {
 })()
 
 // Start the child process for the notification daemon
-// ;(function startNoficationTimer() {
-//   let timerChild
+;(function startNoficationTimer() {
+  let timerChild
 
-//   try {
-//     timerChild = fork("timer.js", {
-//       cwd: path.join(__dirname, HELPERS_DIR)
-//     })
-//   } catch (err) {
-//     return console.error(err)
-//   }
+  try {
+    timerChild = fork("timer.js", {
+      cwd: path.join(__dirname, HELPERS_DIR)
+    })
+  } catch (err) {
+    return console.error(err)
+  }
 
-//   process.on("SIGINT", () => {
-//     timerChild.kill()
-//     process.exit(EXIT_INT)
-//   })
-//   process.on("SIGTERM", () => {
-//     timerChild.kill()
-//     process.exit(EXIT_TERM)
-//   })
-// })()
+  process.on("SIGINT", () => {
+    timerChild.kill()
+    process.exit(EXIT_INT)
+  })
+  process.on("SIGTERM", () => {
+    timerChild.kill()
+    process.exit(EXIT_TERM)
+  })
+})()
