@@ -52,7 +52,7 @@ class LinksCollection {
    * @param {Link|Link[]} links - A Link object or an array of Link objects
    * @returns {LinksCollection} - A new LinkCollcetion
    */
-  addLinks(...links) {
+  addLinks(links) {
     return new LinksCollection(this._links.concat(links))
   }
 
@@ -81,7 +81,7 @@ class LinksCollection {
     if (this.size === 0) return false
 
     for (let ln of this._links) {
-      return link.matches(ln)
+      return ln.matches(link)
     }
     return false
   }
