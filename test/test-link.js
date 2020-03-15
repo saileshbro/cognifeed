@@ -29,9 +29,9 @@ describe("Link", function() {
   })
 
   context("#matches", function() {
-    let link1 = new Link("https://en.wikipedia.org")
-    let link2 = new Link("https://en.wikipedia.org")
-    let link3 = new Link("https://en.wikipedia.org", "/wiki/php")
+    let link1 = new Link("https://www.npmjs.com", "/package/request")
+    let link2 = new Link("https://www.npmjs.com", "/package/request")
+    let link3 = new Link("https://en.wikipedia.org")
     it("should return true", function() {
       expect(link1.matches(link2)).to.be.true
     })

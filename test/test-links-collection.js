@@ -33,9 +33,24 @@ describe("LinksCollection", function() {
   })
 
   context("#addLinks", function() {
-    let links = LinksCollection.create()
-    it("should add a new link object to linksCollection", function() {
-      links.addLinks(new Link("https://wikipedia.org"))._links.forEach(link => {
+    let links = [
+      new Link("https://vim.org", "/about"),
+      new Link("https://espn.in"),
+      new Link("https://nodejs.org", "/download")
+    ]
+    let linksCollection = LinksCollection.create()
+
+    it("should add a new link object to collection", function() {
+      linksCollection
+        .addLinks(new Link("https://wikipedia.org"))
+        ._links.forEach(link => {
+          expect(link.baseURL).to.be.a("string")
+          expect(link.path).to.be.a("string")
+        })
+    })
+
+    it("should add an array of links to collection", function() {
+      linksCollection.addLinks(links)._links.forEach(link => {
         expect(link.baseURL).to.be.a("string")
         expect(link.path).to.be.a("string")
       })
@@ -56,8 +71,9 @@ describe("LinksCollection", function() {
 
   context("#hasLink", function() {
     let links = LinksCollection.create()
+    const link = new Link("https://medium.com")
+
     it("should return true", function() {
-      const link = new Link("https://medium.com")
       links = links.addLinks(link)
       expect(links.hasLink(link)).to.be.true
     })

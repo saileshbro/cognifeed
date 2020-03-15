@@ -7,7 +7,6 @@
  * @module src/scraper/server
  */
 
-const reqProm = require("request-promise-native")
 const Link = require("./link")
 const LinksCollection = require("./links-collection")
 const getOriginalLinks = require("./filter")
@@ -22,7 +21,7 @@ class Server {
   /**
    * Start the spider-spawning server
    * This method is asynchronous and doesn't return any value
-   * @param {Link[]} seeds - The seed links to start the server with
+   * @param {Link|Link[]} seeds - The seed links to start the server with
    */
   start(seeds) {
     // Add initial seed links to the state
@@ -54,8 +53,16 @@ class Server {
         } catch (err) {
           // Exit if no more links to traverse
           console.error(err.message)
-          if (this._links.size === 0) process.exit(2)
-          return
+          if (
+            err.message.includes("ENOENT") ||
+            err.message.includes("ENOTFOUND")
+          ) {
+            this._links = this._links.addLinks(link)
+            return
+          }
+
+          console.log("Setting up default robots.txt")
+          robotsTXT = "User-agent: *\nAllow: /"
         }
 
         // Update cache with new robots.txt
@@ -69,7 +76,7 @@ class Server {
       } catch (err) {
         // Exit if no more links to traverse
         console.error(err.message)
-        if (this._links.size === 0) process.exit(2)
+        if (this._canExit()) process.exit(2)
         return
       }
 
@@ -126,6 +133,16 @@ class Server {
   }
 
   /**
+   * Checks if the server can safely exit
+   * @returns {boolean}
+   * @private
+   */
+  _canExit() {
+    if (this._spiders.length === 0 && this._links.size === 0) return true
+    return false
+  }
+
+  /**
    * This method spawns a new spider to visit given link
    * @param {Link} url - The seed link to get robots.txt for
    * @returns {Promise<string>} - Promise object represents the robots string
@@ -135,14 +152,18 @@ class Server {
     let robotsTXT
 
     try {
-      robotsTXT = await reqProm(new Link(url.baseURL, "robots.txt").resolve())
+      robotsTXT = await require("request-promise-native")(
+        new Link(url.baseURL, "robots.txt").resolve()
+      )
     } catch (err) {
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
-          "Robots Error! Couldn't fetch robots.txt! Please check the internet connection."
+          `Robots Error! ${err.code}: Couldn't fetch robots.txt for ${url.resolve()}! Please check the internet connection.`
         )
       }
-      throw new Error("Robots Error! Couldn't fetch robots.txt file")
+      throw new Error(
+        `Robots Error! Couldn't fetch robots.txt for ${url.resolve()}.`
+      )
     }
 
     return robotsTXT
