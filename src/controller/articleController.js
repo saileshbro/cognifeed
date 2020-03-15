@@ -8,22 +8,22 @@ module.exports.allArticles = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id)`
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !=''`
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and title LIKE ?`,
           [`%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE website LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and website LIKE ?`,
           [`%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE tag_name LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and tag_name LIKE ?`,
           [`%${query}%`]
         )
       }
@@ -66,23 +66,23 @@ module.exports.articles = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
         [req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       }
@@ -149,23 +149,23 @@ module.exports.getFav = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden})`,
         [req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       }
@@ -205,23 +205,23 @@ module.exports.getHidden = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden})`,
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden})`,
         [req.user.user_id]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?`,
           [req.user.user_id, `%${query}%`]
         )
       }
