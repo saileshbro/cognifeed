@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 14, 2020 at 03:59 PM
+-- Generation Time: Mar 15, 2020 at 05:41 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -60,8 +60,8 @@ INSERT INTO `article` (`article_id`, `title`, `description`, `website`, `image_u
 (137, 'Tcl', 'Tcl (pronounced \"tickle\" or tee cee ell /ˈtiː siː ɛl/[6]) is a high-level, general-purpose, interpreted, dynamic programming language. It was designed with the goal of being very simple but powerful.[7] Tcl casts everything into the mold of a command, even programming constructs like variable assignment and procedure definition.[8] Tcl supports multiple programming paradigms, including object-oriented, imperative and functional programming or procedural styles.\nIt is commonly used embedded into ', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Tcl-powered.svg/70px-Tcl-powered.svg.png', 'https://en.wikipedia.org/wiki/Tcl', 0),
 (138, 'C (programming language)', 'C (/siː/, as in the letter c) is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, while a static type system prevents unintended operations. By design, C provides constructs that map efficiently to typical machine instructions and has found lasting use in applications previously coded in assembly language. Such applications include operating systems and various application software for computers, from supercompu', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/3/35/The_C_Programming_Language_logo.svg/140px-The_C_Programming_Language_logo.svg.png', 'https://en.wikipedia.org/wiki/C_(programming_language)', 0),
 (139, 'C++', '\n\nC++ (/ˌsiːˌplʌsˈplʌs/) is a high-level, general-purpose programming language created by Bjarne Stroustrup as an extension of the C programming language, or \"C with Classes\". The language has expanded significantly over time, and modern C++ has object-oriented, generic, and functional features in addition to facilities for low-level memory manipulation. It is almost always implemented as a compiled language, and many vendors provide C++ compilers, including the Free Software Foundation, LLVM, M', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/150px-ISO_C%2B%2B_Logo.svg.png', 'https://en.wikipedia.org/wiki/C%2B%2B', 0),
-(140, 'Free software', 'Free software or libre software[1][2] is computer software distributed under terms that allow users to run the software for any purpose as well as to study, change, and distribute it and any adapted versions.[3][4][5][6][7] Free software is a matter of liberty, not price: users—individually or in cooperation with computer programmers—are free to do what they want with their copies of a free software (including profiting from them) regardless of how much is paid to obtain the program.[8][2] Compu', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/7/70/Titan_supercomputer_at_the_Oak_Ridge_National_Laboratory.jpg/250px-Titan_supercomputer_at_the_Oak_Ridge_National_Laboratory.jpg', 'https://en.wikipedia.org/wiki/Free_software', 0),
-(141, 'JavaScript', '\nJavaScript (/ˈdʒɑːvəˌskrɪpt/),[6] often abbreviated as JS, is a programming language that conforms to the ECMAScript specification.[7] JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.\nAlongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web.[8] JavaScript enables interactive web pages and is an essential part of web applications. T', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/16px-Wikibooks-logo-en-noslogan.svg.png', 'https://en.wikipedia.org/wiki/JavaScript', 0),
+(140, 'Free software', 'Free software or libre software[1][2] is computer software distributed under terms that allow users to run the software for any purpose as well as to study, change, and distribute it and any adapted versions.[3][4][5][6][7] Free software is a matter of liberty, not price: users—individually or in cooperation with computer programmers—are free to do what they want with their copies of a free software (including profiting from them) regardless of how much is paid to obtain the program.[8][2] Compu', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/7/70/Titan_supercomputer_at_the_Oak_Ridge_National_Laboratory.jpg/250px-Titan_supercomputer_at_the_Oak_Ridge_National_Laboratory.jpg', 'https://en.wikipedia.org/wiki/Free_software', 1),
+(141, 'JavaScript', '\nJavaScript (/ˈdʒɑːvəˌskrɪpt/),[6] often abbreviated as JS, is a programming language that conforms to the ECMAScript specification.[7] JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.\nAlongside HTML and CSS, JavaScript is one of the core technologies of the World Wide Web.[8] JavaScript enables interactive web pages and is an essential part of web applications. T', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikibooks-logo-en-noslogan.svg/16px-Wikibooks-logo-en-noslogan.svg.png', 'https://en.wikipedia.org/wiki/JavaScript', 1),
 (142, 'Perl', '\n\nPerl is a family of two high-level, general-purpose, interpreted, dynamic programming languages. \"Perl\" refers to Perl 5, but from 2000 to 2019 it also referred to its redesigned \"sister language\", Perl 6, before the latter\'s name was officially changed to Raku in October 2019.[8][9]\nThough Perl is not officially an acronym,[10] there are various backronyms in use, including \"Practical Extraction and Reporting Language\".[11] Perl was originally developed by Larry Wall in 1987 as a general-purp', 'Wikipedia', 'upload.wikimedia.org/wikipedia/en/e/e0/Programming-republic-of-perl.png', 'https://en.wikipedia.org/wiki/Perl', 0),
 (143, 'Java (programming language)', '\nJava is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible. It is intended to let application developers write once, run anywhere (WORA),[15] meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.[16] Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architectu', 'Wikipedia', 'upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/141px-Java_programming_language_logo.svg.png', 'https://en.wikipedia.org/wiki/Java_(programming_language)', 0),
 (144, 'Microsoft Windows', '\n\nMicrosoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. Each family caters to a certain sector of the computing industry. Active Microsoft Windows families include Windows NT and Windows IoT; these may encompass subfamilies, e.g. Windows Server or Windows Embedded Compact (Windows CE). Defunct Microsoft Windows families include Windows 9x, Windows Mobile and Windows Phone.\nM', 'Wikipedia', 'upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Windows_darkblue_2012.svg/250px-Windows_darkblue_2012.svg.png', 'https://en.wikipedia.org/wiki/Windows', 0),
@@ -366,7 +366,111 @@ INSERT INTO `article` (`article_id`, `title`, `description`, `website`, `image_u
 (440, 'File Uploads and C:\\fakepath\\', 'I was recently working on a project that required providing an AJAX uploading widget to users.  I decided to use Dojo\'s dojox.form.FileInput widget so the \"Upload\" button would look just like every other button within the web application.  Everything worked great until I tested the widget in Chrome and found that the value of the input node was being set to C:\\fakepath\\{Original File Name}.  I then checked Internet Explorer and Safari;  both of them were prepending \"C:\\fakepath\" to the file name', 'DavidWalsh', 'public/images/imagenotfound.png', 'https://davidwalsh.name/fakepath', 0),
 (441, 'Dojo, Dijit, Dropdowns, and _aroundNode', 'The Dojo Toolkit\'s awesome UI framework, Dijit, has loads of awesome widgets to allow developers to quickly create themed, feature-rich web applications.  Dijit provides form widgets, layout widgets, dropdown-based widgets, and much more.  What\'s nice about Dijit is that there\'s so much functionality provided that you don\'t need to code everything yourself.  The down side of that?  That it can be difficult to find the undocumented pieces of functionality required to accomplish your goal.One case', 'DavidWalsh', 'public/images/imagenotfound.png', 'https://davidwalsh.name/dijit-dropdowns', 0),
 (442, 'Using dojo/aspect', 'Simply put:  the Dojo Toolkit has tools that other JavaScript toolkits don\'t.  One of those tools includes Dojo 1.7\'s aspect, a module that allows developers to react to function calls by executing another function before or after that call.  This aspect resource originates from Dojo\'s awesome connect mechanism. Let\'s check out how it works!The idea and value of aspect is that it allows you to be notified of function calls without needing to modify the original function\'s contents.  You also don', 'DavidWalsh', 'public/images/imagenotfound.png', 'https://davidwalsh.name/dojo-aspect', 0),
-(443, 'Clone Anything with JavaScript', 'One topic or concept that causes confusion when developers start with JavaScript is the idea of passing objects by reference;  for example, setting two variables equal to the same object actually creates a reference to that same object.  Sending an object to a function and modify that argument within the function actually modifies the original object.  Sometimes we\'d prefer to send around a clone of something, a date, array, or maybe an object literal.  The Dojo Toolkit provides an excellent met', 'DavidWalsh', 'public/images/imagenotfound.png', 'https://davidwalsh.name/javascript-clone', 0);
+(443, 'Clone Anything with JavaScript', 'One topic or concept that causes confusion when developers start with JavaScript is the idea of passing objects by reference;  for example, setting two variables equal to the same object actually creates a reference to that same object.  Sending an object to a function and modify that argument within the function actually modifies the original object.  Sometimes we\'d prefer to send around a clone of something, a date, array, or maybe an object literal.  The Dojo Toolkit provides an excellent met', 'DavidWalsh', 'public/images/imagenotfound.png', 'https://davidwalsh.name/javascript-clone', 0),
+(444, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/', 0),
+(445, '', '', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/', 0),
+(446, '', '', 'ScienceDaily', 'https://www.sciencedaily.comundefined', 'https://www.sciencedaily.com/', 0),
+(447, '', '', 'Serious Eats', 'https://static.seriouseats.com/1/braestar/live/img/og-image-q4-turkey.jpg', 'https://www.seriouseats.com/', 0),
+(448, '', '', 'ABout the Himalaya', 'public/images/imagenotfound.png', 'https://abovethehimalaya.com/', 0),
+(449, '', '', 'Blood And Milk', 'public/images/imagenotfound.png', 'https://www.bloodandmilk.com/', 0),
+(450, '', '', 'Little old Lady Comedy', 'https://littleoldladycomedycom.files.wordpress.com/2018/05/cropped-lol_small1.png?w=200', 'https://littleoldladycomedy.com/', 0),
+(451, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/', 0),
+(452, '', '', 'Travel And Tourism', 'public/images/imagenotfound.png', 'https://travelandtourismnow.blogspot.com/', 0),
+(453, '', '', 'Beauty Tips', 'https://www.beautytipsonline.comundefined', 'https://www.beautytipsonline.com/', 0),
+(454, '', '', 'ArsTechnical', 'https://cdn.arstechnica.net/wp-content/themes/ars/assets/static/ars-logo-open-grey.png', 'https://arstechnica.com/', 0),
+(455, '', '', 'LiveScience', 'public/images/imagenotfound.png', 'https://www.livescience.com/', 0),
+(456, '', '', 'I am food blog', 'public/images/imagenotfound.png', 'https://iamafoodblog.com/', 0),
+(457, '', '', 'Smithsonian Magazine', 'public/images/imagenotfound.png', 'https://www.smithsonianmag.com/', 0),
+(458, '', 'I’m a practical philosopher. I do academic research on ideas from different eras and cultures, then I try them out in my life. From Stoicism to CBT, from Aristotle to Aldous Huxley, I search for the best wisdom to help people suffer less and flourish more,‘Jules’ book saved my life’. Adrian Edmondson‘He reminds us philosophy is not just about analysis. It’s also about the good life.’ Matthew SyedNEW BOOK: HOLIDAY FROM THE SELF: AN ACCIDENTAL AYAHUASCA ADVENTURE: Click here. Sign up for my weekly', 'Philosophy For Life', 'public/images/imagenotfound.png', 'https://www.philosophyforlife.org/', 0),
+(459, '', '', 'HowStuffWorks', 'public/images/imagenotfound.png', 'https://www.howstuffworks.com/', 0),
+(460, 'Instant Pot Mac and CheeseThree Cheese Baked ZitiInstant Pot Buffalo Chicken Tacos5 Minute Magic Green SauceThe Best Soft Chocolate Chip CookiesThe Best Chicken Tinga TacosCreamy Cauliflower Sauce', 'Three Cheese Baked Ziti that is bubbly and browned, extra creamy, extra saucy, and incredibly easy!Instant Pot Buffalo Chicken Tacos! Buffalo broiled chicken covered with a limey slaw and a smothering of homemade ranch, all tucked into a charred tortilla.Magic Green Sauce? Made with all green foods // whipped up…', 'Pinch of yum', 'https://pinchofyum.com/wp-content/uploads/Moroccan-Chickpea-Bowls-2-Homepage-323x488.jpg', 'https://pinchofyum.com/', 1),
+(461, '', '', 'Bounce Back Parenting', 'public/images/imagenotfound.png', 'https://bouncebackparenting.com/', 0),
+(462, '', '', 'Yahoo Sports', 'public/images/imagenotfound.png', 'https://sports.yahoo.com/', 0),
+(463, '', '', 'Espn', 'public/images/imagenotfound.png', 'https://www.espn.in/', 0),
+(464, '', '', 'Huff Post', 'public/images/imagenotfound.png', 'https://www.huffpost.com/', 0),
+(465, '', 'It’s November and that’s awesome. Why? Because we have the special Black Friday and Cyber Monday at our disposal, two special events that are helping web designers and developers (and everybody else) get huge discounts for all kinds of products. Below we wrote about 30+ web tools and services, products that are free, premium, or …  Best Tools and Deals for Developers and Designers Read More »When a visitor lands on your website, you only have a few seconds to display the information that the per', 'WebDevBlog', 'public/images/imagenotfound.png', 'https://webdevblog.com/', 0),
+(466, '', '', 'LoveIsRespect', 'https://www.loveisrespect.org/wp-content/uploads/2020/03/TDVAM-blog-image-495x350.png', 'https://www.loveisrespect.org/', 0),
+(467, '', '', 'The GeoPloitics', 'public/images/imagenotfound.png', 'https://thegeopolitics.com/', 0),
+(468, '', '', 'Eat Right', 'public/images/imagenotfound.png', 'https://www.eatright.org/', 0),
+(469, '', '', 'Mind Body', 'public/images/imagenotfound.png', 'https://www.mindbodygreen.com/', 0),
+(470, '', '', 'New Yorker', 'public/images/imagenotfound.png', 'https://www.newyorker.com/', 0),
+(471, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/quizzes', 0),
+(472, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/video', 0),
+(473, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/amazingfactgenerator', 0),
+(474, '', '', 'The Guardian', 'public/images/imagenotfound.png', 'https://www.theguardian.com/', 0),
+(475, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/section/lists', 0),
+(476, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/biographies/authors', 0),
+(477, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/biographies/scientists', 0),
+(478, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/biographies/us-presidents', 0),
+(479, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/historyvs', 0),
+(480, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/biographies/military', 0),
+(481, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/about-us', 0),
+(482, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/terms-service', 0),
+(483, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/cookie-policy', 0),
+(484, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/shopping/620507/best-amazon-deals-march-14-and-15-2020', 0),
+(485, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/newsletter', 0),
+(486, '', '', 'Mental Floss', 'public/images/imagenotfound.png', 'https://www.mentalfloss.com/biographies/artists', 0),
+(487, '5 Reasons Why We Love Celebrating Holi!', 'Here are five reasons why we love to celebrate Holi and always look forward for this festivity every year.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/different-ways-to-wear-white-this-holi/23667', 0),
+(488, 'Great Jewellery Gift Ideas For A Wedding', 'Even if you’re not a fashionista who knows what’s trending, this guide is going to break it down very simply for you and give you some fantastic gift ideas.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/great-jewellery-gift-ideas-for-a-wedding/149913', 0),
+(489, 'College Fashion Trends To Follow In 2020', 'Want to know what college fashion trends are popular in 2020? Professional team of writers from ProHighGrades want you to remember that you need to emphasize your sense of style wearing clothes that will look appropriate in the educational establishment. It isn’t necessary to wear short skirts and open blouses to attract everyone’s attention. Wear such pieces of clothes when going to the party. Don’t waste time asking Google what to wear today. Here are college student fashion trends wearing whi', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/college-fashion-trends-to-follow/149272', 0),
+(490, 'Stunning Bengali Sarees To Rock To An Indian Wedding', 'This type of Bengali saree is perfect for the Haldi ceremony. The tant Bengali saree is the most sought after among the other types available. Especially due to its fabric and comfort levels. Therefore, one in a classic Haldi yellow color is an awesome piece that will give you a stunning appearance. The color is fun and the fabric is light giving a happy vibe that is important during the Haldi celebrations. A bride to be can buy a designer Bengali sarees online of this color for her Haldi ceremo', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/stunning-bengali-sarees-to-rock-to-an-indian-wedding/149769', 0),
+(491, '', 'When you feel good, you look good. We can’t always be in top shape but we can do our best. Health is not just about genetics either. It’s about lifestyle choices and education. Here’s    our current topics related to home remedies and weight loss to help you solve problems and get healthy.\n              Home Remedies\n            \n              Weight Loss', 'Beauty Tips', 'https://www.beautytipsonline.comundefined', 'https://www.beautytipsonline.com/health.htm', 0),
+(492, '', '', 'Beauty Tips', 'https://www.beautytipsonline.comundefined', 'https://www.beautytipsonline.com/contact.htm', 0),
+(493, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/science', 0),
+(494, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@PavanBelagatti', 0),
+(495, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/golang', 0),
+(496, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/smalltalk', 0),
+(497, 'How to Evangelize a Programming Language', 'These languages try to win you over with blogs, videos, podcasts, GitHub repos, seminars, tutorials, and workshops. Their strategy has worked to varying degrees of success but, honestly, most of these languages have not made much headway. Most remain fairly obscure.I’m a Smalltalk evangelist and Pharo is one of these languages. Pharo is a modern derivative of Smalltalk created in 2008. It, too, has published many blogs, videos, repos, tutorials, etc. Pharo is a magnificent language that offers s', 'HackerNoon', 'https://hackernoon.com/drafts/69283ysf.png', 'https://hackernoon.com/how-to-evangelize-a-programming-language-0p7p3y02', 0),
+(498, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@mertron-pa', 0),
+(499, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/devops', 0),
+(500, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/cryptocurrency', 0),
+(501, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/blockchain', 0),
+(502, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@Kane', 0),
+(503, 'How Ethereum\'s 44% Price Drop in USD value Shocked the dapp Ecosystem [An Analysis]', 'Many Ethereum decentralized applications saw their highest ever daily activity as users scrambled in reaction to the price collapse.A particular driver of activity was how the falling ETH price impacted the MakerDAO-DAI stablecoin dapp. People using this dapp lock their ETH (and other cryptos) into a vault as collateral, generating some amount of DAI stablecoin (of smaller financial value) in return.A typical example would be locking up $150-worth of ETH and generating $100 of DAI in return as a', 'HackerNoon', 'https://hackernoon.com/drafts/91w734cs.png', 'https://hackernoon.com/how-ethereums-44percent-price-drop-in-usd-value-shocked-the-dapp-ecosystem-an-analysis-rsk6326u', 0),
+(504, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/ava-labs', 0),
+(505, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@cloudfactory', 0),
+(506, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/machine-learning', 0),
+(507, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/intelligent-systems', 0),
+(508, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/artificial-intelligence', 0),
+(509, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/startups', 0),
+(510, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/automation', 0),
+(511, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@marypeters', 0),
+(512, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/startup-culture', 0),
+(513, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@lblewisauthor', 0),
+(514, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@natenead', 0),
+(515, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/javascript', 0),
+(516, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/coronavirus', 0),
+(517, 'How To Protect Yourself From DIRTY, FILTHY, Fiat Money', 'In this article we list the most sensible ways of keeping yourself safe from dirty, filthy fiat money. It’s easy and fun to try.One of the best ways to kill germs is with a hard-bristled brush and a lot of disinfectant. Since scientific testing shows that banknotes hold more germs on their surface than the inside of a toilet bowl, this is a very appropriate way of cleaning money.For best results we suggest that you wear protective hand gear and scrub hard to ensure a deep cleanse that reaches be', 'HackerNoon', 'https://hackernoon.com/drafts/eu7t329i.png', 'https://hackernoon.com/how-to-protect-yourself-from-dirty-filthy-fiat-money-1i1x3yc7', 0),
+(518, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@amazix', 0),
+(519, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@Benji', 0),
+(520, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/crypto-scams', 0),
+(521, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@LindaCrypto', 0),
+(522, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@rachelanne2020', 0),
+(523, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/diode', 0),
+(524, 'Hacker Noon FAQs answered with 6 words or less', 'An Independent Tech Media SiteTechnologists, Software Developers, Bitcoiners, Blockchain Enthusiasts. Your stories deserve more distribution.Create an account, submit a draft', 'HackerNoon', 'https://hackernoon.com/drafts/fn4mn3zdp.png', 'https://hackernoon.com/hacker-noon-faqs-with-six-word-answers-aw1ls3z1q', 0),
+(525, 'Fantabulous Kiss Nail Art: Must For Valentine’s Day', 'Love is all around. Between parents and kids and sibling love to love with pets, flowers, nature, gizmos, food, adventure, what not.There is love coming on 14 February in pots and pots. With Valentine’s Day knocking on the door, this one is going to be double exciting. Not just in the usual fare such as lipsticks, teddy bears, chocolates and perfumes but something more colourful, naughty, fun-loving and attention-grabbing.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/fantabulous-kiss-nail-art-must-for-valentines-day/62314', 0);
+INSERT INTO `article` (`article_id`, `title`, `description`, `website`, `image_url`, `link_url`, `view_count`) VALUES
+(526, '4 Interesting Valentines Day Makeup Tips For Dinner Dates And Dances', 'There is always a reason why we girls would want to doll up and dress up. And no, it isn’t only about the occasion or the event we have been called too, but sometimes just because we want too. Whether you are hooked, booked and cooked for VDay or maybe single like most of us, we can make moments of magic happen amongst the sisters or solo- here are five playful yet sensual Valentines Day Makeup ideas to try out and have fun with.[Also Read: Valentine’s Day Outfit Ideas]', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/interesting-valentines-day-makeup-tips-for-dinner-dates-and-dances/63029', 0),
+(527, 'Rose Day: History And Significance Of Rose Colors', 'Quickly reply – What is the first thing you think of gifting to your better half for anniversary, birthday or Valentine’s Day? Of all the significant gifts we have right from card, soft toys, watch and wallet to any piece of jewelry and flowers, a bouquet of red roses is the first option that crosses our mind. Did you ever think why it is so?On the occasion of Rose Day i.e. on 7th February 2020, let’s dig deeper to find out the viable reasons behind the significance of roses in love.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/rose-day-history-and-significance-of-rose-colors/7689', 0),
+(528, '6 Pretty Makeup Tutorials To Make You Look Wow This Valentine’s Day!', 'Valentine’s Day is around the corner and it’s time to set his heart aflutter with your beauty yet again! Haven’t planned your makeup yet? Fret not! That’s because we’ve got you covered. There is no denying this season of love allows you to engage with your girly side and experiment with a new beauty style. So that’s why we’re bringing you six pretty Valentine makeup looks that can be copied rather easily.\nFew of the looks we’re sharing with you are cute and flirtatious with pastel blue eye makeu', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/pretty-makeup-tutorials-to-make-you-look-wow-this-valentines-day/124178', 0),
+(529, 'These 10 Best Bath Soaps Are Just Perfect For Daily Use', 'Keep reading to find your perfect bath soap.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/best-bath-soaps/150900', 0),
+(530, 'The Anatomy of Programmatic Advertising [Infographic]', 'Which are your top-performing programmatic ad formats?', 'HackerNoon', 'https://hackernoon.com/drafts/zyg83y0o.png', 'https://hackernoon.com/the-anatomy-of-programmatic-advertising-infographic-ke3y329c', 0),
+(531, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/self-learning', 0),
+(532, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@marianpekar', 0),
+(533, 'Building Machine Learning Algorithms That We Can Trust', 'With recent AI debacles making news, the question of lack of transparency and increasing biases in AI models have come to light. With recent examples where the AI system stated that the highly polluted air was safe to breathe whereas, in reality, it was highly dangerous or the instance when the AI system stated that a certain patient didn’t have cancer when in fact the patient did have cancer and died or the instance when the AI system identified a certain transaction as fraud whereas it was a c', 'HackerNoon', 'https://hackernoon.com/drafts/tshy3y20.png', 'https://hackernoon.com/building-machine-learning-algorithms-that-we-can-trust-nzcw32td', 0),
+(534, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@marco_aur%C3%A9lio_deleu', 0),
+(535, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/laravel-form-requests', 0),
+(536, 'Error Messages Vs Validation Messages  in Laravel Blade', 'Whenever I redirect the user back with an error I know the page will be capable of showing the message properly at the top because of the base template.However, if you do this and then setup a Form Validation, you’ll see only the first error message on top of the page. We could go through all messages in the errors variable, but it would still be showing form errors on top of the page instead of under each field. To prevent that, we can leverage Message Bags from Laravel Form Requests.1- Base Fo', 'HackerNoon', 'https://images.unsplash.com/photo-1525785967371-87ba44b3e6cf?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMDk2Mn0', 'https://hackernoon.com/error-messages-vs-validation-messages-laravel-blade-1f196c31466f', 0),
+(537, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/debugging', 0),
+(538, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@itsvinayak', 0),
+(539, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/tagged/linux', 0),
+(540, '', '', 'HackerNoon', 'public/images/imagenotfound.png', 'https://hackernoon.com/@charlesrich324', 0),
+(541, 'A Beginner\'s Guide to Debugging With Google Chrome Dev Tools', 'In DevTools, you will find a chrome debugger that offers you a variety of functions especially the ones designed to find errors, inspect them, collect information about exceptions and set breakpoints. By combining all these, you can surely come up with an efficient JavaScript debugger.Technically speaking, all these debugging-oriented actions are performed in a source panel. I would rather suggest you to get into the nitty-gritty of principles and features of the source panel. Some tricks I like', 'HackerNoon', 'https://hackernoon.com/drafts/w9ms2aq7.png', 'https://hackernoon.com/a-beginners-guide-to-debugging-with-google-chrome-dev-tools-snb632q4', 0),
+(542, 'Configure Your Linux With Passwordless Sudo For A Specific User', 'Step 1: We need to edit the sudoers file we can use command.this will open a documentStep 2: Edit “ALL=(ALL) NOPASSWD: ALL” with username below the line includedir /etc/sudoers.dhere, the username is your username for which you want to configure passwordless sudo', 'HackerNoon', 'https://hackernoon.com/drafts/g6nl3y5q.png', 'https://hackernoon.com/configure-your-linux-with-passwordless-sudo-for-a-specific-user-yn153yrw', 0),
+(543, 'These 10 Best Shampoos For Frizzy Hair Cares a Lot', 'Scroll ahead to read about our best picks:', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/best-shampoos-for-frizzy-hair/150859', 0),
+(544, 'The Saree To Suit Your Zodiac Sign', 'Arians are known for being passionate and fiery, so it’s little surprise that they tend to favor reds. From scarlet to crimson to vermillion, those who belong to this group like bold colors and simple silhouettes.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/saree-to-suit-your-zodiac-sign/150863', 0),
+(545, 'Say It With A Kiss Because It’s Kiss Day Today', 'A day just before the big day in the Valentine’s week, comes the Kiss Day.To define, a kiss is a lovely trick designed by nature to stop speech, when words become superfluous.', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/say-it-with-a-kiss-because-its-kiss-day-today/97931', 0),
+(546, 'Long Wear Lipsticks For Valentine’s Day For That Sexy Pout', 'Valentine fever is on at full swing. The pressures are damn high on a girl. Arey baba, she has to decide between an exceptionally good looking outfit to a high heel. Hang on, how can you miss out on kissable lipwear particularly lipstick kiss proof which is the necessity for the day. Everything else can wait but not Long Wear Lipsticks for Valentine’s Day, isn’t it?[Also Read: Best Lipsticks For Dry Lips]', 'Fashion Lady', 'public/images/imagenotfound.png', 'https://www.fashionlady.in/long-wear-lipsticks-for-valentines-day-for-that-sexy-pout/62839', 0);
 
 -- --------------------------------------------------------
 
@@ -702,7 +806,110 @@ INSERT INTO `article_tag` (`article_id`, `tag_id`) VALUES
 (440, 9),
 (441, 9),
 (442, 9),
-(443, 9);
+(443, 9),
+(444, 33),
+(445, 35),
+(446, 31),
+(447, 1),
+(448, 21),
+(449, 5),
+(450, 22),
+(451, 9),
+(452, 21),
+(453, 27),
+(454, 28),
+(455, 31),
+(456, 1),
+(457, 34),
+(458, 38),
+(459, 31),
+(460, 1),
+(461, 18),
+(462, 11),
+(463, 11),
+(464, 8),
+(465, 9),
+(466, 14),
+(467, 45),
+(468, 26),
+(469, 27),
+(470, 12),
+(471, 33),
+(472, 33),
+(473, 33),
+(474, 36),
+(475, 33),
+(476, 33),
+(477, 33),
+(480, 33),
+(478, 33),
+(479, 33),
+(481, 33),
+(482, 33),
+(483, 33),
+(484, 33),
+(485, 33),
+(486, 33),
+(487, 35),
+(488, 35),
+(489, 35),
+(490, 35),
+(491, 27),
+(492, 27),
+(493, 9),
+(494, 9),
+(495, 9),
+(496, 9),
+(497, 9),
+(498, 9),
+(499, 9),
+(500, 9),
+(501, 9),
+(502, 9),
+(503, 9),
+(504, 9),
+(506, 9),
+(505, 9),
+(507, 9),
+(508, 9),
+(509, 9),
+(510, 9),
+(511, 9),
+(512, 9),
+(513, 9),
+(514, 9),
+(515, 9),
+(516, 9),
+(517, 9),
+(523, 9),
+(518, 9),
+(521, 9),
+(519, 9),
+(524, 9),
+(522, 9),
+(520, 9),
+(525, 35),
+(526, 35),
+(527, 35),
+(528, 35),
+(529, 35),
+(530, 9),
+(531, 9),
+(533, 9),
+(532, 9),
+(534, 9),
+(535, 9),
+(536, 9),
+(542, 9),
+(541, 9),
+(537, 9),
+(540, 9),
+(539, 9),
+(538, 9),
+(543, 35),
+(544, 35),
+(545, 35),
+(546, 35);
 
 -- --------------------------------------------------------
 
@@ -722,7 +929,8 @@ CREATE TABLE `favourites` (
 INSERT INTO `favourites` (`user_id`, `article_id`) VALUES
 (4, 1),
 (2, 140),
-(2, 132);
+(2, 132),
+(2, 141);
 
 -- --------------------------------------------------------
 
@@ -764,7 +972,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`user_id`, `name`, `phone`, `bio`, `image_url`, `website`, `about`, `address`) VALUES
-(2, 'Sarayu Gautam', '9813095820', 'FLutter Dev', 'public/uploads/profile1584179122379.jpg', 'www.sarayugautam.com', 'hello there how are you', 'Chandragiri');
+(2, 'Sarayu Gautam', '9813095820', 'FLutter Dev', 'public/uploads/profile1584198356683.jpg', 'www.sarayugautam.com', 'hello there how are you', 'Chandragiri');
 
 -- --------------------------------------------------------
 
@@ -907,6 +1115,7 @@ CREATE TABLE `users` (
   `password` text COLLATE utf8_unicode_ci NOT NULL,
   `reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `receive_notification` int(11) NOT NULL DEFAULT 1,
+  `notify_time` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
@@ -915,8 +1124,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `email`, `password`, `reset_token`, `receive_notification`, `created_at`, `updated_at`) VALUES
-(2, 'sarayugautam1@gmail.com', '$2a$08$TrZ1iIyrtPNXCCHN609MleQEf3vzTi8bqnTKer5SgS4N9hB6mtLTu', '', 0, '2020-03-07 09:21:15', '2020-03-11 13:14:53');
+INSERT INTO `users` (`user_id`, `email`, `password`, `reset_token`, `receive_notification`, `notify_time`, `created_at`, `updated_at`) VALUES
+(2, 'sarayugautam1@gmail.com', '$2a$08$TrZ1iIyrtPNXCCHN609MleQEf3vzTi8bqnTKer5SgS4N9hB6mtLTu', '', 1, '10:25', '2020-03-07 09:21:15', '2020-03-15 04:37:35');
 
 -- --------------------------------------------------------
 
@@ -1056,7 +1265,7 @@ ALTER TABLE `website`
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=444;
+  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=547;
 
 --
 -- AUTO_INCREMENT for table `tags`
