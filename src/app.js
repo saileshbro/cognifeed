@@ -22,7 +22,7 @@ const express = require("express")
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan("tiny"))
+// app.use(morgan("tiny"))
 app.use("/public", express.static("public"))
 
 app.use("/api", require("./routes/user"))
@@ -43,45 +43,45 @@ app.use((err, req, res, next) => {
 })
 
 // Fork out a child process to start-up the scraper
-// ;(function startServer() {
-//   let scraperChild
-
-//   try {
-//     scraperChild = fork("start-server.js", {
-//       cwd: path.join(__dirname, SCRAPER_DIR)
-//     })
-//   } catch (err) {
-//     return console.error(err)
-//   }
-
-//   process.on("SIGINT", () => {
-//     scraperChild.kill()
-//     process.exit(EXIT_INT)
-//   })
-//   process.on("SIGTERM", () => {
-//     scraperChild.kill()
-//     process.exit(EXIT_TERM)
-//   })
-// })()
-
-// Start the child process for the notification daemon
-;(function startNoficationTimer() {
-  let timerChild
+;(function startServer() {
+  let scraperChild
 
   try {
-    timerChild = fork("timer.js", {
-      cwd: path.join(__dirname, HELPERS_DIR)
+    scraperChild = fork("start-server.js", {
+      cwd: path.join(__dirname, SCRAPER_DIR)
     })
   } catch (err) {
     return console.error(err)
   }
 
   process.on("SIGINT", () => {
-    timerChild.kill()
+    scraperChild.kill()
     process.exit(EXIT_INT)
   })
   process.on("SIGTERM", () => {
-    timerChild.kill()
+    scraperChild.kill()
     process.exit(EXIT_TERM)
   })
 })()
+
+// Start the child process for the notification daemon
+// ;(function startNoficationTimer() {
+//   let timerChild
+
+//   try {
+//     timerChild = fork("timer.js", {
+//       cwd: path.join(__dirname, HELPERS_DIR)
+//     })
+//   } catch (err) {
+//     return console.error(err)
+//   }
+
+//   process.on("SIGINT", () => {
+//     timerChild.kill()
+//     process.exit(EXIT_INT)
+//   })
+//   process.on("SIGTERM", () => {
+//     timerChild.kill()
+//     process.exit(EXIT_TERM)
+//   })
+// })()

@@ -323,7 +323,7 @@ module.exports.addArticle = async (req, res, next) => {
   try {
     const { title, description, image_url, link_url, website } = req.body
     const baseURL = url.parse(link_url).host
-    console.log(title)
+
     const tagForLink = await pool.query(
       `SELECT distinct * FROM ${tables.tag_website} JOIN ${tables.websites} USING(website_id) WHERE link_url LIKE ?`,
       [`%${baseURL}%`]

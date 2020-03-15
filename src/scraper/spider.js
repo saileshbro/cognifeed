@@ -40,12 +40,9 @@ class Spider {
        */
       this._html = (await got(this.link.resolve())).body
     } catch (err) {
-      if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
-        throw new Error(
-          "Spider Error! Couldn't fetch new links! Please check the internet connection."
-        )
-      }
-      throw err
+      throw new Error(
+        "Spider Error! Couldn't fetch new links! Please check the internet connection."
+      )
     }
 
     const $ = cheerio.load(this._html)
@@ -69,7 +66,6 @@ class Spider {
       if (!this._link.matches(newLink))
         this._horizon = this._horizon.addLinks(newLink)
     })
-    // eslint-disable-next-line no-undef
     return this._horizon
   }
 

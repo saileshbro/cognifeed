@@ -54,7 +54,7 @@ class Server {
           // Exit if no more links to traverse
           console.error(err.message)
           if (
-            err.message.includes("ENOENT") ||
+            err.message.includes("EAI_AGAIN") ||
             err.message.includes("ENOTFOUND")
           ) {
             this._links = this._links.addLinks(link)
@@ -158,7 +158,9 @@ class Server {
     } catch (err) {
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
-          `Robots Error! ${err.code}: Couldn't fetch robots.txt for ${url.resolve()}! Please check the internet connection.`
+          `Robots Error! ${
+            err.code
+          }: Couldn't fetch robots.txt for ${url.resolve()}! Please check the internet connection.`
         )
       }
       throw new Error(

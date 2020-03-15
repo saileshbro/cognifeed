@@ -21,7 +21,7 @@ class CinemaBlendPurifier extends Purifier {
       .text()
       .trim()
 
-    $(".text-body p")[0].remove()
+    if ($(".text-body p")[0]) $(".text-body p")[0].remove()
     this.description = $(".text-body p").text()
 
     this.description = this.description.substr(0, 500)

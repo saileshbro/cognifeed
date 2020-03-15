@@ -67,9 +67,7 @@ class LinksCollection {
     if (typeof link === "number") {
       return new LinksCollection(this._links.filter((ln, i) => i !== link))
     }
-    return new LinksCollection(
-      this._links.filter(ln => !ln.matches(link))
-    )
+    return new LinksCollection(this._links.filter(ln => !ln.matches(link)))
   }
 
   /**
@@ -123,7 +121,7 @@ class LinksCollectionIterator {
    * @returns {object} - The iterator interface specified object
    */
   next() {
-    if (++this._index === this._size) return { done: true }
+    if (this._size === 0 || ++this._index === this._size) return { done: true }
     return { value: this._links[this._index], done: false }
   }
 
