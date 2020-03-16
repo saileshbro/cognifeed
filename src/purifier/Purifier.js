@@ -1,3 +1,4 @@
+const log = require("log-to-file")
 const axios = require("axios")
 const baseUrl = "http://127.0.0.1:" + process.env.PORT
 
@@ -26,6 +27,10 @@ class Purifier {
     try {
       await axios.post(`${baseUrl}/api/articles`, article)
     } catch (error) {
+      if (error.response.status == 400) {
+        log(article.link_url, "empty_article.log")
+        throw new Error(`Empty Article!, ${error.message}.`)
+      }
       throw new Error(
         `Purifier Error! Could not persist to database, ${error.message}.`
       )

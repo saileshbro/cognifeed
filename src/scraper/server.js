@@ -6,7 +6,7 @@
  * The spawning of spiders
  * @module src/scraper/server
  */
-
+const log = require("log-to-file")
 const Link = require("./link")
 const LinksCollection = require("./links-collection")
 const getOriginalLinks = require("./filter")
@@ -156,6 +156,7 @@ class Server {
         new Link(url.baseURL, "robots.txt").resolve()
       )
     } catch (err) {
+      log(url.resolve(), "robots_cannot_be_fetched_for_these_websites.log")
       if (err.error.code === "EAI_AGAIN" || err.error.code === "ENOTFOUND") {
         throw new Error(
           `Robots Error! ${

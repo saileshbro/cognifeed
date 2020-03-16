@@ -1,5 +1,5 @@
 "use strict"
-
+const log = require("log-to-file")
 const ESPNPurifier = require("./sports/EspnPurifier")
 const YahooSportsPurifier = require("./sports/YahooSportsPurifier")
 const WikiPurifier = require("./general/WikiPurifier")
@@ -151,10 +151,12 @@ class PurifierFactory {
       return new PennyHorderPurifier(html, link)
     else if (link.baseURL.includes("pitchfork.com"))
       return new PitchForkPurifier(html, link)
-    else
+    else {
+      log(link.resolve(), "no_suitable_purifier.log")
       throw new Error(
         "Purifier Factory Error! Could not find the right purifier."
       )
+    }
   }
 
   constructor() {}

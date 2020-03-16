@@ -9,3 +9,4 @@ yarn.lock
 npm-debug.log
 yarn-error.log
 to-do-list.md
+*.log
