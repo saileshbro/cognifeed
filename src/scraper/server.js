@@ -6,7 +6,7 @@
  * The spawning of spiders
  * @module src/scraper/server
  */
-const log = require("log-to-file")
+const log = require("../helpers/log_to_file")
 const Link = require("./link")
 const LinksCollection = require("./links-collection")
 const getOriginalLinks = require("./filter")
@@ -96,7 +96,8 @@ class Server {
 
       // Run the new links through the filter
       // to check for duplicates
-      this._links = getOriginalLinks(this._links, newLinks)
+      if (this._links.size < 100000)
+        this._links = getOriginalLinks(this._links, newLinks)
 
       // The spider has done its job now,
       // so remove it from the list of active spiders
@@ -113,6 +114,10 @@ class Server {
         return console.error(err.message)
       }
 
+      log(
+        `${this._links.size},${this._spiders.length}`,
+        "queue_spider_count.log"
+      )
       // This is a side-effects method call
       const article = purifier.purify()
 

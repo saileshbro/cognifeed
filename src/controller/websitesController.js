@@ -8,10 +8,12 @@ exports.getWebsites = async (req, res, next) => {
     websites = await pool.query(
       `SELECT link_url FROM ${tables.articles} ORDER BY RAND()`
     )
-    if (websites.length == 0) {
-      websites = await pool.query(`SELECT link_url FROM ${tables.websites}`)
-    }
-    const links = websites.map(site => {
+    const newlinks = [
+      ...websites,
+      ...(await pool.query(`SELECT link_url FROM ${tables.websites}`))
+    ]
+
+    const links = newlinks.map(site => {
       const url = new URL(site.link_url)
       return new Link(url.origin, url.pathname)
     })
