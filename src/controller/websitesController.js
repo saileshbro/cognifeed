@@ -6,7 +6,7 @@ exports.getWebsites = async (req, res, next) => {
   try {
     let websites
     websites = await pool.query(
-      `SELECT link_url FROM ${tables.articles} ORDER BY RAND()`
+      `SELECT link_url FROM ${tables.articles} ORDER BY article_id DESC`
     )
     const newlinks = [
       ...websites,
