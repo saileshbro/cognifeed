@@ -8,6 +8,7 @@
  */
 
 const got = require("got")
+const axios = require("axios")
 const cheerio = require("cheerio")
 
 const LinksCollection = require("./links-collection")
@@ -38,8 +39,10 @@ class Spider {
        * @private
        * @type {string}
        */
-      this._html = (await got(this.link.resolve())).body
+      this._html = await axios.default.get(this.link.resolve())
+      this._html = this._html.data
     } catch (err) {
+      // console.log(err)
       throw new Error(
         "Spider Error! Couldn't fetch new links! Please check the internet connection."
       )

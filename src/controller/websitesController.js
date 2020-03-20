@@ -9,8 +9,8 @@ exports.getWebsites = async (req, res, next) => {
       `SELECT link_url FROM ${tables.articles} ORDER BY article_id DESC`
     )
     const newlinks = [
-      ...websites,
-      ...(await pool.query(`SELECT link_url FROM ${tables.websites}`))
+      ...(await pool.query(`SELECT link_url FROM ${tables.websites}`)),
+      ...websites
     ]
 
     const links = newlinks.map(site => {
