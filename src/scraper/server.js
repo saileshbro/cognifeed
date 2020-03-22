@@ -96,7 +96,7 @@ class Server {
 
       // Run the new links through the filter
       // to check for duplicates
-      if (this._links.size < 100000)
+      if (this._links.size < 50000)
         this._links = getOriginalLinks(this._links, newLinks)
 
       // The spider has done its job now,
