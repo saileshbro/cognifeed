@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-require("dotenv").config()
+if (process.env.NODE_ENV !== "production") require("dotenv").config()
 const Link = require("./scraper/link")
 const app = require("express")()
 const morgan = require("morgan")
