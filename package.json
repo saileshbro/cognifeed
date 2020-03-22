@@ -61,5 +61,8 @@
   "bugs": {
     "url": "https://gitlab.com/saileshbro/cognifeed/issues"
   },
+  "engines": {
+    "node": "13.x"
+  },
   "homepage": "https://gitlab.com/saileshbro/cognifeed#readme"
 }
