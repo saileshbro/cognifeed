@@ -155,7 +155,7 @@ class CognifeedTypography {
   );
 }
 
-final String baseUrl = "http://192.168.0.3:3300/api";
+final String baseUrl = "http://cognifeed.herokuapp.com/api";
 
 class Cognifeed {
   static SharedPreferences pref;
