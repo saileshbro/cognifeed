@@ -1,6 +1,6 @@
 const log = require("log-to-file")
 const axios = require("axios")
-const baseUrl = "http://127.0.0.1:" + process.env.PORT
+const baseUrl = "http://cognifeed.herokuapp.com"
 
 /**
  * Abstract Class to define interface for the Purifier

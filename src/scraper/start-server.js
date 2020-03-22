@@ -7,7 +7,7 @@ const Server = require("./server")
 const EXIT_INT = 130
 const EXIT_TERM = 143
 
-const url = "http://127.0.0.1:3300/api/websites"
+const url = "http://cognifeed.herokuapp.com/api/websites"
 // const testURL = "https://my-json-server.typicode.com/2goodAP/fake-json/websites"
 const scraperServer = new Server()
 

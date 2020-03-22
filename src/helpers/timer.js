@@ -7,7 +7,5 @@ setInterval(() => {
   //   now.getMinutes() === targetTime.getMinutes()
   // )
   //   console.log("It is 9:13 PM")
-  axios.default.post(
-    `http://127.0.0.1:${process.env.PORT}/api/notification/notify`
-  )
+  axios.default.post("http://cognifeed.herokuapp.com/api/notification/notify")
 }, 60000)
