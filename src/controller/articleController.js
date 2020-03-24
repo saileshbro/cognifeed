@@ -56,7 +56,7 @@ module.exports.allArticles = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-      count: articles.length,
+
       articles
     })
   } catch (error) {
@@ -117,7 +117,7 @@ module.exports.articles = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-      count: articles.length,
+
       articles
     })
   } catch (error) {
@@ -201,7 +201,7 @@ module.exports.getFav = async (req, res, next) => {
       }
     })
     return res.json({
-      count: articles.length,
+
       articles
     })
   } catch (error) {
@@ -262,7 +262,7 @@ module.exports.getHidden = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-      count: articles.length,
+
       articles
     })
   } catch (error) {
