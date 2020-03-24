@@ -33,6 +33,8 @@ class _HomePageState extends State<HomePage> {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         print("reached");
+        showLoading = true;
+        setState(() {});
         getNewArticles();
         print(BlocProvider.of<ArticlesBloc>(context).response.articles.length);
       }
@@ -73,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) => SearchPage(
-                      searchType: SearchType.HOME,
+                      searchType: SearchType.FAV,
                     )));
           },
         ),

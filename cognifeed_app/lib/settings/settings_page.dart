@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
       actions: <Widget>[
         IconButton(
           icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
-              ? FontAwesome.sun_o
+              ? WeatherIcons.wi_day_sunny
               : FontAwesome.moon_o),
           onPressed: () {
             BlocProvider.of<ThemeBloc>(context).add(

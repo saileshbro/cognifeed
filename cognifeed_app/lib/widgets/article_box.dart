@@ -103,6 +103,9 @@ class _ArticleBoxState extends State<ArticleBox> {
                       child: CachedNetworkImage(
                         imageUrl: widget.article.imageUrl,
                         fit: BoxFit.fitWidth,
+                        placeholder: (BuildContext context, String s) =>
+                            Image.network(
+                                "http://cognifeed.herokuapp.com/public/images/imagenotfound.png"),
                       ),
                     ),
                   ),
