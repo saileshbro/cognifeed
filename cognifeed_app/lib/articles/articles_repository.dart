@@ -8,12 +8,18 @@ import 'package:meta/meta.dart';
 
 class ArticleRepository {
   static Future<ArticlesModel> getHomePageArticles(
-      {String searchby, String query}) async {
+      {@required String searchby,
+      @required String query,
+      @required int pageNo}) async {
     try {
       var response;
 
       response = await Cognifeed.dioClient.get("$baseUrl/articles",
-          queryParameters: {'searchby': searchby, 'query': query});
+          queryParameters: {
+            'searchby': searchby,
+            'query': query,
+            "pageNo": pageNo
+          });
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
@@ -31,12 +37,16 @@ class ArticleRepository {
   }
 
   static Future<ArticlesModel> getAllPageArticles(
-      {String searchby, String query}) async {
+      {String searchby, String query, int pageNo}) async {
     try {
       var response;
 
       response = await Cognifeed.dioClient.get("$baseUrl/articles/all",
-          queryParameters: {'searchby': searchby, 'query': query});
+          queryParameters: {
+            'searchby': searchby,
+            'query': query,
+            "pageNo": pageNo
+          });
 
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
@@ -54,12 +64,16 @@ class ArticleRepository {
   }
 
   static Future<ArticlesModel> getHiddenPageArticles(
-      {String searchby, String query}) async {
+      {String searchby, String query, int pageNo}) async {
     try {
       var response;
 
       response = await Cognifeed.dioClient.get("$baseUrl/articles/hidden",
-          queryParameters: {'searchby': searchby, 'query': query});
+          queryParameters: {
+            'searchby': searchby,
+            'query': query,
+            "pageNo": pageNo
+          });
       // } else
       // response = await Cognifeed.dioClient.get("$baseUrl/articles/hidden");
 
@@ -160,12 +174,16 @@ class ArticleRepository {
   }
 
   static Future<ArticlesModel> getFavPageArticles(
-      {String searchby, String query}) async {
+      {String searchby, String query, int pageNo}) async {
     try {
       var response;
       // if (searchby.isEmpty && query.isNotEmpty) {
       response = await Cognifeed.dioClient.get("$baseUrl/articles/fav",
-          queryParameters: {'searchby': searchby, 'query': query});
+          queryParameters: {
+            'searchby': searchby,
+            'query': query,
+            "pageNo": pageNo
+          });
       // } else
       //   response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
       print(response);

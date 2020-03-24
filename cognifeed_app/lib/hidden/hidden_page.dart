@@ -1,6 +1,9 @@
+import 'package:cognifeed_app/articles/articles_model.dart';
+import 'package:cognifeed_app/articles/articles_repository.dart';
 import 'package:cognifeed_app/articles/hide_bloc.dart';
 import 'package:cognifeed_app/articles/hide_event.dart';
 import 'package:cognifeed_app/articles/hide_state.dart';
+
 import 'package:cognifeed_app/search/search_page.dart';
 import 'package:cognifeed_app/theme/theme_bloc.dart';
 import 'package:cognifeed_app/theme/theme_event.dart';
@@ -15,15 +18,57 @@ class HiddenPage extends StatefulWidget {
   static const route = "/hidden";
 
   @override
-  HiddenPageState createState() => HiddenPageState();
+  _HiddenPageState createState() => _HiddenPageState();
 }
 
-class HiddenPageState extends State<HiddenPage> {
+class _HiddenPageState extends State<HiddenPage> {
+  int pageNo = 1;
+  bool showLoading = true;
+  ScrollController _scrollController;
   @override
   void initState() {
+    super.initState();
+    _scrollController = ScrollController();
     BlocProvider.of<HideArticlesBloc>(context)
         .add(GetHiddenPageArticlesEvent());
-    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print("reached");
+        showLoading = true;
+        setState(() {});
+        getNewArticles();
+        print(BlocProvider.of<HideArticlesBloc>(context)
+            .response
+            .articles
+            .length);
+      }
+    });
+  }
+
+  void getNewArticles() async {
+    try {
+      ArticlesModel newArticles = await ArticleRepository.getHiddenPageArticles(
+          searchby: '', query: '', pageNo: ++pageNo);
+
+      BlocProvider.of<HideArticlesBloc>(context)
+          .response
+          .articles
+          .addAll(newArticles.articles);
+      setState(() {
+        showLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        showLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,13 +80,13 @@ class HiddenPageState extends State<HiddenPage> {
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) => SearchPage(
-                      searchType: SearchType.HIDDEN,
+                      searchType: SearchType.FAV,
                     )));
           },
         ),
         IconButton(
           icon: Icon(BlocProvider.of<ThemeBloc>(context).isDarkTheme
-              ? FontAwesome.sun_o
+              ? WeatherIcons.wi_day_sunny
               : FontAwesome.moon_o),
           onPressed: () {
             BlocProvider.of<ThemeBloc>(context).add(
@@ -61,9 +106,21 @@ class HiddenPageState extends State<HiddenPage> {
                       .add(GetHiddenPageArticlesEvent());
                 },
                 child: ListView.builder(
+                  controller: _scrollController,
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   itemCount: state.articlesModel.articles.length,
                   itemBuilder: (BuildContext context, int index) {
+                    if (index == state.articlesModel.articles.length - 1) {
+                      return Column(
+                        children: <Widget>[
+                          ArticleBox(
+                              article: state.articlesModel.articles[index]),
+                          if (showLoading)
+                            Center(child: CircularProgressIndicator()),
+                        ],
+                      );
+                    }
+
                     return ArticleBox(
                         article: state.articlesModel.articles[index]);
                   },

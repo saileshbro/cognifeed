@@ -7,19 +7,27 @@ import 'package:cognifeed_app/articles/articles_state.dart';
 class ArticlesBloc extends Bloc<ArticleEvent, ArticlesState> {
   @override
   ArticlesState get initialState => ArticlesInitialState();
-
+  ArticlesModel response;
   @override
   Stream<ArticlesState> mapEventToState(
     ArticleEvent event,
   ) async* {
-    yield ArticlesLoadingState();
     try {
       if (event is GetHomePageArticlesEvent) {
-        ArticlesModel response = await ArticleRepository.getHomePageArticles(
+        yield ArticlesLoadingState();
+        response = await ArticleRepository.getHomePageArticles(
+            query: "", searchby: "", pageNo: 1);
+        yield ArticlesLoadedState(articlesModel: response);
+      }
+      if (event is PaginateHomePage) {
+        yield ArticlesPaginatingState();
+        ArticlesModel newArticles = await ArticleRepository.getHomePageArticles(
           query: "",
           searchby: "",
+          pageNo: event.pageNo,
         );
-        yield ArticlesLoadedState(articlesModel: response);
+        response.articles.addAll(newArticles.articles);
+        yield ArticlesPaginatedState(articlesModel: response);
       }
     } catch (e) {
       yield ArticlesErrorState(e.toString());

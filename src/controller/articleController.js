@@ -10,24 +10,24 @@ module.exports.allArticles = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' LIMIT 20 OFFSET ?`,
-        [(pageNo - 1) * 20]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' LIMIT 6 OFFSET ?`,
+        [(pageNo - 1) * 6]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and title LIMIT 20 OFFSET ?`,
-          [`%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and title LIMIT 6 OFFSET ?`,
+          [`%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and website LIKE ? LIMIT 20 OFFSET ?`,
-          [`%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id) JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and website LIKE ? LIMIT 6 OFFSET ?`,
+          [`%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and tag_name LIKE ? LIMIT 20 OFFSET ?`,
-          [`%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) LEFT JOIN ${tables.user_tags} USING(tag_id) WHERE title !='' AND description !='' and tag_name LIKE ? LIMIT 6 OFFSET ?`,
+          [`%${query}%`, (pageNo - 1) * 6]
         )
       }
     }
@@ -56,7 +56,6 @@ module.exports.allArticles = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-
       articles
     })
   } catch (error) {
@@ -72,24 +71,24 @@ module.exports.articles = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) LIMIT 20 OFFSET ?`,
-        [req.user.user_id, (pageNo - 1) * 20]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) LIMIT 6 OFFSET ?`,
+        [req.user.user_id, (pageNo - 1) * 6]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       }
     }
@@ -117,7 +116,6 @@ module.exports.articles = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-
       articles
     })
   } catch (error) {
@@ -157,24 +155,24 @@ module.exports.getFav = async (req, res, next) => {
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) LIMIT 20 OFFSET ?`,
-        [req.user.user_id, (pageNo - 1) * 20]
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) LIMIT 6 OFFSET ?`,
+        [req.user.user_id, (pageNo - 1) * 6]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ? LIMIT 20 OFFSET ?`,
-          [req.user.user_id, `%${query}%`, (pageNo - 1) * 20]
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id IN (SELECT article_id FROM ${tables.favourites}) AND article_id NOT IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ? LIMIT 6 OFFSET ?`,
+          [req.user.user_id, `%${query}%`, (pageNo - 1) * 6]
         )
       }
     }
@@ -201,7 +199,6 @@ module.exports.getFav = async (req, res, next) => {
       }
     })
     return res.json({
-
       articles
     })
   } catch (error) {
@@ -212,27 +209,27 @@ module.exports.getHidden = async (req, res, next) => {
   const { searchby, query } = req.query
   let articles
   const pageNo = req.query.pageNo || 1
-  const offset = (pageNo - 1) * 20
+  const offset = (pageNo - 1) * 6
   try {
     if (!searchby) {
       articles = await pool.query(
-        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) LIMIT 20 OFFSET ?`,
+        `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) LIMIT 6 OFFSET ?`,
         [req.user.user_id, offset]
       )
     } else {
       if (searchby == "title") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 20 OFFSET ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND title LIKE ? LIMIT 6 OFFSET ?`,
           [req.user.user_id, `%${query}%`, offset]
         )
       } else if (searchby == "website") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 20 OFFSET ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND website LIKE ? LIMIT 6 OFFSET ?`,
           [req.user.user_id, `%${query}%`, offset]
         )
       } else if (searchby == "tag") {
         articles = await pool.query(
-          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?  LIMIT 20 OFFSET ?`,
+          `SELECT user_id,article_id,tag_id,tag_name,title,website,description,image_url,link_url,view_count FROM ${tables.articles} LEFT JOIN ${tables.articleTags} USING(article_id)  JOIN ${tables.tags} using(tag_id) join ${tables.user_tags} using(tag_id) WHERE title !='' AND description !='' and user_id=? AND article_id NOT IN (SELECT article_id FROM ${tables.favourites}) AND article_id  IN (SELECT article_id FROM ${tables.hidden}) AND tag_name LIKE ?  LIMIT 6 OFFSET ?`,
           [req.user.user_id, `%${query}%`, offset]
         )
       }
@@ -262,7 +259,6 @@ module.exports.getHidden = async (req, res, next) => {
       throw new ErrorHandler(404, "articles not found")
     }
     return res.json({
-
       articles
     })
   } catch (error) {

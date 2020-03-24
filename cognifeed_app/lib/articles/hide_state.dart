@@ -5,12 +5,20 @@ abstract class HideArticlesState {}
 
 class HideArticlesLoadingState extends HideArticlesState {}
 
+class HidePaginatingState extends HideArticlesState {}
+
 class HideArticlesInitialState extends HideArticlesState {}
 
 class HideArticlesLoadedState extends HideArticlesState {
   final ArticlesModel articlesModel;
 
   HideArticlesLoadedState({@required this.articlesModel});
+}
+
+class HidePaginateLoadedState extends HideArticlesState {
+  final ArticlesModel articlesModel;
+
+  HidePaginateLoadedState({@required this.articlesModel});
 }
 
 class HideArticlesErrorState extends HideArticlesState {

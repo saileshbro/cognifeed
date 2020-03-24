@@ -5,12 +5,20 @@ abstract class FavArticlesState {}
 
 class FavArticlesLoadingState extends FavArticlesState {}
 
+class FavArticlesPaginatingState extends FavArticlesState {}
+
 class FavArticlesInitialState extends FavArticlesState {}
 
 class FavArticlesLoadedState extends FavArticlesState {
   final ArticlesModel articlesModel;
 
   FavArticlesLoadedState({@required this.articlesModel});
+}
+
+class FavArticlesPaginatedState extends FavArticlesState {
+  final ArticlesModel articlesModel;
+
+  FavArticlesPaginatedState({@required this.articlesModel});
 }
 
 class ArticlesErrorState extends FavArticlesState {

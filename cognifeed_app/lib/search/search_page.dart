@@ -45,11 +45,11 @@ class _SearchPageState extends State<SearchPage> {
         break;
       case SearchType.HOME:
         return ArticleRepository.getHomePageArticles(
-            query: query, searchby: searchBy);
+            query: query, searchby: searchBy, pageNo: 1);
         break;
       default:
         return ArticleRepository.getHomePageArticles(
-            query: query, searchby: searchBy);
+            query: query, searchby: searchBy, pageNo: 1);
     }
   }
 
