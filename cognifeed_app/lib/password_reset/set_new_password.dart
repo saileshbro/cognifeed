@@ -344,7 +344,6 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
             onPressed: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                print(changePassword.toJson().toString());
                 BlocProvider.of<ManagePasswordBloc>(context)
                     .add(ForgetPasswordEvent(changePassword: changePassword));
               }

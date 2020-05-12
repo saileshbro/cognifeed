@@ -110,7 +110,6 @@ class _ApplicationDrawerState extends State<ApplicationDrawer> {
                 ),
               ),
               onTap: () {
-                print("Press");
                 if (Cognifeed.drawerPages != DrawerPages.Home) {
                   Cognifeed.drawerPages = DrawerPages.Home;
                   Navigator.of(context).pop();

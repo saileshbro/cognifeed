@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_event.dart';
 import 'package:cognifeed_app/articles/articles_model.dart';
@@ -20,6 +19,7 @@ import 'package:cognifeed_app/webview/full_article_page.dart';
 import 'package:cognifeed_app/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clipboard_manager/flutter_clipboard_manager.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:share/share.dart';
 
@@ -160,7 +160,6 @@ class _ArticleBoxState extends State<ArticleBox> {
                         ? null
                         : () async {
                             if (!widget.article.isFav) {
-                              print("add clicked");
                               ArticleRepository.addToFav(
                                       articleId:
                                           widget.article.articleId.toString())
@@ -334,8 +333,9 @@ class _ArticleBoxState extends State<ArticleBox> {
                                         icon: Icons.link,
                                         label: "Copy link",
                                         onPressed: () {
-                                          ClipboardManager.copyToClipBoard(
-                                                  widget.article.linkUrl)
+                                          FlutterClipboardManager
+                                                  .copyToClipBoard(
+                                                      widget.article.linkUrl)
                                               .then((result) {
                                             Navigator.pop(context);
                                             Scaffold.of(context).showSnackBar(

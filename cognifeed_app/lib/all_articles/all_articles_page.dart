@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class AllArticlesPage extends StatefulWidget {
-  static const route = "/hidden";
+  static const route = "/all";
 
   @override
   _AllArticlesPageState createState() => _AllArticlesPageState();
@@ -33,12 +33,9 @@ class _AllArticlesPageState extends State<AllArticlesPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print("reached");
         showLoading = true;
         setState(() {});
         getNewArticles();
-        print(
-            BlocProvider.of<AllArticlesBloc>(context).response.articles.length);
       }
     });
   }

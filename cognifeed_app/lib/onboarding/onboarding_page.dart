@@ -109,7 +109,6 @@ class _CustomChipState extends State<CustomChip> {
           }
         }
         setState(() {});
-        print(selectedTags.toJson());
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),

@@ -186,7 +186,6 @@ class ArticleRepository {
           });
       // } else
       //   response = await Cognifeed.dioClient.get("$baseUrl/articles/fav");
-      print(response);
       if (response.data.containsKey('error')) {
         return Future.error(jsonDecode(response.data)['error']);
       }

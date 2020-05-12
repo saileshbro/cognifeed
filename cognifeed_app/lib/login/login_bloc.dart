@@ -29,7 +29,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: event.email,
           password: event.password,
         );
-        print(loginResponse.toJson().toString());
         authenticationBloc.add(
           LoggedIn(
             token: loginResponse.token,

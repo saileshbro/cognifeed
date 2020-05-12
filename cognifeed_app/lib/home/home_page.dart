@@ -32,11 +32,9 @@ class _HomePageState extends State<HomePage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print("reached");
         showLoading = true;
         setState(() {});
         getNewArticles();
-        print(BlocProvider.of<ArticlesBloc>(context).response.articles.length);
       }
     });
   }

@@ -32,12 +32,9 @@ class _FavPageState extends State<FavPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print("reached");
         showLoading = true;
         setState(() {});
         getNewArticles();
-        print(
-            BlocProvider.of<FavArticlesBloc>(context).response.articles.length);
       }
     });
   }

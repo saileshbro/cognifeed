@@ -35,28 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:cognifeed_app/auth/user_model.dart';
 
-class SimpleBlocDelegate extends BlocDelegate {
-  @override
-  void onEvent(Bloc bloc, Object event) {
-    super.onEvent(bloc, event);
-    print(event);
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
-    print(transition);
-  }
-
-  @override
-  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
-    super.onError(bloc, error, stacktrace);
-    print(error);
-  }
-}
-
 Future<void> main() async {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
   final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
   Cognifeed.drawerPages = DrawerPages.Home;
@@ -177,7 +156,7 @@ class App extends StatelessWidget {
               AllArticlesPage.route: (_) => AllArticlesPage(),
             },
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
+              builder: (BuildContext context, AuthenticationState state) {
                 if (state is AuthenticationUninitialized) {
                   return SplashPage();
                 }

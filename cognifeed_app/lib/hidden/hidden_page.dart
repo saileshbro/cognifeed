@@ -34,14 +34,9 @@ class _HiddenPageState extends State<HiddenPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print("reached");
         showLoading = true;
         setState(() {});
         getNewArticles();
-        print(BlocProvider.of<HideArticlesBloc>(context)
-            .response
-            .articles
-            .length);
       }
     });
   }

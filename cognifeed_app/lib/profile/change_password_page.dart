@@ -353,8 +353,6 @@ class _PasswordChangeFormState extends State<PasswordChangeForm> {
               },
             ),
             onPressed: () {
-              print(confirmPasswordController.text);
-              print(passwordController.text);
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 BlocProvider.of<ManagePasswordBloc>(context)

@@ -98,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
           if (state is AuthenticationAuthenticated) {
             // Navigator.popUntil(
             //     context, ModalRoute.withName(Navigator.defaultRouteName));
-            Navigator.of(context).pushReplacementNamed(OnboardingPage.route);
+            Navigator.of(context).pushNamed(OnboardingPage.route);
           }
         },
         child: BlocListener(
