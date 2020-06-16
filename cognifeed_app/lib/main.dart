@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:cognifeed_app/all_articles/all_articles_page.dart';
 import 'package:cognifeed_app/articles/all_articles_bloc.dart';
 import 'package:cognifeed_app/articles/articles_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:cognifeed_app/auth/authentication_bloc.dart';
 import 'package:cognifeed_app/auth/authentication_events.dart';
 import 'package:cognifeed_app/auth/authentication_page.dart';
 import 'package:cognifeed_app/auth/authentication_states.dart';
+import 'package:cognifeed_app/auth/user_model.dart';
 import 'package:cognifeed_app/constants/cognifeed_constants.dart';
 import 'package:cognifeed_app/fav/fav_page.dart';
 import 'package:cognifeed_app/hidden/hidden_page.dart';
@@ -32,8 +32,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:cognifeed_app/auth/user_model.dart';
 
 Future<void> main() async {
   final userRepository = UserRepository();
