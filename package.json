@@ -19,7 +19,7 @@
     "log-to-file": "^2.0.2",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2",
+    "multer": "^2.0.1",
     "mysql2": "^3.9.7",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
